@@ -12,31 +12,34 @@ interface FormInputs {
     error: string
 }
 
-interface formValues {
-    firstName: string,
-    lastName: string,
-    dod: Date,
+interface PersonProps {
+    firstName: string;
+    lastName: string;
+    foreverAge: string;
 }
 
-const handleValidation = (value, type) => {
-    let error = ''
+// const handleValidation = (value, type) => {
+//     let error = ''
 
-    // Number range check
-    if (type === 'number' && value <= ageRange[0] || value >= ageRange[1] ){
-        error = "Provide a number between 1 and 99"
-    }
+//     // Number range check
+//     if (type === 'number' && value <= ageRange[0] || value >= ageRange[1] ){
+//         error = "Provide a number between 1 and 99"
+//     }
 
-    // Required check
-    if (!value || value.length <= 0) {
-        error = 'This field is required'
-    }
+//     // Required check
+//     if (!value || value.length <= 0) {
+//         error = 'This field is required'
+//     }
 
-    return error;
-};
+//     return error;
+// };
 
+interface FormProps {
+    cancel: () => void,
+    addPerson : (person: PersonProps) => void,
+}
 
-
-function App( { cancel, addPerson }) {
+function App( { cancel, addPerson } : FormProps) {
     const [firstName, setFirstName] = useState<FormInputs>({value: '', error: ''});
     const [lastName, setLastName] = useState<FormInputs>({value: '', error: ''});
     const [foreverAge, setAge] = useState<FormInputs>({value: 0, error: ''});
@@ -49,11 +52,11 @@ function App( { cancel, addPerson }) {
         let errors: boolean = false;
 
         // Handle validation
-        if (firstName.value.length === 0) {
+        if (typeof firstName.value === 'string' && firstName.value.length === 0) {
             setFirstName({...firstName, error: 'This field is required'});
             errors = true;
         }
-        if (lastName.value.length === 0) {
+        if (typeof lastName.value === 'string' && lastName.value.length === 0) {
             setLastName({...firstName, error: 'This field is required'});
             errors = true;
         }
@@ -72,11 +75,10 @@ function App( { cancel, addPerson }) {
 
 
 
-
         const newSubmission = {
-            firstName: firstName.value,
-            lastName: lastName.value,
-            foreverAge: foreverAge.value
+            firstName: typeof firstName.value === 'string' ? firstName.value : '',
+            lastName: typeof lastName.value === 'string' ? lastName.value : '',
+            foreverAge: typeof foreverAge.value === 'string' ? foreverAge.value : '',
         };
 
         const savePerson = async () => {
@@ -84,7 +86,14 @@ function App( { cancel, addPerson }) {
                 new Person(newSubmission)
             );
 
-            addPerson(newPerson);
+            const values = {
+                firstName: newPerson.firstName,
+                lastName: newPerson.lastName,
+                foreverAge: typeof newPerson.foreverAge === 'string' ? newPerson.foreverAge : '',
+            }
+
+            addPerson(values);
+
             cancel();
             // Success Message of some sort
         }
@@ -125,7 +134,7 @@ function App( { cancel, addPerson }) {
                 {/* Submit */}
                 <div className="btn-group">
 
-                    <div onClick={cancel} className='btn remove-btn' role="button" aria-controls="filename" tabIndex="0">Cancel</div>
+                    <div onClick={cancel} className='btn remove-btn' role="button" aria-controls="filename" tabIndex={0}>Cancel</div>
 
                     <input className="btn" type="submit" value="Submit" />
                 </div>
