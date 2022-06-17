@@ -1,0 +1,87 @@
+.main-app{
+    /* font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; */
+    font-family: 'Belleza', 'Marcellus', sans-serif;
+    color: #ffffff;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    /* max-height: 100vh; */
+    /* width: 1000vw; */
+    /* display: flex; */
+    background-color: #595959;
+    background-image: url('./slate.png');
+    background-size: auto 100vh;    min-width: 100vw;
+
+}
+
+.add-btn{
+    padding: 0.5rem 1rem;
+    background-color: white;
+    box-shadow: 0 10px 20px -15px #000000;
+    position: fixed;
+    bottom: 1rem;
+    left: 2rem;
+    border-radius: 0.5rem;
+    color: #000000;
+    cursor: pointer
+}
+
+.add-btn a{
+    color: #000000;
+    text-decoration: none;
+}
+
+
+.grid{
+    max-height: 100vh;
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+    /* overflow-x: scroll; */
+    flex-wrap: wrap;
+    padding: 1rem 1rem 3rem;
+
+    /* transition: transform 1s; */
+}
+
+h2{
+}
+
+
+.person{
+    /* display: flex; */
+    /* align-items: center; */
+    min-width: 300px;
+    max-width: 300px;
+    padding: 10px;
+    text-shadow: 0 0 5px #000000;
+
+}
+
+.person .row{
+    display: flex;
+    /* align-items: center; */
+}
+
+.person-image{
+    max-width: 50%;
+    min-width: 50%;
+}
+
+.person-image img{
+    width: 100%;
+}
+
+.person-info{
+    text-shadow: 0 0 5px #000000;
+    text-transform: uppercase;
+}
+
+
+.person-info > * {
+    margin-left: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.person-info .name{ text-transform: uppercase; }
+.person-info .name span{ font-size: 48px; line-height: 1; }

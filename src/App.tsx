@@ -1,45 +1,147 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from "react-router-dom";
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const fakeData = [
+    {
+        name:        'John Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '2020-01-01',
+        image:       'https://placekitten.com/200/300',
+    },
+    {
+        name:        'Jane Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '2020-01-01',
+        image:       'https://placekitten.com/300/300',
+    },
+    {
+        name:        'John Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '2020-01-01',
+        image:       'https://placekitten.com/200/300',
+    },
+    {
+        name:        'Jane Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1981-01-01',
+        image:       'https://placekitten.com/400/400',
+    },
+    {
+        name:        'John Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1967-01-01',
+        image:       'https://placekitten.com/200/300',
+    },
+    {
+        name:        'Jane Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1955-01-01',
+        image:       'https://placekitten.com/600/300',
+    },
+    {
+        name:        'John Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1986-01-01',
+        image:       'https://placekitten.com/200/300',
+    },
+    {
+        name:        'Jane Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1994-01-01',
+        image:       'https://placekitten.com/600/300',
+    },
+    {
+        name:        'John Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '1997-01-01',
+        image:       'https://placekitten.com/200/300',
+    },
+    {
+        name:        'Jane Doe',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        date:        '2002-01-01',
+        image:       'https://placekitten.com/600/300',
+    },
+];
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
+function CalcAge(date: string) {
+    const today = new Date();
+    const birthDate = new Date(date);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
 }
 
-export default App
+function Person({person}) {
+    // const [horizontal, setHorizontal] = useState(false);
+    const [horizontal, setHorizontal] = useState(true);
+    const imgRef = useRef(null);
+
+    useEffect(() => {
+        const img = imgRef.current;
+
+        img.addEventListener('load', () => {
+            const imgWidth = img.clientWidth;
+            const imgHeight = img.clientHeight;
+            const imgRatio = imgWidth / imgHeight;
+
+            if (imgRatio >= 1) {
+                setHorizontal(true);
+            } else {
+                setHorizontal(false);
+            }
+        })
+    }, []);
+
+
+
+    return (
+        <div className="person">
+            <div className="row">
+                <div className="person-image">
+                    <img ref={imgRef} src={person.image} alt={person.name} />
+                </div>
+                <div className="person-info">
+                    <h2 className='name'>{person.name}</h2>
+                    {/* Get age from this number: */}
+                    <p>Forever Age {CalcAge(person.date)}</p>
+                    { !horizontal && <p>{person.description}</p>}
+                </div>
+            </div>
+            { horizontal && <p style={{paddingTop: '10px'}}>{person.description}</p>}
+            <br/>
+            <hr/>
+        </div>
+    )
+}
+
+const windowWidth = window.innerWidth;
+
+function App() {
+    const [personPoints] = useState(fakeData);
+
+
+    console.log(personPoints);
+
+    return (
+        <div className="app">
+
+            <div className="grid">
+                <div className="bg-img" />
+                {personPoints.map((person, index) => <Person key={person.name + index} person={person} />)}
+            </div>
+
+            <div className="add-btn">
+
+                <Link to="/form">+ Include your loved one</Link>
+            </div>
+
+        </div>
+    );
+}
+
+export default App;

@@ -1,111 +1,142 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-import placeholderImg from './placeholder.png'
+import { DataStore } from '@aws-amplify/datastore';
+import { Person } from '../models';
 
-interface formInputs {
-    title: string,
-    type: string
+
+const ageRange = [0, 99];
+
+interface FormInputs {
+    value: string | number,
+    error: string
 }
 
 interface formValues {
-    name: string,
-    description: string,
+    firstName: string,
+    lastName: string,
     dod: Date,
-    image: File
 }
 
-const imageMimeType = /image\/(png|jpg|jpeg)/i;
+const handleValidation = (value, type) => {
+    let error = ''
 
-const inputs = [
-    { title: 'Image', type: 'file'},
-    { title: 'Name', type: 'text'},
-    { title: 'Description', type: 'textarea'},
-    { title: 'Date of passing', type: 'date'},
-]
+    // Number range check
+    if (type === 'number' && value <= ageRange[0] || value >= ageRange[1] ){
+        error = "Provide a number between 1 and 99"
+    }
 
-function App() {
-    const [image, setImage] = useState<string>(placeholderImg);
-    
-    const imageRef = useRef<HTMLInputElement|null>(null);
-    const nameRef = useRef<HTMLInputElement|null>(null);
-    const descRef = useRef<HTMLTextAreaElement|null>(null);
-    const ageRef = useRef<HTMLInputElement|null>(null);
-    
-    
+    // Required check
+    if (!value || value.length <= 0) {
+        error = 'This field is required'
+    }
+
+    return error;
+};
+
+
+
+function App( { cancel, addPerson }) {
+    const [firstName, setFirstName] = useState<FormInputs>({value: '', error: ''});
+    const [lastName, setLastName] = useState<FormInputs>({value: '', error: ''});
+    const [foreverAge, setAge] = useState<FormInputs>({value: 0, error: ''});
+
+
     // Form Handling
-    const handleSubmit = (e : React.BaseSyntheticEvent) => {
+    const handleSubmit = (e : React.SyntheticEvent) => {
         e.preventDefault();
-        
+
+        let errors: boolean = false;
+
         // Handle validation
-        
+        if (firstName.value.length === 0) {
+            setFirstName({...firstName, error: 'This field is required'});
+            errors = true;
+        }
+        if (lastName.value.length === 0) {
+            setLastName({...firstName, error: 'This field is required'});
+            errors = true;
+        }
+
+        if (foreverAge.value < 1 || foreverAge.value > 99) {
+            setAge({...foreverAge, error: 'Provide a number between 1 and 99'});
+            errors = true;
+        }
+
+        if (foreverAge.value === 0) {
+            setAge({...foreverAge, error: 'This field is required'});
+            errors = true;
+        }
+
+        if (errors) { return; }
+
+
+
+
         const newSubmission = {
-            name: nameRef.current.value,
-            description: descRef.current.value,
-            date: ageRef.current.value,
-            image: image
+            firstName: firstName.value,
+            lastName: lastName.value,
+            foreverAge: foreverAge.value
+        };
+
+        const savePerson = async () => {
+            const newPerson = await DataStore.save(
+                new Person(newSubmission)
+            );
+
+            addPerson(newPerson);
+            cancel();
+            // Success Message of some sort
         }
-        console.log('new Submission', newSubmission)
-    }
-    
-    // Image Handling
-    const handleImageSelect = () => { 
-        imageRef.current && imageRef.current.click();
-    }
-    
-    const changeImage = (e: React.BaseSyntheticEvent) =>{
-        const file = e.target.files[0];
-        if (!file.type.match(imageMimeType)) {
-            return;
-        }
-        
-        let fileReader = new FileReader();
-        fileReader.onload = (fileE) => {
-            const { result } = fileE.target;
-            result && setImage(result)
-        }
-        fileReader.readAsDataURL(file);
-    }
-    
-    
-    
+
+        savePerson();
+    };
+
+
+
+
+
     return (
-        <div className="App-main">
-            
-            <form onSubmit={handleSubmit} id="addPersonForm">  
-                
-                {/* Name */}
-                <label htmlFor='name'>Name:</label>
-                <input ref={nameRef} type='text' name='name' required/>
-                
-                
-                {/* Image */}
-                <div className='img-container'>
-                    <img style={{width: '100%'}} src={image}/>
-                </div>
-                <a onClick={handleImageSelect} className='btn' role="button" tabIndex={0}>Add Image</a>
-                <input onChange={changeImage} ref={imageRef} className='w-100 d-none' type='file' name="imagery" required accept={"image/*"}/>
-                
-                
-                {/* Description */}
-                <label htmlFor='description'>Description:</label>
-                <textarea ref={descRef} rows={6} required/>
-                
-                
-                
+        <div className="form-main">
+
+
+            <form onSubmit={handleSubmit} id="addPersonForm">
+
+                {/* First Name */}
+                <label htmlFor="firstName">Loved One's First Name:</label>
+                <input type="text" name="firstName"  required  onChange={(e) => setFirstName({...firstName, value: e.target.value})} />
+                {firstName.error ? <span className='error-msg'>{firstName.error}</span> : ' '}
+
+                {/* Last Name */}
+                <label htmlFor="lastName">Loved One's Last Name: </label>
+                <input type="text" name="lastName" required onChange={(e) => setLastName({...firstName, value: e.target.value})} />
+                {/* <span className='error-msg'>{lastName.error}</span> */}
+                {lastName.error ? <span className='error-msg'>{lastName.error}</span> : ' '}
+
+
                 {/* Date */}
-                <label htmlFor='age'>Forever Age:
-                    <input ref={ageRef} type='number' name='age' required/>
+                <label htmlFor="age">Forever Age:
+                    <span style={{fontSize: '0.75rem', fontStyle: 'italic'}}> (e.g. 36)</span>
                 </label>
-                
-                {/* <hr/> */}
-                
+                <input onChange={(e) => setAge({...foreverAge, value: e.target.value})} required type="number" min={ageRange[0]} max={ageRange[1]} name="age" />
+                {/* <span className='error-msg'>{age.error}</span> */}
+                {foreverAge.error ? <span className='error-msg'>{foreverAge.error}</span> : ' '}
+
                 {/* Submit */}
-                <input className='btn' type="submit" value="Submit"/>
-                
+                <div className="btn-group">
+
+                    <div onClick={cancel} className='btn remove-btn' role="button" aria-controls="filename" tabIndex="0">Cancel</div>
+
+                    <input className="btn" type="submit" value="Submit" />
+                </div>
+
+                <hr/>
+
+                <p className="gr-movement">Brought to you by The Global Recovery Movement</p>
+
             </form>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
