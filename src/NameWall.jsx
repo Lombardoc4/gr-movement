@@ -5,6 +5,7 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Person } from './models';
 
 import Form from './Form'
+import StateFilter from './StateFilter'
 import { useInterval } from './useInterval';
 
 import { data } from './data.js';
@@ -29,6 +30,9 @@ function App() {
 
     // set width
     useEffect(() => {
+        const sortedList = people.sort((a, b) => a.lastName.localeCompare(b.lastName))
+        console.log(sortedList);
+
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
 
@@ -95,13 +99,21 @@ function App() {
                 ))}
             </div>
 
-            <div className="add-btn" tabIndex={0} onClick={() => toggleForm(!formOpen)}>
-                + Include your loved one
+            <div className='glare'/>
+
+            <div className="floating">
+
+                <div className="add-btn" tabIndex={0} onClick={() => toggleForm(!formOpen)}>
+                    + Include your loved one
+                </div>
+                {/* <StateFilter/> */}
             </div>
 
             {formOpen &&
                 <Form addPerson={addPerson} cancel={() => toggleForm(!formOpen)}/>
             }
+
+
         </div>
     );
 }
