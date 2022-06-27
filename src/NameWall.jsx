@@ -45,26 +45,26 @@ function App() {
 
 
     // No resizing to be larger
-    useEffect(() => {
-        setWidth(100);
-    }, [stateParams])
+    // useEffect(() => {
+    //     setWidth(100);
+    // }, [stateParams])
 
 
     // Currently not using form data
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const getData = async () => {
-    //         const models = await DataStore.query(Person);
+        const getData = async () => {
+            const models = await DataStore.query(Person);
 
 
-    //         setPeople([...people, ...models])
-    //         if (searchablePeople.length === 0) {
-    //             setSearchablePeople([...people, ...models])
-    //         }
-    //     }
+            setPeople([...people, ...models])
+            if (searchablePeople.length === 0) {
+                setSearchablePeople([...people, ...models])
+            }
+        }
 
-    //     getData();
-    // }, [])
+        getData();
+    }, [])
 
 
     // set width
@@ -151,6 +151,8 @@ function App() {
         const lastNode = grid?.lastChild //as HTMLElement;
 
         if (lastNode) {
+
+            console.log(lastNode);
             const position = lastNode.getBoundingClientRect();
 
 
@@ -221,7 +223,11 @@ function App() {
             {Object.keys(stateData).length > 0 &&
             <div className="grid">
                 {/* <div className="bg-img" /> */}
-                { Object.keys(stateData).map(state => (
+                { Object.keys(stateData).map(state => {
+                        if (state) {
+                            return (
+
+
                         <>
                         <div name={state} className='person-info'>
                             <h2 className='name' style={{fontSize: '42px'}}>
@@ -235,7 +241,9 @@ function App() {
                             ))
                         }
                         </>
-                )) }
+                        )
+                    }
+                }) }
             </div>
             }
 
