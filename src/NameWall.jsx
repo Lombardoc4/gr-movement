@@ -149,10 +149,12 @@ function App() {
 
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
+        console.log('resize', grid);
+
 
         if (lastNode) {
 
-            console.log(lastNode);
+            console.log('last', lastNode);
             const position = lastNode.getBoundingClientRect();
 
 
@@ -161,7 +163,7 @@ function App() {
             }
 
         }
-    }, [searchablePeople, appWidth, stateParams])
+    }, [people, searchablePeople, appWidth, stateParams])
 
 
     useEffect(() => {
