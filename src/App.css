@@ -1,5 +1,6 @@
 .main-app{
-    font-family: 'Optima Bold', 'Optima', sans-serif;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
     color: #ffffff;
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -126,15 +127,10 @@
     padding-bottom: 0.1rem;
 }
 
-.person-info h2{
-    font-weight: 500;
-    /* background-color: #000; */
-    /* color: transparent; */
-    /* text-shadow: 2px 2px 1px rgba(255,255,255,1); */
-    /* -webkit-background-clip: text; */
-       /* -moz-background-clip: text; */
-            /* background-clip: text; */
+.person-info.found{
+    background-color: #e9e9e9;
 }
+
 
 .person-info .name{ text-transform: uppercase; }
 .person-info .name span{ font-size: 48px; line-height: 1; }

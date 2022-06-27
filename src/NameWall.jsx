@@ -45,27 +45,31 @@ function App() {
 
 
     // No resizing to be larger
-    // useEffect(() => {
-    //     setWidth(100);
-    // }, [stateParams])
-
     useEffect(() => {
-        const getData = async () => {
-            const models = await DataStore.query(Person);
+        setWidth(100);
+    }, [stateParams])
 
 
-            setPeople([...people, ...models])
-            setSearchablePeople([...people, ...models])
-        }
+    // Currently not using form data
+    // useEffect(() => {
 
-        getData();
-    }, [])
+    //     const getData = async () => {
+    //         const models = await DataStore.query(Person);
+
+
+    //         setPeople([...people, ...models])
+    //         if (searchablePeople.length === 0) {
+    //             setSearchablePeople([...people, ...models])
+    //         }
+    //     }
+
+    //     getData();
+    // }, [])
 
 
     // set width
     useEffect(() => {
 
-        console.log('state', stateParams);
         const sortedPeople = people.sort((a, b) => a.lastName.localeCompare(b.lastName))
         //  Group by state
         const groupByState = groupBy(sortedPeople, 'state')
@@ -81,12 +85,30 @@ function App() {
           }
 
 
+        //   console.log(groupByState);
+
         // console.log('group from params', groupByState[stateParams.charAt(0).toUpperCase() + stateParams.slice(1)])
         // sort states alphabetically
+        const capitalizeStateName = (state) => {
+            const firstWord = stateParams.charAt(0).toUpperCase() + stateParams.slice(1);
+
+            const spaceIndex = state.indexOf(' ');
+
+            if (spaceIndex < 0){
+                return firstWord;
+            }
+
+            const secondWord = stateParams.charAt(spaceIndex + 1).toUpperCase() + stateParams.slice(spaceIndex + 2);
+            return firstWord.slice(0, spaceIndex) + ' ' + secondWord;
+        }
+
+
+        const stateNameCapitalized = stateParams ? capitalizeStateName(stateParams) : '';
+
         let finalStateData;
-        if (stateParams && groupByState[stateParams.charAt(0).toUpperCase() + stateParams.slice(1)]){
+        if (stateParams && groupByState[stateNameCapitalized]){
             // console.log('setting spefici state info')
-            finalStateData = {[stateParams.charAt(0).toUpperCase() + stateParams.slice(1)]: groupByState[stateParams.charAt(0).toUpperCase() + stateParams.slice(1)]};
+            finalStateData = {[stateNameCapitalized]: groupByState[stateNameCapitalized]};
         } else {
 
             finalStateData = Object.keys(groupByState).sort().reduce(
@@ -104,7 +126,7 @@ function App() {
         setStateData(finalStateData)
 
 
-        // console.log('final state', finalStateData);
+        // console.log('state parms', stateParams);
 
         if (stateParams) {
             // console.log('state people', [...Object.values(finalStateData)][0])
@@ -120,12 +142,15 @@ function App() {
 
     }, [ stateParams ])
 
+
+
+    // Set Width
     useEffect(() => {
+
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
 
         if (lastNode) {
-
             const position = lastNode.getBoundingClientRect();
 
 
@@ -134,11 +159,16 @@ function App() {
             }
 
         }
-    }, [people, appWidth, stateParams])
+    }, [searchablePeople, appWidth, stateParams])
 
 
     useEffect(() => {
         if (searchPerson) {
+            const previousPerson = document.querySelector(`.person-info.found`);
+            if (previousPerson) {
+                previousPerson.classList.remove('found')
+            }
+
             const foundPerson = searchablePeople.find(person => {
                 if (!person || !person.firstName || !person.lastName) {
                     return false;
@@ -148,13 +178,14 @@ function App() {
                 return name.substring(0, searchPerson.length).toLowerCase() === searchPerson.toLowerCase();
             });
 
+
             if (!foundPerson) {
                 return;
             }
 
             const name = foundPerson.firstName + ' ' + foundPerson.lastName;
             const personEl = document.querySelector(`[name='${name}']`);
-            // personEl.style.backgroundColor="#e9e9e9"
+            personEl.classList.add('found');
             personEl.scrollIntoView();
         }
     }, [searchPerson])
@@ -177,6 +208,13 @@ function App() {
         setPeople([...people, person])
     }
 
+    const closeModal = () => {
+        if (openModal === 'stateFilter') {
+            setSearch('');
+        }
+        setModal(false);
+    }
+
 
     return (
         <div className="main-app" style={{width: appWidth + 'vw'}}>
@@ -184,20 +222,20 @@ function App() {
             <div className="grid">
                 {/* <div className="bg-img" /> */}
                 { Object.keys(stateData).map(state => (
-                    <>
-                    <div name={state} className='person-info'>
-                        <h2 className='name' style={{fontSize: '42px'}}>
-                            {state === "" ? 'Not Identified' : state} :
-                        </h2>
-                    </div>
-                    {/* {console.log('people', stateData[state])} */}
-                    {
-                        stateData[state].map((person, index) => (
-                            <WallPerson key={person.firstName + index} person={person}/>
-                        ))
-                    }
-                    </>
-                ))}
+                        <>
+                        <div name={state} className='person-info'>
+                            <h2 className='name' style={{fontSize: '42px'}}>
+                                {state === "" ? 'Not Identified' : state} :
+                            </h2>
+                        </div>
+                        {/* {console.log('people', stateData[state])} */}
+                        {
+                            stateData[state].map((person, index) => (
+                                <WallPerson key={person.firstName + index} person={person}/>
+                            ))
+                        }
+                        </>
+                )) }
             </div>
             }
 
@@ -217,11 +255,11 @@ function App() {
             </div>
 
             {openModal &&
-                <Modal closeModal={() => {setModal(false)}}>
-                    {openModal=== "stateFilter" && <StateFilter closeModal={() => setModal(false)}/>}
+                <Modal closeModal={closeModal}>
+                    {openModal=== "stateFilter" && <StateFilter closeModal={closeModal}/>}
 
                     {/* TODO Highlight Person */}
-                    {openModal=== "findPerson" && <FindPerson personState={[searchPerson, setSearch]} closeModal={() => setModal(false)}/>}
+                    {openModal=== "findPerson" && <FindPerson personState={[searchPerson, setSearch]} closeModal={closeModal}/>}
                 </Modal>
             }
 

@@ -6,14 +6,23 @@
 }
 
 @font-face {
+  font-family: 'Optima';
+  src: url('./fonts/Optima.woff2') format('woff2'),
+      url('./fonts/Optima.woff') format('woff'),
+      url('./fonts/Optima.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  font-family: 'Optima Bold';
-  src: url(./fonts/OPTIMA_B.TTF) format('truetype');
-
-  /* font-family: 'Optima';
-  src: local('Optima'), url(./fonts/OPTIMA.TTF) format('truetype'); */
-  /* other formats include: 'woff2', 'truetype, 'opentype',
-                            'embedded-opentype', and 'svg' */
+@font-face {
+  font-family: 'Optima';
+  src: url('./fonts/Optima-Bold.woff2') format('woff2'),
+      url('./fonts/Optima-Bold.woff') format('woff'),
+      url('./fonts/Optima-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 
