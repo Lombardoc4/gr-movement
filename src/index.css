@@ -5,25 +5,7 @@
   padding: 0;
 }
 
-@font-face {
-  font-family: 'Optima';
-  src: url('./fonts/Optima.woff2') format('woff2'),
-      url('./fonts/Optima.woff') format('woff'),
-      url('./fonts/Optima.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Optima';
-  src: url('./fonts/Optima-Bold.woff2') format('woff2'),
-      url('./fonts/Optima-Bold.woff') format('woff'),
-      url('./fonts/Optima-Bold.ttf') format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
 
 
 body {
