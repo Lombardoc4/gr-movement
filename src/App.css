@@ -1,6 +1,5 @@
 .main-app{
-    /* font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; */
-    font-family: 'Belleza', 'Marcellus', sans-serif;
+    font-family: 'Optima Bold', 'Optima', sans-serif;
     color: #ffffff;
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -40,6 +39,13 @@
 
 .selector{
     min-width: 100px;
+    border: 1px solid #afafaf;
+    max-height: 10rem;
+    overflow: scroll;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 0.5rem;
+     padding: 0.1rem 0;
 }
 
 .selector .selected{
@@ -48,6 +54,13 @@
 
 .selector > *{
     padding: 0 0.3rem;
+}
+
+.search-input{
+    width: 100%;
+    border: 1px solid #afafaf;
+    outline: none;
+
 }
 
 /*
@@ -113,14 +126,15 @@
     padding-bottom: 0.1rem;
 }
 
-/* .person-info h2{ */
+.person-info h2{
+    font-weight: 500;
     /* background-color: #000; */
     /* color: transparent; */
     /* text-shadow: 2px 2px 1px rgba(255,255,255,1); */
     /* -webkit-background-clip: text; */
        /* -moz-background-clip: text; */
             /* background-clip: text; */
-/* } */
+}
 
 .person-info .name{ text-transform: uppercase; }
 .person-info .name span{ font-size: 48px; line-height: 1; }

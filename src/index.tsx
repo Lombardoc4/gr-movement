@@ -1,6 +1,10 @@
 import React from 'react'
 import ReactDOM from "react-dom/client";
-
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import NameWall from './NameWall'
 // import Form from './Form'
@@ -12,5 +16,10 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <NameWall/>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<NameWall  />}></Route>
+      <Route path="/:stateParams" element={<NameWall  />}></Route>
+    </Routes>
+  </BrowserRouter>
 )

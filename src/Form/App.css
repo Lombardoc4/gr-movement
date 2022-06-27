@@ -35,11 +35,14 @@
 
 .btn{
   display: inline-block;
-  background-color: #f0f8ff;
+  background-color: #007fb9;
+  color: #ffffff;
+  border: 1px solid #afafaf;;
   text-align: center;
   width: 50%;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
+  font-size: 1rem;
   cursor: pointer;
   border-radius: 12px;
   box-shadow: 0 6px 15px -15px;

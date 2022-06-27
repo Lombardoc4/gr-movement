@@ -1,9 +1,10 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 
 const allStates = [
     'Select State',
+    'Country Wide',
     'Alabama',
     'Alaska',
     'Arizona',
@@ -57,8 +58,9 @@ const allStates = [
 ]
 
 
-const StateFilter = (stateState) => {
+const StateFilter = ({closeModal}) => {
     // const [state, setState] = stateState;
+    const navigate = useNavigate();
     const [state, setState] = useState(allStates[0]);
     const [selectOpen, toggleSelect] = useState(false);
 
@@ -66,12 +68,24 @@ const StateFilter = (stateState) => {
         toggleSelect(!selectOpen);
     }
 
+    const goToStatePage = () => {
+        closeModal();
+        if (state === allStates[0]) {
+            return;
+        } else if (state === allStates[1]) {
+            navigate('/');
+        } else {
+            navigate(`/${state.toLowerCase()}`)
+
+        }
+    };
+
     return (
         <div>
             <label  onClick={toggleSelectOpen} htmlFor="state-selector">
             Find by state:&nbsp;
             </label>
-            <div onClick={toggleSelectOpen} className="selector" name="state-selector" style={{maxHeight: '5rem', overflow: 'scroll', backgroundColor: '#ffffff', color: '#000000', borderRadius: '0.5rem', padding: '0.1rem 0'}}>
+            <div onClick={toggleSelectOpen} className="selector" name="state-selector" style={{}}>
 
                 {
                     selectOpen ?
@@ -82,7 +96,7 @@ const StateFilter = (stateState) => {
                     <div>{state}</div>
                 }
             </div>
-
+            <div className="btn" style={{marginLeft: 'auto'}} onClick={goToStatePage} >Search</div>
         </div>
     )
 }
