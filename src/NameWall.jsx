@@ -61,9 +61,25 @@ function App() {
             if (searchablePeople.length === 0) {
                 setSearchablePeople([...people, ...models])
             }
+
         }
 
+        const testApi = async () => {
+
+            const formPost =  await fetch('https://api.ontraport.com/1/Contacts/getInfo', {
+                method: 'GET',
+                headers: {
+                    'Api-key': 'PpSw3rkAzAnKhf3',
+                    'Api-Appid': '2_229482_Kk2KlMMZo'
+                },
+            });
+
+            console.log('formPost', formPost);
+        }
+
+
         getData();
+        // testApi();
     }, [])
 
 
