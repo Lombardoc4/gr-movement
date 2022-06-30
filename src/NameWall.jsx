@@ -79,7 +79,7 @@ function App() {
 
 
         getData();
-        // testApi();
+        testApi();
     }, [])
 
 
