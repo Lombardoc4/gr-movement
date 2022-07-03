@@ -49,7 +49,6 @@ const Form = () => {
                 <Input name="Cause Of Death *"  required={true}/>
                 <Input name="Loved one's state where they lived when they passed away *"  required={true}/>
                 <Input name="Relationship to your loved one?  *"  required={true}/>
-                <TextArea name="In a short paragraph, can you tell us about your loved one? *" required={true}/>
             </div>
         </form>
     )

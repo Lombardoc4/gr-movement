@@ -66,12 +66,14 @@ function App() {
 
         const testApi = async () => {
 
-            const formPost =  await fetch('https://api.ontraport.com/1/Contacts/getInfo', {
+            const formPost =  await fetch('https://api.ontraport.com/1/Contacts', {
                 method: 'GET',
                 headers: {
-                    'Api-key': 'PpSw3rkAzAnKhf3',
-                    'Api-Appid': '2_229482_Kk2KlMMZo'
+                    Accept: "application/json",
+                    "api-key": "PpSw3rkAzAnKhf3",
+                    "api-appid": "2_229482_Kk2KlMMZo"
                 },
+                // mode: 'no-cors'
             });
 
             console.log('formPost', formPost);
