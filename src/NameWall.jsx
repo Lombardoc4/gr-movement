@@ -70,8 +70,8 @@ function App() {
                 method: 'GET',
                 headers: {
                     Accept: "application/json",
-                    "api-key": "PpSw3rkAzAnKhf3",
-                    "api-appid": "2_229482_Kk2KlMMZo"
+                    "Api-Key": "PpSw3rkAzAnKhf3",
+                    "Api-Appid": "2_229482_Kk2KlMMZo"
                 },
                 // mode: 'no-cors'
             });
