@@ -69,9 +69,11 @@ function App() {
             const formPost =  await fetch('https://api.ontraport.com/1/Contacts', {
                 method: 'GET',
                 headers: {
-                    Accept: "application/json",
-                    "Api-Key": "PpSw3rkAzAnKhf3",
-                    "Api-Appid": "2_229482_Kk2KlMMZo"
+                    "Api-Key": 'PpSw3rkAzAnKhf3',
+                //   'cache-control': 'no-cache',
+                  "Accept": 'application/json',
+
+                  "Api-Appid": '2_229482_Kk2KlMMZo'
                 },
                 // mode: 'no-cors'
             });
@@ -81,7 +83,7 @@ function App() {
 
 
         getData();
-        testApi();
+        // testApi();
     }, [])
 
 
@@ -249,9 +251,9 @@ function App() {
 
 
                         <>
-                        <div name={state} className='person-info'>
-                            <h2 className='name' style={{fontSize: '42px'}}>
-                                {state === "" ? 'Not Identified' : state} :
+                        <div name={state} className='person-info state'>
+                            <h2 className='name'>
+                                {state === "" ? 'Not Identified' : state} <span>:</span>
                             </h2>
                         </div>
                         {/* {console.log('people', stateData[state])} */}

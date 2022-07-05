@@ -118,6 +118,9 @@
 }
 
 .person-info{
+    min-height: 60px;
+    display: flex;
+    align-items: center;
     text-shadow: 0 0 5px #000000;
     text-transform: uppercase;
 }
@@ -132,5 +135,6 @@
 }
 
 
+.person-info.state .name { font-size: 36px; color: rgb(168, 191, 250)}
 .person-info .name{ text-transform: uppercase; }
 .person-info .name span{ font-size: 48px; line-height: 1; }
