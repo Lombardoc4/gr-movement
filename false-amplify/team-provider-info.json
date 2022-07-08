@@ -10,17 +10,6 @@
       "StackName": "amplify-grmovement-staging-191308",
       "StackId": "arn:aws:cloudformation:us-east-1:890078463828:stack/amplify-grmovement-staging-191308/85d61e00-ee71-11ec-991a-0a696f0e7b07",
       "AmplifyAppId": "d3t3bo5sfmdjit"
-    },
-    "categories": {
-      "auth": {
-        "GRMovement": {}
-      },
-      "function": {
-        "getUserFromOntraport": {
-          "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
-          "s3Key": "amplify-builds/getUserFromOntraport-47536c2b685568324176-build.zip"
-        }
-      }
     }
   }
 }

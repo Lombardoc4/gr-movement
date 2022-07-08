@@ -64,26 +64,7 @@ function App() {
 
         }
 
-        const testApi = async () => {
-
-            const formPost =  await fetch('https://api.ontraport.com/1/Contacts', {
-                method: 'GET',
-                headers: {
-                    "Api-Key": 'PpSw3rkAzAnKhf3',
-                //   'cache-control': 'no-cache',
-                  "Accept": 'application/json',
-
-                  "Api-Appid": '2_229482_Kk2KlMMZo'
-                },
-                // mode: 'no-cors'
-            });
-
-            console.log('formPost', formPost);
-        }
-
-
         getData();
-        testApi();
     }, [])
 
 

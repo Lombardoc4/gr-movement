@@ -17,6 +17,7 @@ export declare class Person {
   readonly firstName: string;
   readonly lastName: string;
   readonly foreverAge?: string | null;
+  readonly state?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Person, PersonMetaData>);
