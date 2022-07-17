@@ -3,7 +3,9 @@ type Person @model @auth(rules: [{allow: public}]) {
   firstName: String!
   lastName: String!
   foreverAge: String
+  country: String
   state: String
+  imgUrl: String
 }
 
 type ImgPerson @model @auth(rules: [{allow: public}]) {

@@ -31,8 +31,22 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "country": {
+                    "name": "country",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "state": {
                     "name": "state",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "imgUrl": {
+                    "name": "imgUrl",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -163,5 +177,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "e7c258ba66a2551cf467e637eb050e31"
+    "version": "469233151f01c9dc49934e8b3c378e77"
 };

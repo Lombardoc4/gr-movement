@@ -24,17 +24,25 @@
     align-items: center;
 }
 
-.add-btn{
-    padding: 0.5rem 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 20px -15px #000000;
-    color: #000000;
+.add-btn, .menu input{
+    padding: 1rem 2rem;
+    font-size: 18px;
+    background-color: #fbf2ef;
+    /* border-radius: 0.5rem; */
+    /* box-shadow: 0 10px 20px -15px #000000; */
+    border: 1px solid #323232;
+    color: #323232;
     cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.add-btn:hover{
+    color: #fbf2ef;
+    background-color: #323232;
 }
 
 .add-btn a{
-    color: #000000;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -64,38 +72,25 @@
 
 }
 
-/*
-.glare{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateY(-50%);
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    background-color: #ffe7ae;
-    box-shadow: 0 0 25px 10px #fff4db;
-    z-index: 1;
-    opacity: 30%;
-} */
+
 
 .grid{
     max-height: 100vh;
-    /* min-height: 100vh; */
     display: flex;
     flex-direction: row;
-    /* justify-content: space-evenly; */
-    /* overflow-x: scroll; */
     flex-wrap: wrap;
     padding: 1rem 1rem 3rem;
+    transition: transform 0.6s;
 
-    /* transition: transform 1s; */
+}
+
+.grid-slideRight{
+    transform: translateX(440px);
+    transition: transform 0.6s;
 }
 
 
 .person{
-    /* display: flex; */
-    /* align-items: center; */
     min-width: 300px;
     max-width: 300px;
     padding: 10px;
@@ -105,7 +100,6 @@
 
 .person .row{
     display: flex;
-    /* align-items: center; */
 }
 
 .person-image{
@@ -137,4 +131,11 @@
 
 .person-info.state .name { font-size: 36px; color: rgb(168, 191, 250)}
 .person-info .name{ text-transform: uppercase; }
-.person-info .name span{ font-size: 48px; line-height: 1; }
+.person-info .name span{ font-size: 48px; line-height: 1;}
+
+.personSearch input{
+    background-color: #ffffff;
+    border: none;
+    border-bottom: 1px solid #000000;
+
+}

@@ -1,29 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { DataStore } from '@aws-amplify/datastore';
 import { Person } from './models';
 
-import Form from './Form'
-import StateFilter from './StateFilter'
-import { useInterval } from './useInterval';
-
-import { data } from './data-state.js';
-import Modal from './Modal';
-import FindPerson from './FindPerson';
+import { countries } from './data/countries';
+import { states } from './data/states';
+import { data } from './data/data-img.js';
 import WallPerson from './WallPerson';
 
-import {StateAbbrMap} from './states';
+import Menu from './Menu';
+import './App.css';
 
-interface PersonProps {
-    firstName: string;
-    lastName: string;
-    foreverAge: string;
-}
+import { importData } from './data/importData';
+
 
 const windowHeight = window.innerHeight;
-
 
 const groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
@@ -32,147 +24,158 @@ const groupBy = function(xs, key) {
     }, {});
   };
 
+const getCountryInfo = (countryParams) => {
+    return countries.find(c => c.id === countryParams)
+}
+
 function App() {
-    const {stateParams} = useParams();
-    const [stateData, setStateData] = useState({});
-    const [people, setPeople] = useState(data);
-    const [searchablePeople, setSearchablePeople] = useState(data);
+    // URL Params
+    const {stateParams, countryParams} = useParams();
+
+    // All People Data
+    const [people, setPeople] = useState([]);
+
+    // People on Wall
+    const [activeData, setActiveData] = useState({});
+
+    // Search values
     const [searchPerson, setSearch] = useState('');
+
+    // Wall width
     const [appWidth, setWidth] = useState(100)
-    const [scrollPosition, setScrollPosition] = useState(1)
-    const [formOpen, toggleForm] = useState(false);
-    const [openModal, setModal] = useState(false);
+
+    // Menu Status
+    const [menuOpen, toggleMenu] = useState(false);
+
+    // Values for Dropdown
+    const [country, setCountry] = useState(countryParams || 'usa');
+    const [state, setState] = useState(stateParams || 'Nationwide');
 
 
-    // No resizing to be larger
-    // useEffect(() => {
-    //     setWidth(100);
-    // }, [stateParams])
+    // Manual Data upload
+    // !use cautiously
+    // // useEffect(() => {
+    // //     console.log('only happen once - data:', importData);
 
+    // //     const savePerson = async (person) => {
 
-    // Currently not using form data
+    // //         const newPerson = await DataStore.save(
+    // //             new Person({...person, country: 'United States', foreverAge: person.foreverAge + ''})
+    // //         );
+
+    // //         console.log('new person', newPerson)
+    // //     }
+
+    // //     importData.map(person => savePerson(person))
+    // // }, [])
+
     useEffect(() => {
+        const {name} = getCountryInfo(country);
 
+        console.log(name)
         const getData = async () => {
-            const models = await DataStore.query(Person);
+            let models = [];
+            if (country === 'usa'){
+                models = await DataStore.query(Person, p => p.or( p => p.country('eq', name).country('eq', null)));
 
-
-            setPeople([...people, ...models])
-            if (searchablePeople.length === 0) {
-                setSearchablePeople([...people, ...models])
+                // Include data from manual upload
+                models = [...models, ...data];
+            } else {
+                models = await DataStore.query(Person, p => p.or( p => p.country('eq', name)));
+                setActiveData({[name]:  models});
             }
 
-        }
+            // Sort People Data by last name
+            const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
+
+            // Set data
+            if (country === 'usa') {
+                // Group By State Listed
+                const groupByState = groupBy(sortedPeople, 'state');
+
+                // Group by states that populate the ui
+                states.map(({name, id}) => {
+                    if (groupByState[name] && groupByState[id]){
+                        groupByState[name] = groupByState[name].concat(groupByState[id]);
+                    }
+                    delete groupByState[id]
+                })
+
+                // Sort states by name
+                const sortedStatesPeople = Object.keys(groupByState).sort().reduce(
+                    (obj, key) => {
+                        obj[key] = groupByState[key];
+                        return obj;
+                    }, {}
+                );
+
+
+                setActiveData(sortedStatesPeople);
+                setPeople(sortedStatesPeople)
+            } else {
+                // Available data
+                setPeople(models);
+                setActiveData({[name] : sortedPeople});
+            }
+        };
 
         getData();
-    }, [])
+
+    }, [country])
 
 
-    // set width
     useEffect(() => {
+        if (country !== 'usa') return;
 
-        const sortedPeople = people.sort((a, b) => a.lastName.localeCompare(b.lastName))
-        //  Group by state
-        const groupByState = groupBy(sortedPeople, 'state')
-
-
-
-        // combine with by abbreviations
-        for (const [key, value] of Object.entries(StateAbbrMap)) {
-            if (groupByState[value] && groupByState[key]){
-                groupByState[value] = groupByState[value].concat(groupByState[key]);
-            }
-            delete groupByState[key]
-          }
-
-
-        //   console.log(groupByState);
-
-        // console.log('group from params', groupByState[stateParams.charAt(0).toUpperCase() + stateParams.slice(1)])
-        // sort states alphabetically
-        const capitalizeStateName = (state) => {
-            const firstWord = stateParams.charAt(0).toUpperCase() + stateParams.slice(1);
-
-            const spaceIndex = state.indexOf(' ');
-
-            if (spaceIndex < 0){
-                return firstWord;
-            }
-
-            const secondWord = stateParams.charAt(spaceIndex + 1).toUpperCase() + stateParams.slice(spaceIndex + 2);
-            return firstWord.slice(0, spaceIndex) + ' ' + secondWord;
+        // states[0] should be nationwide
+        const activeState = states.find(s => s.id === state.toUpperCase()) || states[0];
+        if (!activeState.id) {
+            setActiveData(people);
+            return;
         }
 
-
-        const stateNameCapitalized = stateParams ? capitalizeStateName(stateParams) : '';
-
-        let finalStateData;
-        if (stateParams && groupByState[stateNameCapitalized]){
-            // console.log('setting spefici state info')
-            finalStateData = {[stateNameCapitalized]: groupByState[stateNameCapitalized]};
-        } else {
-
-            finalStateData = Object.keys(groupByState).sort().reduce(
-                (obj, key) => {
-                    obj[key] = groupByState[key];
-                    return obj;
-                }, {});
+        const name = activeState.name;
+        const peopleFromActiveState = people[name] || [];
+        setActiveData({[name]: peopleFromActiveState});
 
 
-                // console.log('sort state', sortedStates);
-                // setStateData(sortedStates);
-        }
-
-
-        setStateData(finalStateData)
-
-
-        // console.log('state parms', stateParams);
-
-        if (stateParams) {
-            // console.log('state people', [...Object.values(finalStateData)][0])
-            setSearchablePeople(Object.values(finalStateData)[0])
-        } else{
-            // console.log('all people');
-            setSearchablePeople(sortedPeople);
-        }
+    }, [state, people])
 
 
 
 
-
-    }, [ stateParams ])
-
-
-
-    // Set Width
+    // Resize window
     useEffect(() => {
+        setWidth(100);
+    }, [activeData])
 
+    // Manage width of window
+    useEffect(() => {
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
-        console.log('resize', grid);
-
 
         if (lastNode) {
 
-            console.log('last', lastNode);
             const position = lastNode.getBoundingClientRect();
 
-
-            if (windowHeight - 50 < position.bottom){
+            if (windowHeight - 100 < position.bottom){
                 setWidth(appWidth + 200);
             }
 
         }
-    }, [people, searchablePeople, appWidth, stateParams])
+    }, [people, appWidth, stateParams])
 
 
+    // Search Effect
     useEffect(() => {
         if (searchPerson) {
             const previousPerson = document.querySelector(`.person-info.found`);
             if (previousPerson) {
                 previousPerson.classList.remove('found')
             }
+
+            let searchablePeople = []
+            Object.values(activeData).map(peopleByState => searchablePeople = [...searchablePeople, ...peopleByState]);
 
             const foundPerson = searchablePeople.find(person => {
                 if (!person || !person.firstName || !person.lastName) {
@@ -191,91 +194,53 @@ function App() {
             const name = foundPerson.firstName + ' ' + foundPerson.lastName;
             const personEl = document.querySelector(`[name='${name}']`);
             personEl.classList.add('found');
-            personEl.scrollIntoView();
+            personEl.scrollIntoView({inline: "center"});
         }
     }, [searchPerson])
 
 
-    // useInterval(() => {
-    //     const grid = document.querySelector('.grid');
-    //     const gridWidth = grid?.getBoundingClientRect().width
-    //     const translateWidth = scrollPosition <= gridWidth ? -1 : 1
-
-    //     setScrollPosition(p => p + translateWidth)
-
-    //     window.scrollTo({left: scrollPosition, top: 0, behavior: 'smooth'});
-    // }, 1)
-
-
-
-
-    const addPerson = (person: PersonProps) => {
-        setPeople([...people, person])
-    }
-
-    const closeModal = () => {
-        if (openModal === 'stateFilter') {
-            setSearch('');
-        }
-        setModal(false);
-    }
 
 
     return (
         <div className="main-app" style={{width: appWidth + 'vw'}}>
-            {Object.keys(stateData).length > 0 &&
-            <div className="grid">
-                {/* <div className="bg-img" /> */}
-                { Object.keys(stateData).map(state => {
-                        if (state) {
+            <div className={"grid " +(menuOpen ? 'grid-slideRight' : '' )}>
+                {Object.keys(activeData).length > 0 &&  Object.keys(activeData).map(state => {
+                        if (state && state !== 'null') {
                             return (
+                                <React.Fragment key={state}>
+                                    {/* State Title */}
+                                    <div name={state} className='person-info state'>
+                                        <h2 className='name'>
+                                            {state === "" ? 'Not Identified' : state} <span>:</span>
+                                        </h2>
+                                    </div>
 
-
-                        <>
-                        <div name={state} className='person-info state'>
-                            <h2 className='name'>
-                                {state === "" ? 'Not Identified' : state} <span>:</span>
-                            </h2>
-                        </div>
-                        {/* {console.log('people', stateData[state])} */}
-                        {
-                            stateData[state].map((person, index) => (
-                                <WallPerson key={person.firstName + index} person={person}/>
-                            ))
+                                    {/* People */}
+                                    {activeData[state].map((person, index) => (
+                                        <WallPerson key={person.firstName + index} person={person}/>
+                                    ))}
+                                </React.Fragment>
+                            )
                         }
-                        </>
-                        )
-                    }
-                }) }
+                    })}
             </div>
-            }
 
-            <div className='glare'/>
+
+            <Menu
+                menuState={[menuOpen, toggleMenu]}
+                countryState={[country, setCountry]}
+                stateState={[state, setState]}
+                personState={[searchPerson, setSearch]}
+                searchablePeople={activeData}/>
+
+
 
             <div className="floating">
-                <div className="add-btn" tabIndex={0} onClick={() => setModal('findPerson')}>
-                    Find Your Loved One
-                </div>
-                <div className="add-btn" tabIndex={0} onClick={() => setModal('stateFilter')}>
-                    Filter by State
-                </div>
-                {/* <StateFilter/> */}
-                <div className="add-btn" tabIndex={0}>
-                    <a href="https://drugepidemicmemorial.org/">+ Include your Loved One</a>
+
+                <div className="add-btn" tabIndex={0} onClick={() => toggleMenu(!menuOpen)}>
+                    Menu
                 </div>
             </div>
-
-            {openModal &&
-                <Modal closeModal={closeModal}>
-                    {openModal=== "stateFilter" && <StateFilter closeModal={closeModal}/>}
-
-                    {/* TODO Highlight Person */}
-                    {openModal=== "findPerson" && <FindPerson personState={[searchPerson, setSearch]} closeModal={closeModal}/>}
-                </Modal>
-            }
-
-            {/* {formOpen && <Form addPerson={addPerson} cancel={() => toggleForm(!formOpen)}/>} */}
-
 
         </div>
     );

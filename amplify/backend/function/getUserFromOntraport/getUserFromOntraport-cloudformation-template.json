@@ -15,6 +15,22 @@
     },
     "s3Key": {
       "Type": "String"
+    },
+    "apiGRMovementGraphQLAPIIdOutput": {
+      "Type": "String",
+      "Default": "apiGRMovementGraphQLAPIIdOutput"
+    },
+    "apiGRMovementGraphQLAPIEndpointOutput": {
+      "Type": "String",
+      "Default": "apiGRMovementGraphQLAPIEndpointOutput"
+    },
+    "apiGRMovementGraphQLAPIKeyOutput": {
+      "Type": "String",
+      "Default": "apiGRMovementGraphQLAPIKeyOutput"
+    },
+    "authGRMovementUserPoolId": {
+      "Type": "String",
+      "Default": "authGRMovementUserPoolId"
     }
   },
   "Conditions": {
@@ -69,6 +85,18 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
+            },
+            "API_GRMOVEMENT_GRAPHQLAPIIDOUTPUT": {
+              "Ref": "apiGRMovementGraphQLAPIIdOutput"
+            },
+            "API_GRMOVEMENT_GRAPHQLAPIENDPOINTOUTPUT": {
+              "Ref": "apiGRMovementGraphQLAPIEndpointOutput"
+            },
+            "API_GRMOVEMENT_GRAPHQLAPIKEYOUTPUT": {
+              "Ref": "apiGRMovementGraphQLAPIKeyOutput"
+            },
+            "AUTH_GRMOVEMENT_USERPOOLID": {
+              "Ref": "authGRMovementUserPoolId"
             }
           }
         },
@@ -160,6 +188,124 @@
                   }
                 ]
               }
+            }
+          ]
+        }
+      }
+    },
+    "AmplifyResourcesPolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "amplify-lambda-execution-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "appsync:GraphQL"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:appsync:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":apis/",
+                      {
+                        "Ref": "apiGRMovementGraphQLAPIIdOutput"
+                      },
+                      "/types/Mutation/*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:ConfirmSignUp",
+                "cognito-idp:AdminCreateUser",
+                "cognito-idp:CreateUserImportJob",
+                "cognito-idp:AdminSetUserSettings",
+                "cognito-idp:AdminLinkProviderForUser",
+                "cognito-idp:CreateIdentityProvider",
+                "cognito-idp:AdminConfirmSignUp",
+                "cognito-idp:AdminDisableUser",
+                "cognito-idp:AdminRemoveUserFromGroup",
+                "cognito-idp:SetUserMFAPreference",
+                "cognito-idp:SetUICustomization",
+                "cognito-idp:SignUp",
+                "cognito-idp:VerifyUserAttribute",
+                "cognito-idp:SetRiskConfiguration",
+                "cognito-idp:StartUserImportJob",
+                "cognito-idp:AdminSetUserPassword",
+                "cognito-idp:AssociateSoftwareToken",
+                "cognito-idp:CreateResourceServer",
+                "cognito-idp:RespondToAuthChallenge",
+                "cognito-idp:CreateUserPoolClient",
+                "cognito-idp:AdminUserGlobalSignOut",
+                "cognito-idp:GlobalSignOut",
+                "cognito-idp:AddCustomAttributes",
+                "cognito-idp:CreateGroup",
+                "cognito-idp:CreateUserPool",
+                "cognito-idp:AdminForgetDevice",
+                "cognito-idp:AdminAddUserToGroup",
+                "cognito-idp:AdminRespondToAuthChallenge",
+                "cognito-idp:ForgetDevice",
+                "cognito-idp:CreateUserPoolDomain",
+                "cognito-idp:AdminEnableUser",
+                "cognito-idp:AdminUpdateDeviceStatus",
+                "cognito-idp:StopUserImportJob",
+                "cognito-idp:InitiateAuth",
+                "cognito-idp:AdminInitiateAuth",
+                "cognito-idp:AdminSetUserMFAPreference",
+                "cognito-idp:ConfirmForgotPassword",
+                "cognito-idp:SetUserSettings",
+                "cognito-idp:VerifySoftwareToken",
+                "cognito-idp:AdminDisableProviderForUser",
+                "cognito-idp:SetUserPoolMfaConfig",
+                "cognito-idp:ChangePassword",
+                "cognito-idp:ConfirmDevice",
+                "cognito-idp:AdminResetUserPassword",
+                "cognito-idp:ResendConfirmationCode"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:cognito-idp:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":userpool/",
+                      {
+                        "Ref": "authGRMovementUserPoolId"
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }

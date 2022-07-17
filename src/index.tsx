@@ -20,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Routes>
       {/* <Route path="/form" element={<Form/>}></Route> */}
-      <Route path="/:stateParams" element={<NameWall  />}></Route>
+      <Route path="/:countryParams" element={<NameWall  />}></Route>
+      <Route path="/usa/:stateParams" element={<NameWall  />}></Route>
+      {/* <Route path="/:stateParams" element={<NameWall  />}></Route> */}
       <Route path="/" element={<NameWall  />}></Route>
     </Routes>
   </BrowserRouter>

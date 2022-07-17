@@ -1,21 +1,22 @@
-const FindPerson = ({personState, closeModal}) => {
-    const [searchPerson, setSearch] = personState;
+const FindPerson = ({searchablePeople, personState}) => {
+const [searchPerson, setSearch] = personState;
 
+let people = []
+Object.values(searchablePeople).map(peopleByState => people = [...people, ...peopleByState]);
 
     return (
-        <div>
-            <label  htmlFor="person-search">
+        <div className="personSearch">
+            <label  htmlFor="personSearch">
             Find Your Loved One
             </label>
             <input
                 type="text"
-                name="person-search"
+                name="personSearch"
                  className="search-input"
                  value={searchPerson}
                  placeholder="Name"
                  onChange={(e) => setSearch(e.target.value)}/>
 
-            <div className="btn" style={{margin: '1em auto 0'}} onClick={closeModal} >Close</div>
         </div>
     )
 }
