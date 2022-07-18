@@ -39,7 +39,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
     return (
         <div className={(menuOpen ? 'open' : '') + " menu"}>
-            <h2>Global Recovery Movement Memorial Wall</h2>
+            <h2>Drug Epidemic Memorial Wall</h2>
 
             <div className="add-btn" tabIndex={0} style={{margin: '2rem 0'}}>
                 <a href="https://drugepidemicmemorial.org/">Include Your Loved One +</a>
