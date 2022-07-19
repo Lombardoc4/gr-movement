@@ -3090,7 +3090,7 @@ export const data = [
       "firstName": "Dustin",
       "lastName": "Hatfield",
       "foreverAge": 31,
-      "state": "TN",
+      "state": "Tennessee",
       "imgUrl": ""
     },
     {
@@ -6405,6 +6405,13 @@ export const data = [
       "imgUrl": ""
     },
     {
+      "firstName": "Rylee",
+      "lastName": "Carpenter",
+      "foreverAge": 29,
+      "state": "Oklahoma",
+      "imgUrl": ""
+    },
+    {
       "firstName": "Haley",
       "lastName": "Scruggs",
       "foreverAge": 29,
@@ -9025,27 +9032,13 @@ export const data = [
     {
       "firstName": "Vincent",
       "lastName": "Frey",
-      "foreverAge": "",
-      "state": "",
-      "imgUrl": ""
-    },
-    {
-      "firstName": "test",
-      "lastName": "test",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "27",
+      "state": "Georgia",
       "imgUrl": ""
     },
     {
       "firstName": "Dylan",
       "lastName": "Krogh",
-      "foreverAge": "",
-      "state": "",
-      "imgUrl": ""
-    },
-    {
-      "firstName": "Test",
-      "lastName": "test",
       "foreverAge": "",
       "state": "",
       "imgUrl": ""
@@ -9123,15 +9116,15 @@ export const data = [
     {
       "firstName": "William",
       "lastName": "Leonard Jr.",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "24",
+      "state": "Wyoming",
       "imgUrl": ""
     },
     {
       "firstName": "Vincent",
       "lastName": "Mosco",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "31",
+      "state": "North Carolina",
       "imgUrl": ""
     },
     {
