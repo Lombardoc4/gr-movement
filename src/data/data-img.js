@@ -1267,7 +1267,7 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Brian had a tramatic brain injury on 1/4/14.. they gave him 6 hours to live. He was on life support for 6 weeks and survived. He was a30 year olds man with the mind of a12 year old. I was good caregiver.. Wanted friends so bad.. Got a hold of an old  frie",
+      "firstName": "Brian",
       "lastName": "Bowes",
       "foreverAge": 34,
       "state": "FL",
