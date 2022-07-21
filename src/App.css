@@ -139,3 +139,11 @@
     border-bottom: 1px solid #000000;
 
 }
+
+@media screen and (max-width:440px) {
+    .add-btn, .menu input{
+        padding: 1rem 2rem;
+        font-size: 16px;
+    }
+
+}

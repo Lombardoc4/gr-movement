@@ -14,6 +14,12 @@ import './App.css';
 
 import { importData } from './data/importData';
 
+// TODO:  Make a preloader
+// This will make sure names load and user isn't watching screen freak out
+
+// TODO: Either update search to show person in a dropdown
+// Todo: Or make sure appear on the button and show the names above
+
 
 const windowHeight = window.innerHeight;
 
@@ -205,13 +211,13 @@ function App() {
         <div className="main-app" style={{width: appWidth + 'vw'}}>
             <div className={"grid " +(menuOpen ? 'grid-slideRight' : '' )}>
                 {Object.keys(activeData).length > 0 &&  Object.keys(activeData).map(state => {
-                        if (state && state !== 'null') {
                             return (
                                 <React.Fragment key={state}>
                                     {/* State Title */}
+
                                     <div name={state} className='person-info state'>
                                         <h2 className='name'>
-                                            {state === "" ? 'Not Identified' : state} <span>:</span>
+                                            {(state === "" || state === 'null') ? 'Other' : state} <span>:</span>
                                         </h2>
                                     </div>
 
@@ -221,7 +227,6 @@ function App() {
                                     ))}
                                 </React.Fragment>
                             )
-                        }
                     })}
             </div>
 
