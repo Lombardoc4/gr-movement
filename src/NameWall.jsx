@@ -35,6 +35,9 @@ const getCountryInfo = (countryParams) => {
 }
 
 function App() {
+    // Preloader
+    const [preloader, togglePreloader] = useState(true);
+
     // URL Params
     const {stateParams, countryParams} = useParams();
 
@@ -212,6 +215,9 @@ function App() {
     // Resize window
     useEffect(() => {
         setWidth(100);
+
+        // Set loading true
+        togglePreloader(true);
     }, [country, state])
 
     // Manage width of window
@@ -225,6 +231,10 @@ function App() {
 
             if (windowHeight - 100 < position.bottom){
                 setWidth(appWidth + 200);
+            } else {
+                togglePreloader(false);
+
+                // Set loading false
             }
 
         }
@@ -265,10 +275,22 @@ function App() {
 
 
 
+    // if (preloader) {
+    //     return (
+    //         <div className="main-app" style={{width: appWidth + 'vw'}}>
+    //             <h1>Preloading</h1>
+    //         </div>
+    //     )
+    // }
 
 
     return (
         <div className="main-app" style={{width: appWidth + 'vw'}}>
+            { preloader && <div className='preloader'>
+                <div className='loader'></div>
+                <h1>Loading Names...</h1>
+            </div>}
+
             <div className={"grid " +(menuOpen ? 'grid-slideRight' : '' )}>
                 {Object.keys(activeData).length > 0 &&  Object.keys(activeData).map(state => {
                             return (
