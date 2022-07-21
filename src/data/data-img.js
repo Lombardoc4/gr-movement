@@ -9121,7 +9121,7 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Vincent",
+      "firstName": "Vincent Robert",
       "lastName": "Mosco",
       "foreverAge": "31",
       "state": "North Carolina",

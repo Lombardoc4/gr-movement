@@ -77,18 +77,25 @@ function App() {
 
     useEffect(() => {
         const {name} = getCountryInfo(country);
+        const query = country === 'usa' ? p => p.or( p => p.country('eq', name).country('eq', null)) : p => p.country('eq', name);
 
-        console.log(name)
-        const getData = async () => {
-            let models = [];
+
+        let models = [];
+        const subscription = DataStore.observeQuery(
+            Person,
+            query
+          ).subscribe(snapshot => {
+
+            const { items, isSynced } = snapshot;
+            console.log(`[Snapshot] item count: ${items.length}, isSynced: ${isSynced}`);
+
             if (country === 'usa'){
-                models = await DataStore.query(Person, p => p.or( p => p.country('eq', name).country('eq', null)));
 
                 // Include data from manual upload
-                models = [...models, ...data];
+                models = [...items, ...data];
             } else {
-                models = await DataStore.query(Person, p => p.or( p => p.country('eq', name)));
-                setActiveData({[name]:  models});
+                // models = await DataStore.query(Person, p => p.country('eq', name));
+                setActiveData({[name]:  items});
             }
 
             // Sort People Data by last name
@@ -123,9 +130,61 @@ function App() {
                 setPeople(models);
                 setActiveData({[name] : sortedPeople});
             }
-        };
+        });
 
-        getData();
+        // const getData = async () => {
+        //     models = await DataStore.query(Person, query);
+        //     if (country === 'usa'){
+
+        //         // Include data from manual upload
+        //         models = [...models, ...data];
+        //     } else {
+        //         // models = await DataStore.query(Person, p => p.country('eq', name));
+        //         setActiveData({[name]:  models});
+        //     }
+
+        //     // Sort People Data by last name
+        //     const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
+
+        //     // Set data
+        //     if (country === 'usa') {
+        //         // Group By State Listed
+        //         const groupByState = groupBy(sortedPeople, 'state');
+
+        //         // Group by states that populate the ui
+        //         states.map(({name, id}) => {
+        //             if (groupByState[name] && groupByState[id]){
+        //                 groupByState[name] = groupByState[name].concat(groupByState[id]);
+        //             }
+        //             delete groupByState[id]
+        //         })
+
+        //         // Sort states by name
+        //         const sortedStatesPeople = Object.keys(groupByState).sort().reduce(
+        //             (obj, key) => {
+        //                 obj[key] = groupByState[key];
+        //                 return obj;
+        //             }, {}
+        //         );
+
+
+        //         setActiveData(sortedStatesPeople);
+        //         setPeople(sortedStatesPeople)
+        //     } else {
+        //         // Available data
+        //         setPeople(models);
+        //         setActiveData({[name] : sortedPeople});
+        //     }
+        // };
+
+        // getData();
+
+        // Clean up function
+        return () => {
+            // unsubscribe from observer
+            subscription.unsubscribe();
+        }
+
 
     }, [country])
 
@@ -153,7 +212,7 @@ function App() {
     // Resize window
     useEffect(() => {
         setWidth(100);
-    }, [activeData])
+    }, [country, state])
 
     // Manage width of window
     useEffect(() => {
@@ -203,6 +262,7 @@ function App() {
             personEl.scrollIntoView({inline: "center"});
         }
     }, [searchPerson])
+
 
 
 
