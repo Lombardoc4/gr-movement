@@ -3090,7 +3090,7 @@ export const data = [
       "firstName": "Dustin",
       "lastName": "Hatfield",
       "foreverAge": 31,
-      "state": "Tennessee",
+      "state": "Florida",
       "imgUrl": ""
     },
     {
@@ -9244,6 +9244,13 @@ export const data = [
       "lastName": "Schiller",
       "foreverAge": "",
       "state": "",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Jason",
+      "lastName": "Schiller",
+      "foreverAge": "19",
+      "state": "Texas",
       "imgUrl": ""
     },
     {

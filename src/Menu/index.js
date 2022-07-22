@@ -42,7 +42,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
             <h2>Drug Epidemic Memorial Wall</h2>
 
             <div className="add-btn" tabIndex={0} style={{margin: '2rem 0'}}>
-                <a href="https://drugepidemicmemorial.org/">Include Your Loved One +</a>
+                <a href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
             </div>
 
             <FindPerson personState={personState} searchablePeople={searchablePeople}/>

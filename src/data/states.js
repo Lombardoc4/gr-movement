@@ -168,7 +168,7 @@ export const states = [
         "id": "SD"
     },
     {
-        "name": "Tenessee",
+        "name": "Tennessee",
         "id": "TN"
     },
     {
