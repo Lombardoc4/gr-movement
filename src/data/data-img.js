@@ -9242,13 +9242,6 @@ export const data = [
     {
       "firstName": "Jackson",
       "lastName": "Schiller",
-      "foreverAge": "",
-      "state": "",
-      "imgUrl": ""
-    },
-    {
-      "firstName": "Jason",
-      "lastName": "Schiller",
       "foreverAge": "19",
       "state": "Texas",
       "imgUrl": ""

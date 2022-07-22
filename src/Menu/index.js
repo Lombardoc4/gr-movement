@@ -26,6 +26,8 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
     useEffect(() => {
         // Only show states for usa
+        if (country !== 'usa') return;
+
 
         if (state === 'Nationwide') {
             navigate('/usa');

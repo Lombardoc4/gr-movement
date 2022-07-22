@@ -60,6 +60,8 @@ function App() {
     const [country, setCountry] = useState(countryParams || 'usa');
     const [state, setState] = useState(stateParams || 'Nationwide');
 
+    console.log('country Params', countryParams);
+    console.log('country', country);
 
     // Manual Data upload
     // !use cautiously
@@ -78,6 +80,8 @@ function App() {
     // //     importData.map(person => savePerson(person))
     // // }, [])
 
+    console.log(activeData);
+
     useEffect(() => {
         const {name} = getCountryInfo(country);
         const query = country === 'usa' ? p => p.or( p => p.country('eq', name).country('eq', null)) : p => p.country('eq', name);
@@ -90,19 +94,25 @@ function App() {
           ).subscribe(snapshot => {
 
             const { items, isSynced } = snapshot;
-            console.log(`[Snapshot] item count: ${items.length}, isSynced: ${isSynced}`);
+            // console.log(`[Snapshot] item count: ${items.length}, isSynced: ${isSynced}`);
 
+            console.log(items);
             if (country === 'usa'){
 
                 // Include data from manual upload
                 models = [...items, ...data];
             } else {
                 // models = await DataStore.query(Person, p => p.country('eq', name));
-                setActiveData({[name]:  items});
+                // setActiveData({[name]:  items});
+                models = [...items];
+
             }
+
 
             // Sort People Data by last name
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
+
+            console.log('sorted', sortedPeople);
 
             // Set data
             if (country === 'usa') {
