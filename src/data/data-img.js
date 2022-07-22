@@ -3090,7 +3090,7 @@ export const data = [
       "firstName": "Dustin",
       "lastName": "Hatfield",
       "foreverAge": 31,
-      "state": "Florida",
+      "state": "Tennessee",
       "imgUrl": ""
     },
     {
