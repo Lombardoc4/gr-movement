@@ -17,7 +17,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
 
     useEffect(() => {
-        if (country !== 'usa') {
+        if (['usa', 'can'].includes(country)) {
             setMenu(false);
         }
         navigate(`/${country.toLowerCase()}`)
@@ -26,18 +26,26 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
     useEffect(() => {
         // Only show states for usa
-        if (country !== 'usa') return;
+        if (!['usa', 'can'].includes(country)) return;
 
 
         if (state === 'Nationwide') {
-            navigate('/usa');
+            navigate('/' + country);
         } else {
-            navigate(`/usa/${state.toLowerCase()}`)
+            navigate(`/${country}/${state.toLowerCase()}`)
         }
         setMenu(false);
 
     }, [state]);
 
+
+    const getCountryInfo = (country) => {
+        if (country.length <= 3){
+            const {name} =countries.find(c => c.id === country)
+            return name;
+        }
+        return country
+    }
 
     return (
         <div className={(menuOpen ? 'open' : '') + " menu"}>
@@ -52,17 +60,17 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
             <Dropdown
                 id="country"
                 title='Select Your Country'
-                defaultValue={country}
+                defaultValue={getCountryInfo(country)}
                 options={countries}
                 selectAction={setCountry}
                 openDropdownState={[openDropdown, setOpenDropdown]}/>
 
-            {country.toUpperCase() === 'USA' &&
+            {['usa', 'can'].includes(country) &&
                 <Dropdown
                 id="state"
                 title='Select Your State'
                 defaultValue={state}
-                options={states}
+                options={states[country]}
                 selectAction={setState}
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />

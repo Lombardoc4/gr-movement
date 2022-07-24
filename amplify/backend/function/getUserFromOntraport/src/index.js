@@ -22,7 +22,6 @@ const query = /* GraphQL */ `
       state
       country
       imgUrl
-      createdAt
     }
   }
 `;
@@ -37,6 +36,10 @@ export const handler = async (event) => {
 
   if (!data.state && data.province){
     data.state = data.province;
+    delete data.province;
+  }
+  if (data.state) {
+    delete data.province;
   }
 
   let variables = { input: data };

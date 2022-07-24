@@ -1,4 +1,5 @@
-export const states = [
+export const states = {
+    'usa' : [
     {
         "name": "Nationwide",
         "id": ""
@@ -203,4 +204,51 @@ export const states = [
         "name": "Wyoming",
         "id": "WY"
     }
-];
+    ],
+    'can' : [
+        {
+            "name": "Nationwide",
+            "id": ""
+        },
+        {
+            "name": "Alberta",
+            "id": "AB"
+        },
+        {
+            "name": "British Columbia",
+            "id": "BC"
+        },
+        {
+            "name": "Manitoba",
+            "id": "MB"
+        },
+        {
+            "name": "New Brunswick",
+            "id": "NB"
+        },
+        {
+            "name": "Newfoundland and Labrador",
+            "id": "NL"
+        },
+        {
+            "name": "Nova Scotia",
+            "id": "NS"
+        },
+        {
+            "name": "Ontario",
+            "id": "ON"
+        },
+        {
+            "name": "Prince Edward Island",
+            "id": "PE"
+        },
+        {
+            "name": "Quebec",
+            "id": "QC"
+        },
+        {
+            "name": "Saskatchewan",
+            "id": "SK"
+        },
+    ]
+};

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { DataStore } from '@aws-amplify/datastore';
 import { Person } from './models';
 
@@ -12,7 +12,7 @@ import WallPerson from './WallPerson';
 import Menu from './Menu';
 import './App.css';
 
-import { importData } from './data/importData';
+// import { importData } from './data/importData';
 
 // TODO:  Make a preloader
 // This will make sure names load and user isn't watching screen freak out
@@ -25,8 +25,9 @@ const windowHeight = window.innerHeight;
 
 const groupBy = function(xs, key) {
     return xs.reduce(function(rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
+        const keyValue = x[key] === '' ? 'Other' : x[key];
+        (rv[keyValue] = rv[keyValue] || []).push(x);
+        return rv;
     }, {});
   };
 
@@ -40,6 +41,7 @@ function App() {
 
     // URL Params
     const {stateParams, countryParams} = useParams();
+    const location = useLocation();
 
     // All People Data
     const [people, setPeople] = useState([]);
@@ -57,11 +59,9 @@ function App() {
     const [menuOpen, toggleMenu] = useState(false);
 
     // Values for Dropdown
-    const [country, setCountry] = useState(countryParams || 'usa');
+    const [country, setCountry] = useState(countryParams || location.pathname.slice(1,4));
     const [state, setState] = useState(stateParams || 'Nationwide');
 
-    console.log('country Params', countryParams);
-    console.log('country', country);
 
     // Manual Data upload
     // !use cautiously
@@ -80,7 +80,7 @@ function App() {
     // //     importData.map(person => savePerson(person))
     // // }, [])
 
-    console.log(activeData);
+
 
     useEffect(() => {
         const {name} = getCountryInfo(country);
@@ -94,9 +94,7 @@ function App() {
           ).subscribe(snapshot => {
 
             const { items, isSynced } = snapshot;
-            // console.log(`[Snapshot] item count: ${items.length}, isSynced: ${isSynced}`);
 
-            console.log(items);
             if (country === 'usa'){
 
                 // Include data from manual upload
@@ -112,19 +110,20 @@ function App() {
             // Sort People Data by last name
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
 
-            console.log('sorted', sortedPeople);
 
             // Set data
-            if (country === 'usa') {
+            if (['usa', 'can'].includes(country)) {
                 // Group By State Listed
                 const groupByState = groupBy(sortedPeople, 'state');
 
+
                 // Group by states that populate the ui
-                states.map(({name, id}) => {
+                states[country].map(({name, id}) => {
                     if (groupByState[name] && groupByState[id]){
                         groupByState[name] = groupByState[name].concat(groupByState[id]);
                     }
                     delete groupByState[id]
+                    return name;
                 })
 
                 // Sort states by name
@@ -135,9 +134,9 @@ function App() {
                     }, {}
                 );
 
-
                 setActiveData(sortedStatesPeople);
                 setPeople(sortedStatesPeople)
+
             } else {
                 // Available data
                 setPeople(models);
@@ -145,52 +144,6 @@ function App() {
             }
         });
 
-        // const getData = async () => {
-        //     models = await DataStore.query(Person, query);
-        //     if (country === 'usa'){
-
-        //         // Include data from manual upload
-        //         models = [...models, ...data];
-        //     } else {
-        //         // models = await DataStore.query(Person, p => p.country('eq', name));
-        //         setActiveData({[name]:  models});
-        //     }
-
-        //     // Sort People Data by last name
-        //     const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
-
-        //     // Set data
-        //     if (country === 'usa') {
-        //         // Group By State Listed
-        //         const groupByState = groupBy(sortedPeople, 'state');
-
-        //         // Group by states that populate the ui
-        //         states.map(({name, id}) => {
-        //             if (groupByState[name] && groupByState[id]){
-        //                 groupByState[name] = groupByState[name].concat(groupByState[id]);
-        //             }
-        //             delete groupByState[id]
-        //         })
-
-        //         // Sort states by name
-        //         const sortedStatesPeople = Object.keys(groupByState).sort().reduce(
-        //             (obj, key) => {
-        //                 obj[key] = groupByState[key];
-        //                 return obj;
-        //             }, {}
-        //         );
-
-
-        //         setActiveData(sortedStatesPeople);
-        //         setPeople(sortedStatesPeople)
-        //     } else {
-        //         // Available data
-        //         setPeople(models);
-        //         setActiveData({[name] : sortedPeople});
-        //     }
-        // };
-
-        // getData();
 
         // Clean up function
         return () => {
@@ -203,10 +156,11 @@ function App() {
 
 
     useEffect(() => {
-        if (country !== 'usa') return;
+        if (!['usa', 'can'].includes(country)) return;
+
 
         // states[0] should be nationwide
-        const activeState = states.find(s => s.id === state.toUpperCase()) || states[0];
+        const activeState = states[country].find(s => s.id === state.toUpperCase()) || states[country][0];
         if (!activeState.id) {
             setActiveData(people);
             return;
@@ -217,7 +171,7 @@ function App() {
         setActiveData({[name]: peopleFromActiveState});
 
 
-    }, [state, people])
+    }, [state, people, country])
 
 
 
@@ -226,9 +180,16 @@ function App() {
     useEffect(() => {
         setWidth(100);
 
+
+    }, [activeData])
+
+    // Use Preloader
+    useEffect(() => {
+
         // Set loading true
         togglePreloader(true);
     }, [country, state])
+
 
     // Manage width of window
     useEffect(() => {
@@ -238,7 +199,6 @@ function App() {
         if (lastNode) {
 
             const position = lastNode.getBoundingClientRect();
-
             if (windowHeight - 100 < position.bottom){
                 setWidth(appWidth + 200);
             } else {
@@ -281,7 +241,7 @@ function App() {
             personEl.classList.add('found');
             personEl.scrollIntoView({inline: "center"});
         }
-    }, [searchPerson])
+    }, [searchPerson, activeData])
 
 
 
@@ -292,6 +252,7 @@ function App() {
     //         </div>
     //     )
     // }
+
 
 
     return (

@@ -9589,11 +9589,4 @@ export const data = [
       "state": "Florida",
       "imgUrl": ""
     },
-    {
-      "firstName": "Christian",
-      "lastName": "Wilson Sr",
-      "foreverAge": 19,
-      "state": "North Carolina",
-      "imgUrl": ""
-    }
   ];
