@@ -9553,7 +9553,7 @@ export const data = [
       "foreverAge": 36,
       "state": "",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound3914535024795981939.jpg"
-    }
+    },
     {
       "firstName": "Brandon",
       "lastName": "Dotson",
