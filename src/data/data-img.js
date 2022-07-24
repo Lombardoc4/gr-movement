@@ -9595,5 +9595,5 @@ export const data = [
       "foreverAge": 19,
       "state": "North Carolina",
       "imgUrl": ""
-    },
+    }
   ];
