@@ -18,7 +18,7 @@
       "function": {
         "getUserFromOntraport": {
           "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
-          "s3Key": "amplify-builds/getUserFromOntraport-574b486a6d5149474c6c-build.zip"
+          "s3Key": "amplify-builds/getUserFromOntraport-6c6f4f5a513330584c6c-build.zip"
         }
       }
     }

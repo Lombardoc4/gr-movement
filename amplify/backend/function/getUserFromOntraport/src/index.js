@@ -34,6 +34,11 @@ const query = /* GraphQL */ `
 export const handler = async (event) => {
 
   let data = JSON.parse(event.body)
+
+  if (!data.state && data.province){
+    data.state = data.province;
+  }
+
   let variables = { input: data };
 
   /** @type {import('node-fetch').RequestInit} */
