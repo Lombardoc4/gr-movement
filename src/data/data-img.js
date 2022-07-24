@@ -7714,7 +7714,7 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Jonathan ( JJ)",
+      "firstName": "Jonathan (JJ)",
       "lastName": "Smith Jr.",
       "foreverAge": 20,
       "state": "Tennessee",
@@ -9292,7 +9292,7 @@ export const data = [
       "firstName": "Jarod",
       "lastName": "Galloway",
       "foreverAge": 21,
-      "state": "Indiana",
+      "state": "",
       "imgUrl": ""
     },
     {
@@ -9580,6 +9580,20 @@ export const data = [
       "lastName": "Burgess",
       "foreverAge": 33,
       "state": "Indiana",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Barry (BJ)",
+      "lastName": "Ershen",
+      "foreverAge": 24,
+      "state": "Florida",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Christian",
+      "lastName": "Wilson Sr",
+      "foreverAge": 19,
+      "state": "North Carolina",
       "imgUrl": ""
     },
   ];
