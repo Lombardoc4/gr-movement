@@ -9058,10 +9058,17 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Cody Arbuckle , Chris Arbuckle",
+      "firstName": "Cody",
       "lastName": "Arbuckle",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "23",
+      "state": "Indiana",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Christopher",
+      "lastName": "Arbuckle",
+      "foreverAge": "30",
+      "state": "Indiana",
       "imgUrl": ""
     },
     {
@@ -9285,7 +9292,7 @@ export const data = [
       "firstName": "Jarod",
       "lastName": "Galloway",
       "foreverAge": 21,
-      "state": "",
+      "state": "Indiana",
       "imgUrl": ""
     },
     {
@@ -9473,8 +9480,8 @@ export const data = [
     {
       "firstName": "Amber",
       "lastName": "McGuire",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "34",
+      "state": "Indiana",
       "imgUrl": ""
     },
     {
@@ -9547,4 +9554,32 @@ export const data = [
       "state": "",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound3914535024795981939.jpg"
     }
+    {
+      "firstName": "Brandon",
+      "lastName": "Dotson",
+      "foreverAge": 36,
+      "state": "",
+      "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound3914535024795981939.jpg"
+    },
+    {
+      "firstName": "Jonathan",
+      "lastName": "Nager",
+      "foreverAge": 32,
+      "state": "Michigan",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Timothy",
+      "lastName": "Nager",
+      "foreverAge": 31,
+      "state": "Georgia",
+      "imgUrl": ""
+    },
+    {
+      "firstName": "Joshua 'JB'",
+      "lastName": "Burgess",
+      "foreverAge": 33,
+      "state": "Indiana",
+      "imgUrl": ""
+    },
   ];
