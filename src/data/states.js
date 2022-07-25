@@ -73,7 +73,7 @@ export const states = {
         "id": "KY"
     },
     {
-        "name": "Lousiana",
+        "name": "Louisiana",
         "id": "LA"
     },
     {

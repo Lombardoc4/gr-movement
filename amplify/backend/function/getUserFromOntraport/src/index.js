@@ -22,6 +22,10 @@ const query = /* GraphQL */ `
       state
       country
       imgUrl
+      createdAt
+      updatedAt
+      _version
+      _lastChangedAt
     }
   }
 `;
