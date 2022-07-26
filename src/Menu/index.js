@@ -68,7 +68,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
             {['usa', 'can'].includes(country) &&
                 <Dropdown
                 id="state"
-                title={'Select Your ' + country === 'usa' ? 'State' : 'Province'}
+                title={'Select Your State or Province'}
                 defaultValue={state}
                 options={states[country]}
                 selectAction={setState}
