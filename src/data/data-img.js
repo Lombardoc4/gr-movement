@@ -8652,13 +8652,6 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Alyssa",
-      "lastName": "Hagenbaugh",
-      "foreverAge": 25,
-      "state": "WI",
-      "imgUrl": ""
-    },
-    {
       "firstName": "Cade",
       "lastName": "Reddington",
       "foreverAge": 18,
@@ -9116,8 +9109,8 @@ export const data = [
     {
       "firstName": "Alyssa",
       "lastName": "Schmidt",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "19",
+      "state": "New Jersey",
       "imgUrl": ""
     },
     {
