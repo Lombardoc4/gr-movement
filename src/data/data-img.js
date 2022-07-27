@@ -9109,7 +9109,7 @@ export const data = [
     {
       "firstName": "Alyssa",
       "lastName": "Schmidt",
-      "foreverAge": "19",
+      "foreverAge": "20",
       "state": "New Jersey",
       "imgUrl": ""
     },
