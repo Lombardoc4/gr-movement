@@ -81,7 +81,6 @@ function App() {
     // // }, [])
 
 
-
     useEffect(() => {
         const {name} = getCountryInfo(country);
         const query = country === 'usa' ? p => p.or( p => p.country('eq', name).country('eq', null)) : p => p.country('eq', name);
@@ -134,6 +133,14 @@ function App() {
                     }, {}
                 );
 
+                // Print State List Totals
+                // console.log(
+                //     Object.keys(sortedStatesPeople).map(sortedState => {
+                //         return (`${sortedState}: ${sortedStatesPeople[sortedState].length}`);
+                //     })
+                // )
+
+
                 setActiveData(sortedStatesPeople);
                 setPeople(sortedStatesPeople)
 
@@ -179,7 +186,7 @@ function App() {
     // Resize window
     useEffect(() => {
         setWidth(100);
-
+        console.log('set width')
 
     }, [activeData])
 
@@ -244,7 +251,6 @@ function App() {
     }, [searchPerson, activeData])
 
 
-
     // if (preloader) {
     //     return (
     //         <div className="main-app" style={{width: appWidth + 'vw'}}>
@@ -257,10 +263,10 @@ function App() {
 
     return (
         <div className="main-app" style={{width: appWidth + 'vw'}}>
-            { preloader && <div className='preloader'>
+            <div className={'preloader ' + (preloader ? 'show' : '')}>
                 <div className='loader'></div>
                 <h1>Loading Names...</h1>
-            </div>}
+            </div>
 
             <div className={"grid " +(menuOpen ? 'grid-slideRight' : '' )}>
                 {Object.keys(activeData).length > 0 &&  Object.keys(activeData).map(state => {

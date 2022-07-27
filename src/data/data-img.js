@@ -9282,10 +9282,10 @@ export const data = [
       "imgUrl": ""
     },
     {
-      "firstName": "Jarod",
+      "firstName": "Jarod Alexander",
       "lastName": "Galloway",
       "foreverAge": 21,
-      "state": "",
+      "state": "Indiana",
       "imgUrl": ""
     },
     {

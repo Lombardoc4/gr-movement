@@ -29,6 +29,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
+
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+.preloader.show{
+    opacity: 1;
+    transition: opacity 0.6s;
 }
 
 .loader {
