@@ -17,9 +17,11 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
 
     useEffect(() => {
-        if (['usa', 'can'].includes(country)) {
+
+        if (!['usa', 'can'].includes(country)) {
             setMenu(false);
         }
+
         navigate(`/${country.toLowerCase()}`)
     }, [country]);
 

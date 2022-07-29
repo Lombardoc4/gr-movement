@@ -1,4 +1,8 @@
 export const countries = [
+    {
+        "name": "Worldwide",
+        "id": ""
+    },
   {
       "name": "United States",
       "id": "usa"

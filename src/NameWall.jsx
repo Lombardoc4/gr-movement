@@ -63,55 +63,53 @@ function App() {
     const [state, setState] = useState(stateParams || 'Nationwide');
 
 
-    // Manual Data upload
-    // !use cautiously
-    // // useEffect(() => {
-    // //     console.log('only happen once - data:', importData);
-
-    // //     const savePerson = async (person) => {
-
-    // //         const newPerson = await DataStore.save(
-    // //             new Person({...person, country: 'United States', foreverAge: person.foreverAge + ''})
-    // //         );
-
-    // //         console.log('new person', newPerson)
-    // //     }
-
-    // //     importData.map(person => savePerson(person))
-    // // }, [])
-
 
     useEffect(() => {
-        const {name} = getCountryInfo(country);
-        const query = country === 'usa' ? p => p.or( p => p.country('eq', name).country('eq', null)) : p => p.country('eq', name);
 
+        const {name} = getCountryInfo(country);
+
+        const query = {
+            "usa": p => p.or( p => p.country('eq', name).country('eq', null)),
+            "other":  p => p.country('eq', name),
+            "": p => p
+
+        }
 
         let models = [];
         const subscription = DataStore.observeQuery(
             Person,
-            query
+            query[country] || query['other']
           ).subscribe(snapshot => {
 
             const { items, isSynced } = snapshot;
 
-            if (country === 'usa'){
-
-                // Include data from manual upload
-                models = [...items, ...data];
-            } else {
-                // models = await DataStore.query(Person, p => p.country('eq', name));
-                // setActiveData({[name]:  items});
-                models = [...items];
-
-            }
+            // Use manual data for USA and Worldwide.
+            models = ['', 'usa'].includes(country) ? [...items, ...data] : [...items];
 
 
             // Sort People Data by last name
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
 
-
             // Set data
-            if (['usa', 'can'].includes(country)) {
+            if (name === 'Worldwide') {
+                const groupByCountry = groupBy(sortedPeople, 'country');
+
+                groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
+                delete groupByCountry['null'];
+
+
+                const sortedCountryPeople = Object.keys(groupByCountry).sort().reduce(
+                    (obj, key) => {
+                        obj[key] = groupByCountry[key];
+                        return obj;
+                    }, {}
+                );
+
+                setActiveData(sortedCountryPeople);
+                setPeople(sortedCountryPeople);
+
+
+            } else if (['usa', 'can'].includes(country)) {
                 // Group By State Listed
                 const groupByState = groupBy(sortedPeople, 'state');
 
@@ -138,6 +136,14 @@ function App() {
                 //     Object.keys(sortedStatesPeople).map(sortedState => {
                 //         return (`${sortedState}: ${sortedStatesPeople[sortedState].length}`);
                 //     })
+                // )
+
+                // Print People From A Certain State
+                // const printPeopleState = 'New Jersey';
+                // console.log(
+                //     sortedStatesPeople[printPeopleState].map( p =>
+                //         `${p.firstName} ${p.lastName}, ${p.foreverAge}`
+                //     )
                 // )
 
 
@@ -179,7 +185,6 @@ function App() {
 
 
     }, [state, people, country])
-
 
 
 
@@ -249,16 +254,6 @@ function App() {
             personEl.scrollIntoView({inline: "center"});
         }
     }, [searchPerson, activeData])
-
-
-    // if (preloader) {
-    //     return (
-    //         <div className="main-app" style={{width: appWidth + 'vw'}}>
-    //             <h1>Preloading</h1>
-    //         </div>
-    //     )
-    // }
-
 
 
     return (
