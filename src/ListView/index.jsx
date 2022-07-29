@@ -1,6 +1,6 @@
 
 
-import './index.css';
+import './index.scss';
 
 import { DataStore } from '@aws-amplify/datastore';
 import { Person } from '../models';
@@ -103,13 +103,12 @@ const ListView = () => {
     }, []);
 
 
-    console.log('worldwide', worldwide)
 
 
 
 
     return (
-        <main>
+        <main class="byTheNumbers">
             <h1>Drup Epidemic Memorial</h1>
             <h2>By The Numbers</h2>
 
