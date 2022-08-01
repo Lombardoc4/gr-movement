@@ -7,6 +7,7 @@ import { countries } from '../data/countries';
 import { states } from '../data/states';
 import './index.css'
 import FindPerson from '../FindPerson';
+import useAnalyticsEventTracker from '../useAnalyticsEvent';
 
 const Menu = ({menuState, countryState, stateState, personState, searchablePeople}) => {
     const [menuOpen, setMenu] = menuState;
@@ -14,7 +15,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
     const [state, setState] = stateState;
     const [openDropdown, setOpenDropdown] = useState(null);
     const navigate = useNavigate();
-
+    const gaEventTracker = useAnalyticsEventTracker('Menu');
 
     useEffect(() => {
 
@@ -53,9 +54,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
         <div className={(menuOpen ? 'open' : '') + " menu"}>
             <h2>Drug Epidemic Memorial Wall</h2>
 
-            <div className="add-btn" tabIndex={0} style={{margin: '2rem 0'}}>
-                <a href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
-            </div>
+            <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
 
             <FindPerson personState={personState} searchablePeople={searchablePeople}/>
 

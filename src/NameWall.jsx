@@ -191,7 +191,7 @@ function App() {
     // Resize window
     useEffect(() => {
         setWidth(100);
-        console.log('set width')
+        // console.log('set width')
 
     }, [activeData])
 

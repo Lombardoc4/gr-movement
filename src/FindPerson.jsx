@@ -1,8 +1,13 @@
-const FindPerson = ({searchablePeople, personState}) => {
-const [searchPerson, setSearch] = personState;
+import useAnalyticsEventTracker from "./useAnalyticsEvent";
 
-let people = []
-Object.values(searchablePeople).map(peopleByState => people = [...people, ...peopleByState]);
+
+const FindPerson = ({searchablePeople, personState}) => {
+    const [searchPerson, setSearch] = personState;
+
+    const gaEventTracker = useAnalyticsEventTracker('Menu');
+
+    let people = []
+    Object.values(searchablePeople).map(peopleByState => people = [...people, ...peopleByState]);
 
     return (
         <div className="personSearch">
@@ -12,10 +17,11 @@ Object.values(searchablePeople).map(peopleByState => people = [...people, ...peo
             <input
                 type="text"
                 name="personSearch"
-                 className="search-input"
-                 value={searchPerson}
-                 placeholder="Name"
-                 onChange={(e) => setSearch(e.target.value)}/>
+                className="search-input"
+                onFocus={() => gaEventTracker('button click', 'find person')}
+                value={searchPerson}
+                placeholder="Name"
+                onChange={(e) => setSearch(e.target.value)}/>
 
         </div>
     )

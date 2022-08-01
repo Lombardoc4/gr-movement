@@ -24,7 +24,7 @@ const ListView = () => {
 
 
     useEffect(() => {
-
+        console.log('effect');
 
         // Get All Data
         const subscription = DataStore.observeQuery(
@@ -34,17 +34,29 @@ const ListView = () => {
             const { items } = snapshot;
             const people =  [...items, ...data];
 
-            // Sort People by last name
-            // const sortedPeople = people.sort((a, b) => a.lastName.localeCompare(b.lastName));
-
 
             // group by Country
             const groupByCountry = groupBy(people, 'country');
             groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
             delete groupByCountry['null'];
 
+            groupByCountry['Tea'] = ['A', 'B']
+
             // Sort Countries Alphabetically
-            const sortedCountry = Object.keys(groupByCountry).sort().reduce(
+            const sortedCountry = Object.keys(groupByCountry).sort(
+                (first, second) => {
+                    // Make sure USA if first followed by Canada
+                    if (first === 'Canada'  && second === 'United States') {
+                        return 1
+                    }
+                    else if (first === 'United States') {
+                        return -1
+                    }
+                    else if (first === 'Canada'){
+                        return -1
+                    }
+                }
+            ).reduce(
                 (obj, key) => {
                     obj[key] = groupByCountry[key];
                     return obj;
@@ -108,18 +120,18 @@ const ListView = () => {
 
 
     return (
-        <main class="byTheNumbers">
+        <main className="byTheNumbers">
             <h1>Drup Epidemic Memorial</h1>
             <h2>By The Numbers</h2>
 
-            <div class="accordian-container">
+            <div className="accordian-container">
                 <div className="accordian">
 
                     <h3>Worldwide</h3>
                     <p className='totals'>Total:{Object.values(worldwide).reduce((total, state) => state.length + total, 0)} </p>
 
                     {Object.keys(worldwide).map(country => (
-                        <div className='accordian-item'>
+                        <div key={country} className='accordian-item'>
                             <p className="country-name">{country}:</p> {worldwide[country].length}
                         </div>
                     ))}
@@ -128,7 +140,7 @@ const ListView = () => {
                     <h3>United States</h3>
                     <p className='totals'>Total:{Object.values(unitedStates).reduce((total, state) => state.length + total, 0)} </p>
                     {Object.keys(unitedStates).map(state => (
-                        <div className='accordian-item'>
+                        <div  key={state}  className='accordian-item'>
                             <p className="country-name">{state}:</p> {unitedStates[state].length}
                         </div>
                     ))}
@@ -137,9 +149,9 @@ const ListView = () => {
                     <h3>Canada</h3>
                     <p className='totals'>Total:{Object.values(canada).reduce((total, state) => state.length + total, 0)} </p>
 
-                    {Object.keys(canada).map(state => (
-                        <div className='accordian-item'>
-                            <p className="country-name">{state}:</p> {canada[state].length}
+                    {Object.keys(canada).map(province => (
+                        <div key={province} className='accordian-item'>
+                            <p className="country-name">{province}:</p> {canada[province].length}
                         </div>
                     ))}
                 </div>

@@ -125,6 +125,8 @@
     color: #323232;
     cursor: pointer;
     margin-bottom: 1rem;
+    display: block;
+    text-decoration: none;
 }
 
 .add-btn:hover{
