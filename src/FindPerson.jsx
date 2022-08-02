@@ -18,7 +18,7 @@ const FindPerson = ({searchablePeople, personState}) => {
                 type="text"
                 name="personSearch"
                 className="search-input"
-                onFocus={() => gaEventTracker('button click', 'find person')}
+                onFocus={() => gaEventTracker('click', 'find person')}
                 value={searchPerson}
                 placeholder="Name"
                 onChange={(e) => setSearch(e.target.value)}/>
