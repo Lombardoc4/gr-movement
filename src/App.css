@@ -224,9 +224,9 @@
 .person-info .name span{ font-size: 48px; line-height: 1;}
 
 .personSearch {
-    position: absolute;
+    /* position: absolute;
     bottom: 0;
-    top: calc(100vh - 10rem);
+    top: calc(100vh - 10rem); */
 }
 
 .personSearch input{
