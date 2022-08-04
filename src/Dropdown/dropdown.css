@@ -3,7 +3,7 @@
     margin-bottom: 1rem;
 }
 
-.dropdown-container .input{
+.dropdown-container input{
     font-family: 'Cormorant Garamond', sans-serif;
     font-size: 18px;
     font-weight: 700;
@@ -11,6 +11,7 @@
     margin-top: 0.25rem;
     padding: 1rem 2rem;
     border: 1px solid #535353;
+    outline: none;
 }
 
 .dropdown{
@@ -28,6 +29,7 @@
 
 
 .dropdown-option{
+    text-transform: capitalize;
     padding: 1rem 2rem;
     font-size: 18px;
     width: 100%;

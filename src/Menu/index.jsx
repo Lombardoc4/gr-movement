@@ -9,7 +9,7 @@ import './index.css'
 import FindPerson from '../FindPerson';
 import useAnalyticsEventTracker from '../useAnalyticsEvent';
 
-const Menu = ({menuState, countryState, stateState, personState, searchablePeople}) => {
+const Menu = ({menuState, countryState, stateState, personState, allPeople}) => {
     const [menuOpen, setMenu] = menuState;
     const [country, setCountry] = countryState;
     const [state, setState] = stateState;
@@ -56,7 +56,13 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
 
             <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
 
-            <FindPerson personState={personState} searchablePeople={searchablePeople}/>
+            <FindPerson
+                personState={personState}
+                allPeople={allPeople}
+                closeMenu={() => setMenu(false)}
+                openDropdownState={[openDropdown, setOpenDropdown]}
+            />
+
 
             <Dropdown
                 id="country"
@@ -64,7 +70,8 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
                 defaultValue={getCountryInfo(country)}
                 options={countries}
                 selectAction={setCountry}
-                openDropdownState={[openDropdown, setOpenDropdown]}/>
+                openDropdownState={[openDropdown, setOpenDropdown]}
+                readOnly={true}/>
 
             {['usa', 'can'].includes(country) &&
                 <Dropdown
@@ -74,6 +81,7 @@ const Menu = ({menuState, countryState, stateState, personState, searchablePeopl
                 options={states[country]}
                 selectAction={setState}
                 openDropdownState={[openDropdown, setOpenDropdown]}
+                readOnly={true}
                 />
             }
         </div>

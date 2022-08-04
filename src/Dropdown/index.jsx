@@ -36,7 +36,7 @@ const Dropdown = ({id, title, options, defaultValue, selectAction, openDropdownS
         <>
         <label onClick={toggleOptions} htmlFor={dropdownName}>{title}</label>
         <div className="dropdown-container">
-            <div class="input" onClick={toggleOptions}>{value}</div>
+            <input onClick={toggleOptions} name={dropdownName} value={value} type="select" readOnly/>
 
             {/* Options Containers */}
             {openDropdown === id &&
@@ -49,6 +49,9 @@ const Dropdown = ({id, title, options, defaultValue, selectAction, openDropdownS
                     })}
                 </div>
             }
+
+
+
 
         </div>
         </>

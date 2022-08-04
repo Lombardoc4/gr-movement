@@ -24,7 +24,6 @@ const ListView = () => {
 
 
     useEffect(() => {
-        console.log('effect');
 
         // Get All Data
         const subscription = DataStore.observeQuery(

@@ -49,9 +49,6 @@ function App() {
     // People on Wall
     const [activeData, setActiveData] = useState({});
 
-    // Search values
-    const [searchPerson, setSearch] = useState('');
-
     // Wall width
     const [appWidth, setWidth] = useState(0)
 
@@ -91,7 +88,6 @@ function App() {
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
 
 
-            console.log('set data', country)
 
             // Set data
             if (name === 'Worldwide') {
@@ -166,8 +162,13 @@ function App() {
 
     }, [country])
 
+    useEffect(() => {
+        setWidth(100)
+    }, [state])
+
 
     useEffect(() => {
+
         if (!['usa', 'can'].includes(country)) return;
 
 
@@ -188,12 +189,6 @@ function App() {
 
 
 
-    // Resize window
-    // useEffect(() => {
-    //     setWidth(100);
-    //     console.log('set width')
-    // }, [activeData])
-
     // Use Preloader
     useEffect(() => {
 
@@ -204,14 +199,13 @@ function App() {
 
     // Manage width of window
     useEffect(() => {
-        console.log('adjust')
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
+
 
         if (lastNode) {
 
             const addedDistance = window.innerWidth <= 440 ? 500 : 200
-            console.log('adjust width' + addedDistance, appWidth)
             const position = lastNode.getBoundingClientRect();
             if (windowHeight - 100 < position.bottom){
                 setWidth(appWidth + addedDistance);
@@ -224,38 +218,6 @@ function App() {
         }
     }, [appWidth, stateParams])
 
-
-    // Search Effect
-    useEffect(() => {
-        if (searchPerson) {
-            const previousPerson = document.querySelector(`.person-info.found`);
-            if (previousPerson) {
-                previousPerson.classList.remove('found')
-            }
-
-            let searchablePeople = []
-            Object.values(activeData).map(peopleByState => searchablePeople = [...searchablePeople, ...peopleByState]);
-
-            const foundPerson = searchablePeople.find(person => {
-                if (!person || !person.firstName || !person.lastName) {
-                    return false;
-                }
-
-                const name = person.firstName + ' ' + person.lastName;
-                return name.substring(0, searchPerson.length).toLowerCase() === searchPerson.toLowerCase();
-            });
-
-
-            if (!foundPerson) {
-                return;
-            }
-
-            const name = foundPerson.firstName + ' ' + foundPerson.lastName;
-            const personEl = document.querySelector(`[name='${name}']`);
-            personEl.classList.add('found');
-            personEl.scrollIntoView({inline: "center"});
-        }
-    }, [searchPerson, activeData])
 
 
     return (
@@ -286,13 +248,13 @@ function App() {
                     })}
             </div>
 
-
+            {!preloader &&
+            <>
             <Menu
-                menuState={[menuOpen, toggleMenu]}
-                countryState={[country, setCountry]}
-                stateState={[state, setState]}
-                personState={[searchPerson, setSearch]}
-                searchablePeople={activeData}/>
+            menuState={[menuOpen, toggleMenu]}
+            countryState={[country, setCountry]}
+            stateState={[state, setState]}
+            allPeople={Object.values(activeData).reduce((arr1, arr2) => [...arr1, ...arr2], [])}/>
 
 
 
@@ -302,6 +264,8 @@ function App() {
                     Menu
                 </div>
             </div>
+            </>
+            }
 
         </div>
     );

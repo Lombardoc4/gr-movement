@@ -121,7 +121,7 @@
     border: 1px solid #323232;
     color: #323232;
     cursor: pointer;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     display: block;
     text-decoration: none;
 }
@@ -154,15 +154,6 @@
 .selector > *{
     padding: 0 0.3rem;
 }
-
-.search-input{
-    width: 100%;
-    border: 1px solid #afafaf;
-    outline: none;
-
-}
-
-
 
 .grid{
     max-height: 100vh;
@@ -223,13 +214,10 @@
 .person-info .name{ text-transform: uppercase; }
 .person-info .name span{ font-size: 48px; line-height: 1;}
 
-.personSearch {
-    /* position: absolute;
-    bottom: 0;
-    top: calc(100vh - 10rem); */
-}
 
-.personSearch input{
+.menu .search-input{
+    width: 100%;
+    outline: none;
     background-color: #ffffff;
     border: none;
     border-bottom: 1px solid #000000;

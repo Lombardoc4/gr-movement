@@ -712,14 +712,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Keith",
-      "lastName": "Hughes",
-      "foreverAge": 25,
-      "state": "California",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Angelita",
       "lastName": "Acosta",
       "foreverAge": 48,
@@ -1027,14 +1019,6 @@ export const data = [
       "firstName": "Christopher Adriel",
       "lastName": "Felix",
       "foreverAge": 38,
-      "state": "California",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Keith",
-      "lastName": "Hughes",
-      "foreverAge": 25,
       "state": "California",
       "country": "United States",
 "imgUrl": ""
@@ -1647,14 +1631,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Jackob",
-      "lastName": "Toole",
-      "foreverAge": 39,
-      "state": "Florida",
-      "country": "United States",
-"imgUrl": ""
-    },
+//     {
+//       "firstName": "Jackob",
+//       "lastName": "Toole",
+//       "foreverAge": 39,
+//       "state": "Florida",
+//       "country": "United States",
+// "imgUrl": ""
+//     },
     {
       "firstName": "Jacob \"Jake",
       "lastName": "VanBroeck",
@@ -1695,14 +1679,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Sonya",
-      "lastName": "Quarrier",
-      "foreverAge": 37,
-      "state": "Florida",
-      "country": "United States",
-"imgUrl": ""
-    },
+//     {
+//       "firstName": "Sonya",
+//       "lastName": "Quarrier",
+//       "foreverAge": 37,
+//       "state": "Florida",
+//       "country": "United States",
+// "imgUrl": ""
+//     },
     {
       "firstName": "Ryan",
       "lastName": "Bell",
@@ -2087,14 +2071,14 @@ export const data = [
       "country": "United States",
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//3DF53C13-E262-483F-AB19-3871FB3D9AE3.png"
     },
-    {
-      "firstName": "John",
-      "lastName": "Rubino",
-      "foreverAge": 25,
-      "state": "Florida",
-      "country": "United States",
-"imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound1997289467356523232.jpg"
-    },
+//     {
+//       "firstName": "John",
+//       "lastName": "Rubino",
+//       "foreverAge": 25,
+//       "state": "Florida",
+//       "country": "United States",
+// "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound1997289467356523232.jpg"
+//     },
     {
       "firstName": "Corey",
       "lastName": "Long",
@@ -2132,14 +2116,6 @@ export const data = [
       "lastName": "Spence",
       "foreverAge": 22,
       "state": "PA",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Christopher",
-      "lastName": "Guillot",
-      "foreverAge": 27,
-      "state": "MD",
       "country": "United States",
 "imgUrl": ""
     },
@@ -2576,14 +2552,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Michael",
-      "lastName": "Astorino",
-      "foreverAge": 31,
-      "state": "Illinois",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Patrick",
       "lastName": "Haiman",
       "foreverAge": 28,
@@ -2739,14 +2707,6 @@ export const data = [
       "firstName": "Alex",
       "lastName": "Stambaugh",
       "foreverAge": 27,
-      "state": "Illinois",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Jena",
-      "lastName": "Tucker",
-      "foreverAge": 24,
       "state": "Illinois",
       "country": "United States",
 "imgUrl": ""
@@ -3075,14 +3035,6 @@ export const data = [
       "firstName": "Dale A",
       "lastName": "Smith 111",
       "foreverAge": 21,
-      "state": "Indiana",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Devin",
-      "lastName": "Rivers",
-      "foreverAge": 25,
       "state": "Indiana",
       "country": "United States",
 "imgUrl": ""
@@ -4295,14 +4247,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Christopher",
-      "lastName": "Guillot",
-      "foreverAge": 27,
-      "state": "Maryland",
-      "country": "United States",
-"imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//DEA4CCE9-0D8A-4AB9-8512-712C386ABA98.jpeg"
-    },
+//     {
+//       "firstName": "Christopher",
+//       "lastName": "Guillot",
+//       "foreverAge": 27,
+//       "state": "Maryland",
+//       "country": "United States",
+// "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//DEA4CCE9-0D8A-4AB9-8512-712C386ABA98.jpeg"
+//     },
     {
       "firstName": "Madeline",
       "lastName": "Presti",
@@ -4896,14 +4848,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Travis",
-      "lastName": "Gustavson",
-      "foreverAge": 21,
-      "state": "Minnesota",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Joseph",
       "lastName": "Brooks",
       "foreverAge": 33,
@@ -4919,14 +4863,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Travis",
-      "lastName": "Gustavson",
-      "foreverAge": 21,
-      "state": "Minnesota",
-      "country": "United States",
-"imgUrl": ""
-    },
+//     {
+//       "firstName": "Travis",
+//       "lastName": "Gustavson",
+//       "foreverAge": 21,
+//       "state": "Minnesota",
+//       "country": "United States",
+// "imgUrl": ""
+//     },
     {
       "firstName": "Nicholas",
       "lastName": "Loberg",
@@ -5200,14 +5144,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Leona",
-      "lastName": "Swinney",
-      "foreverAge": 21,
-      "state": "Missouri",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Jeffrey",
       "lastName": "Hilborn",
       "foreverAge": 29,
@@ -5215,14 +5151,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Jason",
-      "lastName": "Bouxsein",
-      "foreverAge": 45,
-      "state": "Missouri",
-      "country": "United States",
-"imgUrl": ""
-    },
+//     {
+//       "firstName": "Jason",
+//       "lastName": "Bouxsein",
+//       "foreverAge": 45,
+//       "state": "Missouri",
+//       "country": "United States",
+// "imgUrl": ""
+//     },
     {
       "firstName": "Linzel Leroy",
       "lastName": "Spicer",
@@ -5447,14 +5383,14 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Taylor",
-      "lastName": "Gray",
-      "foreverAge": 27,
-      "state": "Nebraska",
-      "country": "United States",
-"imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//C034EA1A-B7B0-49BC-99E8-235DD1253646.png"
-    },
+//     {
+//       "firstName": "Taylor",
+//       "lastName": "Gray",
+//       "foreverAge": 27,
+//       "state": "Nebraska",
+//       "country": "United States",
+// "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//C034EA1A-B7B0-49BC-99E8-235DD1253646.png"
+//     },
     {
       "firstName": "Abigail (Pinks)",
       "lastName": "White",
@@ -5763,14 +5699,6 @@ export const data = [
       "firstName": "Season “CeCe”",
       "lastName": "Frost",
       "foreverAge": 29,
-      "state": "New Mexico",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Amanda",
-      "lastName": "Harris",
-      "foreverAge": 28,
       "state": "New Mexico",
       "country": "United States",
 "imgUrl": ""
@@ -6632,14 +6560,6 @@ export const data = [
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//Screenshot_20220425-173235_Gallery.jpg"
     },
     {
-      "firstName": "Dakota",
-      "lastName": "Strickland",
-      "foreverAge": 22,
-      "state": "North Carolina",
-      "country": "United States",
-"imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//1B585563-0A8B-45E3-8B86-5E0F30619F9D.jpeg"
-    },
-    {
       "firstName": "Kendall",
       "lastName": "Eagle",
       "foreverAge": 28,
@@ -6676,14 +6596,6 @@ export const data = [
       "lastName": "McDonald",
       "foreverAge": 30,
       "state": "North Carolina",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Carter",
-      "lastName": "Jamie",
-      "foreverAge": 22,
-      "state": "NY",
       "country": "United States",
 "imgUrl": ""
     },
@@ -8312,14 +8224,6 @@ export const data = [
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//57044084-43F8-47CF-B0F3-51BF2742479B.png"
     },
     {
-      "firstName": "Timothy(Tj)",
-      "lastName": "Green",
-      "foreverAge": 34,
-      "state": "Pennsylvania",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Kalley",
       "lastName": "Abrahamson-Groeschl",
       "foreverAge": 24,
@@ -8344,14 +8248,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Robert",
-      "lastName": "Wenzel",
-      "foreverAge": 30,
-      "state": "PA",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Darren",
       "lastName": "Lucas",
       "foreverAge": 26,
@@ -8364,14 +8260,6 @@ export const data = [
       "lastName": "Aponte",
       "foreverAge": 24,
       "state": "AZ",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Timothy (Tj)",
-      "lastName": "Green",
-      "foreverAge": 34,
-      "state": "PA",
       "country": "United States",
 "imgUrl": ""
     },
@@ -8451,14 +8339,6 @@ export const data = [
       "firstName": "Brittney",
       "lastName": "Fisher",
       "foreverAge": 24,
-      "state": "SC",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Kelsie",
-      "lastName": "Hix",
-      "foreverAge": 23,
       "state": "SC",
       "country": "United States",
 "imgUrl": ""
@@ -9008,14 +8888,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Tyler",
-      "lastName": "Mitchell",
-      "foreverAge": 29,
-      "state": "Texas",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Lucy",
       "lastName": "Schaefer -Croston",
       "foreverAge": 20,
@@ -9139,14 +9011,6 @@ export const data = [
       "firstName": "Valentine",
       "lastName": "Velasquez",
       "foreverAge": 32,
-      "state": "Texas",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Brianna",
-      "lastName": "Green",
-      "foreverAge": 19,
       "state": "Texas",
       "country": "United States",
 "imgUrl": ""
@@ -9288,25 +9152,9 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Andron",
-      "lastName": "Petteway II",
-      "foreverAge": 17,
-      "state": "Texas",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Nicole (Nikki)",
       "lastName": "Willens",
       "foreverAge": 25,
-      "state": "TX",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Seth",
-      "lastName": "Eckman",
-      "foreverAge": 21,
       "state": "TX",
       "country": "United States",
 "imgUrl": ""
@@ -9364,14 +9212,6 @@ export const data = [
       "lastName": "Perkins",
       "foreverAge": 38,
       "state": "VA",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Sean",
-      "lastName": "Blake",
-      "foreverAge": 27,
-      "state": "Vermont",
       "country": "United States",
 "imgUrl": ""
     },
@@ -9776,14 +9616,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Kayla",
-      "lastName": "Lemmon",
-      "foreverAge": 32,
-      "state": "Washington",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "La’Chae",
       "lastName": "Wilson",
       "foreverAge": 26,
@@ -9870,14 +9702,6 @@ export const data = [
       "state": "West Virginia",
       "country": "United States",
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//725C3467-A79F-41DF-8097-FB721A28310E.jpeg"
-    },
-    {
-      "firstName": "Keen",
-      "lastName": "Frisk",
-      "foreverAge": 23,
-      "state": "VA",
-      "country": "United States",
-"imgUrl": ""
     },
     {
       "firstName": "Tyler",
@@ -10264,34 +10088,10 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Olivia",
-      "lastName": "Green",
-      "foreverAge": 15,
-      "state": "NY",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Jace",
       "lastName": "Hardwick",
       "foreverAge": 19,
       "state": "FL",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Chase",
-      "lastName": "Wilson",
-      "foreverAge": "",
-      "state": "",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Desiree",
-      "lastName": "Harsher",
-      "foreverAge": 36,
-      "state": "",
       "country": "United States",
 "imgUrl": ""
     },
@@ -10576,14 +10376,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Michael",
-      "lastName": "Villanueva",
-      "foreverAge": "",
-      "state": "",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Austin",
       "lastName": "Springer",
       "foreverAge": 24,
@@ -10768,14 +10560,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Kale",
-      "lastName": "Pylant",
-      "foreverAge": 24,
-      "state": "",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Tristain",
       "lastName": "Christophersen",
       "foreverAge": "",
@@ -10848,14 +10632,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Logan",
-      "lastName": "Rachwal",
-      "foreverAge": "",
-      "state": "",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Romello",
       "lastName": "Marchman",
       "foreverAge": 22,
@@ -10912,26 +10688,10 @@ export const data = [
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound3914535024795981939.jpg"
     },
     {
-      "firstName": "Brandon",
-      "lastName": "Dotson",
-      "foreverAge": 36,
-      "state": "",
-      "country": "United States",
-"imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound3914535024795981939.jpg"
-    },
-    {
       "firstName": "Jonathan",
       "lastName": "Nager",
       "foreverAge": 32,
       "state": "Michigan",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Timothy",
-      "lastName": "Nager",
-      "foreverAge": 31,
-      "state": "Georgia",
       "country": "United States",
 "imgUrl": ""
     },
