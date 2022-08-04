@@ -53,7 +53,7 @@ function App() {
     const [searchPerson, setSearch] = useState('');
 
     // Wall width
-    const [appWidth, setWidth] = useState(100)
+    const [appWidth, setWidth] = useState(0)
 
     // Menu Status
     const [menuOpen, toggleMenu] = useState(false);
@@ -89,6 +89,9 @@ function App() {
 
             // Sort People Data by last name
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
+
+
+            console.log('set data', country)
 
             // Set data
             if (name === 'Worldwide') {
@@ -131,12 +134,6 @@ function App() {
                     }, {}
                 );
 
-                // Print State List Totals
-                // console.log(
-                //     Object.keys(sortedStatesPeople).map(sortedState => {
-                //         return (`${sortedState}: ${sortedStatesPeople[sortedState].length}`);
-                //     })
-                // )
 
                 // Print People From A Certain State
                 // const printPeopleState = 'New Jersey';
@@ -155,6 +152,8 @@ function App() {
                 setPeople(models);
                 setActiveData({[name] : sortedPeople});
             }
+
+            setWidth(100);
         });
 
 
@@ -184,16 +183,16 @@ function App() {
         setActiveData({[name]: peopleFromActiveState});
 
 
+
     }, [state, people, country])
 
 
 
     // Resize window
-    useEffect(() => {
-        setWidth(100);
-        // console.log('set width')
-
-    }, [activeData])
+    // useEffect(() => {
+    //     setWidth(100);
+    //     console.log('set width')
+    // }, [activeData])
 
     // Use Preloader
     useEffect(() => {
@@ -205,14 +204,17 @@ function App() {
 
     // Manage width of window
     useEffect(() => {
+        console.log('adjust')
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
 
         if (lastNode) {
 
+            const addedDistance = window.innerWidth <= 440 ? 500 : 200
+            console.log('adjust width' + addedDistance, appWidth)
             const position = lastNode.getBoundingClientRect();
             if (windowHeight - 100 < position.bottom){
-                setWidth(appWidth + 200);
+                setWidth(appWidth + addedDistance);
             } else {
                 togglePreloader(false);
 
@@ -220,7 +222,7 @@ function App() {
             }
 
         }
-    }, [people, appWidth, stateParams])
+    }, [appWidth, stateParams])
 
 
     // Search Effect

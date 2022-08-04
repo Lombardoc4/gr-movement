@@ -11,7 +11,7 @@ const FindPerson = ({searchablePeople, personState}) => {
 
     return (
         <div className="personSearch">
-            <label  htmlFor="personSearch">
+            <label htmlFor="personSearch">
             Find Your Loved One
             </label>
             <input

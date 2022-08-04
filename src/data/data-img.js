@@ -10945,7 +10945,7 @@ export const data = [
     },
     {
       "firstName": "Barry (BJ)",
-      "lastName": "Ershen",
+      "lastName": "Erschen",
       "foreverAge": 24,
       "state": "Florida",
       "country": "United States",

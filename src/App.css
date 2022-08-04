@@ -3,11 +3,8 @@
     font-family: 'Optima', sans-serif;
     font-weight: bold;
     color: #ffffff;
-    min-height: 100vh;
+    height: 100vh;
     scroll-behavior: smooth;
-    /* max-height: 100vh; */
-    /* width: 1000vw; */
-    /* display: flex; */
     background-color: #595959;
     background-image: url('./slate-purple4.png');
     background-size: auto 100vh;    min-width: 100vw;
@@ -225,6 +222,12 @@
 .person-info.state .name { font-size: 36px; color: rgb(168, 191, 250)}
 .person-info .name{ text-transform: uppercase; }
 .person-info .name span{ font-size: 48px; line-height: 1;}
+
+.personSearch {
+    position: absolute;
+    bottom: 0;
+    top: calc(100vh - 10rem);
+}
 
 .personSearch input{
     background-color: #ffffff;

@@ -1,18 +1,20 @@
 .dropdown-container{
     position: relative;
+    margin-bottom: 1rem;
 }
 
-.dropdown-container input{
-    margin-top: 0.25rem;
+.dropdown-container .input{
     font-family: 'Cormorant Garamond', sans-serif;
+    font-size: 18px;
     font-weight: 700;
     width: 100%;
+    margin-top: 0.25rem;
+    padding: 1rem 2rem;
     border: 1px solid #535353;
-    outline: none;
 }
 
 .dropdown{
-    position: absolute;
+    position: relative;
     z-index: 5;
     top: calc(100% - 1rem);
     left: 0;
