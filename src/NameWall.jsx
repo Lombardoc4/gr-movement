@@ -162,9 +162,9 @@ function App() {
 
     }, [country])
 
-    useEffect(() => {
-        setWidth(100)
-    }, [state])
+    // useEffect(() => {
+    //     setWidth(100)
+    // }, [state])
 
 
     useEffect(() => {
