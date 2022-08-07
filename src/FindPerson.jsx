@@ -21,7 +21,6 @@ const FindPerson = ({allPeople,  openDropdownState, closeMenu}) => {
     useEffect(() => {
         if (searchPerson) {
 
-            console.log('original val', searchPerson)
 
             // Clearn Previous Search
             const previousPerson = document.querySelector(`.person-info.found`);

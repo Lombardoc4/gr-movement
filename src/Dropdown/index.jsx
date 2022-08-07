@@ -26,7 +26,7 @@ const Dropdown = ({id, title, options, defaultValue, selectAction, openDropdownS
         const selectedName = options.find(o => o.id === selectedValue);
         setValue(selectedName.name);
         setOpenDropdown(null);
-        selectAction(selectedValue);
+        selectAction(selectedValue.toLowerCase());
     }
 
 

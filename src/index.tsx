@@ -33,7 +33,10 @@ const App = () => {
       <Route path="/numbers" element={<ListView/>}></Route>
       <Route path="/:countryParams" element={<NameWall  />}></Route>
       <Route path="/can/:stateParams" element={<NameWall  />}></Route>
-      <Route path="/usa/:stateParams" element={<NameWall  />}></Route>
+      <Route path="/usa/:stateParams" element={<NameWall  />}>
+        <Route path="/usa/:stateParams/:countyParams" element={<NameWall  />}></Route>
+
+      </Route>
       <Route path="/" element={<NameWall  />}></Route>
     </Routes>
   </BrowserRouter>

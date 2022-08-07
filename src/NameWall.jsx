@@ -40,8 +40,11 @@ function App() {
     const [preloader, togglePreloader] = useState(true);
 
     // URL Params
-    const {stateParams, countryParams} = useParams();
+    // const {countyParams , stateParams, countryParams} = useParams();
     const location = useLocation();
+    const [countryParams, stateParams, countyParams] = location.pathname.split('/').filter(c => c);
+
+
 
     // All People Data
     const [people, setPeople] = useState([]);
@@ -56,8 +59,9 @@ function App() {
     const [menuOpen, toggleMenu] = useState(false);
 
     // Values for Dropdown
-    const [country, setCountry] = useState(countryParams || location.pathname.slice(1,4));
+    const [country, setCountry] = useState(countryParams || '');
     const [state, setState] = useState(stateParams || 'Nationwide');
+    const [county, setCounty] = useState(countyParams || 'Statewide');
 
 
 
@@ -82,6 +86,7 @@ function App() {
 
             // Use manual data for USA and Worldwide.
             models = ['', 'usa'].includes(country) ? [...items, ...data] : [...items];
+
 
 
             // Sort People Data by last name
@@ -149,7 +154,8 @@ function App() {
                 setActiveData({[name] : sortedPeople});
             }
 
-            setWidth(100);
+            appWidth !== 100 ? setWidth(100) : togglePreloader(false);
+
         });
 
 
@@ -211,8 +217,6 @@ function App() {
                 setWidth(appWidth + addedDistance);
             } else {
                 togglePreloader(false);
-
-                // Set loading false
             }
 
         }
@@ -254,6 +258,7 @@ function App() {
             menuState={[menuOpen, toggleMenu]}
             countryState={[country, setCountry]}
             stateState={[state, setState]}
+            countyState={[county, setCounty]}
             allPeople={Object.values(activeData).reduce((arr1, arr2) => [...arr1, ...arr2], [])}/>
 
 
