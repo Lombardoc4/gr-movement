@@ -4,9 +4,7 @@ function County(strState, strCountyName) {
     this.name = strCountyName;
 }
 
-function getCounties() {
-    // var arrCounties = new Array(
-    return (new Array(
+window.arrCounties = new Array(
     new County("AL","Autauga County"),
     new County("AL","Baldwin County"),
     new County("AL","Barbour County"),
