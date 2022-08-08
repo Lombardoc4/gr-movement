@@ -11,7 +11,7 @@ const CountyDropdown = ({state}) => {
     const activeCounties = arrCounties.filter(county => county.state === state);
 
 
-    return activeCounties.map(county => <li style={{padding: '0.25rem 2rem'}} key={county.name}>{county.name.replace(' county', '')}</li>)
+    return activeCounties.map(county => <li className="list-item" key={county.name}>{county.name.replace(' county', '')}</li>)
 }
 
 const CountyList = () => {
@@ -28,7 +28,7 @@ const CountyList = () => {
                     <svg style={{transform: activeState === state ? "" : 'rotate(-90deg)'}} className="caret" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
                     <h3>{state.name}</h3>
                 </div>
-                {activeState === state && <CountyDropdown state={state.id}/>}
+                {activeState === state && <ul class="county-list"><CountyDropdown state={state.id}/></ul>}
             </div>
             )}
         </div>
