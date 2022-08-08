@@ -11,7 +11,7 @@ const CountyDropdown = ({state}) => {
     const activeCounties = arrCounties.filter(county => county.state === state);
 
 
-    return activeCounties.map(county => <li className="list-item" key={county.name}>{county.name.replace(' county', '')}</li>)
+    return activeCounties.map(county => <li className="list-item" key={county.name}>{county.name.replace('county', '')}</li>)
 }
 
 const CountyList = () => {
