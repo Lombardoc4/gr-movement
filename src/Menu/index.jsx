@@ -101,7 +101,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />
             }
-            {/* {['usa'].includes(country) &&
+            {['usa'].includes(country) &&
                 <Dropdown
                 id="county"
                 title={'Select Your County'}
@@ -110,7 +110,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
                 selectAction={setCounty}
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />
-            } */}
+            }
         </div>
     )
 
