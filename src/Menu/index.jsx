@@ -106,7 +106,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
                 id="county"
                 title={'Select Your County'}
                 defaultValue={county}
-                options={arrCounties.filter(c => c.state === state.toUpperCase()).map(c => {const name =  c.name.replace(' County', ''); return {id: name, name:name}})}
+                options={arrCounties.filter(c => c.state === state.toUpperCase()).map(c => {const name =  c.name; return {id: name, name:name}})}
                 selectAction={setCounty}
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />
