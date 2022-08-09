@@ -10392,14 +10392,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Collin",
-      "lastName": "Hanshel",
-      "foreverAge": "",
-      "state": "",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Jarod Alexander",
       "lastName": "Galloway",
       "foreverAge": 21,
