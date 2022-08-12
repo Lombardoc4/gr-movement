@@ -35,9 +35,14 @@ const getCountryInfo = (countryParams) => {
     return countries.find(c => c.id === countryParams)
 }
 
-function App() {
+let scrollID;
+
+function App({scroll}) {
     // Preloader
     const [preloader, togglePreloader] = useState(true);
+
+    //Scroll Status
+    const [scrolling, toggleScrolling] = useState(false);
 
     // URL Params
     // const {countyParams , stateParams, countryParams} = useParams();
@@ -224,6 +229,25 @@ function App() {
 
 
 
+    useEffect(() => {
+        if (!scrolling) {
+            console.log(scrollID);
+            clearInterval(scrollID);
+            return;
+        }
+
+        const startScroll = () => {
+            let id = setInterval(() => {
+                window.scrollBy(1, 0);
+            }, 30)
+
+            return id;
+        }
+
+        scrollID = startScroll();
+        console.log('scrollID',scrollID)
+    }, [scrolling])
+
     return (
         <div className="main-app" style={{width: appWidth + 'vw'}}>
             <div className={'preloader ' + (preloader ? 'show' : '')}>
@@ -268,6 +292,10 @@ function App() {
                 <div className="add-btn" tabIndex={0} onClick={() => toggleMenu(!menuOpen)}>
                     Menu
                 </div>
+
+                {/* <div className="add-btn" tabIndex={0} onClick={() => toggleScrolling(!scrolling)}>
+                    Scroll
+                </div> */}
             </div>
             </>
             }

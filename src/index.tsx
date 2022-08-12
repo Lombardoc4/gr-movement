@@ -15,7 +15,6 @@ import './index.css'
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import ListView from './ListView';
-import CountyList from './CountyList';
 // import Form from './Form/NewForm';
 Amplify.configure(awsExports);
 ReactGA.initialize('UA-236089614-1');
@@ -31,16 +30,16 @@ const App = () => {
   <BrowserRouter>
     <Routes>
       {/* <Route path="/form" element={<Form/>}></Route> */}
-      <Route path="/countyList" element={<CountyList/>}></Route>
+      <Route path="/scroll" element={<NameWall scroll={true}/>}></Route>
       <Route path="/numbers" element={<ListView/>}></Route>
-      <Route path="/:countryParams" element={<NameWall  />}></Route>
-      <Route path="/can/:stateParams" element={<NameWall  />}></Route>
-      <Route path="/usa/:stateParams" element={<NameWall  />}>
-        <Route path="/usa/:stateParams/:countyParams" element={<NameWall  />}></Route>
+      <Route path="/:countryParams" element={<NameWall scroll={false}  />}></Route>
+      <Route path="/can/:stateParams" element={<NameWall scroll={false} />}></Route>
+      <Route path="/usa/:stateParams" element={<NameWall scroll={false} />}>
+        <Route path="/usa/:stateParams/:countyParams" element={<NameWall scroll={false} />}></Route>
 
       </Route>
 
-      <Route path="/" element={<NameWall  />}></Route>
+      <Route path="/" element={<NameWall scroll={false} />}></Route>
     </Routes>
   </BrowserRouter>
 

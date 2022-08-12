@@ -12,6 +12,7 @@
     padding: 1rem 2rem;
     border: 1px solid #535353;
     outline: none;
+    background-color: #ffffff;
 }
 
 .dropdown{
@@ -33,7 +34,7 @@
     padding: 1rem 2rem;
     font-size: 18px;
     width: 100%;
-    background-color: #fbf2ef;
+    background-color: #ffffff;
     border-bottom: 1px solid #323232;
 
     /* border-radius: 0.5rem; */

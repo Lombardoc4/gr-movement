@@ -115,7 +115,7 @@
 .add-btn, .menu input{
     padding: 1rem 2rem;
     font-size: 18px;
-    background-color: #fbf2ef;
+    /* background-color: #fbf2ef; */
     /* border-radius: 0.5rem; */
     /* box-shadow: 0 10px 20px -15px #000000; */
     border: 1px solid #323232;
