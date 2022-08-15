@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { DataStore } from '@aws-amplify/datastore';
 import { Person } from './models';
 
@@ -11,6 +11,7 @@ import WallPerson from './WallPerson';
 
 import Menu from './Menu';
 import './App.css';
+import MusicPlayer from './MusicPlayer';
 
 // import { importData } from './data/importData';
 
@@ -47,7 +48,9 @@ function App({scroll}) {
     // URL Params
     // const {countyParams , stateParams, countryParams} = useParams();
     const location = useLocation();
-    const [countryParams, stateParams, countyParams] = location.pathname.split('/').filter(c => c);
+    const navigate = useNavigate();
+
+    const [countryParams, stateParams, countyParams] = location.pathname.split('/').filter(c => c !== 'scroll');
 
 
 
@@ -72,7 +75,14 @@ function App({scroll}) {
 
     useEffect(() => {
 
-        const {name} = getCountryInfo(country);
+        const countryInfo  = getCountryInfo(country);
+
+        if (!countryInfo) {
+            navigate('/')
+            return;
+        }
+
+        const {name} = countryInfo;
 
         const query = {
             "usa": p => p.or( p => p.country('eq', name).country('eq', null)),
@@ -96,7 +106,6 @@ function App({scroll}) {
 
             // Sort People Data by last name
             const sortedPeople = models.sort((a, b) => a.lastName.localeCompare(b.lastName))
-
 
 
             // Set data
@@ -159,10 +168,10 @@ function App({scroll}) {
                 setActiveData({[name] : sortedPeople});
             }
 
-            appWidth !== 100 ? setWidth(100) : togglePreloader(false);
 
         });
 
+        // appWidth !== 100 ? setWidth(100) : togglePreloader(false);
 
         // Clean up function
         return () => {
@@ -173,9 +182,6 @@ function App({scroll}) {
 
     }, [country])
 
-    // useEffect(() => {
-    //     setWidth(100)
-    // }, [state])
 
 
     useEffect(() => {
@@ -204,6 +210,7 @@ function App({scroll}) {
     useEffect(() => {
 
         // Set loading true
+        setWidth(100);
         togglePreloader(true);
     }, [country, state])
 
@@ -212,7 +219,7 @@ function App({scroll}) {
     useEffect(() => {
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
-
+        console.log(lastNode);
 
         if (lastNode) {
 
@@ -224,6 +231,8 @@ function App({scroll}) {
                 togglePreloader(false);
             }
 
+        } else {
+            setWidth(appWidth === 0 ? 100 : 0);
         }
     }, [appWidth, stateParams])
 
@@ -231,7 +240,6 @@ function App({scroll}) {
 
     useEffect(() => {
         if (!scrolling) {
-            console.log(scrollID);
             clearInterval(scrollID);
             return;
         }
@@ -245,7 +253,6 @@ function App({scroll}) {
         }
 
         scrollID = startScroll();
-        console.log('scrollID',scrollID)
     }, [scrolling])
 
     return (
@@ -278,25 +285,29 @@ function App({scroll}) {
 
             {!preloader &&
             <>
-            <Menu
-            menuState={[menuOpen, toggleMenu]}
-            countryState={[country, setCountry]}
-            stateState={[state, setState]}
-            countyState={[county, setCounty]}
-            allPeople={Object.values(activeData).reduce((arr1, arr2) => [...arr1, ...arr2], [])}/>
+                <Menu
+                menuState={[menuOpen, toggleMenu]}
+                countryState={[country, setCountry]}
+                stateState={[state, setState]}
+                countyState={[county, setCounty]}
+                allPeople={Object.values(activeData).reduce((arr1, arr2) => [...arr1, ...arr2], [])}/>
 
 
 
-            <div className="floating">
+                <div className="floating">
 
-                <div className="add-btn" tabIndex={0} onClick={() => toggleMenu(!menuOpen)}>
-                    Menu
+                    <div className="add-btn" tabIndex={0} onClick={() => toggleMenu(!menuOpen)}>
+                        Menu
+                    </div>
+
+
+                    <div className="add-btn" tabIndex={0} onClick={() => toggleScrolling(!scrolling)}>
+                        Scroll
+                    </div>
+
+                    {scrolling && <MusicPlayer/>}
+
                 </div>
-
-                {/* <div className="add-btn" tabIndex={0} onClick={() => toggleScrolling(!scrolling)}>
-                    Scroll
-                </div> */}
-            </div>
             </>
             }
 

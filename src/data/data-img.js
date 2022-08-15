@@ -5914,7 +5914,7 @@ export const data = [
     {
       "firstName": "Dylan",
       "lastName": "Plakstis",
-      "foreverAge": 28,
+      "foreverAge": 29,
       "state": "New York",
       "country": "United States",
 "imgUrl": ""

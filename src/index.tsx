@@ -32,14 +32,7 @@ const App = () => {
       {/* <Route path="/form" element={<Form/>}></Route> */}
       <Route path="/scroll" element={<NameWall scroll={true}/>}></Route>
       <Route path="/numbers" element={<ListView/>}></Route>
-      <Route path="/:countryParams" element={<NameWall scroll={false}  />}></Route>
-      <Route path="/can/:stateParams" element={<NameWall scroll={false} />}></Route>
-      <Route path="/usa/:stateParams" element={<NameWall scroll={false} />}>
-        <Route path="/usa/:stateParams/:countyParams" element={<NameWall scroll={false} />}></Route>
-
-      </Route>
-
-      <Route path="/" element={<NameWall scroll={false} />}></Route>
+      <Route path="*" element={<NameWall scroll={false} />}></Route>
     </Routes>
   </BrowserRouter>
 

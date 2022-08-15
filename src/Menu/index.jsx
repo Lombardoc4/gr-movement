@@ -14,7 +14,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
     const [menuOpen, setMenu] = menuState;
     const [country, setCountry] = countryState;
     const [state, setState] = stateState;
-    const [county, setCounty] = countyState;
+    // const [county, setCounty] = countyState;
     const [openDropdown, setOpenDropdown] = useState(null);
     const navigate = useNavigate();
     const gaEventTracker = useAnalyticsEventTracker('Menu');
@@ -44,19 +44,19 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
     }, [state]);
 
 
-    useEffect(() => {
-        // Only show states for usa
-        if (!['usa'].includes(country)) return;
+    // useEffect(() => {
+    //     // Only show states for usa
+    //     if (!['usa'].includes(country)) return;
 
 
-        if (county === 'Statewide') {
-            navigate(`/${country}/${state}`);
-        } else {
-            navigate(`/${country}/${state}/${county}`)
-        }
-        setMenu(false);
+    //     if (county === 'Statewide') {
+    //         navigate(`/${country}/${state}`);
+    //     } else {
+    //         navigate(`/${country}/${state}/${county}`)
+    //     }
+    //     setMenu(false);
 
-    }, [county]);
+    // }, [county]);
 
 
     const getCountryInfo = (country) => {
@@ -94,11 +94,11 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
                 title={'Select Your State or Province'}
                 defaultValue={state}
                 options={states[country]}
-                selectAction={setCounty}
+                selectAction={setState}
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />
             }
-            {['usa'].includes(country) &&
+            {/* {['usa'].includes(country) &&
                 <Dropdown
                 id="county"
                 title={'Select Your County'}
@@ -107,7 +107,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
                 selectAction={setCounty}
                 openDropdownState={[openDropdown, setOpenDropdown]}
                 />
-            }
+            } */}
 
             <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
             <a onClick={() => gaEventTracker('click', 'photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/en/document/read/66978910/memorial-photo-wall-swipe-to-view">Memorial Photo Wall</a>
