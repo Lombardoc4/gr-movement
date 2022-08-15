@@ -5,7 +5,7 @@ import Dropdown from '../Dropdown';
 
 import { countries } from '../data/countries';
 import { states } from '../data/states';
-import { arrCounties } from '../data/counties';
+// import { arrCounties } from '../data/counties';
 import './index.css'
 import FindPerson from '../FindPerson';
 import useAnalyticsEventTracker from '../useAnalyticsEvent';
