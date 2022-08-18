@@ -47,12 +47,9 @@ function App() {
 
     // URL Params
     // const {countyParams , stateParams, countryParams} = useParams();
-    const location = useLocation();
     const navigate = useNavigate();
-
-    // console.log(location.pathname.split('/'));
+    const location = useLocation();
     const path = location.pathname.split('/').slice(1).filter(c => c !== 'scroll' || c !== '');
-
     const [countryParams, stateParams, countyParams] = path;
 
 
@@ -75,7 +72,6 @@ function App() {
     const [county, setCounty] = useState(countyParams || 'Statewide');
 
 
-    console.log('country', countryParams);
 
     useEffect(() => {
 
@@ -223,7 +219,7 @@ function App() {
     useEffect(() => {
         const grid = document.querySelector('.grid');
         const lastNode = grid?.lastChild //as HTMLElement;
-        console.log(lastNode);
+        // console.log(lastNode);
 
         if (lastNode) {
 
