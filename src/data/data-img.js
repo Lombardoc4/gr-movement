@@ -1936,8 +1936,8 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "he’s being charged but likely to serve less than two years.",
-      "lastName": "Michael Bradley Meade",
+      "firstName": "Michael Bradley",
+      "lastName": "Meade",
       "foreverAge": 22,
       "state": "Florida",
       "country": "United States",

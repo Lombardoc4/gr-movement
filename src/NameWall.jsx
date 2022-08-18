@@ -38,7 +38,7 @@ const getCountryInfo = (countryParams) => {
 
 let scrollID;
 
-function App({scroll}) {
+function App() {
     // Preloader
     const [preloader, togglePreloader] = useState(true);
 
@@ -50,7 +50,10 @@ function App({scroll}) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [countryParams, stateParams, countyParams] = location.pathname.split('/').filter(c => c !== 'scroll');
+    // console.log(location.pathname.split('/'));
+    const path = location.pathname.split('/').slice(1).filter(c => c !== 'scroll' || c !== '');
+
+    const [countryParams, stateParams, countyParams] = path;
 
 
 
@@ -72,6 +75,7 @@ function App({scroll}) {
     const [county, setCounty] = useState(countyParams || 'Statewide');
 
 
+    console.log('country', countryParams);
 
     useEffect(() => {
 
@@ -246,8 +250,18 @@ function App({scroll}) {
 
         const startScroll = () => {
             let id = setInterval(() => {
-                window.scrollBy(1, 0);
+
+                // if at end of screen, scroll to 0;
+                if (window.innerWidth + window.scrollX >= document.getElementById('main-app').offsetWidth) {
+                    window.scrollTo(0, 0);
+                } else {
+                    window.scrollBy(1, 0);
+                }
+
+
             }, 30)
+
+
 
             return id;
         }
@@ -256,7 +270,7 @@ function App({scroll}) {
     }, [scrolling])
 
     return (
-        <div className="main-app" style={{width: appWidth + 'vw'}}>
+        <div id="main-app" className="main-app" style={{width: appWidth + 'vw'}}>
             <div className={'preloader ' + (preloader ? 'show' : '')}>
                 <div className='loader'></div>
                 <h1>Loading Names...</h1>
@@ -289,7 +303,7 @@ function App({scroll}) {
                 menuState={[menuOpen, toggleMenu]}
                 countryState={[country, setCountry]}
                 stateState={[state, setState]}
-                countyState={[county, setCounty]}
+                // countyState={[county, setCounty]}
                 allPeople={Object.values(activeData).reduce((arr1, arr2) => [...arr1, ...arr2], [])}/>
 
 
@@ -304,6 +318,7 @@ function App({scroll}) {
                     <div className="add-btn" tabIndex={0} onClick={() => toggleScrolling(!scrolling)}>
                         Scroll
                     </div>
+
 
                     {scrolling && <MusicPlayer/>}
 

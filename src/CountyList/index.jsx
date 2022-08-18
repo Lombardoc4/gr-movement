@@ -7,7 +7,6 @@ import './index.scss';
 
 
 const CountyDropdown = ({state}) => {
-    console.log(state);
     const activeCounties = arrCounties.filter(county => county.state === state);
 
 
