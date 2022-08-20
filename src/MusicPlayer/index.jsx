@@ -35,7 +35,7 @@ const MusicPlayer = () => {
         <div style={{position: 'relative'}}>
             <p style={{position: 'absolute', bottom: '100%'}}>{allTracks[audioTrack]}</p>
             <div style={{display: 'flex'}}>
-                <audio ref={audioRef} src={process.env.PUBLIC_URL + '/audio/' + allTracks[audioTrack] + '.mp3'} autoPlay onEnded={skipTrack}/>
+                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/' + allTracks[audioTrack] + '.mp3'} autoPlay onEnded={skipTrack}/>
                 <div className="add-btn" tabIndex={0} onClick={togglePlay}>
                     Pause/Play
                 </div>
