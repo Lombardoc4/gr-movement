@@ -11064,14 +11064,6 @@ export const data = [
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//AFC47407-E482-434F-B995-D470D27CA084.jpeg"
     },
     {
-      "firstName": "Kyle",
-      "lastName": "Kimmerly",
-      "foreverAge": 28,
-      "country": "Canada",
-      "state": "Ontario",
-      "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//3169A229-2132-4011-83A5-25280E1EEAD0.jpeg"
-    },
-    {
       "firstName": "Ryan",
       "lastName": "Kearns",
       "foreverAge": 25,
@@ -11726,14 +11718,6 @@ export const data = [
       "country": "United States",
       "state": "Missouri",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound9070696369231431141.jpg"
-    },
-    {
-      "firstName": "Ryan",
-      "lastName": "Summers",
-      "foreverAge": 33,
-      "country": "Canada",
-      "state": "Alberta",
-      "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//inbound1975503133322079255.jpg"
     },
     {
       "firstName": "Casey",
