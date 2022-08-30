@@ -10,7 +10,9 @@ const allTracks = [
     'Hallelujah',
     'Angel',
     'Missing You',
-    'Rescue - Instrumental'
+    'Rescue - Instrumental',
+    '21 Years',
+    'Brave Soul'
 ]
 
 const MusicPlayer = () => {
