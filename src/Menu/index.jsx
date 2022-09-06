@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from '../Dropdown';
 
 import { countries } from '../data/countries';
@@ -10,7 +10,20 @@ import './index.css'
 import FindPerson from '../FindPerson';
 import useAnalyticsEventTracker from '../useAnalyticsEvent';
 
-const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => {
+export const StaticMenu = ({children}) => {
+    const gaEventTracker = useAnalyticsEventTracker('Menu');
+    return (
+        <>
+            <h2>Drug Epidemic Memorial Wall</h2>
+            {children}
+            <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
+            <a onClick={() => gaEventTracker('click', 'photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/en/document/read/66978910/memorial-photo-wall-swipe-to-view">Memorial Photo Wall</a>
+            <a onClick={() => gaEventTracker('click', 'teen-photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/xx/document/read/67142988/memorial-teen-photo-wall-swipe-to-view">Memorial Teen Photo Wall</a>
+        </>
+    )
+}
+
+const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) => {
     const [menuOpen, setMenu] = menuState;
     const [country, setCountry] = countryState;
     const [state, setState] = stateState;
@@ -61,7 +74,7 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
 
     const getCountryInfo = (country) => {
         if (country.length <= 3){
-            const {name} =countries.find(c => c.id === country)
+            const {name} = countries.find(c => c.id === country)
             return name;
         }
         return country
@@ -71,50 +84,42 @@ const Menu = ({menuState, countryState, stateState, countyState, allPeople}) => 
 
     return (
         <div className={(menuOpen ? 'open' : '') + " menu"}>
-            <h2>Drug Epidemic Memorial Wall</h2>
+            <StaticMenu>
 
-            <FindPerson
-                allPeople={allPeople}
-                closeMenu={() => setMenu(false)}
-                openDropdownState={[openDropdown, setOpenDropdown]}
-            />
 
-            <Dropdown
-                id="country"
-                title='Select Your Country'
-                defaultValue={getCountryInfo(country)}
-                options={countries}
-                selectAction={setCountry}
-                openDropdownState={[openDropdown, setOpenDropdown]}
-            />
-
-            {['usa', 'can'].includes(country) &&
-                <Dropdown
-                id="state"
-                title={'Select Your State or Province'}
-                defaultValue={state}
-                options={states[country]}
-                selectAction={setState}
-                openDropdownState={[openDropdown, setOpenDropdown]}
+                <FindPerson
+                    allPeople={allPeople}
+                    closeMenu={() => setMenu(false)}
+                    openDropdownState={[openDropdown, setOpenDropdown]}
                 />
-            }
-            {/* {['usa'].includes(country) &&
+
                 <Dropdown
-                id="county"
-                title={'Select Your County'}
-                defaultValue={county}
-                options={arrCounties.filter(c => c.state === state.toUpperCase()).map(c => {const name =  c.name; return {id: name, name:name}})}
-                selectAction={setCounty}
-                openDropdownState={[openDropdown, setOpenDropdown]}
+                    id="country"
+                    title='Select Your Country'
+                    defaultValue={getCountryInfo(country)}
+                    options={countries}
+                    selectAction={setCountry}
+                    openDropdownState={[openDropdown, setOpenDropdown]}
                 />
-            } */}
 
-            <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
-            <a onClick={() => gaEventTracker('click', 'photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/en/document/read/66978910/memorial-photo-wall-swipe-to-view">Memorial Photo Wall</a>
-            <a onClick={() => gaEventTracker('click', 'teen-photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/xx/document/read/67142988/memorial-teen-photo-wall-swipe-to-view">Memorial Teen Photo Wall</a>
+                { ['usa', 'can'].includes(country) &&
+                    <Dropdown
+                    id="state"
+                    title={'Select Your State or Province'}
+                    defaultValue={state}
+                    options={states[country]}
+                    selectAction={setState}
+                    openDropdownState={[openDropdown, setOpenDropdown]}
+                    />
+                }
+
+                {/* <Link to="/photos"  className="add-btn" style={{margin: '2rem 0'}}>
+                    <div onClick={() => gaEventTracker('click', 'photoshow')} >Photo Gallery</div>
+                </Link> */}
 
 
 
+            </StaticMenu>
 
 
         </div>

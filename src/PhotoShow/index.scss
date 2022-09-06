@@ -1,0 +1,33 @@
+
+#photoshow{
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 100vh;
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+
+    .img-container{
+        display: flex;
+        justify-content: center;
+        flex-shrink: 0;
+        margin: 0 3rem;
+
+
+        &.slideshow{
+            scroll-snap-align: center;
+            width: 100%;
+            margin: 0;
+
+        }
+
+        &.rotate{
+            transform: rotate(90deg);
+        }
+
+        img{
+            max-width: 400px;
+            width: 100%;
+        }
+    }
+
+}

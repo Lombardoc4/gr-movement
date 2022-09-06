@@ -36,10 +36,12 @@ const ListView = () => {
 
             // group by Country
             const groupByCountry = groupBy(people, 'country');
+
+            console.log(groupByCountry);
             groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
             delete groupByCountry['null'];
 
-            groupByCountry['Tea'] = ['A', 'B']
+            // groupByCountry['Tea'] = ['A', 'B']
 
             // Sort Countries Alphabetically
             const sortedCountry = Object.keys(groupByCountry).sort(

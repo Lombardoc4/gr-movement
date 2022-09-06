@@ -4,6 +4,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 import ReactGA from 'react-ga';
 
@@ -15,6 +16,7 @@ import './index.css'
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import ListView from './ListView';
+import PhotoShow from './PhotoShow';
 // import Form from './Form/NewForm';
 Amplify.configure(awsExports);
 ReactGA.initialize('UA-236089614-1');
@@ -31,11 +33,14 @@ const App = () => {
     <Routes>
       {/* <Route path="/form" element={<Form/>}></Route> */}
       <Route path="/numbers" element={<ListView/>}></Route>
+
+      <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
+      <Route path="/photos" element={<PhotoShow/>}></Route>
+
       <Route path="/:countryParams" element={<NameWall  />}></Route>
       <Route path="/can/:stateParams" element={<NameWall />}></Route>
       <Route path="/usa/:stateParams" element={<NameWall  />}>
         <Route path="/usa/:stateParams/:countyParams" element={<NameWall  />}></Route>
-
       </Route>
 
       <Route path="/" element={<NameWall  />}></Route>

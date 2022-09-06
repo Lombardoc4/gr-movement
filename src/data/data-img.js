@@ -11040,14 +11040,6 @@ export const data = [
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//IMG-8947%20%281%29.jpg"
     },
     {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
-    },
-    {
       "firstName": "Jake",
       "lastName": "Smith",
       "foreverAge": 40,
@@ -11126,14 +11118,6 @@ export const data = [
       "country": "United States",
       "state": "Texas",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//614779B8-EAED-47DE-8744-4A40148AC797.jpeg"
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
     },
     {
       "firstName": "Cameron",
@@ -11344,28 +11328,12 @@ export const data = [
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//1E599B73-A734-4F2C-8311-FFF0B1C54A82.jpeg"
     },
     {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
-    },
-    {
       "firstName": "Garrett",
       "lastName": "Johnson",
       "foreverAge": 25,
       "country": "United States",
       "state": "Tennessee",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//1C1A4A12-1E77-4BF0-AE5E-4F29DF8F9967.jpeg"
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
     },
     {
       "firstName": "Jacob",
@@ -11574,14 +11542,6 @@ export const data = [
       "country": "United States",
       "state": "Wisconsin",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//9A2D06BC-FA94-48F0-AFBF-6BBC629F8D6E.jpeg"
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
     },
     {
       "firstName": "Sebastian",
@@ -12078,14 +12038,6 @@ export const data = [
       "country": "United States",
       "state": "Texas",
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//35AF2EA9-FF58-4E02-A679-4D9A4B8CC532.jpeg"
-    },
-    {
-      "firstName": "",
-      "lastName": "",
-      "foreverAge": 0,
-      "country": "",
-      "state": "",
-      "imgUrl": ""
     },
     {
       "firstName": "Ricky",
