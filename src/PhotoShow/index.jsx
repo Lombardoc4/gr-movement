@@ -1,5 +1,5 @@
 // Getting Folder
-// https://www.googleapis.com/drive/v3/files?q=%27{folderID}3%27%20in%20parents&key=AIzaSyCOCbfvdx_x1CMPe2wNxjBgEz4ut3i9few
+// https://www.googleapis.com/drive/v3/files?q=%27{folderID}}%27%20in%20parents&key={API_KEY}
 // Get id from folder id in url
 // Convert q value from https://developers.google.com/drive/api/v3/reference/files/list
 // ! There is a key, this should be moved to aws
@@ -14,16 +14,67 @@ import './index.scss'
 
 let scrollID;
 
+const getStateFolders = async () => {
+    const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?q=%2718A6zWwdQGxERzYYKDAPpc3afcU-azVz3%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+
+    return stateFolders.json();
+}
+
+const getImagesFromFolder = async (folderID) => {
+    const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+    const fileData = await folderContent.json();
+
+    // console.log(fileData);
+
+    fileData.files.filter(file => file.mimeType.includes('image/'))
+    return fileData;
+}
+
 const PhotoShow = () => {
     const [menuOpen, toggleMenu] = useState(false);
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
+    const [images, setImages] = useState([]);
 
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
 
     const photoshow = useRef(null);
 
+    useEffect(() => {
+
+        const getFolders = async () => {
+            const folderIds = []
+            const data = await getStateFolders()
+
+            data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
+
+            return folderIds.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        };
+
+
+        const getData = async () => {
+            const imageData = []
+            const folders = await getFolders();
+
+            const promises = folders.map(async (folder) => {
+                const data = await getImagesFromFolder(folder.id);
+                return data.files;
+            })
+
+            Promise.all(promises).then(values => {
+
+                values.map(v => imageData.push(...v));
+                setData(imageData);
+            })
+        }
+
+        getData();
+
+    }, [])
+
+
+    // Transitions
     useEffect(() => {
         if (!scrolling) {
             clearInterval(scrollID);
@@ -52,28 +103,33 @@ const PhotoShow = () => {
         scrollID = startScroll();
     }, [scrolling])
 
+    // Setting Classes on Images
     useEffect(() => {
-        const images = [];
-        let count = 100;
-        while (count > 0) {
-            images.push(
-                <div className={(slideshowMode ? 'slideshow ' : '') +  (count % 2 === 0 ? 'rotate' : '') + " img-container " }>
-                        <img src="https://drive.google.com/uc?export=view&id=1E653Fmfqvlbve0j4_C1ZIFC53mif_8dn" alt="drive image"/>
-                </div>
-            )
-            count--;
+        if (data.length > 0) {
+
+            const images = [];
+            let count = 0;
+
+            while (count < data.length) {
+                images.push(
+                    <div key={data[count].id} className={(slideshowMode ? 'slideshow ' : '') + " img-container " }>
+                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} alt="drive image"/>
+                    </div>
+                )
+                count++;
+            }
+
+        setImages(images);
         }
 
-        setData(images);
-
-    }, [slideshowMode])
+    }, [slideshowMode, data])
 
     return (
         <div id="main-app" className="main-app">
 
             <div ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' )}>
 
-                { data }
+                { images }
 
             </div>
 
@@ -88,18 +144,18 @@ const PhotoShow = () => {
                     </div>
 
 
-                    <div className="add-btn" tabIndex={0} onClick={() => {toggleSlideshowMode(true)}}>
+                    <div className={"add-btn " + (slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleSlideshowMode(true)}}>
                         Slideshow
                     </div>
 
 
-                    <div className="add-btn" tabIndex={0} onClick={() => {toggleSlideshowMode(false)}}>
+                    <div className={"add-btn " + (!slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleSlideshowMode(false)}}>
                         Scrolling
                     </div>
 
 
-                    <div className="add-btn" tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
-                        Start/Stop
+                    <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
+                        {scrolling ? 'Stop' : 'Start'}
                     </div>
 
                 </div>

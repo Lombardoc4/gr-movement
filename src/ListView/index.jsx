@@ -122,7 +122,7 @@ const ListView = () => {
 
     return (
         <main className="byTheNumbers">
-            <h1>Drup Epidemic Memorial</h1>
+            <h1>Drug Epidemic Memorial</h1>
             <h2>By The Numbers</h2>
 
             <div className="accordian-container">

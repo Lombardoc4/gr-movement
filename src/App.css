@@ -126,7 +126,7 @@
     text-decoration: none;
 }
 
-.add-btn:hover{
+.add-btn:hover, .add-btn.active{
     color: #fbf2ef;
     background-color: #323232;
 }
