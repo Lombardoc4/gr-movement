@@ -6,6 +6,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import MusicPlayer from "../MusicPlayer";
 
 import './index.scss'
@@ -14,6 +16,7 @@ import './index.scss'
 // insert image, <img src="https://drive.google.com/uc?export=view&id=INSERT_HERE_YOUR_GOOGLE_DRIVE_IMAGE_ID" alt="drive image"/>
 
 let scrollID;
+
 
 const getStateFolders = async () => {
     const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%2718A6zWwdQGxERzYYKDAPpc3afcU-azVz3%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
@@ -78,6 +81,7 @@ const PhotoShow = () => {
     }, [])
 
 
+
     // Transitions
     useEffect(() => {
         if (!scrolling) {
@@ -116,10 +120,18 @@ const PhotoShow = () => {
             const images = [];
             let count = 0;
 
+            // Make smaller containers of 10 images that load on scroll?
+
+
             while (count < data.length) {
                 images.push(
                     <div key={data[count].id} className="img-container">
-                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt={data[count].name}/>
+                        <LazyLoadImage
+                         alt={data[count].name}
+                         src={`https://drive.google.com/uc?export=view&id=${data[count].id}`}
+                         effect="blur"
+                         />
+                        {/* <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt={data[count].name}/> */}
                     </div>
                 )
                 count++;
