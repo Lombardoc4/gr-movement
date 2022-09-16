@@ -263,9 +263,6 @@ function App() {
         scrollID = startScroll();
     }, [scrolling])
 
-    console.log(
-        activeData['Other']
-    )
 
     return (
         <div id="main-app" className="main-app" style={{width: appWidth + 'vw'}}>

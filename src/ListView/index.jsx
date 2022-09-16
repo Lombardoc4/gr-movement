@@ -37,7 +37,7 @@ const ListView = () => {
             // group by Country
             const groupByCountry = groupBy(people, 'country');
 
-            console.log(groupByCountry);
+            // console.log(groupByCountry);
             groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
             delete groupByCountry['null'];
 

@@ -115,48 +115,24 @@ const PhotoShow = () => {
 
             const images = [];
             let count = 0;
-            console.log(data);
 
             while (count < data.length) {
                 images.push(
                     <div key={data[count].id} className="img-container">
-                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt="drive image"/>
+                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt={data[count].name}/>
                     </div>
                 )
                 count++;
             }
-        // addLoadedImg(10);
         setImages(images);
         }
 
-    }, [
-        // slideshowMode,
-        data
-    ])
-
-
-    const loadImage = (e) => {
-        // console.log(e);
-
-        // if (loadedImgCount <= data.length ) {
-        //     console.log('go!', photoshow.current)
-
-
-        //     const newImage = (
-        //         <div key={loadedImgCount} className="img-container">
-        //             <img src={`https://drive.google.com/uc?export=view&id=${data[loadedImgCount].id}`} alt="drive image"/>
-        //         </div>
-        //     );
-
-        //     addLoadedImg(loadedImgCount + 1)
-        //     setImages([...images, newImage])
-        // }
-    }
+    }, [data]);
 
     return (
         <div id="main-app" className="main-app bg-black">
 
-            <div onScroll={loadImage} ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' ) + ' ' + (slideshowMode ? 'slideshow ' : '') }>
+            <div ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' ) + ' ' + (slideshowMode ? 'slideshow ' : '') }>
 
                 { images }
 
