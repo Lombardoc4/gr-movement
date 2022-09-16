@@ -6,6 +6,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
+import MusicPlayer from "../MusicPlayer";
 
 import './index.scss'
 
@@ -49,13 +50,12 @@ const PhotoShow = () => {
             const folderIds = []
             const data = await getStateFolders();
 
-            console.log(data);
+            // console.log(data);
 
             data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
 
             return folderIds.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
         };
-
 
         const getData = async () => {
             const imageData = []
@@ -69,7 +69,7 @@ const PhotoShow = () => {
             Promise.all(promises).then(values => {
 
                 values.map(v => imageData.push(...v));
-                setData(imageData);
+                setData([...images,...imageData]);
             })
         }
 
@@ -97,7 +97,7 @@ const PhotoShow = () => {
                 }
 
 
-            }, slideshowMode ? 5000 : 30)
+            }, slideshowMode ? 3000 : 30)
 
 
 
@@ -109,15 +109,18 @@ const PhotoShow = () => {
 
     // Setting Classes on Images
     useEffect(() => {
+
+        // Do this if (1000 - # of returned items < 1000)
         if (data.length > 0) {
 
             const images = [];
             let count = 0;
+            console.log(data);
 
             while (count < data.length) {
                 images.push(
                     <div key={data[count].id} className="img-container">
-                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} alt="drive image"/>
+                        <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt="drive image"/>
                     </div>
                 )
                 count++;
@@ -183,6 +186,8 @@ const PhotoShow = () => {
                     <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
                         {scrolling ? 'Stop' : 'Start'}
                     </div>
+
+                    {scrolling && <MusicPlayer playlistName={'photoWall'}/>}
 
                 </div>
 

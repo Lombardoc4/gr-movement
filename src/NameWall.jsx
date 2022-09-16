@@ -318,7 +318,7 @@ function App() {
                     </div>
 
 
-                    {scrolling && <MusicPlayer/>}
+                    {scrolling && <MusicPlayer playlistName={'nameWall'}/>}
 
                 </div>
             </>

@@ -16,9 +16,9 @@
         display: flex;
         justify-content: center;
         flex-shrink: 0;
-        margin: 0 0 4rem;
+        margin: 0 3rem 4rem;
 
-        &:not(:first-child){
+        &:first-child{
             margin: 0 3rem 4rem;
         }
 
