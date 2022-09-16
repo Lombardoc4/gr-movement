@@ -129,9 +129,7 @@ const PhotoShow = () => {
                         <LazyLoadImage
                          alt={data[count].name}
                          src={`https://drive.google.com/uc?export=view&id=${data[count].id}`}
-                         effect="blur"
                          />
-                        {/* <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} loading="lazy" alt={data[count].name}/> */}
                     </div>
                 )
                 count++;
