@@ -15,13 +15,13 @@ import './index.scss'
 let scrollID;
 
 const getStateFolders = async () => {
-    const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?q=%2718A6zWwdQGxERzYYKDAPpc3afcU-azVz3%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+    const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%2718A6zWwdQGxERzYYKDAPpc3afcU-azVz3%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
 
     return stateFolders.json();
 }
 
 const getImagesFromFolder = async (folderID) => {
-    const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+    const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
     const fileData = await folderContent.json();
 
     // console.log(fileData);
@@ -35,6 +35,8 @@ const PhotoShow = () => {
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
+    const [loadedImgCount, addLoadedImg] = useState(0);
+    // const [scrollPos, setScrollPos] = useState(0);
 
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
@@ -45,7 +47,9 @@ const PhotoShow = () => {
 
         const getFolders = async () => {
             const folderIds = []
-            const data = await getStateFolders()
+            const data = await getStateFolders();
+
+            console.log(data);
 
             data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
 
@@ -93,7 +97,7 @@ const PhotoShow = () => {
                 }
 
 
-            }, slideshowMode ? 15000 : 30)
+            }, slideshowMode ? 5000 : 30)
 
 
 
@@ -112,22 +116,44 @@ const PhotoShow = () => {
 
             while (count < data.length) {
                 images.push(
-                    <div key={data[count].id} className={(slideshowMode ? 'slideshow ' : '') + " img-container " }>
+                    <div key={data[count].id} className="img-container">
                         <img src={`https://drive.google.com/uc?export=view&id=${data[count].id}`} alt="drive image"/>
                     </div>
                 )
                 count++;
             }
-
+        // addLoadedImg(10);
         setImages(images);
         }
 
-    }, [slideshowMode, data])
+    }, [
+        // slideshowMode,
+        data
+    ])
+
+
+    const loadImage = (e) => {
+        // console.log(e);
+
+        // if (loadedImgCount <= data.length ) {
+        //     console.log('go!', photoshow.current)
+
+
+        //     const newImage = (
+        //         <div key={loadedImgCount} className="img-container">
+        //             <img src={`https://drive.google.com/uc?export=view&id=${data[loadedImgCount].id}`} alt="drive image"/>
+        //         </div>
+        //     );
+
+        //     addLoadedImg(loadedImgCount + 1)
+        //     setImages([...images, newImage])
+        // }
+    }
 
     return (
-        <div id="main-app" className="main-app">
+        <div id="main-app" className="main-app bg-black">
 
-            <div ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' )}>
+            <div onScroll={loadImage} ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' ) + ' ' + (slideshowMode ? 'slideshow ' : '') }>
 
                 { images }
 
@@ -144,12 +170,12 @@ const PhotoShow = () => {
                     </div>
 
 
-                    <div className={"add-btn " + (slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleSlideshowMode(true)}}>
+                    <div className={"add-btn " + (slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(true)}}>
                         Slideshow
                     </div>
 
 
-                    <div className={"add-btn " + (!slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleSlideshowMode(false)}}>
+                    <div className={"add-btn " + (!slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(false)}}>
                         Scrolling
                     </div>
 

@@ -200,8 +200,6 @@ function App() {
         const peopleFromActiveState = people[name] || [];
         setActiveData({[name]: peopleFromActiveState});
 
-
-
     }, [state, people, country])
 
 
@@ -264,6 +262,10 @@ function App() {
 
         scrollID = startScroll();
     }, [scrolling])
+
+    console.log(
+        activeData['Other']
+    )
 
     return (
         <div id="main-app" className="main-app" style={{width: appWidth + 'vw'}}>
