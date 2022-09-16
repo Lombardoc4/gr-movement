@@ -17,14 +17,15 @@ const allTracks = [
 
 const trackLists = {
     nameWall: [
+        'No Other Side',
         'Dancing in the Sky',
-        'Jealous of the Angels',
+        'Missing You',
         'Hallelujah',
         'Angel',
-        'Missing You',
-        'Rescue - Instrumental',
         '21 Years',
-        'Brave Soul'
+        'Jealous of the Angels',
+        'Brave Soul',
+        'Rescue - Instrumental'
     ],
     photoWall: [
         'No Other Side',
@@ -40,13 +41,11 @@ const trackLists = {
 }
 
 const MusicPlayer = ({playlistName}) => {
-    console.log('playlist', playlistName)
     const [audioTrack, setAudio] = useState(0);
     const [audioPlaying, setPlaying] = useState(true);
 
     const audioRef = useRef(null);
     const activePlaylist = trackLists[playlistName];
-    console.log(activePlaylist)
 
     const skipTrack = () => {
         const newIndex = audioTrack === activePlaylist.length - 1 ? 0 : audioTrack + 1;
