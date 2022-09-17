@@ -101,7 +101,7 @@ const PhotoShow = () => {
                 }
 
 
-            }, slideshowMode ? 3000 : 30)
+            }, slideshowMode ? 3000 : 15)
 
 
 
