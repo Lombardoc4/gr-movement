@@ -33,6 +33,10 @@ export const states = {
             "id": "CT"
         },
         {
+            "name": "District of Columbia",
+            "id": "D.C."
+        },
+        {
             "name": "Delaware",
             "id": "DE"
         },
