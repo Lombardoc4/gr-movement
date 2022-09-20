@@ -4504,14 +4504,6 @@ export const data = [
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//1A3ACF91-9C07-49F7-A7E1-0E0FC85EAF65.jpeg"
     },
     {
-      "firstName": "Mitchell",
-      "lastName": "Harper",
-      "foreverAge": 23,
-      "state": "Michigan",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Brett",
       "lastName": "Dane",
       "foreverAge": 27,
