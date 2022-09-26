@@ -600,14 +600,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Christian",
-      "lastName": "Taylor",
-      "foreverAge": 21,
-      "state": "California",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Sam",
       "lastName": "Doxakis",
       "foreverAge": 22,
@@ -1865,7 +1857,7 @@ export const data = [
     },
     {
       "firstName": "Osvaldo",
-      "lastName": "Perez 4",
+      "lastName": "Perez IV",
       "foreverAge": 24,
       "state": "Florida",
       "country": "United States",
@@ -1912,14 +1904,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Paul",
-      "lastName": "Moore",
-      "foreverAge": 26,
-      "state": "Florida",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Chasity",
       "lastName": "Bean",
       "foreverAge": 31,
@@ -1939,14 +1923,6 @@ export const data = [
       "firstName": "Michael Bradley",
       "lastName": "Meade",
       "foreverAge": 22,
-      "state": "Florida",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "CHRISTOPHER",
-      "lastName": "HOUGHTON",
-      "foreverAge": 31,
       "state": "Florida",
       "country": "United States",
 "imgUrl": ""
@@ -2184,14 +2160,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Chalice",
-      "lastName": "Allen",
-      "foreverAge": 19,
-      "state": "Georgia",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Jesse",
       "lastName": "Hamid",
       "foreverAge": 23,
@@ -2248,7 +2216,7 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Danie,",
+      "firstName": "Daniel",
       "lastName": "Boccia",
       "foreverAge": 30,
       "state": "Georgia",
@@ -2272,7 +2240,7 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Dylab",
+      "firstName": "Dylan",
       "lastName": "Jones",
       "foreverAge": 29,
       "state": "Georgia",
@@ -2504,14 +2472,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Joey",
-      "lastName": "Zinsky",
-      "foreverAge": 27,
-      "state": "Illinois",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Jena",
       "lastName": "Tucker",
       "foreverAge": 24,
@@ -2539,14 +2499,6 @@ export const data = [
       "firstName": "Eddie",
       "lastName": "Jarina",
       "foreverAge": 39,
-      "state": "Illinois",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Sophia",
-      "lastName": "Walters",
-      "foreverAge": 23,
       "state": "Illinois",
       "country": "United States",
 "imgUrl": ""
@@ -4328,14 +4280,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Ahmyee",
-      "lastName": "Lamoureux",
-      "foreverAge": 34,
-      "state": "Massachusetts",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Amandee",
       "lastName": "Hoctor",
       "foreverAge": 23,
@@ -4502,14 +4446,6 @@ export const data = [
       "state": "MI",
       "country": "United States",
 "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//1A3ACF91-9C07-49F7-A7E1-0E0FC85EAF65.jpeg"
-    },
-    {
-      "firstName": "Mitchell",
-      "lastName": "Harper",
-      "foreverAge": 23,
-      "state": "Michigan",
-      "country": "United States",
-"imgUrl": ""
     },
     {
       "firstName": "Brett",
@@ -4848,14 +4784,6 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Joseph",
-      "lastName": "Brooks",
-      "foreverAge": 33,
-      "state": "Minnesota",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
       "firstName": "Scott",
       "lastName": "Roman",
       "foreverAge": 33,
@@ -5000,20 +4928,12 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Greg",
+      "firstName": "Gregory",
       "lastName": "Heidbrink",
       "foreverAge": 48,
       "state": "Missouri",
       "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Gregory",
-      "lastName": "Heidbrink",
-      "foreverAge": 47,
-      "state": "Missouri",
-      "country": "United States",
-"imgUrl": ""
+      "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//2CAC2D55-83D4-40DA-BA65-4DF65E956FCA.jpeg"
     },
     {
       "firstName": "Eric",
@@ -5539,14 +5459,6 @@ export const data = [
       "firstName": "Eric Michael",
       "lastName": "Mayo",
       "foreverAge": 32,
-      "state": "New Jersey",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Ricky",
-      "lastName": "Damiani",
-      "foreverAge": 29,
       "state": "New Jersey",
       "country": "United States",
 "imgUrl": ""
@@ -8091,14 +8003,6 @@ export const data = [
       "firstName": "Deric",
       "lastName": "English",
       "foreverAge": 22,
-      "state": "Pennsylvania",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Travis",
-      "lastName": "Smithmyer",
-      "foreverAge": 27,
       "state": "Pennsylvania",
       "country": "United States",
 "imgUrl": ""
@@ -10976,7 +10880,7 @@ export const data = [
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//17E1D9F3-3241-414B-9A94-253C28732201.png"
     },
     {
-      "firstName": "Timothy( T J",
+      "firstName": "Timothy('TJ')",
       "lastName": "Thatcher",
       "foreverAge": 29,
       "country": "United States",
@@ -11248,7 +11152,7 @@ export const data = [
       "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//338BB756-1CE4-4AF9-B304-638B18F9D651.jpeg"
     },
     {
-      "firstName": "Timothy (Thj)",
+      "firstName": "Timothy (TJ)",
       "lastName": "",
       "foreverAge": 34,
       "country": "United States",
@@ -12294,13 +12198,5 @@ export const data = [
       "country": "United States",
       "state": "Michigan",
       "imgUrl": ""
-    },
-    {
-      "firstName": "Testing",
-      "lastName": "TEsting",
-      "foreverAge": 23,
-      "country": "United States",
-      "state": "Arizona",
-      "imgUrl": "https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com//waffle1.png"
     }
   ];
