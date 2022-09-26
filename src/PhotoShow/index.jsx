@@ -28,7 +28,6 @@ const getImagesFromFolder = async (folderID) => {
     const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
     const fileData = await folderContent.json();
 
-    // console.log(fileData);
 
     fileData.files.filter(file => file.mimeType.includes('image/'))
     return fileData;
@@ -124,6 +123,7 @@ const PhotoShow = () => {
 
 
             while (count < data.length) {
+
                 images.push(
                     <div key={data[count].id} className="img-container">
                         <LazyLoadImage
@@ -140,7 +140,7 @@ const PhotoShow = () => {
     }, [data]);
 
     return (
-        <div id="main-app" className="main-app bg-black">
+        <div className="photo-bg">
 
             <div ref={photoshow} id="photoshow" className={"grid " + (menuOpen ? 'grid-slideRight' : '' ) + ' ' + (slideshowMode ? 'slideshow ' : '') }>
 

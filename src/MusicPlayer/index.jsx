@@ -1,19 +1,5 @@
 import { useState, useRef } from "react";
 
-// import guitar from `${process.env}/audio/guitar.mp3";
-// import sparkleWow from "../audio/sparkleWow.mp3";
-// const sparkleWow = re
-
-const allTracks = [
-    'Dancing in the Sky',
-    'Jealous of the Angels',
-    'Hallelujah',
-    'Angel',
-    'Missing You',
-    'Rescue - Instrumental',
-    '21 Years',
-    'Brave Soul'
-]
 
 const trackLists = {
     nameWall: [
@@ -24,19 +10,19 @@ const trackLists = {
         'Angel',
         '21 Years',
         'Jealous of the Angels',
-        'Brave Soul',
-        'Rescue - Instrumental'
+        'Rescue - Instrumental',
+        'Miss You All The Time'
     ],
     photoWall: [
         'No Other Side',
-        'Brave Soul',
         'Dancing in the Sky',
         '21 Years',
         'See You Again',
         'Missing You',
         'Gone Too Soon',
         'Scars in Heaven',
-        'From Where You Are'
+        'From Where You Are',
+        'Miss You All The Time'
     ]
 }
 
