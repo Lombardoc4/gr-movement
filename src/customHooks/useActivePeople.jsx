@@ -45,7 +45,6 @@ export const useActivePeople = (country, state) => {
 
             const { items, isSynced } = snapshot;
 
-            console.log('items', items)
             // Use manual data for USA and Worldwide.
             models = [...models, ...items];
 

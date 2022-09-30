@@ -98,11 +98,18 @@ const PhotoShow = ({folderKey}) => {
         }
 
         const startScroll = () => {
+
             let id = setInterval(() => {
                 const photoGrid = photoshow.current;
 
                 // if at end of screen, scroll to 0;
-                if (photoGrid.innerWidth + photoGrid.scrollX >= photoGrid.offsetWidth) {
+                console.log('screen width', photoGrid.offsetWidth);
+                console.log('el scroll', photoGrid.scrollLeft);
+                console.log('fillWith', photoGrid.scrollWidth);
+                console.log(photoGrid.offsetWidth + photoGrid.scrollLeft >= photoGrid.scrollWidth);
+
+                if (photoGrid.offsetWidth + photoGrid.scrollLeft >= photoGrid.scrollWidth) {
+                    console.log('reset')
                     photoGrid.scrollTo(0, 0);
                 } else {
                     photoGrid.scrollBy(1, 0);
@@ -116,7 +123,10 @@ const PhotoShow = ({folderKey}) => {
             return id;
         }
 
-        scrollID = startScroll();
+        if (photoshow.current) {
+            scrollID = startScroll();
+        }
+
     }, [scrolling])
 
 
@@ -141,27 +151,27 @@ const PhotoShow = ({folderKey}) => {
         setImages([...images, ...newImages]);
     }
 
-    useEffect(() => {
-        if (images.length > 0) {
+    // useEffect(() => {
+    //     if (images.length > 0) {
 
-            const windowWidth = window.innerWidth;
+    //         const windowWidth = window.innerWidth;
 
 
 
-            photoshow.current.addEventListener('scroll', function() {
-                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
+    //         photoshow.current.addEventListener('scroll', function() {
+    //             const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
 
-                if (scrollFullScreenWidth && data.length > images.length) {
+    //             if (scrollFullScreenWidth && data.length > images.length) {
 
-                    // Make smaller containers of 10 images that load on scroll?
-                    pushImageToState();
+    //                 // Make smaller containers of 10 images that load on scroll?
+    //                 pushImageToState();
 
-                }
-            })
+    //             }
+    //         })
 
-        }
+    //     }
 
-    }, [images])
+    // }, [images])
 
     useEffect(() => {
         if (data.length > 0) {
