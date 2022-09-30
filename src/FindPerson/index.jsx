@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useAnalyticsEventTracker from "./useAnalyticsEvent";
+import useAnalyticsEventTracker from "../customHooks/useAnalyticsEvent";
 
 const key = 'search';
 

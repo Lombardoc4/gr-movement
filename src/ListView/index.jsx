@@ -9,12 +9,17 @@ import { states } from '../data/states';
 import { data } from '../data/data-img.js';
 import { useEffect, useState } from 'react';
 
-const groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-        const keyValue = x[key] === '' ? 'Other' : x[key];
-        (rv[keyValue] = rv[keyValue] || []).push(x);
-        return rv;
+const groupBy = function(list, key) {
+    return list.reduce(function(returnValue, item) {
+        const keyValue = item[key] || 'Other';
+
+        // Add to existing keyValue or start empty array
+        (returnValue[keyValue] = returnValue[keyValue] || []).push(item);
+
+        return returnValue;
     }, {});
+
+
   };
 
 const ListView = () => {
@@ -37,15 +42,9 @@ const ListView = () => {
             // group by Country
             const groupByCountry = groupBy(people, 'country');
 
-            // console.log(groupByCountry);
-            groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
-            delete groupByCountry['null'];
-
-            // groupByCountry['Tea'] = ['A', 'B']
-
             // Sort Countries Alphabetically
-            const sortedCountry = Object.keys(groupByCountry).sort(
-                (first, second) => {
+            const sortedCountry = Object.keys(groupByCountry)
+                .sort((first, second) => {
                     // Make sure USA if first followed by Canada
                     if (first === 'Canada'  && second === 'United States') {
                         return 1
@@ -56,24 +55,22 @@ const ListView = () => {
                     else if (first === 'Canada'){
                         return -1
                     }
-                }
-            ).reduce(
-                (obj, key) => {
-                    obj[key] = groupByCountry[key];
-                    return obj;
-                }, {}
-            );
+                }).reduce((obj, key) => {
+                        obj[key] = groupByCountry[key];
+                        return obj;
+                    }, {}
+                );
 
             setWorldwide(sortedCountry);
 
+
             // Sort USA & Canada States
             const countryWithStates = ['United States', 'Canada'];
-            const countryAbbreviation = {"United States": "usa", "Canada": "can"}
             countryWithStates.map(country => {
 
                 const groupByState = groupBy(sortedCountry[country], 'state');
 
-                states[countryAbbreviation[country]].map(({name, id}) => {
+                states[country].map(({name, id}) => {
                     if (groupByState[name] && groupByState[id]){
                         groupByState[name] = groupByState[name].concat(groupByState[id]);
                     }

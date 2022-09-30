@@ -1,0 +1,118 @@
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useActivePeople } from "../customHooks/useActivePeople";
+
+import { countries } from '../data/countries';
+import { states } from "../data/states";
+
+import MemorialWall, { WallSubHeader } from "../MemorialWall";
+import NewIndex from "../Menu/NewIndex";
+
+const countriesWithStates = ['United States', 'Canada'];
+
+const getCountryInfo = (countryId) => {
+    return countries.find(c => c.id === (countryId || ''))
+}
+
+const getStateInfo = (countryName, stateId) => {
+    return states[countryName].find(c => c.id.toLowerCase() === (stateId))
+}
+
+const getGroupKey = (country) => {
+    if (country.name === 'Worldwide') {
+        return 'country';
+    }
+    if (countriesWithStates.includes(country.name)) {
+        return 'state';
+    }
+    return null;
+}
+
+
+const ResizingWall = ({children, pathname}) => {
+    const [appWidth, setAppWidth] = useState(0);
+    const scrollWall = useRef(null);
+    const [resizeCount, incResizeCount] = useState(1);
+    const addedDistance = window.innerWidth <= 440 ? 250 : 50;
+    const resizeCountLimit = window.innerWidth <= 440 ? 10 : 6;
+
+
+    // Manage width of window
+    useEffect(() => {
+        if (scrollWall.current?.lastChild) {
+            const lastNode = scrollWall.current?.lastChild //as HTMLElement;
+            const position = lastNode.getBoundingClientRect();
+
+            if (window.innerHeight - 100 < position.bottom){
+                const resizeValue = appWidth + (addedDistance * resizeCount)
+                document.getElementById('main-app').style.width = resizeValue + 'vw';
+
+                setAppWidth(resizeValue);
+
+
+                if (resizeCount <= resizeCountLimit) incResizeCount(resizeCount + 1);
+            }
+
+        } else {
+            // loop until last node exists
+            setTimeout(() => setAppWidth(appWidth === 0 ? 100 : 0), 100);
+        }
+    })
+
+    useEffect(() => {
+        document.getElementById('main-app').style.width = '100vw'
+        setAppWidth(0);
+    }, [pathname])
+
+
+
+    return (
+        <div className="grid" ref={scrollWall} >
+            {children}
+        </div>
+    )
+}
+
+const MainApp = () => {
+
+    const {pathname} = useLocation();
+
+    const [countryId, stateId] = pathname.split('/').slice(2).filter(c => c !== '');
+
+    const country = getCountryInfo(countryId);
+
+    const state = stateId ? getStateInfo(country.name, stateId) : '';
+
+    const [people] = useActivePeople(country, state);
+
+    // useEffect(() => {
+    //     console.log(people.length)
+    // })
+
+
+    return (
+        <div id="main-app">
+            <NewIndex
+                people={people}
+                country={country}
+                countries={countries}
+                state={state}
+            />
+            {people.length > 0  ?
+                <ResizingWall
+                    pathname={pathname}
+                    >
+
+                    <MemorialWall
+                        people={people}
+                        groupKey={getGroupKey(country)}
+                        />
+                </ResizingWall>
+                :
+                <WallSubHeader title={country.name}/>
+            }
+        </div>
+    )
+}
+
+export default MainApp;

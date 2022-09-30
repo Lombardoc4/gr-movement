@@ -1,5 +1,5 @@
 export const states = {
-    'usa' : [
+    'United States' : [
         {
             "name": "Nationwide",
             "id": ""
@@ -34,7 +34,7 @@ export const states = {
         },
         {
             "name": "District of Columbia",
-            "id": "D.C."
+            "id": "DC"
         },
         {
             "name": "Delaware",
@@ -213,7 +213,7 @@ export const states = {
             "id": "WY"
         }
     ],
-    'can' : [
+    'Canada' : [
         {
             "name": "Nationwide",
             "id": ""

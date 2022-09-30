@@ -8,7 +8,7 @@ import { states } from '../data/states';
 // import { arrCounties } from '../data/counties';
 import './index.css'
 import FindPerson from '../FindPerson';
-import useAnalyticsEventTracker from '../useAnalyticsEvent';
+import useAnalyticsEventTracker from '../customHooks/useAnalyticsEvent';
 
 export const StaticMenu = ({children}) => {
     const gaEventTracker = useAnalyticsEventTracker('Menu');
@@ -97,7 +97,7 @@ const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) =
                     id="country"
                     title='Select Your Country'
                     defaultValue={getCountryInfo(country)}
-                    options={countries}
+                    defaultOptions={countries}
                     selectAction={setCountry}
                     openDropdownState={[openDropdown, setOpenDropdown]}
                 />
@@ -107,7 +107,7 @@ const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) =
                     id="state"
                     title={'Select Your State or Province'}
                     defaultValue={state}
-                    options={states[country]}
+                    defaultOptions={states[country]}
                     selectAction={setState}
                     openDropdownState={[openDropdown, setOpenDropdown]}
                     />

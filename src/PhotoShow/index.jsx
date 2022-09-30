@@ -2,7 +2,9 @@
 // https://www.googleapis.com/drive/v3/files?q=%27{folderID}}%27%20in%20parents&key={API_KEY}
 // Get id from folder id in url
 // Convert q value from https://developers.google.com/drive/api/v3/reference/files/list
-// ! There is a key, this should be moved to aws
+
+// Confirm, object has "mimeType": "image/png" or "image/jpg" and take id
+// insert image, <img src="https://drive.google.com/uc?export=view&id=INSERT_HERE_YOUR_GOOGLE_DRIVE_IMAGE_ID" alt="drive image"/>
 
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
@@ -12,14 +14,19 @@ import MusicPlayer from "../MusicPlayer";
 
 import './index.scss'
 
-// Confirm, object has "mimeType": "image/png" or "image/jpg" and take id
-// insert image, <img src="https://drive.google.com/uc?export=view&id=INSERT_HERE_YOUR_GOOGLE_DRIVE_IMAGE_ID" alt="drive image"/>
 
 let scrollID;
 
+const wallFolderIds = {
+    teen: '1i8fUcQj5P4f3sDnpj10ZsudDjsohC8J-',
+    main: '18A6zWwdQGxERzYYKDAPpc3afcU-azVz3'
+};
 
-const getStateFolders = async () => {
-    const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%2718A6zWwdQGxERzYYKDAPpc3afcU-azVz3%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+
+// Find condition to combine two identical fetch calls
+
+const getStateFolders = async (folderID) => {
+    const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
 
     return stateFolders.json();
 }
@@ -33,7 +40,11 @@ const getImagesFromFolder = async (folderID) => {
     return fileData;
 }
 
-const PhotoShow = () => {
+
+
+
+
+const PhotoShow = ({folderKey}) => {
     const [menuOpen, toggleMenu] = useState(false);
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
@@ -50,9 +61,7 @@ const PhotoShow = () => {
 
         const getFolders = async () => {
             const folderIds = []
-            const data = await getStateFolders();
-
-            // console.log(data);
+            const data = await getStateFolders(wallFolderIds[folderKey]);
 
             data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
 
@@ -110,34 +119,85 @@ const PhotoShow = () => {
         scrollID = startScroll();
     }, [scrolling])
 
-    // Setting Classes on Images
+
+    const pushImageToState = () => {
+        const newImages = [];
+        let count = 0;
+        const countLimit = data.length - images.length >= 10 ? 10 : data.length - images.length;
+
+        while (count < countLimit) {
+            const index = images.length + count;
+            newImages.push(
+                <div key={data[index].id} className="img-container" data-id={data[index].name}>
+
+                    <img
+                     alt={data[index].name}
+                     src={`https://drive.google.com/uc?export=view&id=${data[index].id}`}
+                     />
+                </div>
+            )
+            count++;
+        }
+        setImages([...images, ...newImages]);
+    }
+
     useEffect(() => {
+        if (images.length > 0) {
 
-        // Do this if (1000 - # of returned items < 1000)
-        if (data.length > 0) {
-
-            const images = [];
-            let count = 0;
-
-            // Make smaller containers of 10 images that load on scroll?
+            const windowWidth = window.innerWidth;
 
 
-            while (count < data.length) {
 
-                images.push(
-                    <div key={data[count].id} className="img-container">
-                        <LazyLoadImage
-                         alt={data[count].name}
-                         src={`https://drive.google.com/uc?export=view&id=${data[count].id}`}
-                         />
-                    </div>
-                )
-                count++;
-            }
-        setImages(images);
+            photoshow.current.addEventListener('scroll', function() {
+                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
+
+                if (scrollFullScreenWidth && data.length > images.length) {
+
+                    // Make smaller containers of 10 images that load on scroll?
+                    pushImageToState();
+
+                }
+            })
+
         }
 
-    }, [data]);
+    }, [images])
+
+    useEffect(() => {
+        if (data.length > 0) {
+            pushImageToState();
+        }
+    }, [data])
+
+    // // Setting Classes on Images
+    // useEffect(() => {
+
+    //     // Do this if (1000 - # of returned items < 1000)
+    //     if (data.length > 0) {
+
+    //         const images = [];
+    //         let count = 0;
+
+    //         // Make smaller containers of 10 images that load on scroll?
+
+
+    //         while (count < 10) {
+
+    //             images.push(
+    //                 <div key={data[count].id} className="img-container" data-id={data[count].name}>
+
+    //                     <LazyLoadImage
+    //                      alt={data[count].name}
+    //                      src={`https://drive.google.com/uc?export=view&id=${data[count].id}`}
+    //                      />
+    //                 </div>
+    //             )
+    //             count++;
+    //         }
+    //     setImages(images);
+    //     }
+
+    // }, [data]);
 
     return (
         <div className="photo-bg">
