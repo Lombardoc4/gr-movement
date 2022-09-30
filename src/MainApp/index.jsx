@@ -8,6 +8,9 @@ import { states } from "../data/states";
 import MemorialWall, { WallSubHeader } from "../MemorialWall";
 import NewIndex from "../Menu/NewIndex";
 
+import '../App.css';
+
+
 const countriesWithStates = ['United States', 'Canada'];
 
 const getCountryInfo = (countryId) => {
@@ -77,18 +80,12 @@ const MainApp = () => {
 
     const {pathname} = useLocation();
 
-    const [countryId, stateId] = pathname.split('/').slice(2).filter(c => c !== '');
-
+    const [countryId, stateId] = pathname.split('/').filter(c => c !== '' && c !== 'v2');
     const country = getCountryInfo(countryId);
 
     const state = stateId ? getStateInfo(country.name, stateId) : '';
 
     const [people] = useActivePeople(country, state);
-
-    // useEffect(() => {
-    //     console.log(people.length)
-    // })
-
 
     return (
         <div id="main-app">

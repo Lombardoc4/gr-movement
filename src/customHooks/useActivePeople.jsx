@@ -45,18 +45,18 @@ export const useActivePeople = (country, state) => {
 
             const { items, isSynced } = snapshot;
 
-
+            console.log('items', items)
             // Use manual data for USA and Worldwide.
-            models = [...models, items];
+            models = [...models, ...items];
 
 
             // Sort Alphabetically
+            models.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
+            setActivePeople(models);
 
 
         });
 
-        models.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
-        setActivePeople(models);
 
 
         // Clean up function

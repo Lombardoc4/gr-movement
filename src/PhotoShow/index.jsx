@@ -8,7 +8,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import MusicPlayer from "../MusicPlayer";
 
@@ -49,7 +48,6 @@ const PhotoShow = ({folderKey}) => {
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
-    const [loadedImgCount, addLoadedImg] = useState(0);
     // const [scrollPos, setScrollPos] = useState(0);
 
     //Scroll Status
@@ -74,13 +72,15 @@ const PhotoShow = ({folderKey}) => {
 
             const promises = folders.map(async (folder) => {
                 const data = await getImagesFromFolder(folder.id);
+
                 return data.files;
             })
 
             Promise.all(promises).then(values => {
 
-                values.map(v => imageData.push(...v));
-                setData([...images,...imageData]);
+                    // console.log('vals', values)
+                    values.map(v => v.length > 1 && imageData.push(...v));
+                    setData([...images,...imageData]);
             })
         }
 
@@ -169,35 +169,7 @@ const PhotoShow = ({folderKey}) => {
         }
     }, [data])
 
-    // // Setting Classes on Images
-    // useEffect(() => {
 
-    //     // Do this if (1000 - # of returned items < 1000)
-    //     if (data.length > 0) {
-
-    //         const images = [];
-    //         let count = 0;
-
-    //         // Make smaller containers of 10 images that load on scroll?
-
-
-    //         while (count < 10) {
-
-    //             images.push(
-    //                 <div key={data[count].id} className="img-container" data-id={data[count].name}>
-
-    //                     <LazyLoadImage
-    //                      alt={data[count].name}
-    //                      src={`https://drive.google.com/uc?export=view&id=${data[count].id}`}
-    //                      />
-    //                 </div>
-    //             )
-    //             count++;
-    //         }
-    //     setImages(images);
-    //     }
-
-    // }, [data]);
 
     return (
         <div className="photo-bg">

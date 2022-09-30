@@ -3,12 +3,11 @@ import './dropdown.css';
 
 // getActiveOption =
 
-const Dropdown = ({id, title, defaultOptions, defaultValue, selectAction, openDropdownState}) => {
+const Dropdown = ({id, title, options, defaultValue, selectAction, openDropdownState}) => {
     const dropdownName = "dropdown" + title.slice(0,5)
 
     const [value, setValue] = useState(defaultValue === 'usa' ? 'United States' : defaultValue);
     const [openDropdown, setOpenDropdown] = openDropdownState;
-    const [options, setOptions] = useState(defaultOptions);
 
 
 
@@ -27,43 +26,34 @@ const Dropdown = ({id, title, defaultOptions, defaultValue, selectAction, openDr
         const selectedName = options.find(o => o.id === selectedValue);
         setValue(selectedName.name);
         setOpenDropdown(null);
-        selectAction(selectedValue.toLowerCase());
+        selectAction(selectedValue);
     }
 
-    const handleChange = (e) => {
-        console.log(e);
-    }
 
 
 
     return (
         <>
-            <label
-                onClick={toggleOptions}
-                htmlFor={dropdownName}
-            >
-                {title}
-            </label>
+        <label onClick={toggleOptions} htmlFor={dropdownName}>{title}</label>
+        <div className="dropdown-container">
+            <input onClick={toggleOptions} name={dropdownName} value={value} type="select" readOnly/>
 
-            <div className="dropdown-container" onBlur={() => console.log('blurring')}>
-                <input
-                    onClick={() => setOpenDropdown(id)}
-                    onBlur={() => setOpenDropdown(null)}
-                    onChange={() => handleChange}
-                    name={dropdownName}
-                    defaultValue={value}
-                    type="text"/>
-
-                {/* Options Containers */}
-                {openDropdown === id &&<div className="dropdown">
+            {/* Options Containers */}
+            {openDropdown === id &&
+                <div className="dropdown">
+                    {/* Map Options */}
                     {options.map(({name, id}) => {
                         if (name !== value) {
                             return <div key={id} onClick={() => handleSelect(id)} className="dropdown-option">{name}</div>
                         }
                     })}
-                </div>}
+                </div>
+            }
 
-            </div>
+
+
+
+        </div>
         </>
     )
 }

@@ -80,7 +80,7 @@ const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) =
         return country
     }
 
-
+    const name =  getCountryInfo(country);
 
     return (
         <div className={(menuOpen ? 'open' : '') + " menu"}>
@@ -97,7 +97,7 @@ const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) =
                     id="country"
                     title='Select Your Country'
                     defaultValue={getCountryInfo(country)}
-                    defaultOptions={countries}
+                    options={countries}
                     selectAction={setCountry}
                     openDropdownState={[openDropdown, setOpenDropdown]}
                 />
@@ -107,7 +107,7 @@ const Menu = ({menuState, countryState = [], stateState = [], allPeople = []}) =
                     id="state"
                     title={'Select Your State or Province'}
                     defaultValue={state}
-                    defaultOptions={states[country]}
+                    options={states[name]}
                     selectAction={setState}
                     openDropdownState={[openDropdown, setOpenDropdown]}
                     />

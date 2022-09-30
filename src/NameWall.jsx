@@ -24,13 +24,16 @@ import MusicPlayer from './MusicPlayer';
 
 const windowHeight = window.innerHeight;
 
-const groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-        const keyValue = x[key] === '' ? 'Other' : x[key];
-        (rv[keyValue] = rv[keyValue] || []).push(x);
-        return rv;
+const groupBy = function(list, key) {
+    return list.reduce(function(returnValue, item) {
+        const keyValue = item[key] || 'Other';
+
+        // Add to existing keyValue or start empty array
+        (returnValue[keyValue] = returnValue[keyValue] || []).push(item);
+
+        return returnValue;
     }, {});
-  };
+}
 
 const getCountryInfo = (countryParams) => {
     return countries.find(c => c.id === countryParams)
@@ -57,6 +60,7 @@ function App() {
     // All People Data
     const [people, setPeople] = useState([]);
 
+
     // People on Wall
     const [activeData, setActiveData] = useState({});
 
@@ -70,7 +74,6 @@ function App() {
     const [country, setCountry] = useState(countryParams || '');
     const [state, setState] = useState(stateParams || 'Nationwide');
     const [county, setCounty] = useState(countyParams || 'Statewide');
-
 
 
     useEffect(() => {
@@ -112,8 +115,8 @@ function App() {
             if (name === 'Worldwide') {
                 const groupByCountry = groupBy(sortedPeople, 'country');
 
-                groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
-                delete groupByCountry['null'];
+                // groupByCountry['United States'] = [...groupByCountry['null'], ...groupByCountry['United States']]
+                // delete groupByCountry['null'];
 
 
                 const sortedCountryPeople = Object.keys(groupByCountry).sort().reduce(
@@ -133,7 +136,7 @@ function App() {
 
 
                 // Group by states that populate the ui
-                states[country].map(({name, id}) => {
+                states[name].map(({name, id}) => {
                     if (groupByState[name] && groupByState[id]){
                         groupByState[name] = groupByState[name].concat(groupByState[id]);
                     }
@@ -188,9 +191,10 @@ function App() {
 
         if (!['usa', 'can'].includes(country)) return;
 
+        const {name: countryName} = getCountryInfo(country);
 
         // states[0] should be nationwide
-        const activeState = states[country].find(s => s.id === state.toUpperCase()) || states[country][0];
+        const activeState = states[countryName].find(s => s.id === state.toUpperCase()) || states[countryName][0];
         if (!activeState.id) {
             setActiveData(people);
             return;
