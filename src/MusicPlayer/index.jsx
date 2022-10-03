@@ -31,7 +31,6 @@ const trackLists = {
         'Dancing in the Sky',
         '21 Years',
         'Forever Young',
-        'See You Again Wiz Khalifa',
         'Epidemic',
         'Sailing',
         'Silent Screams',
