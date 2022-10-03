@@ -149,6 +149,30 @@ const PhotoShow = ({folderKey}) => {
 
 
     useEffect(() => {
+        if (images.length > 0) {
+
+            const windowWidth = window.innerWidth;
+
+
+
+            photoshow.current.addEventListener('scroll', function() {
+                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
+
+                if (scrollFullScreenWidth && data.length > images.length) {
+
+                    // Make smaller containers of 10 images that load on scroll?
+                    pushImageToState();
+
+                }
+            })
+
+        }
+
+    }, [images])
+
+
+
+    useEffect(() => {
         if (data.length > 0) {
             pushImageToState();
         }
