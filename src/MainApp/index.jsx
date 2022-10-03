@@ -34,8 +34,9 @@ const getGroupKey = (country) => {
 
 const ResizingWall = ({children, pathname}) => {
     const [appWidth, setAppWidth] = useState(0);
-    const scrollWall = useRef(null);
     const [resizeCount, incResizeCount] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const scrollWall = useRef(null);
     const addedDistance = window.innerWidth <= 440 ? 250 : 50;
     const resizeCountLimit = window.innerWidth <= 440 ? 10 : 6;
 
@@ -53,7 +54,8 @@ const ResizingWall = ({children, pathname}) => {
                 setAppWidth(resizeValue);
 
 
-                if (resizeCount <= resizeCountLimit) incResizeCount(resizeCount + 1);
+                resizeCount <= resizeCountLimit ? incResizeCount(resizeCount + 1) : setTimeout(setLoading(false), 500);
+                // resizeCount <= resizeCountLimit && incResizeCount(resizeCount + 1)
             }
 
         } else {
@@ -70,9 +72,15 @@ const ResizingWall = ({children, pathname}) => {
 
 
     return (
-        <div className="grid" ref={scrollWall} >
-            {children}
-        </div>
+        <>
+            <div className={'preloader ' + (loading ? 'show' : '')}>
+                <div className='loader'></div>
+                <h1>Loading Names...</h1>
+            </div>
+            <div className="grid" ref={scrollWall} >
+                {children}
+            </div>
+        </>
     )
 }
 
