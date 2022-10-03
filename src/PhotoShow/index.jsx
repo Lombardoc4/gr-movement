@@ -17,8 +17,8 @@ import './index.scss'
 let scrollID;
 
 const wallFolderIds = {
-    teen: '1i8fUcQj5P4f3sDnpj10ZsudDjsohC8J-',
-    main: '18A6zWwdQGxERzYYKDAPpc3afcU-azVz3'
+    teenWall: '1i8fUcQj5P4f3sDnpj10ZsudDjsohC8J-',
+    photoWall: '18A6zWwdQGxERzYYKDAPpc3afcU-azVz3'
 };
 
 
@@ -103,10 +103,6 @@ const PhotoShow = ({folderKey}) => {
                 const photoGrid = photoshow.current;
 
                 // if at end of screen, scroll to 0;
-                console.log('screen width', photoGrid.offsetWidth);
-                console.log('el scroll', photoGrid.scrollLeft);
-                console.log('fillWith', photoGrid.scrollWidth);
-                console.log(photoGrid.offsetWidth + photoGrid.scrollLeft >= photoGrid.scrollWidth);
 
                 if (photoGrid.offsetWidth + photoGrid.scrollLeft >= photoGrid.scrollWidth) {
                     console.log('reset')
@@ -151,27 +147,6 @@ const PhotoShow = ({folderKey}) => {
         setImages([...images, ...newImages]);
     }
 
-    // useEffect(() => {
-    //     if (images.length > 0) {
-
-    //         const windowWidth = window.innerWidth;
-
-
-
-    //         photoshow.current.addEventListener('scroll', function() {
-    //             const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
-
-    //             if (scrollFullScreenWidth && data.length > images.length) {
-
-    //                 // Make smaller containers of 10 images that load on scroll?
-    //                 pushImageToState();
-
-    //             }
-    //         })
-
-    //     }
-
-    // }, [images])
 
     useEffect(() => {
         if (data.length > 0) {
@@ -215,7 +190,7 @@ const PhotoShow = ({folderKey}) => {
                         {scrolling ? 'Stop' : 'Start'}
                     </div>
 
-                    {scrolling && <MusicPlayer playlistName={'photoWall'}/>}
+                    {scrolling && <MusicPlayer playlistName={folderKey}/>}
 
                 </div>
 

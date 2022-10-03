@@ -12,6 +12,7 @@ const trackLists = {
         'Jealous of the Angels',
         'Rescue - Instrumental',
         'Miss You All The Time'
+
     ],
     photoWall: [
         'No Other Side',
@@ -22,7 +23,26 @@ const trackLists = {
         'Gone Too Soon',
         'Scars in Heaven',
         'From Where You Are',
-        'Miss You All The Time'
+        'Miss You All The Time',
+        'Brave Soul'
+    ],
+    teenWall: [
+        'No Other Side',
+        'Dancing in the Sky',
+        '21 Years',
+        'Forever Young',
+        'See You Again Wiz Khalifa',
+        'Epidemic',
+        'Sailing',
+        'Silent Screams',
+        'Hero',
+        'See You Again',
+        'Fly',
+        'I Hope You Dance',
+        'As It Was',
+        'Memories',
+        'Photograph',
+        'Brave Soul'
     ]
 }
 

@@ -39,9 +39,9 @@ const App = () => {
       <Route path="/numbers" element={<ListView/>}></Route>
 
       <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
-      <Route path="/photos" element={<PhotoShow folderKey={'main'}/>}></Route>
+      <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
       <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
-      <Route path="/teen-photos" element={<PhotoShow folderKey={'teen'}/>}></Route>
+      <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
 
       <Route path="/:countryParams" element={<NameWall  />}></Route>
       <Route path="/can/:stateParams" element={<NameWall />}></Route>
