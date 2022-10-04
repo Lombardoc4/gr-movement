@@ -24,7 +24,6 @@ const trackLists = {
         'Scars in Heaven',
         'From Where You Are',
         'Miss You All The Time',
-        'Brave Soul'
     ],
     teenWall: [
         'No Other Side',
@@ -41,7 +40,6 @@ const trackLists = {
         'As It Was',
         'Memories',
         'Photograph',
-        'Brave Soul'
     ]
 }
 
