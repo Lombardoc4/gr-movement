@@ -70,20 +70,31 @@ const ListView = () => {
 
                 const groupByState = groupBy(sortedCountry[country], 'state');
 
+                console.log('init groupBySTatex', groupBy(sortedCountry[country], 'state'));
+
+
                 states[country].map(({name, id}) => {
+                    console.log('id', [id, groupByState[id]])
+                    console.log('name', [name, groupByState[name]])
                     if (groupByState[name] && groupByState[id]){
                         groupByState[name] = groupByState[name].concat(groupByState[id]);
+                    } else {
+                        groupByState[name] = groupByState[name]  ? [...groupByState[name]] : [];
                     }
                     delete groupByState[id]
                     return name;
                 })
+
+                delete groupByState['Nationwide'];
+
+
 
                 if (groupByState['Other'] && groupByState['null']) {
                     groupByState['Other'] = [...groupByState['Other'], ...groupByState['null']];
                     delete groupByState['null']
                 }
 
-
+                console.log('gorupByState', groupByState)
 
                 // Sort states by name
                 const sortedStatesPeople = Object.keys(groupByState).sort().reduce(
