@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 
 const trackLists = {
@@ -32,7 +32,6 @@ const trackLists = {
         'Forever Young',
         'Epidemic',
         'Sailing',
-        'Silent Screams',
         'Hero',
         'See You Again',
         'Fly',
@@ -45,7 +44,7 @@ const trackLists = {
 
 const MusicPlayer = ({playlistName}) => {
     const [audioTrack, setAudio] = useState(0);
-    const [audioPlaying, setPlaying] = useState(true);
+    const [audioPlaying, setPlaying] = useState(false);
 
     const audioRef = useRef(null);
     const activePlaylist = trackLists[playlistName];
@@ -58,17 +57,16 @@ const MusicPlayer = ({playlistName}) => {
 
     const togglePlay = () => {
         audioPlaying ? audioRef.current.pause() : audioRef.current.play();
-
         setPlaying(!audioPlaying);
     }
 
     return (
         <div style={{position: 'relative'}}>
-            <p style={{position: 'absolute', bottom: '100%'}}>{activePlaylist[audioTrack]}</p>
+            <p style={{position: 'absolute', bottom: '100%', color: '#ffffff', textTransform: 'uppercase', fontWeight: '700'}}>{activePlaylist[audioTrack]}</p>
             <div style={{display: 'flex'}}>
-                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/' + activePlaylist[audioTrack] + '.mp3'} autoPlay onEnded={skipTrack}/>
-                <div className="add-btn" tabIndex={0} onClick={togglePlay}>
-                    Pause/Play
+                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/' + activePlaylist[audioTrack] + '.mp3'} autoPlay={audioPlaying} onEnded={skipTrack}/>
+                <div className={"add-btn " + (audioPlaying ? 'active' : '')} tabIndex={0} onClick={togglePlay}>
+                    {audioPlaying ? 'Pause' : 'Play'}
                 </div>
                 <div className="add-btn" tabIndex={0} onClick={skipTrack}>
                     Skip

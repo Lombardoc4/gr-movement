@@ -30,16 +30,13 @@ const getStateFolders = async (folderID) => {
     return stateFolders.json();
 }
 
-const getImagesFromFolder = async (folderID) => {
-    const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
+const getImagesFromFolder = async (folderID, name) => {
+    const folderContent = await fetch(`https://www.googleapis.com/drive/v3/files?pageSize=1000&orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
     const fileData = await folderContent.json();
-
 
     fileData.files.filter(file => file.mimeType.includes('image/'))
     return fileData;
 }
-
-
 
 
 
@@ -70,8 +67,9 @@ const PhotoShow = ({folderKey}) => {
             const imageData = []
             const folders = await getFolders();
 
+
             const promises = folders.map(async (folder) => {
-                const data = await getImagesFromFolder(folder.id);
+                const data = await getImagesFromFolder(folder.id, folder.name);
 
                 return data.files;
             })
@@ -87,6 +85,7 @@ const PhotoShow = ({folderKey}) => {
         getData();
 
     }, [])
+
 
 
 
@@ -200,21 +199,25 @@ const PhotoShow = ({folderKey}) => {
                     </div>
 
 
-                    <div className={"add-btn " + (slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(true)}}>
-                        Slideshow
+                    {(scrolling || folderKey === 'teenWall') && <MusicPlayer playlistName={folderKey}/>}
+
+
+                    <div style={{display: 'flex'}}>
+                        <div className={"add-btn " + (slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(true)}}>
+                            Slideshow
+                        </div>
+
+
+                        <div className={"add-btn " + (!slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(false)}}>
+                            Scroll
+                        </div>
+
+
+                        <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
+                            {scrolling ? 'Stop' : 'Start'}
+                        </div>
                     </div>
 
-
-                    <div className={"add-btn " + (!slideshowMode ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(false); toggleSlideshowMode(false)}}>
-                        Scrolling
-                    </div>
-
-
-                    <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
-                        {scrolling ? 'Stop' : 'Start'}
-                    </div>
-
-                    {scrolling && <MusicPlayer playlistName={folderKey}/>}
 
                 </div>
 

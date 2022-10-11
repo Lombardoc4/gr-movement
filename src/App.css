@@ -232,8 +232,9 @@
 
 @media screen and (max-width:440px) {
     .floating{
+        left: 1rem;
         gap: 1rem;
-        /* row-gap: 0; */
+        /* row-gap: 0.5rem; */
         flex-wrap: wrap;
     }
 
@@ -242,5 +243,6 @@
         font-size: 16px;
         margin-bottom: 0;
     }
+
 
 }
