@@ -32,6 +32,7 @@ const trackLists = {
         'Forever Young',
         'Epidemic',
         'Sailing',
+        'Silent Screams',
         'Hero',
         'See You Again',
         'Fly',
