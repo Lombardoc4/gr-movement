@@ -71,7 +71,7 @@ const MusicPlayer = ({playlistName}) => {
         <div style={{position: 'relative'}}>
             <p style={{position: 'absolute', bottom: '100%', color: '#ffffff', textTransform: 'uppercase', fontWeight: '700'}}>{activePlaylist[audioTrack]}</p>
             <div style={{display: 'flex'}}>
-                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack] + '.mp3'} autoPlay={audioPlaying} onEnded={skipTrack}/>
+                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack].replace(/ /g, '-') + '.mp3'} autoPlay={audioPlaying} onEnded={skipTrack}/>
                 <div className={"add-btn " + (audioPlaying ? 'active' : '')} tabIndex={0} onClick={togglePlay}>
                     {audioPlaying ? 'Pause' : 'Play'}
                 </div>
