@@ -22,6 +22,7 @@ import MainApp from './MainApp';
 Amplify.configure(awsExports);
 ReactGA.initialize('UA-236089614-1');
 
+
 const App = () => {
 
   // Page View Tracking on Render

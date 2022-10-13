@@ -64,25 +64,7 @@
     "getUserFromOntraport": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "api",
-          "resourceName": "GRMovement",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput",
-            "GraphQLAPIKeyOutput"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "GRMovement",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
+      "service": "Lambda"
     }
   }
 }

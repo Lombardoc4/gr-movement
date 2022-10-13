@@ -6,6 +6,7 @@
 // Confirm, object has "mimeType": "image/png" or "image/jpg" and take id
 // insert image, <img src="https://drive.google.com/uc?export=view&id=INSERT_HERE_YOUR_GOOGLE_DRIVE_IMAGE_ID" alt="drive image"/>
 
+import { Storage } from "aws-amplify";
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
 
@@ -22,9 +23,12 @@ const wallFolderIds = {
 };
 
 
+
 // Find condition to combine two identical fetch calls
 
-const getStateFolders = async (folderID) => {
+const getStateFolders = async (folderID, folderKey) => {
+
+
     const stateFolders = await fetch(`https://www.googleapis.com/drive/v3/files?orderBy=name&q=%27${folderID}%27%20in%20parents&key=${process.env.REACT_APP_GOOGLE_API}`);
 
     return stateFolders.json();
@@ -37,6 +41,8 @@ const getImagesFromFolder = async (folderID, name) => {
     fileData.files.filter(file => file.mimeType.includes('image/'))
     return fileData;
 }
+
+
 
 
 
@@ -54,35 +60,61 @@ const PhotoShow = ({folderKey}) => {
 
     useEffect(() => {
 
-        const getFolders = async () => {
-            const folderIds = []
-            const data = await getStateFolders(wallFolderIds[folderKey]);
+        // const getFolders = async () => {
+        //     const folderIds = []
+        //     const data = await getStateFolders(wallFolderIds[folderKey], folderKey);
 
-            data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
+        //     data.files.map(folder => folderIds.push({id: folder.id, name: folder.name}));
 
-            return folderIds.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-        };
+        //     return folderIds.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+        // };
 
-        const getData = async () => {
-            const imageData = []
-            const folders = await getFolders();
+        // const getData = async () => {
+        //     const imageData = []
+        //     const folders = await getFolders();
 
 
-            const promises = folders.map(async (folder) => {
-                const data = await getImagesFromFolder(folder.id, folder.name);
+        //     const promises = folders.map(async (folder) => {
+        //         const data = await getImagesFromFolder(folder.id, folder.name);
 
-                return data.files;
-            })
+        //         return data.files;
+        //     })
 
-            Promise.all(promises).then(values => {
+        //     Promise.all(promises).then(values => {
 
-                    // console.log('vals', values)
-                    values.map(v => v.length > 1 && imageData.push(...v));
-                    setData([...images,...imageData]);
-            })
+        //             // console.log('vals', values)
+        //             values.map(v => v.length > 1 && imageData.push(...v));
+        //             setData([...images,...imageData]);
+        //     })
+        // }
+
+        const getS3Data = async () => {
+            Storage.list(folderKey + '/', { maxKeys: 'ALL' }) // for listing ALL files without prefix, pass '' instead
+                .then(result => {
+                    // prune folders
+                    result = result.filter(({key}) => {
+                        if (key.includes('.jpg'))
+                            return true;
+                        else if (key.includes('.jpeg'))
+                            return true;
+                        else if (key.includes('.png'))
+                            return true;
+                        else
+                            return false;
+
+                    })
+                    console.log(result);
+
+                    setData(result);
+
+                    // result = result.filter(val => ['.jpg', '.png', '.jpeg'].some(v => v.contains(val)))
+                })
+                .catch(err => console.log(err));
         }
 
-        getData();
+        getS3Data();
+
+        // getData();
 
     }, [])
 
@@ -104,7 +136,6 @@ const PhotoShow = ({folderKey}) => {
                 // if at end of screen, scroll to 0;
 
                 if (photoGrid.offsetWidth + photoGrid.scrollLeft >= photoGrid.scrollWidth) {
-                    console.log('reset')
                     photoGrid.scrollTo(0, 0);
                 } else {
                     photoGrid.scrollBy(1, 0);
@@ -133,11 +164,10 @@ const PhotoShow = ({folderKey}) => {
         while (count < countLimit) {
             const index = images.length + count;
             newImages.push(
-                <div key={data[index].id} className="img-container" data-id={data[index].name}>
-
+                <div key={data[index].eTag} className="img-container">
                     <img
-                     alt={data[index].name}
-                     src={`https://drive.google.com/uc?export=view&id=${data[index].id}`}
+                     alt={data[index].eTag}
+                     src={`https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/${data[index].key}`}
                      />
                 </div>
             )
@@ -155,14 +185,14 @@ const PhotoShow = ({folderKey}) => {
 
 
             photoshow.current.addEventListener('scroll', function() {
-                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 10 || this.scrollLeft % windowWidth <= 10;
+                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 20 || this.scrollLeft % windowWidth <= 20;
 
                 if (scrollFullScreenWidth && data.length > images.length) {
 
                     // Make smaller containers of 10 images that load on scroll?
                     pushImageToState();
-
                 }
+
             })
 
         }

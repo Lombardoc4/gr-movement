@@ -1,15 +1,3 @@
 {
-  "lambdaLayers": [],
-  "permissions": {
-    "api": {
-      "GRMovement": [
-        "Mutation"
-      ]
-    },
-    "auth": {
-      "GRMovement": [
-        "create"
-      ]
-    }
-  }
+  "lambdaLayers": []
 }

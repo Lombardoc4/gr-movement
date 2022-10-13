@@ -44,18 +44,27 @@ const ResizingWall = ({children, pathname}) => {
     // Manage width of window
     useEffect(() => {
         if (scrollWall.current?.lastChild) {
+
             const lastNode = scrollWall.current?.lastChild //as HTMLElement;
             const position = lastNode.getBoundingClientRect();
+            setLoading(true);
 
             if (window.innerHeight - 100 < position.bottom){
-                const resizeValue = appWidth + (addedDistance * resizeCount)
-                document.getElementById('main-app').style.width = resizeValue + 'vw';
+                const resizeValue = appWidth + (addedDistance * resizeCount);
 
+                document.getElementById('main-app').style.width = resizeValue + 'vw';
                 setAppWidth(resizeValue);
 
 
-                resizeCount <= resizeCountLimit ? incResizeCount(resizeCount + 1) : setTimeout(setLoading(false), 500);
-                // resizeCount <= resizeCountLimit && incResizeCount(resizeCount + 1)
+                if (resizeCount <= resizeCountLimit)
+                    incResizeCount(resizeCount + 1)
+
+
+            } else {
+                // setTimeout();
+                setLoading(false)
+                incResizeCount(1);
+                console.log('set false')
             }
 
         } else {
@@ -64,10 +73,12 @@ const ResizingWall = ({children, pathname}) => {
         }
     })
 
+
     useEffect(() => {
         document.getElementById('main-app').style.width = '100vw'
         setAppWidth(0);
-    }, [pathname])
+    }, [pathname, children])
+
 
 
 
@@ -95,6 +106,8 @@ const MainApp = () => {
 
     const [people] = useActivePeople(country, state);
 
+
+
     return (
         <div id="main-app">
             <NewIndex
@@ -106,8 +119,7 @@ const MainApp = () => {
             {people.length > 0  ?
                 <ResizingWall
                     pathname={pathname}
-                    >
-
+                >
                     <MemorialWall
                         people={people}
                         groupKey={getGroupKey(country)}
