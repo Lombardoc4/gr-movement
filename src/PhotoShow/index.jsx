@@ -51,7 +51,7 @@ const PhotoShow = ({folderKey}) => {
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
-    // const [scrollPos, setScrollPos] = useState(0);
+    const [moreData, setMoreData] = useState(true);
 
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
@@ -87,10 +87,18 @@ const PhotoShow = ({folderKey}) => {
         //             setData([...images,...imageData]);
         //     })
         // }
+        if (!moreData) {
+            return
+        }
 
         const getS3Data = async () => {
-            Storage.list(folderKey + '/', { maxKeys: 'ALL' }) // for listing ALL files without prefix, pass '' instead
+            console.log(data.length)
+            Storage.list(folderKey + '/', { startAfter: data.length - 1}) // for listing ALL files without prefix, pass '' instead
                 .then(result => {
+                    console.log(result);
+                    if (result.length < 1000) {
+                        setMoreData(false);
+                    }
                     // prune folders
                     result = result.filter(({key}) => {
                         if (key.includes('.jpg'))
@@ -105,6 +113,7 @@ const PhotoShow = ({folderKey}) => {
                     })
                     console.log(result);
 
+
                     setData(result);
 
                     // result = result.filter(val => ['.jpg', '.png', '.jpeg'].some(v => v.contains(val)))
@@ -116,7 +125,7 @@ const PhotoShow = ({folderKey}) => {
 
         // getData();
 
-    }, [])
+    }, [moreData])
 
 
 
