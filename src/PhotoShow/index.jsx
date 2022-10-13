@@ -6,9 +6,10 @@
 // Confirm, object has "mimeType": "image/png" or "image/jpg" and take id
 // insert image, <img src="https://drive.google.com/uc?export=view&id=INSERT_HERE_YOUR_GOOGLE_DRIVE_IMAGE_ID" alt="drive image"/>
 
-import { Storage } from "aws-amplify";
+import { Hub, Storage } from "aws-amplify";
 import { useEffect, useState, useRef } from "react";
 import { StaticMenu } from "../Menu";
+import { states } from "../data/states";
 
 import MusicPlayer from "../MusicPlayer";
 
@@ -21,6 +22,7 @@ const wallFolderIds = {
     teenWall: '1i8fUcQj5P4f3sDnpj10ZsudDjsohC8J-',
     photoWall: '18A6zWwdQGxERzYYKDAPpc3afcU-azVz3'
 };
+
 
 
 
@@ -51,7 +53,6 @@ const PhotoShow = ({folderKey}) => {
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
-    const [moreData, setMoreData] = useState(true);
 
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
@@ -87,18 +88,16 @@ const PhotoShow = ({folderKey}) => {
         //             setData([...images,...imageData]);
         //     })
         // }
-        if (!moreData) {
-            return
-        }
 
-        const getS3Data = async () => {
-            console.log(data.length)
-            Storage.list(folderKey + '/', { startAfter: data.length - 1}) // for listing ALL files without prefix, pass '' instead
+        // Make a call for each state
+
+
+        const getS3Data = async (id) => {
+            const url = folderKey + '/' + id + '/';
+            // console.log(url)
+
+            return Storage.list(url, { maxKeys: 1000}) // for listing ALL files without prefix, pass '' instead
                 .then(result => {
-                    console.log(result);
-                    if (result.length < 1000) {
-                        setMoreData(false);
-                    }
                     // prune folders
                     result = result.filter(({key}) => {
                         if (key.includes('.jpg'))
@@ -110,22 +109,63 @@ const PhotoShow = ({folderKey}) => {
                         else
                             return false;
 
-                    })
-                    console.log(result);
+                    });
 
 
-                    setData(result);
+                    return result;
+
+
 
                     // result = result.filter(val => ['.jpg', '.png', '.jpeg'].some(v => v.contains(val)))
                 })
                 .catch(err => console.log(err));
+
         }
 
-        getS3Data();
+        const getData = async () => {
+            const vals = []
+            const alphaStates = states['United States'].sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
 
-        // getData();
+            const promises = alphaStates.map(async (state) => {
+                const result = await getS3Data(state.id);
 
-    }, [moreData])
+                return result;
+            })
+
+            Promise.all(promises).then(values => {
+
+                    // console.log('vals', values)
+                    values.map(v => v.length > 1 && vals.push(...v));
+                    setData([...data,...vals]);
+            })
+        }
+
+        // const vals = []
+        // states['United States'].map(async state => {
+
+        //     // result.then(res => setData([...data, ...res]))
+        //     console.log('data', data)
+        //     console.log('res', result);
+
+        //     setData([...data, result]);
+
+        //     // console.log(state);
+        // })
+
+        // Promise.all(promises).then(values => {
+
+        //         // console.log('vals', values)
+        //         values.map(v => v.length > 1 && imageData.push(...v));
+        //         setData([...images,...imageData]);
+        // })
+
+
+
+        // getS3Data();
+        getData();
+
+    }, [])
+
 
 
 
