@@ -183,7 +183,7 @@ const PhotoShow = ({folderKey}) => {
                     </div>
 
 
-                    {(scrolling || folderKey === 'teenWall') && <MusicPlayer playlistName={folderKey}/>}
+                    {(scrolling || folderKey === 'teenWall') && <MusicPlayer playlistName={folderKey} playing={scrolling}/>}
 
 
                     <div style={{display: 'flex'}}>
@@ -197,7 +197,7 @@ const PhotoShow = ({folderKey}) => {
                         </div>
 
 
-                        <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling)}}>
+                        <div className={"add-btn " + (scrolling ? 'active' : '')} tabIndex={0} onClick={() => {toggleScrolling(!scrolling); }}>
                             {scrolling ? 'Stop' : 'Start'}
                         </div>
                     </div>

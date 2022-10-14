@@ -45,9 +45,9 @@ const trackLists = {
     ]
 }
 
-const MusicPlayer = ({playlistName}) => {
+const MusicPlayer = ({playlistName, playing = false}) => {
     const [audioTrack, setAudio] = useState(0);
-    const [audioPlaying, setPlaying] = useState(false);
+    const [audioPlaying, setPlaying] = useState(playing);
 
     const audioRef = useRef(null);
     const activePlaylist = trackLists[playlistName];
@@ -58,12 +58,15 @@ const MusicPlayer = ({playlistName}) => {
         audioRef.current.play();
     }
 
-    const togglePlay = () => {
-        audioPlaying ? audioRef.current.pause() : audioRef.current.play();
-        setPlaying(!audioPlaying);
-
+    const togglePlay = (playing = audioPlaying) => {
+        playing ? audioRef.current.pause() : audioRef.current.play();
+        setPlaying(!playing);
 
     }
+
+    useEffect(() => {
+        togglePlay(!playing)
+    }, [playing])
 
 
 
@@ -71,7 +74,7 @@ const MusicPlayer = ({playlistName}) => {
         <div style={{position: 'relative'}}>
             <p style={{position: 'absolute', bottom: '100%', color: '#ffffff', textTransform: 'uppercase', fontWeight: '700'}}>{activePlaylist[audioTrack]}</p>
             <div style={{display: 'flex'}}>
-                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack].replace(/ /g, '-') + '.mp3'} autoPlay={audioPlaying} onEnded={skipTrack}/>
+                <audio ref={audioRef} src={'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack].replace(/ /g, '-') + '.mp3'} autoPlay onEnded={skipTrack}/>
                 <div className={"add-btn " + (audioPlaying ? 'active' : '')} tabIndex={0} onClick={togglePlay}>
                     {audioPlaying ? 'Pause' : 'Play'}
                 </div>
