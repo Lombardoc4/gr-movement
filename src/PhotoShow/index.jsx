@@ -6,11 +6,13 @@ import { states } from "../data/states";
 
 import MusicPlayer from "../MusicPlayer";
 import './index.scss'
+import { useParams } from "react-router-dom";
 
 let scrollID;
 
 const getS3Data = async (folderKey, id) => {
     const url = folderKey + '/' + id + '/';
+    console.log('url', url);
 
     return Storage.list(url, { maxKeys: 1000}) // for listing ALL files without prefix, pass '' instead
         .then(result => {
@@ -41,6 +43,8 @@ const PhotoShow = ({folderKey}) => {
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
 
+    const {id} = useParams();
+
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
 
@@ -50,7 +54,7 @@ const PhotoShow = ({folderKey}) => {
 
 
 
-        const getData = async () => {
+        const getMultiData = async () => {
             const vals = []
 
             // alphabetical order
@@ -71,7 +75,19 @@ const PhotoShow = ({folderKey}) => {
             })
         }
 
-        getData();
+        const getSingleData = async () => {
+            const result = await getS3Data(folderKey, id.toUpperCase());
+
+            console.log('result', result);
+            setData(result);
+            // result.then(res => setData(res))
+        }
+
+        if (id) {
+            getSingleData();
+        } else {
+            getMultiData();
+        }
 
     }, [])
 
@@ -115,8 +131,11 @@ const PhotoShow = ({folderKey}) => {
         let count = 0;
         const countLimit = data.length - images.length >= 10 ? 10 : data.length - images.length;
 
+
         while (count < countLimit) {
             const index = images.length + count;
+            console.log('data', data);
+            console.log('dataIndex', data[index]);
             newImages.push(
                 <div key={data[index].eTag} className="img-container">
                     <img
@@ -157,10 +176,13 @@ const PhotoShow = ({folderKey}) => {
 
     useEffect(() => {
         if (data.length > 0) {
+            console.log('push')
             pushImageToState();
         }
     }, [data])
 
+
+    console.log('data', data);
 
 
     return (
