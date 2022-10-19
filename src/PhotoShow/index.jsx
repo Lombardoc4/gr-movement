@@ -37,6 +37,12 @@ const getS3Data = async (folderKey, id) => {
 
 }
 
+const alphabetizedNames = (peopleList) => {
+    peopleList = peopleList.map((person) => ({...person, name: person.key.toUpperCase().replace('-', ' ')}))
+
+    return peopleList.sort((a, b) => a.name.localeCompare(b.name))
+}
+
 const PhotoShow = ({folderKey}) => {
     const [menuOpen, toggleMenu] = useState(false);
     const [slideshowMode, toggleSlideshowMode] = useState(false);
@@ -64,12 +70,14 @@ const PhotoShow = ({folderKey}) => {
             const promises = alphaStates.map(async (state) => {
                 const result = await getS3Data(folderKey, state.id);
 
-                return result;
+                return result.length > 0 ? alphabetizedNames(result) : [];
+                // return result;
             })
 
             Promise.all(promises).then(values => {
                 // push values that are length > 0
                 values.map(v => v.length > 1 && vals.push(...v));
+                // values = alphabetizedNames(values);
 
                 setData([...data,...vals]);
             })
@@ -77,10 +85,10 @@ const PhotoShow = ({folderKey}) => {
 
         const getSingleData = async () => {
             const result = await getS3Data(folderKey, id.toUpperCase());
+            setData(result.length > 0 ? alphabetizedNames(result) : []);
 
-            console.log('result', result);
-            setData(result);
-            // result.then(res => setData(res))
+            // console.log('result', result);
+            // setData(result);
         }
 
         if (id) {
