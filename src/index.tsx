@@ -45,14 +45,14 @@ const App = () => {
       <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
       <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
 
-      <Route path="/:countryParams" element={<NameWall  />}></Route>
+      {/* <Route path="/:countryParams" element={<NameWall  />}></Route>
       <Route path="/can/:stateParams" element={<NameWall />}></Route>
       <Route path="/usa/:stateParams" element={<NameWall  />}>
         <Route path="/usa/:stateParams/:countyParams" element={<NameWall  />}></Route>
       </Route>
 
-      <Route path="/" element={<NameWall  />}></Route>
-      <Route path="/v2/*" element={<MainApp  />}></Route>
+      <Route path="/" element={<NameWall  />}></Route> */}
+      <Route path="/*" element={<MainApp  />}></Route>
     </Routes>
   </BrowserRouter>
 

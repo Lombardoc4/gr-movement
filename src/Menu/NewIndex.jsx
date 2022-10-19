@@ -35,9 +35,9 @@ const NewIndex = ({people, country, state}) => {
     }, [])
 
     const defaultDropdownAction = (key, value) => {
-        if (key === 'country') navigate(`/v2/${value.toLowerCase()}`);
+        if (key === 'country') navigate(`/${value.toLowerCase()}`);
 
-        if (key === 'state') navigate(`/v2/${country.id.toLowerCase()}/${value.toLowerCase()}`);
+        if (key === 'state') navigate(`/${country.id.toLowerCase()}/${value.toLowerCase()}`);
     }
 
     return (<>
