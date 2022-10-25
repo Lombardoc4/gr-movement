@@ -18,7 +18,6 @@ export const useActivePeople = (country, state) => {
     const [activePeople, setActivePeople] = useState([]);
 
     useEffect(() => {
-        console.log('effect')
 
         const query = getQuery(country.name, state.name);
 
@@ -42,17 +41,15 @@ export const useActivePeople = (country, state) => {
             Person,
             query
           ).subscribe(snapshot => {
-            console.log('query', models)
+            // console.log('query', models)
 
             const { items, isSynced } = snapshot;
 
-            // console.log('isSynced', isSynced)
 
             // Use manual data for USA and Worldwide.
             if (isSynced)
                 models = [...models, ...items];
 
-            console.log('models', models)
 
             // Sort Alphabetically
             models.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
@@ -72,7 +69,6 @@ export const useActivePeople = (country, state) => {
 
     }, [country, state])
 
-    console.log('call me')
 
     return [activePeople, setActivePeople];
 }
