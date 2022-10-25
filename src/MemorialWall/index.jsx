@@ -45,6 +45,7 @@ const MemorialWall = ({people, groupKey}) => {
 
     const groupedPeople = groupBy(people, groupKey);
 
+
     const groupTitles = Object.keys(groupedPeople).sort();
 
     return groupTitles.map((title) => (

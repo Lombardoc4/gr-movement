@@ -142,8 +142,8 @@ const PhotoShow = ({folderKey}) => {
 
         while (count < countLimit) {
             const index = images.length + count;
-            console.log('data', data);
-            console.log('dataIndex', data[index]);
+            // console.log('data', data);
+            // console.log('dataIndex', data[index]);
             newImages.push(
                 <div key={data[index].eTag} className="img-container">
                     <img
@@ -184,13 +184,12 @@ const PhotoShow = ({folderKey}) => {
 
     useEffect(() => {
         if (data.length > 0) {
-            console.log('push')
+            // console.log('push')
             pushImageToState();
         }
     }, [data])
 
 
-    console.log('data', data);
 
 
     return (
