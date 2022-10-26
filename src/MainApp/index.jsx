@@ -64,7 +64,6 @@ const ResizingWall = ({children, pathname}) => {
                 // setTimeout();
                 setLoading(false)
                 incResizeCount(1);
-                console.log('set false')
             }
 
         } else {

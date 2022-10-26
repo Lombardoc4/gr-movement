@@ -26,6 +26,9 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
     }
 
     const search = (query) => {
+        console.log(options.filter((option) =>
+        searchKeys[keySet].some(key => option[key].toLowerCase().includes(query.toLowerCase()))
+    ))
         return options.filter((option) =>
             searchKeys[keySet].some(key => option[key].toLowerCase().includes(query.toLowerCase()))
         )
@@ -34,6 +37,7 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
     const selectAction = (value) => {
         setOpen(false);
         action(value);
+        setQuery('');
     }
 
     return (
@@ -45,6 +49,7 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
                   className="search-input"
                   placeholder={value}
                   id={value}
+                  value={query}
                   onChange={(e) => handleChange(e)}
                   onFocus={() => handleFocus()}
                   type="text"

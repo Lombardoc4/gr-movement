@@ -3,10 +3,15 @@ import { Person } from '../models';
 
 import { useEffect, useState } from "react"
 import { data } from '../data/data-img.js';
+import { states } from '../data/states';
 
-const getQuery = (countryName, stateName) => {
-    if (stateName) {
-        return  p => p.state('eq', stateName)
+const getState = (countryName, stateName = 'Nationwide') => {
+    return states[countryName].filter(s => s.name === stateName )[0];
+}
+
+const getQuery = (countryName, state) => {
+    if (state.name && state.id) {
+        return  p => p.or((p) => p.state('eq', state.name).state('eq', state.id))
     } else if (countryName === 'Worldwide') {
         return p => p
     } else {
@@ -16,16 +21,18 @@ const getQuery = (countryName, stateName) => {
 
 export const useActivePeople = (country, state) => {
     const [activePeople, setActivePeople] = useState([]);
+    const stateInfo = getState(country.name, state.name);
+
 
     useEffect(() => {
 
-        const query = getQuery(country.name, state.name);
+        const query = getQuery(country.name, stateInfo);
 
 
         // Query/Filter Local Data
         const localData = data.filter((item) => {
-            if (state.name) {
-                return item.state === state.name
+            if (stateInfo.name) {
+                return item.state === stateInfo.name || item.state === stateInfo.id;
             } else if (country.name !== 'Worldwide') {
                 return item.country === country.name;
             } else {
@@ -41,7 +48,6 @@ export const useActivePeople = (country, state) => {
             Person,
             query
           ).subscribe(snapshot => {
-            // console.log('query', models)
 
             const { items, isSynced } = snapshot;
 
