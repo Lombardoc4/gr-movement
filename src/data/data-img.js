@@ -7312,7 +7312,7 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "Christina",
+      "firstName": "Christina Marie",
       "lastName": "Gribbin",
       "foreverAge": 25,
       "state": "PA",

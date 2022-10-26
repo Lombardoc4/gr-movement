@@ -26,9 +26,6 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
     }
 
     const search = (query) => {
-        console.log(options.filter((option) =>
-        searchKeys[keySet].some(key => option[key].toLowerCase().includes(query.toLowerCase()))
-    ))
         return options.filter((option) =>
             searchKeys[keySet].some(key => option[key].toLowerCase().includes(query.toLowerCase()))
         )
