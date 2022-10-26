@@ -12,7 +12,7 @@ let scrollID;
 
 const getS3Data = async (folderKey, id) => {
     const url = folderKey + '/' + id + '/';
-    console.log('url', url);
+    // console.log('url', url);
 
     return Storage.list(url, { maxKeys: 1000}) // for listing ALL files without prefix, pass '' instead
         .then(result => {

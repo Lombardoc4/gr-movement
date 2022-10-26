@@ -32,7 +32,6 @@ export const useActivePeople = (country, state) => {
         // Query/Filter Local Data
         const localData = data.filter((item) => {
             if (stateInfo.name) {
-                // item.state === stateInfo.id && console.log(item, stateInfo.id)
                 return item.state === stateInfo.name || item.state === stateInfo.id;
             } else if (country.name !== 'Worldwide') {
                 return item.country === country.name;
@@ -62,7 +61,7 @@ export const useActivePeople = (country, state) => {
             // Sort Alphabetically
             const sortedModels = models.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
 
-            console.log('sorted models', models);
+            // console.log('sorted models', models);
 
 
             setActivePeople(sortedModels);
