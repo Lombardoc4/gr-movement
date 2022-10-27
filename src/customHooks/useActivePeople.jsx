@@ -6,6 +6,7 @@ import { data } from '../data/data-img.js';
 import { states } from '../data/states';
 
 const getState = (countryName, stateName = 'Nationwide') => {
+    console.log('stateNAme', stateName)
     return states[countryName].filter(s => s.name === stateName )[0];
 }
 
@@ -21,7 +22,8 @@ const getQuery = (countryName, state) => {
 
 export const useActivePeople = (country, state) => {
     const [activePeople, setActivePeople] = useState([]);
-    const stateInfo = getState(country.name, state.name);
+    console.log('country', country);
+    const stateInfo = country.name === 'Worldwide' ? state : getState(country.name, state.name);
 
 
     useEffect(() => {

@@ -52,6 +52,7 @@ const App = () => {
       </Route>
 
       <Route path="/" element={<NameWall  />}></Route> */}
+      <Route path="/" element={<MainApp  />}></Route>
       <Route path="/*" element={<MainApp  />}></Route>
     </Routes>
   </BrowserRouter>
