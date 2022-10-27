@@ -137,14 +137,12 @@ const PhotoShow = ({folderKey}) => {
     const pushImageToState = () => {
         const newImages = [];
         let count = 0;
-        // const countLimit = data.length - images.length >= 10 ? 10 : data.length - images.length;
-        const countLimit = data.length;
+        const countLimit = data.length - images.length >= 10 ? 10 : data.length - images.length;
+        // const countLimit = data.length;
 
 
         while (count < countLimit) {
             const index = images.length + count;
-            // console.log('data', data);
-            // console.log('dataIndex', data[index]);
             newImages.push(
                 <div key={data[index].eTag} className="img-container">
                     <img
@@ -163,37 +161,40 @@ const PhotoShow = ({folderKey}) => {
     }
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     // Todo figure out why this need to be reapplied everytime
-    //     if (images.length > 0) {
+        // Todo figure out why this need to be reapplied everytime
+        if (images.length > 0) {
 
-    //         const windowWidth = window.innerWidth;
+            const windowWidth = window.innerWidth;
 
-    //         photoshow.current.addEventListener('scroll', function() {
-    //             const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 20 || this.scrollLeft % windowWidth <= 20;
+            photoshow.current.addEventListener('scroll', function() {
+                const scrollFullScreenWidth = this.scrollLeft % windowWidth >= windowWidth - 30 || this.scrollLeft % windowWidth <= 30;
 
-    //             if (scrollFullScreenWidth && data.length > images.length) {
+                if (scrollFullScreenWidth && data.length > images.length) {
 
-    //                 // Make smaller containers of 10 images that load on scroll?
-    //                 pushImageToState();
-    //             }
+                    // Make smaller containers of 10 images that load on scroll?
+                    pushImageToState();
+                }
 
-    //         })
+            })
 
-    //     }
+        }
 
-    // }, [images])
+    }, [images])
 
 
 
     useEffect(() => {
         if (data.length > 0) {
             // console.log('push')
-            let count = 10;
-            while (count === 10) {
-                count = pushImageToState();
-            }
+            // let count = 10;
+            // while (count === 10) {
+                // count = pushImageToState();
+            // }
+
+            pushImageToState();
+
         }
     }, [data])
 
