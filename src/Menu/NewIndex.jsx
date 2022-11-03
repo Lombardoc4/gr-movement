@@ -34,6 +34,14 @@ const NewIndex = ({people, country, state}) => {
         }
     }, [])
 
+    const showPerson = (name) => {
+        const personEl = document.querySelector(`[name='${name}']`);
+        personEl.classList.add('found');
+        setTimeout(() => {
+            personEl.scrollIntoView({behavior: "smooth", inline: "center"});
+        }, 300)
+    }
+
     const defaultDropdownAction = (key, value) => {
         if (key === 'country') navigate(`/${value.toLowerCase()}`);
 
@@ -49,6 +57,7 @@ const NewIndex = ({people, country, state}) => {
                     value='Name'
                     options={people}
                     keySet='person'
+                    action={name => showPerson(name)}
                     />
 
                 <Dropdown

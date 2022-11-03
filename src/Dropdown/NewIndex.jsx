@@ -11,6 +11,7 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState('');
 
+
     const handleFocus = () => {
         if (keySet === 'default') setOpen(true);
 
@@ -26,9 +27,11 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
     }
 
     const search = (query) => {
-        return options.filter((option) =>
-            searchKeys[keySet].some(key => option[key].toLowerCase().includes(query.toLowerCase()))
-        )
+        return options.filter((option) => {
+            const optionValue = keySet !== 'person' ? option['name'] : option['firstName'] + ' ' + option['lastName'];
+
+            return optionValue.toLowerCase().includes(query.toLowerCase());
+        })
     }
 
     const selectAction = (value) => {

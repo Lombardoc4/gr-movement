@@ -4264,8 +4264,8 @@ export const data = [
 "imgUrl": ""
     },
     {
-      "firstName": "",
-      "lastName": "Thomas john Babcock",
+      "firstName": "Thomas",
+      "lastName": "John Babcock",
       "foreverAge": 29,
       "state": "Massachusetts",
       "country": "United States",

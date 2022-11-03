@@ -110,7 +110,7 @@ const MainApp = () => {
     return (
         <div id="main-app">
             <NewIndex
-                people={people}
+                people={people.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))}
                 country={country}
                 countries={countries}
                 state={state}

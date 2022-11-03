@@ -22,7 +22,6 @@ const getQuery = (countryName, state) => {
 
 export const useActivePeople = (country, state) => {
     const [activePeople, setActivePeople] = useState([]);
-    console.log('country', country);
     const stateInfo = country.name === 'Worldwide' ? state : getState(country.name, state.name);
 
 
