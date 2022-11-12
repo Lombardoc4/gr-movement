@@ -33,6 +33,7 @@ export const useActivePeople = (country, state) => {
         // Query/Filter Local Data
         const localData = data.filter((item) => {
             if (stateInfo.name) {
+                if (stateInfo.name === 'Nationwide') return true;
                 return item.state === stateInfo.name || item.state === stateInfo.id;
             } else if (country.name !== 'Worldwide') {
                 return item.country === country.name;
@@ -44,6 +45,7 @@ export const useActivePeople = (country, state) => {
 
         let models = ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [];
 
+        console.log('init models', ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [])
 
         const subscription = DataStore.observeQuery(
             Person,

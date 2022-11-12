@@ -106,7 +106,6 @@ const MainApp = () => {
     const [people] = useActivePeople(country, state);
 
 
-
     return (
         <div id="main-app">
             <NewIndex
