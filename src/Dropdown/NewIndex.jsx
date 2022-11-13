@@ -23,13 +23,14 @@ export default function Dropdown({title, value, options, action, keySet = 'defau
 
         if (keySet === 'person' && e.target.value.length === 0) setOpen(false);
 
+        console.log('target.value', e.target.value)
+
         setQuery(e.target.value)
     }
 
     const search = (query) => {
         return options.filter((option) => {
             const optionValue = keySet !== 'person' ? option['name'] : option['firstName'] + ' ' + option['lastName'];
-
             return optionValue.toLowerCase().includes(query.toLowerCase());
         })
     }

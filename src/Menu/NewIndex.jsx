@@ -23,6 +23,14 @@ export const StaticMenu = ({children}) => {
     )
 }
 
+const showPerson = (name) => {
+    const personEl = document.querySelector(`[name='${name}']`);
+    personEl.classList.add('found');
+    setTimeout(() => {
+        personEl.scrollIntoView({behavior: "smooth", inline: "center"});
+    }, 300)
+}
+
 const NewIndex = ({people, country, state}) => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -34,19 +42,16 @@ const NewIndex = ({people, country, state}) => {
         }
     }, [])
 
-    const showPerson = (name) => {
-        const personEl = document.querySelector(`[name='${name}']`);
-        personEl.classList.add('found');
-        setTimeout(() => {
-            personEl.scrollIntoView({behavior: "smooth", inline: "center"});
-        }, 300)
-    }
+
 
     const defaultDropdownAction = (key, value) => {
+        console.log([key, value])
         if (key === 'country') navigate(`/${value.toLowerCase()}`);
 
         if (key === 'state') navigate(`/${country.id.toLowerCase()}/${value.toLowerCase()}`);
     }
+
+    console.log('state', states[country.name]);
 
     return (<>
         <div className={(open ? 'open' : '') + ' menu'}>
