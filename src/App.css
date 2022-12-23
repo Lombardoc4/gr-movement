@@ -9,7 +9,7 @@
     background-image: url('./slate-purple4.png');
     background-size: auto 100vh;    min-width: 100vw;
     position: relative;
-
+    scroll-behavior: smooth;
 }
 
 .photo-bg{
@@ -182,7 +182,6 @@
     max-width: 300px;
     padding: 10px;
     text-shadow: 0 0 5px #000000;
-
 }
 
 .person .row{
@@ -203,6 +202,7 @@
     display: flex;
     align-items: center;
     text-shadow: 0 0 5px #000000;
+    -webkit-transform: translate3d(0,0,0);
     text-transform: uppercase;
 }
 
