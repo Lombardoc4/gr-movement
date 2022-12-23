@@ -27,7 +27,6 @@ const ListView = () => {
     const [unitedStates, setUnitedStates] = useState(0);
     const [canada, setCanada] = useState(0);
 
-
     useEffect(() => {
 
         // Get All Data
@@ -37,7 +36,6 @@ const ListView = () => {
 
             const { items } = snapshot;
             const people =  [...items, ...data];
-
 
             // group by Country
             const groupByCountry = groupBy(people, 'country');
@@ -70,12 +68,7 @@ const ListView = () => {
 
                 const groupByState = groupBy(sortedCountry[country], 'state');
 
-                // console.log('init groupBySTatex', groupBy(sortedCountry[country], 'state'));
-
-
                 states[country].map(({name, id}) => {
-                    // console.log('id', [id, groupByState[id]])
-                    // console.log('name', [name, groupByState[name]])
                     if (groupByState[name] && groupByState[id]){
                         groupByState[name] = groupByState[name].concat(groupByState[id]);
                     } else {
@@ -124,50 +117,37 @@ const ListView = () => {
     }, []);
 
 
-
-
-
-
     return (
         <main className="byTheNumbers">
             <h1>Drug Epidemic Memorial</h1>
             <h2>By The Numbers</h2>
-
-            <div className="accordian-container">
-                <div className="accordian">
-
-                    <h3>Worldwide</h3>
-                    <p className='totals'>Total:{Object.values(worldwide).reduce((total, state) => state.length + total, 0)} </p>
-
-                    {Object.keys(worldwide).map(country => (
-                        <div key={country} className='accordian-item'>
-                            <p className="country-name">{country}:</p> {worldwide[country].length}
-                        </div>
-                    ))}
-                </div>
-                <div className="accordian">
-                    <h3>United States</h3>
-                    <p className='totals'>Total:{Object.values(unitedStates).reduce((total, state) => state.length + total, 0)} </p>
-                    {Object.keys(unitedStates).map(state => (
-                        <div  key={state}  className='accordian-item'>
-                            <p className="country-name">{state}:</p> {unitedStates[state].length}
-                        </div>
-                    ))}
-                </div>
-                <div className="accordian">
-                    <h3>Canada</h3>
-                    <p className='totals'>Total:{Object.values(canada).reduce((total, state) => state.length + total, 0)} </p>
-
-                    {Object.keys(canada).map(province => (
-                        <div key={province} className='accordian-item'>
-                            <p className="country-name">{province}:</p> {canada[province].length}
-                        </div>
-                    ))}
-                </div>
-
-            </div>
+            <Accordian title="worldwide" data={worldwide}/>
+            <Accordian title="united-states" data={unitedStates}/>
+            <Accordian title="canada" data={canada}/>
         </main>
     )
 }
 
 export default ListView
+
+const Accordian = ({title, data}) => {
+    const [hideDetails, setHideDetails] = useState(false);
+
+    return (
+        <div className="accordian">
+        <h3>{title.charAt(0).toUpperCase() + title.slice(1)} - Total:{Object.values(data).reduce((total, state) => state.length + total, 0)} </h3>
+
+        <div className="accordian-toggler" tabIndex={0} onClick={() => setHideDetails(!hideDetails)}>{hideDetails ? 'Show' : 'Hide'} Details</div>
+
+        <div className={title + (hideDetails ? ' hide' : '') + " accordian-container"}>
+
+            {Object.keys(data).map(value => (
+                <div key={value} className='accordian-item'>
+                    <p className="country-name">{value}:</p>
+                    <p>{data[value].length}</p>
+                </div>
+            ))}
+            </div>
+        </div>
+    );
+}

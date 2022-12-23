@@ -45,13 +45,13 @@ const NewIndex = ({people, country, state}) => {
 
 
     const defaultDropdownAction = (key, value) => {
-        console.log([key, value])
+        // console.log([key, value])
         if (key === 'country') navigate(`/${value.toLowerCase()}`);
 
         if (key === 'state') navigate(`/${country.id.toLowerCase()}/${value.toLowerCase()}`);
     }
 
-    console.log('state', states[country.name]);
+    // console.log('state', states[country.name]);
 
     return (<>
         <div className={(open ? 'open' : '') + ' menu'}>

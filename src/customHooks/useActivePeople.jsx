@@ -6,7 +6,7 @@ import { data } from '../data/data-img.js';
 import { states } from '../data/states';
 
 const getState = (countryName, stateName = 'Nationwide') => {
-    console.log('stateNAme', stateName)
+    // console.log('stateNAme', stateName)
     return states[countryName].filter(s => s.name === stateName )[0];
 }
 
@@ -21,7 +21,7 @@ const getQuery = (countryName, state) => {
 }
 
 export const useActivePeople = (country, state) => {
-    console.log('state', state);
+    // console.log('state', state);
     const [activePeople, setActivePeople] = useState([]);
     const stateInfo = country.name === 'Worldwide' ? state : getState(country.name, state.name);
 
@@ -46,7 +46,7 @@ export const useActivePeople = (country, state) => {
 
         let models = ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [];
 
-        console.log('init models', ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [])
+        // console.log('init models', ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [])
 
         const subscription = DataStore.observeQuery(
             Person,
