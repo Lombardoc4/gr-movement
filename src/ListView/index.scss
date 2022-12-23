@@ -44,7 +44,7 @@ main.byTheNumbers {
         gap: 2rem;
         margin-top: 1rem;
         overflow: hidden;
-        max-height: 200rem;
+        max-height: 400rem;
         transition: max-height 1s ease-in;
     }
 
@@ -54,16 +54,7 @@ main.byTheNumbers {
         transition: max-height 0.4s 0s ease-out;
     }
 
-    .accordian-container.united-states{
-        grid-template-rows: repeat(18, 1fr);
-        grid-auto-flow: column;
 
-    }
-
-    .accordian-container.canada{
-        grid-template-rows: repeat(5, 1fr);
-        grid-auto-flow: column;
-    }
 
     .accordian{
         width: 100%;
@@ -103,9 +94,15 @@ main.byTheNumbers {
     main.byTheNumbers{
         padding: 2rem;
 
-        .accordian-container{
-            // display: flex;
-            // gap: 1rem;
+
+        .accordian-container.united-states{
+            grid-template-rows: repeat(18, 1fr);
+            grid-auto-flow: column;
+        }
+
+        .accordian-container.canada{
+            grid-template-rows: repeat(5, 1fr);
+            grid-auto-flow: column;
         }
 
         .accordian{
