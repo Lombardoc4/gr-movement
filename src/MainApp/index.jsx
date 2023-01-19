@@ -103,9 +103,7 @@ const MainApp = () => {
 
     const state = stateId ? getStateInfo(country.name, stateId) : '';
 
-
     const [people] = useActivePeople(country, state);
-
 
     return (
         <div id="main-app">

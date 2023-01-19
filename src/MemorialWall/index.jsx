@@ -18,7 +18,6 @@ const groupBy = (list, key) => {
 
     // Reduce before sorting to combine appreviation of states with fullname
     if (key === 'state' && Object.keys(grouped).length > 0) {
-        const stateName = Object.keys(grouped)[0];
 
         //
         states[list[0].country].map(({name, id}) => {
@@ -31,7 +30,7 @@ const groupBy = (list, key) => {
             return name;
         })
 
-        grouped[stateName].sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
+        grouped[Object.keys(grouped)[0]].sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
 
     }
 
