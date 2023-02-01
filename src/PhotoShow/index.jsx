@@ -12,7 +12,7 @@ let scrollID;
 
 const getS3Data = async (folderKey, id) => {
     const url = folderKey + '/' + id + '/';
-    // console.log('url', url);
+    console.log('url', url);
 
     return Storage.list(url, { maxKeys: 1000}) // for listing ALL files without prefix, pass '' instead
         .then(result => {
@@ -43,7 +43,7 @@ const alphabetizedNames = (peopleList) => {
     return peopleList.sort((a, b) => a.name.localeCompare(b.name))
 }
 
-const PhotoShow = ({folderKey}) => {
+const PhotoShow = ({folderKey, country = 'United States'}) => {
     const [menuOpen, toggleMenu] = useState(false);
     const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
@@ -57,14 +57,13 @@ const PhotoShow = ({folderKey}) => {
     const photoshow = useRef(null);
 
     useEffect(() => {
-
-
-
         const getMultiData = async () => {
             const vals = []
 
             // alphabetical order
-            const alphaStates = states['United States'].sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+            const alphaStates = states[country].sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+
+            // console.log(alphaStates);
 
             // Make a call for each state returns a promise
             const promises = alphaStates.map(async (state) => {
@@ -76,8 +75,7 @@ const PhotoShow = ({folderKey}) => {
 
             Promise.all(promises).then(values => {
                 // push values that are length > 0
-                values.map(v => v.length > 1 && vals.push(...v));
-                // values = alphabetizedNames(values);
+                values.map(v => v.length >= 1 && vals.push(...v));
 
                 setData([...data,...vals]);
             })
@@ -86,9 +84,6 @@ const PhotoShow = ({folderKey}) => {
         const getSingleData = async () => {
             const result = await getS3Data(folderKey, id.toUpperCase());
             setData(result.length > 0 ? alphabetizedNames(result) : []);
-
-            // console.log('result', result);
-            // setData(result);
         }
 
         if (id) {
@@ -139,6 +134,7 @@ const PhotoShow = ({folderKey}) => {
         let count = 0;
         const countLimit = data.length - images.length >= 10 ? 10 : data.length - images.length;
         // const countLimit = data.length;
+
 
 
         while (count < countLimit) {

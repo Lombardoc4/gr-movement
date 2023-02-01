@@ -74,7 +74,7 @@ const NewIndex = ({people, country, state}) => {
 
                 {countriesWithStates.includes(country.name) &&
                     <Dropdown
-                      title={"Select a state:"}
+                      title={`Select a ${country.name === 'Canada' ?  'province': 'state'}:`}
                       value={state.name || 'Nationwide'}
                       options={states[country.name]}
                       action={value => defaultDropdownAction('state', value)}

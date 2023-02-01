@@ -41,7 +41,13 @@ const App = () => {
 
       <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
       <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
+
+      <Route path="/photo/can" element={<Navigate to="/photos/can" replace />}></Route>
+      <Route path="/photos/can" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
+      <Route path="/photos/can/:id" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
+
       <Route path="/photos/:id" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
+
       <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
       <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
 
