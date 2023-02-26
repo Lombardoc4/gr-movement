@@ -50,7 +50,7 @@ const MusicPlayer = ({playlistName, playing = false}) => {
     const [audioPlaying, setPlaying] = useState(playing);
 
     const audioRef = useRef(null);
-    const activePlaylist = trackLists[playlistName];
+    const activePlaylist = trackLists[playlistName] || trackLists['photoWall'];
 
     const skipTrack = async () => {
         const newIndex = audioTrack === activePlaylist.length - 1 ? 0 : audioTrack + 1;

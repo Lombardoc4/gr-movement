@@ -194,9 +194,6 @@ const PhotoShow = ({folderKey, country = 'United States'}) => {
         }
     }, [data])
 
-
-
-
     return (
         <div className="photo-bg">
 
