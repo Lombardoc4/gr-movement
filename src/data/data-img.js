@@ -10314,8 +10314,8 @@ export const data = [
     {
       "firstName": "Brandon",
       "lastName": "Brodsko",
-      "foreverAge": "",
-      "state": "",
+      "foreverAge": "33",
+      "state": "Pennsylvania",
       "country": "United States",
 "imgUrl": ""
     },
