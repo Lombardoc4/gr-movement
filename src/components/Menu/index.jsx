@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+import { countries } from '../../data/countries';
+import { states } from '../../data/states';
+import Dropdown from "../Dropdown";
+import FloatingMenu from "./FloatingMenu";
+import useAnalyticsEventTracker from "../../customHooks/useAnalyticsEvent";
 
-import { countries } from '../data/countries';
-import { states } from '../data/states';
-import Dropdown from "../Dropdown/NewIndex";
-import FloatingMenu from "../FloatingMenu";
-import useAnalyticsEventTracker from "../customHooks/useAnalyticsEvent";
+import './index.css'
 
 const countriesWithStates = ['United States', 'Canada'];
 
@@ -14,16 +15,19 @@ export const StaticMenu = ({children}) => {
     const gaEventTracker = useAnalyticsEventTracker('Menu');
     return (
         <>
-            <h2>Drug Epidemic Memorial Wall</h2>
-            {children}
-            <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://drugepidemicmemorial.org/">Add Your Loved One and Photo</a>
-            <a onClick={() => gaEventTracker('click', 'photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/en/document/read/67262424/usa-memorial-wall-photo-album-swipe-to-view-you-may-also-click-on-the-state-in-the-table-of-contents">Memorial Photo Wall</a>
-            <a onClick={() => gaEventTracker('click', 'teen-photo-wall')} className="add-btn" tabIndex={0} style={{display: 'block', textDecoration: 'none', margin: '2rem 0'}} href="https://www.yumpu.com/xx/document/read/67142988/memorial-teen-photo-wall-swipe-to-view">Memorial Teen Photo Wall</a>
+            <h2 style={{textAlign: 'center'}}>Drug Epidemic Memorial Wall</h2>
+            <div style={{marginTop: '2rem'}}>
+                {children}
+                <Link className="add-btn" to="/photos">US Photo Wall</Link>
+                <Link className="add-btn" to="/photos/can">Canada Photo Wall</Link>
+                <Link className="add-btn" to="/teen-photos/">Teen Photo Wall</Link>
+                <a onClick={() => gaEventTracker('click', 'form')} className="add-btn" tabIndex={0} style={{textTransform: 'uppercase', textAlign: 'center', fontSize: '1.5rem'}} href="https://drugepidemicmemorial.org/">Add Your Loved One Now</a>
+            </div>
         </>
     )
 }
 
-const showPerson = (name) => {
+const revealPerson = (name) => {
     const personEl = document.querySelector(`[name='${name}']`);
     personEl.classList.add('found');
     setTimeout(() => {
@@ -31,7 +35,7 @@ const showPerson = (name) => {
     }, 300)
 }
 
-const NewIndex = ({people, country, state}) => {
+const Menu = ({people, country, state}) => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
 
@@ -62,7 +66,7 @@ const NewIndex = ({people, country, state}) => {
                     value='Name'
                     options={people}
                     keySet='person'
-                    action={name => showPerson(name)}
+                    action={name => revealPerson(name)}
                     />
 
                 <Dropdown
@@ -75,7 +79,7 @@ const NewIndex = ({people, country, state}) => {
                 {countriesWithStates.includes(country.name) &&
                     <Dropdown
                       title={`Select a ${country.name === 'Canada' ?  'province': 'state'}:`}
-                      value={state.name || 'Nationwide'}
+                      value={(state && state.name) || 'Nationwide'}
                       options={states[country.name]}
                       action={value => defaultDropdownAction('state', value)}
                     />
@@ -91,4 +95,4 @@ const NewIndex = ({people, country, state}) => {
     </>);
 }
 
-export default NewIndex;
+export default Menu;

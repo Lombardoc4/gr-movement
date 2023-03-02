@@ -1,5 +1,5 @@
-import { useWindowScroll } from "../customHooks/useWindowScroll"
-import MusicPlayer from "../MusicPlayer";
+import { useWindowScroll } from "../../../customHooks/useWindowScroll"
+import MusicPlayer from "../../MusicPlayer";
 
 
 export default function FloatingMenu({children}) {

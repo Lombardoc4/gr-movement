@@ -1,6 +1,8 @@
 import {  useState } from "react"
 import DropdownList from "./List";
 
+import './dropdown.css';
+
 const searchKeys = {
     default: ['name'],
     person: ['firstName', 'lastName']

@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useActivePeople } from "../customHooks/useActivePeople";
 
 import { countries } from '../data/countries';
 import { states } from "../data/states";
 
-import MemorialWall, { WallSubHeader } from "../MemorialWall";
-import NewIndex from "../Menu/NewIndex";
+import MemorialWall, { WallSubHeader } from "./MemorialWall";
+import Menu, { StaticMenu } from "../components/Menu";
 
 import '../App.css';
-
 
 const countriesWithStates = ['United States', 'Canada'];
 
@@ -18,6 +17,7 @@ const getCountryInfo = (countryId) => {
 }
 
 const getStateInfo = (countryName, stateId) => {
+    console.log('countryName', countryName)
     return states[countryName].find(c => c.id.toLowerCase() === (stateId))
 }
 
@@ -94,32 +94,53 @@ const ResizingWall = ({children, pathname}) => {
     )
 }
 
-const MainApp = () => {
+const NameWall = () => {
+
 
     const {pathname} = useLocation();
 
     const [countryId, stateId] = pathname.split('/').filter(c => c !== '' && c !== 'v2');
     const country = getCountryInfo(countryId);
 
-    const state = stateId ? getStateInfo(country.name, stateId) : '';
+    const state = stateId && getStateInfo(country.name, stateId);
 
     const [people] = useActivePeople(country, state);
 
+    if (people.length === 0 && !country && !state) {
+        console.log('falsey')
+        return (
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100vh',
+                width: '390px',
+                margin: 'auto',
+                justifyContent: 'center'
+            }}>
+                <p style={{fontWeight: 700, textAlign: 'center'}}>This page does not exists</p>
+                <StaticMenu>
+                    <Link className="add-btn" to="/">Global Memorial Wall</Link>
+                </StaticMenu>
+            </div>
+        )
+
+    }
+
+    const Wall = people.length > 0 ? (
+        <ResizingWall pathname={pathname}>
+            <MemorialWall
+                people={people}
+                groupKey={getGroupKey(country)}
+                />
+        </ResizingWall>
+        )
+        :
+        <WallSubHeader title={country.name}/>
+
     return (
         <div id="main-app">
-            {people.length > 0  ?
-                <ResizingWall
-                    pathname={pathname}
-                >
-                    <MemorialWall
-                        people={people}
-                        groupKey={getGroupKey(country)}
-                        />
-                </ResizingWall>
-                :
-                <WallSubHeader title={country.name}/>
-            }
-            <NewIndex
+            {Wall}
+            <Menu
                 people={people.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))}
                 country={country}
                 countries={countries}
@@ -129,4 +150,4 @@ const MainApp = () => {
     )
 }
 
-export default MainApp;
+export default NameWall;

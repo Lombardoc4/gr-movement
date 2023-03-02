@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import ReactGA from 'react-ga';
 
-import NameWall from './NameWall'
 // import Form from './Form'
 
 import './index.css'
@@ -17,7 +16,7 @@ import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
 import ListView from './ListView';
 import PhotoShow from './PhotoShow';
-import MainApp from './MainApp';
+import NameWall from './NameWall';
 // import Form from './Form/NewForm';
 Amplify.configure(awsExports);
 ReactGA.initialize('UA-236089614-1');
@@ -30,36 +29,34 @@ const App = () => {
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
-  // <React.StrictMode>
 
   return (
 
   <BrowserRouter>
     <Routes>
-      {/* <Route path="/form" element={<Form/>}></Route> */}
+      {/* Total Numbers */}
       <Route path="/numbers" element={<ListView/>}></Route>
 
+      {/* USA Photos Wall */}
       <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
       <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
 
+      {/* Canada Photo Wall */}
       <Route path="/photo/can" element={<Navigate to="/photos/can" replace />}></Route>
       <Route path="/photos/can" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
       <Route path="/photos/can/:id" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
 
+      {/* USA State Photo Wall */}
       <Route path="/photos/:id" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
 
+      {/* Teen Photo Wall */}
       <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
       <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
 
-      {/* <Route path="/:countryParams" element={<NameWall  />}></Route>
-      <Route path="/can/:stateParams" element={<NameWall />}></Route>
-      <Route path="/usa/:stateParams" element={<NameWall  />}>
-        <Route path="/usa/:stateParams/:countyParams" element={<NameWall  />}></Route>
-      </Route>
+      {/* Name wall */}
+      <Route path="/" element={<NameWall  />}></Route>
+      <Route path="/*" element={<NameWall  />}></Route>
 
-      <Route path="/" element={<NameWall  />}></Route> */}
-      <Route path="/" element={<MainApp  />}></Route>
-      <Route path="/*" element={<MainApp  />}></Route>
     </Routes>
   </BrowserRouter>
 

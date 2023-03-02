@@ -45,7 +45,7 @@ const trackLists = {
     ]
 }
 
-const MusicPlayer = ({playlistName, playing = false}) => {
+const MusicPlayer = ({playlistName, playing = true}) => {
     const [audioTrack, setAudio] = useState(0);
     const [audioPlaying, setPlaying] = useState(playing);
 
@@ -58,7 +58,8 @@ const MusicPlayer = ({playlistName, playing = false}) => {
         audioRef.current.play();
     }
 
-    const togglePlay = (playing = audioPlaying) => {
+    const togglePlay = (e, playing = audioPlaying) => {
+        console.log('go go', playing)
         playing ? audioRef.current.pause() : audioRef.current.play();
         setPlaying(!playing);
 

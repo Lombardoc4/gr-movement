@@ -1,12 +1,12 @@
 
 import { Storage } from "aws-amplify";
 import { useEffect, useState, useRef } from "react";
-import { StaticMenu } from "../Menu";
+import { StaticMenu } from "../components/Menu";
 import { states } from "../data/states";
 
-import MusicPlayer from "../MusicPlayer";
+import MusicPlayer from "../components/MusicPlayer";
 import './index.scss'
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 let scrollID;
 
@@ -204,7 +204,9 @@ const PhotoShow = ({folderKey, country = 'United States'}) => {
             </div>
 
             <div className={(menuOpen ? 'open' : '') + " menu"}>
-                <StaticMenu/>
+                <StaticMenu>
+                    <Link className="add-btn" to="/">Global Memorial Wall</Link>
+                </StaticMenu>
             </div>
 
             <div className="floating">
