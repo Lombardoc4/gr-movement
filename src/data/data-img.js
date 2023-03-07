@@ -10139,7 +10139,7 @@ export const data = [
       "firstName": "Ava Michelle",
       "lastName": "Howland",
       "foreverAge": "24",
-      "state": "Florida",
+      "state": "Pennsylvania",
       "country": "United States",
 "imgUrl": ""
     },
