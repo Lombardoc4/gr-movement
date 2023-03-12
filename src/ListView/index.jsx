@@ -6,7 +6,6 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Person } from '../models';
 
 import { states } from '../data/states';
-import { data } from '../data/data-img.js';
 import { useEffect, useState } from 'react';
 
 const groupBy = function(list, key) {
@@ -35,10 +34,9 @@ const ListView = () => {
         ).subscribe(snapshot => {
 
             const { items } = snapshot;
-            const people =  [...items, ...data];
 
             // group by Country
-            const groupByCountry = groupBy(people, 'country');
+            const groupByCountry = groupBy(items, 'country');
 
             // Sort Countries Alphabetically
             const sortedCountry = Object.keys(groupByCountry)
