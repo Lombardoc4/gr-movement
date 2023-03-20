@@ -2,23 +2,25 @@ import { DataStore } from '@aws-amplify/datastore';
 import { Person } from '../models';
 
 import { useEffect, useState } from "react"
-import { data } from '../data/data-img.js';
 import { states } from '../data/states';
 
-
-console.log(data.filter(entry => ['kansas', 'missouri'].includes(entry.state.toLowerCase())))
 
 const getState = (countryName, stateName = 'Nationwide') => {
     return states[countryName].filter(s => s.name === stateName )[0];
 }
 
 const getQuery = (countryName, state) => {
+
     if (state && state.name && state.id) {
-        return  p => p.or((p) => p.state('eq', state.name).state('eq', state.id))
+        return  (p) =>
+            p.or((p) => [
+                p.state.eq(state.name),
+                p.state.eq(state.id)
+            ])
     } else if (countryName === 'Worldwide') {
         return p => p
     } else {
-        return p => p.country('eq', countryName)
+        return p => p.country.eq(countryName)
     }
 }
 
@@ -26,47 +28,28 @@ export const useActivePeople = (country, state) => {
     const [activePeople, setActivePeople] = useState([]);
 
     const getStateInfo = () => {
-        if (!country && !state) {
-            return false;
-        }
-        if (!state) {
-            return country.name === 'Worldwide' ? state : getState(country.name);
-        }
+        // No country or state return
+        if (!country && !state) { return false; }
 
+        // all states or a no states
+        if (!state) { return country.name === 'Worldwide' ? state : getState(country.name);}
+
+        // A specific state or no state
         return country.name === 'Worldwide' ? state : getState(country.name, state.name);
     }
 
 
     useEffect(() => {
-
         const stateInfo = getStateInfo()
+
+        // Return empty array if no state or country
         if(!country && !stateInfo) {
             setActivePeople([]);
             return;
         }
+
+
         const query = getQuery(country.name, stateInfo);
-
-
-        // Query/Filter Local Data
-        const localData = data.filter((item) => {
-            if (stateInfo && stateInfo.name) {
-                // Return all for country
-                if (stateInfo.name === 'Nationwide') return true;
-
-                // Return
-                return item.state === stateInfo.name || item.state === stateInfo.id;
-            } else if (country.name !== 'Worldwide') {
-                // Get specific country
-                return item.country === country.name;
-            } else {
-                // Return all
-                return true;
-            }
-        })
-
-
-        let models = ['Worldwide', 'United States'].includes(country.name) ? [...localData] : [];
-
 
         const subscription = DataStore.observeQuery(
             Person,
@@ -76,23 +59,21 @@ export const useActivePeople = (country, state) => {
             const { items, isSynced } = snapshot;
 
 
-            // Use manual data for USA and Worldwide.
-            if (isSynced)
-                models = [...models, ...items];
+            if (isSynced) {
+                // Sort Alphabetically
+                const sortedModels = items.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
 
+                // Log Duplicates
+                // const duplicates = items.filter((item, index) => {
+                //     return items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge)
+                // })
+                // console.log('duplicates', duplicates)
 
-
-            // Sort Alphabetically
-            const sortedModels = models.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
-
-
-
-            setActivePeople(sortedModels);
-
+                // Update People
+                setActivePeople(sortedModels);
+            }
 
         });
-
-
 
         // Clean up function
         return () => {

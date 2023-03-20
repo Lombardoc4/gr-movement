@@ -59,7 +59,7 @@ const MusicPlayer = ({playlistName, playing = true}) => {
     }
 
     const togglePlay = (e, playing = audioPlaying) => {
-        console.log('go go', playing)
+        // console.log('go go', playing)
         playing ? audioRef.current.pause() : audioRef.current.play();
         setPlaying(!playing);
 

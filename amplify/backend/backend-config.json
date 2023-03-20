@@ -1,70 +1,110 @@
 {
   "api": {
     "GRMovement": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "output": {
         "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
-            }
-          },
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
             }
-          ]
+          ],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            },
+            "authenticationType": "API_KEY"
+          }
         }
-      }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   },
   "auth": {
     "GRMovement": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
         ],
-        "signupAttributes": [],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": [
             "REQUIRES_LOWERCASE",
             "REQUIRES_NUMBERS",
             "REQUIRES_SYMBOLS",
             "REQUIRES_UPPERCASE"
-          ]
+          ],
+          "passwordPolicyMinLength": 8
         },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"
         ]
-      }
-    }
-  },
-  "storage": {
-    "s3grmovementstoragee48b8b36": {
-      "service": "S3",
+      },
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "service": "Cognito"
     }
   },
   "function": {
+    "getHeroFromOntraport": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getUserFromOntraport": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_getHeroFromOntraport_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getHeroFromOntraport"
+        }
+      ]
+    },
+    "AMPLIFY_function_getHeroFromOntraport_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getHeroFromOntraport"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserFromOntraport_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserFromOntraport"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUserFromOntraport_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUserFromOntraport"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "s3grmovementstoragee48b8b36": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

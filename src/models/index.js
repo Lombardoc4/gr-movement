@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Person, ImgPerson } = initSchema(schema);
+const { Heroes, Person, ImgPerson } = initSchema(schema);
 
 export {
+  Heroes,
   Person,
   ImgPerson
 };

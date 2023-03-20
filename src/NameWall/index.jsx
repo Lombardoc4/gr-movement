@@ -12,14 +12,9 @@ import '../App.css';
 
 const countriesWithStates = ['United States', 'Canada'];
 
-const getCountryInfo = (countryId) => {
-    return countries.find(c => c.id === (countryId || ''))
-}
+const getCountryInfo = (countryId) => countries.find(c => c.id === (countryId || ''))
 
-const getStateInfo = (countryName, stateId) => {
-    console.log('countryName', countryName)
-    return states[countryName].find(c => c.id.toLowerCase() === (stateId))
-}
+const getStateInfo = (countryName, stateId) => states[countryName].find(c => c.id.toLowerCase() === (stateId))
 
 const getGroupKey = (country) => {
     if (country.name === 'Worldwide') {
@@ -42,6 +37,7 @@ const ResizingWall = ({children, pathname}) => {
 
 
     // Manage width of window
+    // TODO: Resize more efficiently
     useEffect(() => {
         if (scrollWall.current?.lastChild) {
 
@@ -50,6 +46,9 @@ const ResizingWall = ({children, pathname}) => {
             setLoading(true);
 
             if (window.innerHeight - 100 < position.bottom){
+                // const lines = window.innerHeight / 60 - 4
+                // const averageWidth = 300
+                // resizeWidth = averageWidth * items / lines
                 const resizeValue = appWidth + (addedDistance * resizeCount);
 
                 document.getElementById('main-app').style.width = resizeValue + 'vw';
@@ -59,7 +58,7 @@ const ResizingWall = ({children, pathname}) => {
                 if (resizeCount <= resizeCountLimit)
                     incResizeCount(resizeCount + 1)
 
-
+            // Why set backc to 1?
             } else {
                 // setTimeout();
                 setLoading(false)
@@ -95,19 +94,13 @@ const ResizingWall = ({children, pathname}) => {
 }
 
 const NameWall = () => {
-
-
     const {pathname} = useLocation();
-
     const [countryId, stateId] = pathname.split('/').filter(c => c !== '' && c !== 'v2');
     const country = getCountryInfo(countryId);
-
     const state = stateId && getStateInfo(country.name, stateId);
-
     const [people] = useActivePeople(country, state);
 
     if (people.length === 0 && !country && !state) {
-        console.log('falsey')
         return (
             <div style={{
                 display: 'flex',

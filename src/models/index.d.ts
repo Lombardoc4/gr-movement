@@ -1,4 +1,10 @@
 import { ModelInit, MutableModel } from "@aws-amplify/datastore";
+// @ts-ignore
+import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
+
+type HeroesMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type PersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -8,7 +14,45 @@ type ImgPersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-export declare class Person {
+type EagerHeroes = {
+  readonly id: string;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly email?: string | null;
+  readonly heroName?: string | null;
+  readonly heroEmail?: string | null;
+  readonly bio?: string | null;
+  readonly heroProfile?: string | null;
+  readonly heroPhotos?: (string | null)[] | null;
+  readonly heroVideo?: string | null;
+  readonly framePhoto?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyHeroes = {
+  readonly id: string;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly email?: string | null;
+  readonly heroName?: string | null;
+  readonly heroEmail?: string | null;
+  readonly bio?: string | null;
+  readonly heroProfile?: string | null;
+  readonly heroPhotos?: (string | null)[] | null;
+  readonly heroVideo?: string | null;
+  readonly framePhoto?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Heroes = LazyLoading extends LazyLoadingDisabled ? EagerHeroes : LazyHeroes
+
+export declare const Heroes: (new (init: ModelInit<Heroes, HeroesMetaData>) => Heroes) & {
+  copyOf(source: Heroes, mutator: (draft: MutableModel<Heroes, HeroesMetaData>) => MutableModel<Heroes, HeroesMetaData> | void): Heroes;
+}
+
+type EagerPerson = {
   readonly id: string;
   readonly firstName: string;
   readonly lastName: string;
@@ -18,11 +62,27 @@ export declare class Person {
   readonly imgUrl?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<Person, PersonMetaData>);
-  static copyOf(source: Person, mutator: (draft: MutableModel<Person, PersonMetaData>) => MutableModel<Person, PersonMetaData> | void): Person;
 }
 
-export declare class ImgPerson {
+type LazyPerson = {
+  readonly id: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly foreverAge?: string | null;
+  readonly country?: string | null;
+  readonly state?: string | null;
+  readonly imgUrl?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Person = LazyLoading extends LazyLoadingDisabled ? EagerPerson : LazyPerson
+
+export declare const Person: (new (init: ModelInit<Person, PersonMetaData>) => Person) & {
+  copyOf(source: Person, mutator: (draft: MutableModel<Person, PersonMetaData>) => MutableModel<Person, PersonMetaData> | void): Person;
+}
+
+type EagerImgPerson = {
   readonly id: string;
   readonly name: string;
   readonly image_id?: string | null;
@@ -30,6 +90,20 @@ export declare class ImgPerson {
   readonly description?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
-  constructor(init: ModelInit<ImgPerson, ImgPersonMetaData>);
-  static copyOf(source: ImgPerson, mutator: (draft: MutableModel<ImgPerson, ImgPersonMetaData>) => MutableModel<ImgPerson, ImgPersonMetaData> | void): ImgPerson;
+}
+
+type LazyImgPerson = {
+  readonly id: string;
+  readonly name: string;
+  readonly image_id?: string | null;
+  readonly forever_age?: number | null;
+  readonly description?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type ImgPerson = LazyLoading extends LazyLoadingDisabled ? EagerImgPerson : LazyImgPerson
+
+export declare const ImgPerson: (new (init: ModelInit<ImgPerson, ImgPersonMetaData>) => ImgPerson) & {
+  copyOf(source: ImgPerson, mutator: (draft: MutableModel<ImgPerson, ImgPersonMetaData>) => MutableModel<ImgPerson, ImgPersonMetaData> | void): ImgPerson;
 }

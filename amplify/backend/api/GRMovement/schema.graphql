@@ -1,3 +1,17 @@
+type Heroes @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String
+  heroName: String
+  heroEmail: String
+  bio: String
+  heroProfile: String
+  heroPhotos: [String]
+  heroVideo: String
+  framePhoto: [String]
+}
+
 type Person @model @auth(rules: [{allow: public}]) {
   id: ID!
   firstName: String!

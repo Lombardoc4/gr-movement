@@ -199,54 +199,7 @@ export const data = [
       "country": "United States",
 "imgUrl": ""
     },
-    {
-      "firstName": "Justin",
-      "lastName": "Glover",
-      "foreverAge": 30,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "O.G.",
-      "lastName": "Wellborn",
-      "foreverAge": 26,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Chand",
-      "lastName": "Hamby",
-      "foreverAge": 25,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Wesley",
-      "lastName": "Robertson",
-      "foreverAge": 43,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Mary Elizabeth",
-      "lastName": "Henry",
-      "foreverAge": 24,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
-    {
-      "firstName": "Kenny",
-      "lastName": "Slesarik",
-      "foreverAge": 24,
-      "state": "Arizona",
-      "country": "United States",
-"imgUrl": ""
-    },
+
     {
       "firstName": "Tyler",
       "lastName": "Munghelli",
@@ -10141,7 +10094,7 @@ export const data = [
       "foreverAge": "24",
       "state": "Pennsylvania",
       "country": "United States",
-"imgUrl": ""
+      "imgUrl": ""
     },
     {
       "firstName": "Blake",

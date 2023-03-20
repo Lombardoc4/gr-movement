@@ -1,0 +1,154 @@
+
+
+body{
+    min-height: 100vh;
+    background-color: #000000;
+}
+
+main{
+    width: clamp(50%, 100%, 80%);
+    margin: auto;
+}
+
+.links{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 2rem;
+
+    h1{
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: #edcf39;
+    }
+
+    .btn{
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.25rem;
+        // font-size: 1.5rem;
+        font-weight: 700;
+        color: #000000;
+        text-decoration: none;
+        text-transform: uppercase;
+        background-color: #edcf39;
+        border: 1px solid #ba7b2c;
+
+        &:hover{
+            background: -webkit-linear-gradient( #ba7b2c, #edcf39);
+        }
+    }
+
+}
+
+.hero-landing {
+    justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    // width: clamp(50%, 100%, 80%);
+    margin: auto;
+    color: #edcf39;
+    text-align: center;
+
+
+    h1{
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        color: #edcf39;
+    }
+    h2{
+        font-size: 8rem;
+        background: -webkit-linear-gradient( #ba7b2c, #edcf39);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        margin-bottom: 5rem;
+
+    }
+
+    p{
+        font-family: Arial, Helvetica, sans-serif;
+        width: clamp(25ch, 100%, 50ch);
+        margin: auto;
+    }
+
+
+
+    p{
+        font-weight: 700;
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+}
+
+.hero-section{
+    color: #ffffff;
+    margin: 2rem 0;
+
+    img:not(.frameImg){
+        border: 2px solid #edcf39;
+    }
+
+    .h1{
+        font-size: 4rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-main{
+        display: flex;
+        margin-top: 1rem;
+
+        .profile-n-frame{
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            & img{
+                width: 80%;
+                margin: auto;
+            }
+        }
+
+        .h1{
+            font-style: italic;
+        }
+
+        p{ font-weight: 600;  line-height: 1.3;}
+
+        & > *{
+            width: 50%;
+            padding: 1rem;
+        }
+    }
+
+    .hero-video{
+        display: flex;
+        flex-direction: column;
+
+        video{
+            max-height: 400px;
+            width: clamp(50%, 100%, 90%);
+            margin: 2rem auto;
+        }
+    }
+
+    .hero-photos{
+
+
+        display: grid;
+        grid-gap: 2rem;
+
+        img{
+            max-width: 100%;
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 690px) {
+}
