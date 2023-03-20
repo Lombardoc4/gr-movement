@@ -10,10 +10,6 @@ type PersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
-type ImgPersonMetaData = {
-  readOnlyFields: 'createdAt' | 'updatedAt';
-}
-
 type EagerHeroes = {
   readonly id: string;
   readonly firstName?: string | null;
@@ -80,30 +76,4 @@ export declare type Person = LazyLoading extends LazyLoadingDisabled ? EagerPers
 
 export declare const Person: (new (init: ModelInit<Person, PersonMetaData>) => Person) & {
   copyOf(source: Person, mutator: (draft: MutableModel<Person, PersonMetaData>) => MutableModel<Person, PersonMetaData> | void): Person;
-}
-
-type EagerImgPerson = {
-  readonly id: string;
-  readonly name: string;
-  readonly image_id?: string | null;
-  readonly forever_age?: number | null;
-  readonly description?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-type LazyImgPerson = {
-  readonly id: string;
-  readonly name: string;
-  readonly image_id?: string | null;
-  readonly forever_age?: number | null;
-  readonly description?: string | null;
-  readonly createdAt?: string | null;
-  readonly updatedAt?: string | null;
-}
-
-export declare type ImgPerson = LazyLoading extends LazyLoadingDisabled ? EagerImgPerson : LazyImgPerson
-
-export declare const ImgPerson: (new (init: ModelInit<ImgPerson, ImgPersonMetaData>) => ImgPerson) & {
-  copyOf(source: ImgPerson, mutator: (draft: MutableModel<ImgPerson, ImgPersonMetaData>) => MutableModel<ImgPerson, ImgPersonMetaData> | void): ImgPerson;
 }

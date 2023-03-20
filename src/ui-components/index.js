@@ -9,5 +9,3 @@ export { default as HeroesCreateForm } from "./HeroesCreateForm";
 export { default as HeroesUpdateForm } from "./HeroesUpdateForm";
 export { default as PersonCreateForm } from "./PersonCreateForm";
 export { default as PersonUpdateForm } from "./PersonUpdateForm";
-export { default as ImgPersonCreateForm } from "./ImgPersonCreateForm";
-export { default as ImgPersonUpdateForm } from "./ImgPersonUpdateForm";

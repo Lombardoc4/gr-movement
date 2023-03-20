@@ -21,12 +21,4 @@ type Person @model @auth(rules: [{allow: public}]) {
   state: String
   imgUrl: String
 }
-
-type ImgPerson @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  image_id: String
-  forever_age: Int
-  description: String
-}
  
