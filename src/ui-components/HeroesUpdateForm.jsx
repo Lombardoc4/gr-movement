@@ -198,24 +198,26 @@ export default function HeroesUpdateForm(props) {
     email: "",
     heroName: "",
     heroEmail: "",
+    state: "",
     bio: "",
-    heroProfile: "",
     heroPhotos: [],
     heroVideo: "",
     framePhoto: [],
+    heroProfile: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
   const [email, setEmail] = React.useState(initialValues.email);
   const [heroName, setHeroName] = React.useState(initialValues.heroName);
   const [heroEmail, setHeroEmail] = React.useState(initialValues.heroEmail);
+  const [state, setState] = React.useState(initialValues.state);
   const [bio, setBio] = React.useState(initialValues.bio);
-  const [heroProfile, setHeroProfile] = React.useState(
-    initialValues.heroProfile
-  );
   const [heroPhotos, setHeroPhotos] = React.useState(initialValues.heroPhotos);
   const [heroVideo, setHeroVideo] = React.useState(initialValues.heroVideo);
   const [framePhoto, setFramePhoto] = React.useState(initialValues.framePhoto);
+  const [heroProfile, setHeroProfile] = React.useState(
+    initialValues.heroProfile
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = heroesRecord
@@ -226,13 +228,14 @@ export default function HeroesUpdateForm(props) {
     setEmail(cleanValues.email);
     setHeroName(cleanValues.heroName);
     setHeroEmail(cleanValues.heroEmail);
+    setState(cleanValues.state);
     setBio(cleanValues.bio);
-    setHeroProfile(cleanValues.heroProfile);
     setHeroPhotos(cleanValues.heroPhotos ?? []);
     setCurrentHeroPhotosValue("");
     setHeroVideo(cleanValues.heroVideo);
     setFramePhoto(cleanValues.framePhoto ?? []);
     setCurrentFramePhotoValue("");
+    setHeroProfile(cleanValues.heroProfile);
     setErrors({});
   };
   const [heroesRecord, setHeroesRecord] = React.useState(heroes);
@@ -256,11 +259,12 @@ export default function HeroesUpdateForm(props) {
     email: [],
     heroName: [],
     heroEmail: [],
+    state: [],
     bio: [],
-    heroProfile: [],
     heroPhotos: [],
     heroVideo: [],
     framePhoto: [],
+    heroProfile: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -293,11 +297,12 @@ export default function HeroesUpdateForm(props) {
           email,
           heroName,
           heroEmail,
+          state,
           bio,
-          heroProfile,
           heroPhotos,
           heroVideo,
           framePhoto,
+          heroProfile,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -358,11 +363,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -391,11 +397,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -424,11 +431,12 @@ export default function HeroesUpdateForm(props) {
               email: value,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -457,11 +465,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName: value,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.heroName ?? value;
@@ -490,11 +499,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail: value,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.heroEmail ?? value;
@@ -510,6 +520,40 @@ export default function HeroesUpdateForm(props) {
         {...getOverrideProps(overrides, "heroEmail")}
       ></TextField>
       <TextField
+        label="State"
+        isRequired={false}
+        isReadOnly={false}
+        value={state}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              email,
+              heroName,
+              heroEmail,
+              state: value,
+              bio,
+              heroPhotos,
+              heroVideo,
+              framePhoto,
+              heroProfile,
+            };
+            const result = onChange(modelFields);
+            value = result?.state ?? value;
+          }
+          if (errors.state?.hasError) {
+            runValidationTasks("state", value);
+          }
+          setState(value);
+        }}
+        onBlur={() => runValidationTasks("state", state)}
+        errorMessage={errors.state?.errorMessage}
+        hasError={errors.state?.hasError}
+        {...getOverrideProps(overrides, "state")}
+      ></TextField>
+      <TextField
         label="Bio"
         isRequired={false}
         isReadOnly={false}
@@ -523,11 +567,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio: value,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.bio ?? value;
@@ -542,39 +587,6 @@ export default function HeroesUpdateForm(props) {
         hasError={errors.bio?.hasError}
         {...getOverrideProps(overrides, "bio")}
       ></TextField>
-      <TextField
-        label="Hero profile"
-        isRequired={false}
-        isReadOnly={false}
-        value={heroProfile}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              firstName,
-              lastName,
-              email,
-              heroName,
-              heroEmail,
-              bio,
-              heroProfile: value,
-              heroPhotos,
-              heroVideo,
-              framePhoto,
-            };
-            const result = onChange(modelFields);
-            value = result?.heroProfile ?? value;
-          }
-          if (errors.heroProfile?.hasError) {
-            runValidationTasks("heroProfile", value);
-          }
-          setHeroProfile(value);
-        }}
-        onBlur={() => runValidationTasks("heroProfile", heroProfile)}
-        errorMessage={errors.heroProfile?.errorMessage}
-        hasError={errors.heroProfile?.hasError}
-        {...getOverrideProps(overrides, "heroProfile")}
-      ></TextField>
       <ArrayField
         onChange={async (items) => {
           let values = items;
@@ -585,11 +597,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos: values,
               heroVideo,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             values = result?.heroPhotos ?? values;
@@ -642,11 +655,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo: value,
               framePhoto,
+              heroProfile,
             };
             const result = onChange(modelFields);
             value = result?.heroVideo ?? value;
@@ -671,11 +685,12 @@ export default function HeroesUpdateForm(props) {
               email,
               heroName,
               heroEmail,
+              state,
               bio,
-              heroProfile,
               heroPhotos,
               heroVideo,
               framePhoto: values,
+              heroProfile,
             };
             const result = onChange(modelFields);
             values = result?.framePhoto ?? values;
@@ -714,6 +729,40 @@ export default function HeroesUpdateForm(props) {
           {...getOverrideProps(overrides, "framePhoto")}
         ></TextField>
       </ArrayField>
+      <TextField
+        label="Hero profile"
+        isRequired={false}
+        isReadOnly={false}
+        value={heroProfile}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              email,
+              heroName,
+              heroEmail,
+              state,
+              bio,
+              heroPhotos,
+              heroVideo,
+              framePhoto,
+              heroProfile: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.heroProfile ?? value;
+          }
+          if (errors.heroProfile?.hasError) {
+            runValidationTasks("heroProfile", value);
+          }
+          setHeroProfile(value);
+        }}
+        onBlur={() => runValidationTasks("heroProfile", heroProfile)}
+        errorMessage={errors.heroProfile?.errorMessage}
+        hasError={errors.heroProfile?.hasError}
+        {...getOverrideProps(overrides, "heroProfile")}
+      ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

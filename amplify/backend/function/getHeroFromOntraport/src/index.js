@@ -21,11 +21,12 @@ const query = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
       framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version

@@ -22,6 +22,9 @@ main{
         font-size: 2rem;
         text-transform: uppercase;
         color: #edcf39;
+        background: -webkit-linear-gradient( #ba7b2c, #edcf39);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .btn{
@@ -41,6 +44,31 @@ main{
     }
 
 }
+
+
+.butterfly-img{
+    width: 200px;
+    margin: 2rem auto;
+}
+
+.landing-graphic{
+    display: flex;
+    align-items: center;
+    position: relative;
+
+
+    .butterfly-img{
+        position: absolute;
+        width: 200px;
+        left: 50%;
+        // margin: 1rem auto;
+    }
+
+    .flair-img{
+        width: 50%;
+    }
+}
+
 
 .hero-landing {
     justify-content: space-evenly;
@@ -64,19 +92,13 @@ main{
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-transform: uppercase;
-        margin-bottom: 5rem;
-
+        margin-bottom: 2rem;
     }
 
     p{
         font-family: Arial, Helvetica, sans-serif;
         width: clamp(25ch, 100%, 50ch);
         margin: auto;
-    }
-
-
-
-    p{
         font-weight: 700;
         color: #ffffff;
         font-size: 1.5rem;
@@ -85,12 +107,29 @@ main{
 
 }
 
+.hero-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 0.5rem;
+
+    .h2{
+        font-size: 1.5rem;
+        color: #ffffff
+    }
+}
+
 .hero-section{
     color: #ffffff;
     margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
 
-    img:not(.frameImg){
+    img{
         border: 2px solid #edcf39;
+    }
+
+    .frameImg, .butterfly-img{
+        border: none;
     }
 
     .h1{
@@ -115,6 +154,14 @@ main{
 
         .h1{
             font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .h2{
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+
         }
 
         p{ font-weight: 600;  line-height: 1.3;}

@@ -5,11 +5,12 @@ type Heroes @model @auth(rules: [{allow: public}]) {
   email: String
   heroName: String
   heroEmail: String
+  state: String
   bio: String
-  heroProfile: String
   heroPhotos: [String]
   heroVideo: String
   framePhoto: [String]
+  heroProfile: String
 }
 
 type Person @model @auth(rules: [{allow: public}]) {

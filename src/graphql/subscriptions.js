@@ -10,10 +10,12 @@ export const onCreateHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -31,10 +33,12 @@ export const onUpdateHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -52,10 +56,12 @@ export const onDeleteHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -110,60 +116,6 @@ export const onDeletePerson = /* GraphQL */ `
       country
       state
       imgUrl
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateImgPerson = /* GraphQL */ `
-  subscription OnCreateImgPerson(
-    $filter: ModelSubscriptionImgPersonFilterInput
-  ) {
-    onCreateImgPerson(filter: $filter) {
-      id
-      name
-      image_id
-      forever_age
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateImgPerson = /* GraphQL */ `
-  subscription OnUpdateImgPerson(
-    $filter: ModelSubscriptionImgPersonFilterInput
-  ) {
-    onUpdateImgPerson(filter: $filter) {
-      id
-      name
-      image_id
-      forever_age
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteImgPerson = /* GraphQL */ `
-  subscription OnDeleteImgPerson(
-    $filter: ModelSubscriptionImgPersonFilterInput
-  ) {
-    onDeleteImgPerson(filter: $filter) {
-      id
-      name
-      image_id
-      forever_age
-      description
       createdAt
       updatedAt
       _version

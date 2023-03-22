@@ -45,15 +45,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "bio": {
-                    "name": "bio",
+                "state": {
+                    "name": "state",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "heroProfile": {
-                    "name": "heroProfile",
+                "bio": {
+                    "name": "bio",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -81,6 +81,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                },
+                "heroProfile": {
+                    "name": "heroProfile",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -222,5 +229,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.6",
-    "version": "c3741c07eb4c5ec9eb2deaac8d917665"
+    "version": "1c6d8c39a7e4bbbb43880b7a51c25053"
 };

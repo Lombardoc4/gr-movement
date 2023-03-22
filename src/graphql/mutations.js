@@ -13,10 +13,12 @@ export const createHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -37,10 +39,12 @@ export const updateHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -61,10 +65,12 @@ export const deleteHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -128,63 +134,6 @@ export const deletePerson = /* GraphQL */ `
       country
       state
       imgUrl
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createImgPerson = /* GraphQL */ `
-  mutation CreateImgPerson(
-    $input: CreateImgPersonInput!
-    $condition: ModelImgPersonConditionInput
-  ) {
-    createImgPerson(input: $input, condition: $condition) {
-      id
-      name
-      image_id
-      forever_age
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateImgPerson = /* GraphQL */ `
-  mutation UpdateImgPerson(
-    $input: UpdateImgPersonInput!
-    $condition: ModelImgPersonConditionInput
-  ) {
-    updateImgPerson(input: $input, condition: $condition) {
-      id
-      name
-      image_id
-      forever_age
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteImgPerson = /* GraphQL */ `
-  mutation DeleteImgPerson(
-    $input: DeleteImgPersonInput!
-    $condition: ModelImgPersonConditionInput
-  ) {
-    deleteImgPerson(input: $input, condition: $condition) {
-      id
-      name
-      image_id
-      forever_age
-      description
       createdAt
       updatedAt
       _version

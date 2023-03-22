@@ -17,11 +17,12 @@ type EagerHeroes = {
   readonly email?: string | null;
   readonly heroName?: string | null;
   readonly heroEmail?: string | null;
+  readonly state?: string | null;
   readonly bio?: string | null;
-  readonly heroProfile?: string | null;
   readonly heroPhotos?: (string | null)[] | null;
   readonly heroVideo?: string | null;
   readonly framePhoto?: (string | null)[] | null;
+  readonly heroProfile?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -33,11 +34,12 @@ type LazyHeroes = {
   readonly email?: string | null;
   readonly heroName?: string | null;
   readonly heroEmail?: string | null;
+  readonly state?: string | null;
   readonly bio?: string | null;
-  readonly heroProfile?: string | null;
   readonly heroPhotos?: (string | null)[] | null;
   readonly heroVideo?: string | null;
   readonly framePhoto?: (string | null)[] | null;
+  readonly heroProfile?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

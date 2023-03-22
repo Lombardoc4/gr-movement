@@ -19,11 +19,12 @@ export declare type HeroesUpdateFormInputValues = {
     email?: string;
     heroName?: string;
     heroEmail?: string;
+    state?: string;
     bio?: string;
-    heroProfile?: string;
     heroPhotos?: string[];
     heroVideo?: string;
     framePhoto?: string[];
+    heroProfile?: string;
 };
 export declare type HeroesUpdateFormValidationValues = {
     firstName?: ValidationFunction<string>;
@@ -31,11 +32,12 @@ export declare type HeroesUpdateFormValidationValues = {
     email?: ValidationFunction<string>;
     heroName?: ValidationFunction<string>;
     heroEmail?: ValidationFunction<string>;
+    state?: ValidationFunction<string>;
     bio?: ValidationFunction<string>;
-    heroProfile?: ValidationFunction<string>;
     heroPhotos?: ValidationFunction<string>;
     heroVideo?: ValidationFunction<string>;
     framePhoto?: ValidationFunction<string>;
+    heroProfile?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type HeroesUpdateFormOverridesProps = {
@@ -45,11 +47,12 @@ export declare type HeroesUpdateFormOverridesProps = {
     email?: PrimitiveOverrideProps<TextFieldProps>;
     heroName?: PrimitiveOverrideProps<TextFieldProps>;
     heroEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    state?: PrimitiveOverrideProps<TextFieldProps>;
     bio?: PrimitiveOverrideProps<TextFieldProps>;
-    heroProfile?: PrimitiveOverrideProps<TextFieldProps>;
     heroPhotos?: PrimitiveOverrideProps<TextFieldProps>;
     heroVideo?: PrimitiveOverrideProps<TextFieldProps>;
     framePhoto?: PrimitiveOverrideProps<TextFieldProps>;
+    heroProfile?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type HeroesUpdateFormProps = React.PropsWithChildren<{
     overrides?: HeroesUpdateFormOverridesProps | undefined | null;

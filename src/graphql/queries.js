@@ -10,10 +10,12 @@ export const getHeroes = /* GraphQL */ `
       email
       heroName
       heroEmail
+      state
       bio
-      heroProfile
       heroPhotos
       heroVideo
+      framePhoto
+      heroProfile
       createdAt
       updatedAt
       _version
@@ -36,10 +38,12 @@ export const listHeroes = /* GraphQL */ `
         email
         heroName
         heroEmail
+        state
         bio
-        heroProfile
         heroPhotos
         heroVideo
+        framePhoto
+        heroProfile
         createdAt
         updatedAt
         _version
@@ -71,10 +75,12 @@ export const syncHeroes = /* GraphQL */ `
         email
         heroName
         heroEmail
+        state
         bio
-        heroProfile
         heroPhotos
         heroVideo
+        framePhoto
+        heroProfile
         createdAt
         updatedAt
         _version
@@ -151,76 +157,6 @@ export const syncPeople = /* GraphQL */ `
         country
         state
         imgUrl
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getImgPerson = /* GraphQL */ `
-  query GetImgPerson($id: ID!) {
-    getImgPerson(id: $id) {
-      id
-      name
-      image_id
-      forever_age
-      description
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const listImgPeople = /* GraphQL */ `
-  query ListImgPeople(
-    $filter: ModelImgPersonFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listImgPeople(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        image_id
-        forever_age
-        description
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncImgPeople = /* GraphQL */ `
-  query SyncImgPeople(
-    $filter: ModelImgPersonFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncImgPeople(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        name
-        image_id
-        forever_age
-        description
         createdAt
         updatedAt
         _version
