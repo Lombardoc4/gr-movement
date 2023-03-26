@@ -5,6 +5,7 @@ import { Heroes, LazyHeroes } from "../models";
 
 import './index.scss';
 
+console.log('heroes')
 
 const HeroList = ({heroes}: {heroes: LazyHeroes[]}) => {
     return (
@@ -25,8 +26,11 @@ const HeroLanding = ({children}: {children: React.ReactChild}) => {
             transition= {{duration: 0.6}}
         >
             <h1>Drug Epidemic Memorial </h1>
-            <a tabIndex={0} className="btn" href="https://drugepidemicmemorial.org/heroes">Recognize your hero</a>
-            <a tabIndex={0} className="btn" href="info@drugepidemicmemorial.org">Contact Us</a>
+            <div className="btn-group">
+
+                <a tabIndex={0} className="btn" href="https://drugepidemicmemorial.org/heroes">Recognize your&nbsp;hero</a>
+                <a tabIndex={0} className="btn" href="info@drugepidemicmemorial.org">Contact Us</a>
+            </div>
         </motion.div>
 
         <div className="hero-landing">
@@ -57,7 +61,7 @@ const HeroLanding = ({children}: {children: React.ReactChild}) => {
                     />
                     <motion.img
                     className="butterfly-img"
-                    style={{x: -100}}
+                    style={{x: window.innerWidth > 690 ? -100 : -50}}
                     initial={{opacity: 0, y: 20}}
                     animate={{opacity: 1, y: 0}}
                     transition= {{delay: 0.5, duration: 0.6}}
@@ -99,40 +103,45 @@ const HeroSection = (hero: LazyHeroes) => {
                     <h4 className="h2">{hero.state}</h4>
                     <p>{hero.bio}</p>
                 </motion.div>
-                <div className="profile-n-frame">
+                {/* <div className="profile-n-frame"> */}
+                    <div className="profile-photo">
                     <motion.img
+
                         initial={{opacity: 0, x: 10}}
                         whileInView={{opacity: 1, x: 0}}
                         transition= {{delay: 0.5, duration: 0.6}}
                         src={hero.heroProfile || ''}
                         alt={hero.heroName || ''}>
                     </motion.img>
+                    </div>
 
                     {hero.framePhoto?.map(photo => (
-                        <motion.img
+                        <div
                         key={photo}
-                        className="frameImg"
-                        initial={{opacity: 0, x: 10}}
-                        whileInView={{opacity: 1, x: 0}}
+                        className="frameImg">
+
+                        <motion.img
+                        initial={{opacity: 0, y: 10}}
+                        whileInView={{opacity: 1, y: 0}}
                         transition= {{delay: 0.6, duration: 0.6}}
                         src={photo || ''}
                         alt={hero.heroName || ''}>
                         </motion.img>
+                        </div>
                     ))}
-                </div>
-            </div>
 
-            <motion.div
-                className="hero-video"
-                initial={{opacity: 0, y: 20}}
-                whileInView={{opacity: 1, y: 0}}
-                transition= {{delay: 0.5, duration: 0.6}}
-                >
-                <video controls src={hero.heroVideo || ""}></video>
-            </motion.div>
+                    <motion.div
+                        className="hero-video"
+                        initial={{opacity: 0, y: 20}}
+                        whileInView={{opacity: 1, y: 0}}
+                        transition= {{delay: 0.5, duration: 0.6}}
+                        >
+                        <video controls src={hero.heroVideo || ""}></video>
+                    </motion.div>
+                {/* </div> */}
 
-            <div className="hero-photos" style={{gridTemplateColumns: `repeat(${columnCount} , 1fr)`}}>
                 {hero.heroPhotos?.map(photo => (
+                <div>
                     <motion.img
                     key={photo}
                     initial={{opacity: 0, y: 10}}
@@ -141,8 +150,14 @@ const HeroSection = (hero: LazyHeroes) => {
                     src={photo || ''}
                     alt={hero.heroName || ''}>
                     </motion.img>
+                </div>
                 ))}
             </div>
+
+
+
+            {/* <div className="hero-photos" style={{gridTemplateColumns: `repeat(${columnCount} , 1fr)`}}> */}
+            {/* </div> */}
 
             <motion.img
             className="butterfly-img"
@@ -159,7 +174,7 @@ const HeroSection = (hero: LazyHeroes) => {
 const HeroPage = () => {
     const [heroData, setHeroes] = useState<LazyHeroes[]>([]);
     const getHeroes = async () => {
-        const heroData = await DataStore.query(Heroes);
+        const heroData = await DataStore.query(Heroes, (c) => c.verified.eq(true));
 
         heroData.sort(function(a, b) {
             var keyA = a.state || '',

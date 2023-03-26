@@ -27,6 +27,7 @@ const query = /* GraphQL */ `
       heroVideo
       framePhoto
       heroProfile
+      verified
       createdAt
       updatedAt
       _version
@@ -45,6 +46,7 @@ export const handler = async (event) => {
   let data = JSON.parse(event.body)
 
   data.heroPhotos = data.heroPhotos.split(',');
+  data.verified = false;
 
   let variables = { input: data };
 

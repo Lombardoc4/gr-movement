@@ -24,6 +24,9 @@ ReactGA.initialize('UA-236089614-1');
 
 
 const App = () => {
+  const subdomain = window.location.hostname.split('.')[0];
+
+  console.log('subdomain', subdomain);
 
   // Page View Tracking on Render
   useEffect(() => {
@@ -36,30 +39,33 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         {/* Heroes */}
-        <Route path="/heroes" element={<Heroes/>}></Route>
+        {subdomain === 'heroes' && <Route path="/*" element={<Heroes/>}></Route>}
 
-        {/* Total Numbers */}
-        <Route path="/numbers" element={<ListView/>}></Route>
+        {subdomain !== 'heroes' && <>
 
-        {/* USA Photos Wall */}
-        <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
-        <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
+          {/* Total Numbers */}
+          <Route path="/numbers" element={<ListView/>}></Route>
 
-        {/* Canada Photo Wall */}
-        <Route path="/photo/can" element={<Navigate to="/photos/can" replace />}></Route>
-        <Route path="/photos/can" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
-        <Route path="/photos/can/:id" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
+          {/* USA Photos Wall */}
+          <Route path="/photo"  element={<Navigate to="/photos" replace />}/>
+          <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
 
-        {/* USA State Photo Wall */}
-        <Route path="/photos/:id" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
+          {/* Canada Photo Wall */}
+          <Route path="/photo/can" element={<Navigate to="/photos/can" replace />}></Route>
+          <Route path="/photos/can" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
+          <Route path="/photos/can/:id" element={<PhotoShow folderKey={'canadaWall'} country='Canada'/>}></Route>
 
-        {/* Teen Photo Wall */}
-        <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
-        <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
+          {/* USA State Photo Wall */}
+          <Route path="/photos/:id" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
 
-        {/* Name wall */}
-        <Route path="/" element={<NameWall  />}></Route>
-        <Route path="/*" element={<NameWall  />}></Route>
+          {/* Teen Photo Wall */}
+          <Route path="/teen-photo" element={<Navigate to="/teen-photos" replace />}></Route>
+          <Route path="/teen-photos" element={<PhotoShow folderKey={'teenWall'}/>}></Route>
+
+          {/* Name wall */}
+          <Route path="/" element={<NameWall  />}></Route>
+          <Route path="/*" element={<NameWall  />}></Route>
+          </>}
 
       </Routes>
     </BrowserRouter>

@@ -11,6 +11,7 @@ type Heroes @model @auth(rules: [{allow: public}]) {
   heroVideo: String
   framePhoto: [String]
   heroProfile: String
+  verified: Boolean
 }
 
 type Person @model @auth(rules: [{allow: public}]) {

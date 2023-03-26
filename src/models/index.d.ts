@@ -23,6 +23,7 @@ type EagerHeroes = {
   readonly heroVideo?: string | null;
   readonly framePhoto?: (string | null)[] | null;
   readonly heroProfile?: string | null;
+  readonly verified?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -40,6 +41,7 @@ type LazyHeroes = {
   readonly heroVideo?: string | null;
   readonly framePhoto?: (string | null)[] | null;
   readonly heroProfile?: string | null;
+  readonly verified?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

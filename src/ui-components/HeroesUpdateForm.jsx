@@ -14,6 +14,7 @@ import {
   Grid,
   Icon,
   ScrollView,
+  SwitchField,
   Text,
   TextField,
   useTheme,
@@ -204,6 +205,7 @@ export default function HeroesUpdateForm(props) {
     heroVideo: "",
     framePhoto: [],
     heroProfile: "",
+    verified: false,
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
@@ -218,6 +220,7 @@ export default function HeroesUpdateForm(props) {
   const [heroProfile, setHeroProfile] = React.useState(
     initialValues.heroProfile
   );
+  const [verified, setVerified] = React.useState(initialValues.verified);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = heroesRecord
@@ -236,6 +239,7 @@ export default function HeroesUpdateForm(props) {
     setFramePhoto(cleanValues.framePhoto ?? []);
     setCurrentFramePhotoValue("");
     setHeroProfile(cleanValues.heroProfile);
+    setVerified(cleanValues.verified);
     setErrors({});
   };
   const [heroesRecord, setHeroesRecord] = React.useState(heroes);
@@ -265,6 +269,7 @@ export default function HeroesUpdateForm(props) {
     heroVideo: [],
     framePhoto: [],
     heroProfile: [],
+    verified: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -303,6 +308,7 @@ export default function HeroesUpdateForm(props) {
           heroVideo,
           framePhoto,
           heroProfile,
+          verified,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -369,6 +375,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -403,6 +410,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -437,6 +445,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -471,6 +480,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.heroName ?? value;
@@ -505,6 +515,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.heroEmail ?? value;
@@ -539,6 +550,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.state ?? value;
@@ -573,6 +585,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.bio ?? value;
@@ -603,6 +616,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             values = result?.heroPhotos ?? values;
@@ -661,6 +675,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo: value,
               framePhoto,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.heroVideo ?? value;
@@ -691,6 +706,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto: values,
               heroProfile,
+              verified,
             };
             const result = onChange(modelFields);
             values = result?.framePhoto ?? values;
@@ -749,6 +765,7 @@ export default function HeroesUpdateForm(props) {
               heroVideo,
               framePhoto,
               heroProfile: value,
+              verified,
             };
             const result = onChange(modelFields);
             value = result?.heroProfile ?? value;
@@ -763,6 +780,41 @@ export default function HeroesUpdateForm(props) {
         hasError={errors.heroProfile?.hasError}
         {...getOverrideProps(overrides, "heroProfile")}
       ></TextField>
+      <SwitchField
+        label="Verified"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={verified}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              email,
+              heroName,
+              heroEmail,
+              state,
+              bio,
+              heroPhotos,
+              heroVideo,
+              framePhoto,
+              heroProfile,
+              verified: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.verified ?? value;
+          }
+          if (errors.verified?.hasError) {
+            runValidationTasks("verified", value);
+          }
+          setVerified(value);
+        }}
+        onBlur={() => runValidationTasks("verified", verified)}
+        errorMessage={errors.verified?.errorMessage}
+        hasError={errors.verified?.hasError}
+        {...getOverrideProps(overrides, "verified")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

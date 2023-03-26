@@ -102,10 +102,20 @@ const NameWall = () => {
 
     if (people.length === 0 && !country && !state) {
         return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100vh',
+                    width: '100%',
+                    justifyContent: 'center',
+                    background: '#fbf2ef'
+                }}
+            >
+
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: '100vh',
                 width: '390px',
                 margin: 'auto',
                 justifyContent: 'center'
@@ -114,6 +124,7 @@ const NameWall = () => {
                 <StaticMenu>
                     <Link className="add-btn" to="/">Global Memorial Wall</Link>
                 </StaticMenu>
+            </div>
             </div>
         )
 

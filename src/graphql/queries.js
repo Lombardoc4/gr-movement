@@ -16,6 +16,7 @@ export const getHeroes = /* GraphQL */ `
       heroVideo
       framePhoto
       heroProfile
+      verified
       createdAt
       updatedAt
       _version
@@ -44,6 +45,7 @@ export const listHeroes = /* GraphQL */ `
         heroVideo
         framePhoto
         heroProfile
+        verified
         createdAt
         updatedAt
         _version
@@ -81,6 +83,7 @@ export const syncHeroes = /* GraphQL */ `
         heroVideo
         framePhoto
         heroProfile
+        verified
         createdAt
         updatedAt
         _version

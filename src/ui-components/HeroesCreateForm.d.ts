@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -24,6 +24,7 @@ export declare type HeroesCreateFormInputValues = {
     heroVideo?: string;
     framePhoto?: string[];
     heroProfile?: string;
+    verified?: boolean;
 };
 export declare type HeroesCreateFormValidationValues = {
     firstName?: ValidationFunction<string>;
@@ -37,6 +38,7 @@ export declare type HeroesCreateFormValidationValues = {
     heroVideo?: ValidationFunction<string>;
     framePhoto?: ValidationFunction<string>;
     heroProfile?: ValidationFunction<string>;
+    verified?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type HeroesCreateFormOverridesProps = {
@@ -52,6 +54,7 @@ export declare type HeroesCreateFormOverridesProps = {
     heroVideo?: PrimitiveOverrideProps<TextFieldProps>;
     framePhoto?: PrimitiveOverrideProps<TextFieldProps>;
     heroProfile?: PrimitiveOverrideProps<TextFieldProps>;
+    verified?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type HeroesCreateFormProps = React.PropsWithChildren<{
     overrides?: HeroesCreateFormOverridesProps | undefined | null;

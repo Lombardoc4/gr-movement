@@ -19,6 +19,7 @@ export const createHeroes = /* GraphQL */ `
       heroVideo
       framePhoto
       heroProfile
+      verified
       createdAt
       updatedAt
       _version
@@ -45,6 +46,7 @@ export const updateHeroes = /* GraphQL */ `
       heroVideo
       framePhoto
       heroProfile
+      verified
       createdAt
       updatedAt
       _version
@@ -71,6 +73,7 @@ export const deleteHeroes = /* GraphQL */ `
       heroVideo
       framePhoto
       heroProfile
+      verified
       createdAt
       updatedAt
       _version
