@@ -91,7 +91,7 @@ const HeroSection = (hero: LazyHeroes) => {
     const columnCount = hero.heroPhotos ? hero.heroPhotos?.length >= 3 ? 3 : hero.heroPhotos?.length : 0;
 
     return (
-        <div className="hero-section">
+        <div className="hero-section" id={hero.heroName?.replace(' ', '-')}>
 
             <div className="hero-main">
                 <motion.div
@@ -99,7 +99,7 @@ const HeroSection = (hero: LazyHeroes) => {
                     whileInView={{opacity: 1, y: 0}}
                     transition= {{delay: 0.5, duration: 0.6}}
                     >
-                    <h3 className="h1" id={hero.heroName?.replace(' ', '-')}>{hero.heroName}</h3>
+                    <h3 className="h1" >{hero.heroName}</h3>
                     <h4 className="h2">{hero.state}</h4>
                     <p>{hero.bio}</p>
                 </motion.div>
