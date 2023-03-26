@@ -130,8 +130,9 @@ main{
 }
 
 .hero-section{
+    max-width: 1000px;
     color: #ffffff;
-    margin: 2rem 0;
+    margin: 2rem auto;
     display: flex;
     flex-direction: column;
 

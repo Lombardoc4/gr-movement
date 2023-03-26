@@ -22,7 +22,7 @@
         },
         "getHeroFromOntraport": {
           "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
-          "s3Key": "amplify-builds/getHeroFromOntraport-7a694d4c6a6230534348-build.zip"
+          "s3Key": "amplify-builds/getHeroFromOntraport-6b58367441796f396c6e-build.zip"
         }
       },
       "storage": {

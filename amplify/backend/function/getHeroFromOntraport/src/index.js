@@ -14,7 +14,7 @@ const GRAPHQL_API_KEY = process.env.API_GRMOVEMENT_GRAPHQLAPIKEYOUTPUT;
 
 const query = /* GraphQL */ `
   mutation CreateHeroes($input: CreateHeroesInput!) {
-    createHeroes(input: $input, condition: $condition) {
+    createHeroes(input: $input) {
       id
       firstName
       lastName
@@ -45,8 +45,10 @@ export const handler = async (event) => {
 
   let data = JSON.parse(event.body)
 
-  data.heroPhotos = data.heroPhotos.split(',');
+  data.heroPhotos = data.heroPhotos.split(',').filter(val => val && val.length > 0);
   data.verified = false;
+
+  console.log('data', data);
 
   let variables = { input: data };
 

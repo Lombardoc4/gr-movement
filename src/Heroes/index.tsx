@@ -104,16 +104,18 @@ const HeroSection = (hero: LazyHeroes) => {
                     <p>{hero.bio}</p>
                 </motion.div>
                 {/* <div className="profile-n-frame"> */}
+                    {hero.heroProfile &&
                     <div className="profile-photo">
                     <motion.img
 
-                        initial={{opacity: 0, x: 10}}
-                        whileInView={{opacity: 1, x: 0}}
-                        transition= {{delay: 0.5, duration: 0.6}}
-                        src={hero.heroProfile || ''}
-                        alt={hero.heroName || ''}>
+                    initial={{opacity: 0, x: 10}}
+                    whileInView={{opacity: 1, x: 0}}
+                    transition= {{delay: 0.5, duration: 0.6}}
+                    src={hero.heroProfile || ''}
+                    alt={hero.heroName || ''}>
                     </motion.img>
                     </div>
+                    }
 
                     {hero.framePhoto?.map(photo => (
                         <div
@@ -130,6 +132,7 @@ const HeroSection = (hero: LazyHeroes) => {
                         </div>
                     ))}
 
+                    {hero.heroVideo &&
                     <motion.div
                         className="hero-video"
                         initial={{opacity: 0, y: 20}}
@@ -138,6 +141,7 @@ const HeroSection = (hero: LazyHeroes) => {
                         >
                         <video controls src={hero.heroVideo || ""}></video>
                     </motion.div>
+                    }
                 {/* </div> */}
 
                 {hero.heroPhotos?.map(photo => (
