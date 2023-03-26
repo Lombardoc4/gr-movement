@@ -177,6 +177,7 @@ const HeroSection = (hero: LazyHeroes) => {
 
 const HeroPage = () => {
     const [heroData, setHeroes] = useState<LazyHeroes[]>([]);
+    const [loading, setloading] = useState(true);
     const getHeroes = async () => {
         const heroData = await DataStore.query(Heroes, (c) => c.verified.eq(true));
 
@@ -191,20 +192,28 @@ const HeroPage = () => {
             return 0;
         });
 
+        console.log('heroData', heroData);
+
         setHeroes( heroData );
     }
 
 
     useEffect(() => {
         getHeroes()
-    },[])
+        setloading(false);
+    }, [loading])
 
     return (
         <main>
             <HeroLanding>
                 {heroData.length > 0 ?  <HeroList heroes={heroData}/> : <></>}
             </HeroLanding>
-            {heroData.map(hero => <HeroSection key={hero.id} {...hero}/>)}
+            { loading ?
+            <div style={{padding: '2rem'}}>
+                <p style={{textAlign: 'center', fontWeight: 700}}>Loading...</p>
+            </div>
+            :
+            heroData.map(hero => <HeroSection key={hero.id} {...hero}/>)}
         </main>
     )
 }
