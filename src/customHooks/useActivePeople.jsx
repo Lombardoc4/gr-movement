@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { states } from '../data/states';
 
 
+
 const getState = (countryName, stateName = 'Nationwide') => {
     return states[countryName].filter(s => s.name === stateName )[0];
 }
@@ -49,6 +50,10 @@ export const useActivePeople = (country, state) => {
         }
 
 
+
+
+
+
         const query = getQuery(country.name, stateInfo);
 
         const subscription = DataStore.observeQuery(
@@ -67,7 +72,10 @@ export const useActivePeople = (country, state) => {
                 // const duplicates = items.filter((item, index) => {
                 //     return items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge)
                 // })
-                // console.log('duplicates', duplicates)
+                // const sc = items.filter((item, index) => {
+                //     return item.state === 'South Carolina' || item.state === 'SC';
+                // })
+                // console.log('SC', sc)
 
                 // Update People
                 setActivePeople(sortedModels);

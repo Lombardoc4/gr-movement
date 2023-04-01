@@ -1,9 +1,8 @@
 
 
-body{
+body.heroes{
     min-height: 100vh;
     background-color: #000000;
-}
 
 h1, h2{
     font-family: 'GFS Neohellenic', sans-serif;
@@ -189,9 +188,13 @@ main{
 
 }
 
+}
 
 
 @media screen and (max-width: 690px) {
+
+    body.heroes{
+
     .links{
         flex-direction: column;
         gap: 1rem;
@@ -249,4 +252,6 @@ main{
             }
         }
     }
+}
+
 }

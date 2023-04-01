@@ -5,7 +5,6 @@ import { Heroes, LazyHeroes } from "../models";
 
 import './index.scss';
 
-console.log('heroes')
 
 const HeroList = ({heroes}: {heroes: LazyHeroes[]}) => {
     return (
@@ -192,13 +191,14 @@ const HeroPage = () => {
             return 0;
         });
 
-        console.log('heroData', heroData);
+        // console.log('heroData', heroData);
 
         setHeroes( heroData );
     }
 
 
     useEffect(() => {
+        document.body.classList.add('heroes');
         getHeroes()
         setloading(false);
     }, [loading])
