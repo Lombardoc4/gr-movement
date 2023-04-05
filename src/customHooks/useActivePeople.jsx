@@ -30,7 +30,7 @@ export const useActivePeople = (country, state) => {
 
     const getStateInfo = () => {
         // No country or state return
-        if (!country && !state) { return false; }
+        if (!country.name && !state.name) { return false; }
 
         // all states or a no states
         if (!state) { return country.name === 'Worldwide' ? state : getState(country.name);}

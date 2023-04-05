@@ -1,7 +1,7 @@
 
 import { Storage } from "aws-amplify";
 import { useEffect, useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { StaticMenu } from "../components/Menu";
 import MusicPlayer from "../components/MusicPlayer";
@@ -40,14 +40,17 @@ const alphabetizedNames = (peopleList) => {
 
 const PhotoShow = ({folderKey, country = 'United States'}) => {
     const [menuOpen, toggleMenu] = useState(false);
-    const [slideshowMode, toggleSlideshowMode] = useState(false);
     const [data, setData] = useState([]);
     const [images, setImages] = useState([]);
+
+    const [slideshowMode, toggleSlideshowMode] = useState(false);
     //Scroll Status
     const [scrolling, toggleScrolling] = useState(false);
 
+    const navigate = useNavigate();
     const photoshow = useRef(null);
     const {id} = useParams();
+
 
     useEffect(() => {
         const getMultiData = async () => {
@@ -73,7 +76,14 @@ const PhotoShow = ({folderKey, country = 'United States'}) => {
 
         const getSingleData = async () => {
             const result = await getS3Data(folderKey, id.toUpperCase());
-            setData(result.length > 0 ? alphabetizedNames(result) : []);
+            if (result.length <= 0) {
+                navigate('/photos')
+
+                // No images and redirect
+            } else {
+
+                setData(alphabetizedNames(result));
+            }
         }
 
         if (id) {
@@ -82,7 +92,7 @@ const PhotoShow = ({folderKey, country = 'United States'}) => {
             getMultiData();
         }
 
-    }, [])
+    }, [id])
 
 
     // Transitions
@@ -165,7 +175,6 @@ const PhotoShow = ({folderKey, country = 'United States'}) => {
         data.length > 0 && pushImageToState();
     }, [data])
 
-    console.log(folderKey);
 
 
     return (

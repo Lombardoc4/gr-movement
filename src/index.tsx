@@ -59,7 +59,8 @@ const App = () => {
 
     {/* USA State Photo Wall */}
     <Route path="/photos" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
-    <Route path="/photos/*" element={<Page404/>}></Route>
+    <Route path="/photos/:id" element={<PhotoShow folderKey={'photoWall'}/>}></Route>
+    {/* <Route path="/photos/*" element={<Page404/>}></Route> */}
 
 
     {/* Name wall */}
