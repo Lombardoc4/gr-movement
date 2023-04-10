@@ -17,3 +17,11 @@
     font-style: normal;
     font-display: swap;
   }
+
+  @font-face {
+    font-family: 'Athelas';
+    src: url('fonts/Optima-Bold.ttc') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
