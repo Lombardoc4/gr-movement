@@ -198,22 +198,6 @@ const HeroPage = () => {
         // setHeroes( heroData );
     }
 
-    useEffect(() => {
-        // Create listener
-        const listener = Hub.listen("datastore", async hubData => {
-            console.log('dataStore event')
-            const  { event, data } = hubData.payload;
-            if (event === "ready") {
-            // do something here once the data is synced from the cloud
-            document.body.classList.add('Pleasures')
-            }
-        })
-
-
-        // Remove listener
-        return listener();
-    })
-
 
     useEffect(() => {
         document.body.classList.add('heroes');

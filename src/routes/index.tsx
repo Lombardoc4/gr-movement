@@ -13,18 +13,7 @@ import NameWall from '../pages/NameWall';
 import Heroes from '../pages/Heroes';
 import Page404 from '../pages/404';
 // import Form from './Form/NewForm';
-ReactGA.initialize('UA-236089614-1');
 
-
-// const savePerson = async (person: any) => {
-//   const saved = await DataStore.save(new Person(person))
-//   console.log('saveed', saved)
-// }
-
-// useEffect(() => {
-//   const newPeople = []
-// newPeople.map(person => {person.foreverAge = "" + person.foreverAge; savePerson(person)})
-// }, [])
 
 export const HeroRouter = () => (
     <Routes>

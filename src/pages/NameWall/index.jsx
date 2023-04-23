@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { useActivePeople } from "../../utils/customHooks/useActivePeople";
+import { useActivePeople } from "../../utils/hooks/useActivePeople";
 
 import { countries } from '../../utils//data/countries';
 import { states } from "../../utils/data/states";

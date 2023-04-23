@@ -5,7 +5,7 @@ import { countries } from '../../utils/data/countries';
 import { states } from '../../utils/data/states';
 import Dropdown from "../Dropdown";
 import FloatingMenu from "./FloatingMenu";
-import useAnalyticsEventTracker from "../../utils/customHooks/useAnalyticsEvent";
+import useAnalyticsEventTracker from "../../utils/hooks/useAnalyticsEvent";
 
 import './index.css'
 
