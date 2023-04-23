@@ -1,7 +1,7 @@
-import { DataStore } from "aws-amplify";
+import { DataStore, Hub } from "aws-amplify";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Heroes, LazyHeroes } from "../models";
+import { Heroes, LazyHeroes } from "../../utils/models";
 
 import './index.scss';
 
@@ -179,29 +179,61 @@ const HeroPage = () => {
     const [loading, setloading] = useState(true);
     const getHeroes = async () => {
         const heroData = await DataStore.query(Heroes, (c) => c.verified.eq(true));
+        console.log('heros', heroData);
+        // return await ;
 
-        heroData.sort(function(a, b) {
-            var keyA = a.state || '',
-              keyB = b.state || '';
+        // heroData.sort(function(a, b) {
+        //     var keyA = a.state || '',
+        //       keyB = b.state || '';
 
-              // Compare the 2
-            if (keyA < keyB) return -1;
-            if (keyA > keyB) return 1;
+        //       // Compare the 2
+        //     if (keyA < keyB) return -1;
+        //     if (keyA > keyB) return 1;
 
-            return 0;
-        });
+        //     return 0;
+        // });
 
         // console.log('heroData', heroData);
 
-        setHeroes( heroData );
+        // setHeroes( heroData );
     }
+
+    useEffect(() => {
+        // Create listener
+        const listener = Hub.listen("datastore", async hubData => {
+            console.log('dataStore event')
+            const  { event, data } = hubData.payload;
+            if (event === "ready") {
+            // do something here once the data is synced from the cloud
+            document.body.classList.add('Pleasures')
+            }
+        })
+
+
+        // Remove listener
+        return listener();
+    })
 
 
     useEffect(() => {
         document.body.classList.add('heroes');
-        getHeroes()
-        setloading(false);
+        // getHeroes();
+
+        DataStore.query(Heroes, (c) => c.verified.eq(true)).then(res => {
+            console.log('res', res);
+            setHeroes(res)
+            if (res.length > 0)
+                setloading(false);
+        }).catch(err => {
+            console.log('err',err)
+        })
+
+        return () => {
+            document.body.classList.remove('heroes');
+        }
     }, [loading])
+
+    console.log('loading', loading)
 
     return (
         <main>

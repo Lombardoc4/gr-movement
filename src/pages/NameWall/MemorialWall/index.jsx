@@ -1,5 +1,5 @@
 import React from "react";
-import { states } from "../../data/states";
+import { states } from "../../../utils/data/states";
 import WallPerson from "../WallPerson";
 
 

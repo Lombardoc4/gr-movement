@@ -3,10 +3,10 @@ import { Storage } from "aws-amplify";
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import { StaticMenu } from "../components/Menu";
-import MusicPlayer from "../components/MusicPlayer";
+import { StaticMenu } from "../../components/Menu";
+import MusicPlayer from "../../components/MusicPlayer";
 
-import { states } from "../data/states";
+import { states } from "../../utils/data/states";
 import './index.scss'
 
 let scrollID;

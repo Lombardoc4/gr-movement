@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { useActivePeople } from "../customHooks/useActivePeople";
+import { useActivePeople } from "../../utils/customHooks/useActivePeople";
 
-import { countries } from '../data/countries';
-import { states } from "../data/states";
+import { countries } from '../../utils//data/countries';
+import { states } from "../../utils/data/states";
 
 import MemorialWall, { WallSubHeader } from "./MemorialWall";
-import Menu, { StaticMenu } from "../components/Menu";
+import Menu, { StaticMenu } from "../../components/Menu";
 
-import '../App.css';
+import '../../App.css';
 
 const countriesWithStates = ['United States', 'Canada'];
 

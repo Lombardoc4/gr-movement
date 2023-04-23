@@ -184,7 +184,7 @@ function ArrayField({
 export default function HeroesUpdateForm(props) {
   const {
     id: idProp,
-    heroes,
+    heroes: heroesModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -242,14 +242,16 @@ export default function HeroesUpdateForm(props) {
     setVerified(cleanValues.verified);
     setErrors({});
   };
-  const [heroesRecord, setHeroesRecord] = React.useState(heroes);
+  const [heroesRecord, setHeroesRecord] = React.useState(heroesModelProp);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = idProp ? await DataStore.query(Heroes, idProp) : heroes;
+      const record = idProp
+        ? await DataStore.query(Heroes, idProp)
+        : heroesModelProp;
       setHeroesRecord(record);
     };
     queryData();
-  }, [idProp, heroes]);
+  }, [idProp, heroesModelProp]);
   React.useEffect(resetStateValues, [heroesRecord]);
   const [currentHeroPhotosValue, setCurrentHeroPhotosValue] =
     React.useState("");
@@ -826,7 +828,7 @@ export default function HeroesUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || heroes)}
+          isDisabled={!(idProp || heroesModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -838,7 +840,7 @@ export default function HeroesUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || heroes) ||
+              !(idProp || heroesModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

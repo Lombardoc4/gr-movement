@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { StaticMenu } from "../Menu";
+import { StaticMenu } from "../../components/Menu";
 
 const Page404 = () => (
     <div

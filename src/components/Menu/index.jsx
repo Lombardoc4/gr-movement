@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { countries } from '../../data/countries';
-import { states } from '../../data/states';
+import { countries } from '../../utils/data/countries';
+import { states } from '../../utils/data/states';
 import Dropdown from "../Dropdown";
 import FloatingMenu from "./FloatingMenu";
-import useAnalyticsEventTracker from "../../customHooks/useAnalyticsEvent";
+import useAnalyticsEventTracker from "../../utils/customHooks/useAnalyticsEvent";
 
 import './index.css'
 

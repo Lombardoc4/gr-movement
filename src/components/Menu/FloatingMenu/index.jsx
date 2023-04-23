@@ -1,4 +1,4 @@
-import { useWindowScroll } from "../../../customHooks/useWindowScroll"
+import { useWindowScroll } from "../../../utils/customHooks/useWindowScroll"
 import MusicPlayer from "../../MusicPlayer";
 
 

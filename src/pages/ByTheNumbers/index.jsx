@@ -3,9 +3,9 @@
 import './index.scss';
 
 import { DataStore } from '@aws-amplify/datastore';
-import { Person } from '../models';
+import { Person } from '../../utils/models';
 
-import { states } from '../data/states';
+import { states } from '../../utils/data/states';
 import { useEffect, useState } from 'react';
 
 const groupBy = function(list, key) {
@@ -21,7 +21,7 @@ const groupBy = function(list, key) {
 
   };
 
-const ListView = () => {
+const ByTheNumbers = () => {
     const [worldwide, setWorldwide] = useState(0);
     const [unitedStates, setUnitedStates] = useState(0);
     const [canada, setCanada] = useState(0);
@@ -126,7 +126,7 @@ const ListView = () => {
     )
 }
 
-export default ListView
+export default ByTheNumbers
 
 const Accordian = ({title, data}) => {
     const [hideDetails, setHideDetails] = useState(false);
