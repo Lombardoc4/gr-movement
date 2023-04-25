@@ -12,15 +12,13 @@ import PhotoShow from '../pages/PhotoWall';
 import NameWall from '../pages/NameWall';
 import Heroes from '../pages/Heroes';
 import Page404 from '../pages/404';
-// import Form from './Form/NewForm';
-
 
 export const HeroRouter = () => (
     <Routes>
         <Route path="/" element={<Heroes/>}></Route>
         <Route path="/*" element={<Page404/>}></Route>
     </Routes>
-    );
+);
 
 
 export const WallRouter = () => (

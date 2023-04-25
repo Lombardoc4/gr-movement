@@ -1,6 +1,66 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateAmbassador = /* GraphQL */ `
+  subscription OnCreateAmbassador(
+    $filter: ModelSubscriptionAmbassadorFilterInput
+  ) {
+    onCreateAmbassador(filter: $filter) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onUpdateAmbassador = /* GraphQL */ `
+  subscription OnUpdateAmbassador(
+    $filter: ModelSubscriptionAmbassadorFilterInput
+  ) {
+    onUpdateAmbassador(filter: $filter) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const onDeleteAmbassador = /* GraphQL */ `
+  subscription OnDeleteAmbassador(
+    $filter: ModelSubscriptionAmbassadorFilterInput
+  ) {
+    onDeleteAmbassador(filter: $filter) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const onCreateHeroes = /* GraphQL */ `
   subscription OnCreateHeroes($filter: ModelSubscriptionHeroesFilterInput) {
     onCreateHeroes(filter: $filter) {

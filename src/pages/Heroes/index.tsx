@@ -227,6 +227,7 @@ const HeroPage = () => {
             { loading ?
             <div style={{padding: '2rem'}}>
                 <p style={{textAlign: 'center', fontWeight: 700}}>Loading...</p>
+                <p style={{textAlign: 'center', fontWeight: 700, fontSize: '0.75em'}}>(Try Refreshing)</p>
             </div>
             :
             heroData.map(hero => <HeroSection key={hero.id} {...hero}/>)}

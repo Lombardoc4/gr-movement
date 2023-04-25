@@ -2,12 +2,46 @@ import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
+type AmbassadorMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type HeroesMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
 type PersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type EagerAmbassador = {
+  readonly id: string;
+  readonly name: string;
+  readonly email?: string | null;
+  readonly state: string;
+  readonly info_perms?: boolean | null;
+  readonly email_perms?: boolean | null;
+  readonly volunteer_options?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyAmbassador = {
+  readonly id: string;
+  readonly name: string;
+  readonly email?: string | null;
+  readonly state: string;
+  readonly info_perms?: boolean | null;
+  readonly email_perms?: boolean | null;
+  readonly volunteer_options?: (string | null)[] | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Ambassador = LazyLoading extends LazyLoadingDisabled ? EagerAmbassador : LazyAmbassador
+
+export declare const Ambassador: (new (init: ModelInit<Ambassador, AmbassadorMetaData>) => Ambassador) & {
+  copyOf(source: Ambassador, mutator: (draft: MutableModel<Ambassador, AmbassadorMetaData>) => MutableModel<Ambassador, AmbassadorMetaData> | void): Ambassador;
 }
 
 type EagerHeroes = {

@@ -7,6 +7,7 @@ import { Person } from '../../utils/models';
 
 import { states } from '../../utils/data/states';
 import { useEffect, useState } from 'react';
+import { Ambassador } from '../../utils/models';
 
 const groupBy = function(list, key) {
     return list.reduce(function(returnValue, item) {
@@ -25,8 +26,38 @@ const ByTheNumbers = () => {
     const [worldwide, setWorldwide] = useState(0);
     const [unitedStates, setUnitedStates] = useState(0);
     const [canada, setCanada] = useState(0);
+    const [ambassadors, setAmbassadors] = useState(0);
+    const [subPage, setSubPage] = useState('main')
+
 
     useEffect(() => {
+        // Get All Ambassador Data
+        const ambassadorSub = DataStore.observeQuery(
+        Ambassador
+        ).subscribe(snapshot => {
+            const { items } = snapshot;
+            const groupByState = groupBy(items, 'state');
+
+            states["United States"].map(({name}) => {
+                groupByState[name] = groupByState[name]  ? [...groupByState[name]] : [];
+            });
+
+            delete groupByState['Nationwide'];
+
+            const sortedStatesPeople = Object.keys(groupByState).sort().reduce(
+                (obj, key) => {
+                    obj[key] = groupByState[key];
+                    return obj;
+                }, {}
+            );
+
+            // if (country === 'United States'){
+                // setUnitedStates(sortedStatesPeople)
+                setAmbassadors(sortedStatesPeople);
+            // }
+            // const sortedAmbassadors = sortedStates(items);
+            // setAmbassadors(sortedAmbassadors)
+        })
 
         // Get All Data
         const subscription = DataStore.observeQuery(
@@ -67,13 +98,13 @@ const ByTheNumbers = () => {
                 const groupByState = groupBy(sortedCountry[country], 'state');
 
                 states[country].map(({name, id}) => {
-                    if (groupByState[name] && groupByState[id]){
-                        groupByState[name] = groupByState[name].concat(groupByState[id]);
-                    } else {
+                    // if (groupByState[name] && groupByState[id]){
+                    //     groupByState[name] = groupByState[name].concat(groupByState[id]);
+                    // } else {
                         groupByState[name] = groupByState[name]  ? [...groupByState[name]] : [];
-                    }
-                    delete groupByState[id]
-                    return name;
+                    // }
+                    // delete groupByState[id]
+                    // return name;
                 })
 
                 delete groupByState['Nationwide'];
@@ -118,10 +149,22 @@ const ByTheNumbers = () => {
     return (
         <main className="byTheNumbers">
             <h1>Drug Epidemic Memorial</h1>
-            <h2>By The Numbers</h2>
-            <Accordian title="worldwide" data={worldwide}/>
-            <Accordian title="united-states" data={unitedStates}/>
-            <Accordian title="canada" data={canada}/>
+            <h2>By The Numbers {subPage === 'main' ? 'Our Loved Ones' : 'Our Ambassadors'}</h2>
+
+            <div className='button-slide'>
+
+                <button className='btn' onClick={() => setSubPage('main')}>Loved Ones</button>
+                <button className='btn' onClick={() => setSubPage('ambassadors')}>Ambassadors</button>
+                <div className="active-overlay" style={{transform: `translateX(${subPage === 'ambassadors' ? '100%': '0%'})`}}></div>
+            </div>
+            { subPage === 'ambassadors' &&
+                <Accordian title="ambassadors united-states" data={ambassadors}/>
+            }
+            { subPage === 'main' && <>
+                <Accordian title="worldwide" data={worldwide}/>
+                <Accordian title="united-states" data={unitedStates}/>
+                <Accordian title="canada" data={canada}/>
+            </>}
         </main>
     )
 }
@@ -133,7 +176,7 @@ const Accordian = ({title, data}) => {
 
     return (
         <div className="accordian">
-        <h3>{title.charAt(0).toUpperCase() + title.slice(1)} - Total:{Object.values(data).reduce((total, state) => state.length + total, 0)} </h3>
+        <h3>{title.replaceAll('-', ' ')} - Total:{Object.values(data).reduce((total, state) => state.length + total, 0)} </h3>
 
         <div className="accordian-toggler" tabIndex={0} onClick={() => setHideDetails(!hideDetails)}>{hideDetails ? 'Show' : 'Hide'} Details</div>
 

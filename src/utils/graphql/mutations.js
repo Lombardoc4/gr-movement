@@ -1,6 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createAmbassador = /* GraphQL */ `
+  mutation CreateAmbassador(
+    $input: CreateAmbassadorInput!
+    $condition: ModelAmbassadorConditionInput
+  ) {
+    createAmbassador(input: $input, condition: $condition) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const updateAmbassador = /* GraphQL */ `
+  mutation UpdateAmbassador(
+    $input: UpdateAmbassadorInput!
+    $condition: ModelAmbassadorConditionInput
+  ) {
+    updateAmbassador(input: $input, condition: $condition) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
+export const deleteAmbassador = /* GraphQL */ `
+  mutation DeleteAmbassador(
+    $input: DeleteAmbassadorInput!
+    $condition: ModelAmbassadorConditionInput
+  ) {
+    deleteAmbassador(input: $input, condition: $condition) {
+      id
+      name
+      email
+      state
+      info_perms
+      email_perms
+      volunteer_options
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+  }
+`;
 export const createHeroes = /* GraphQL */ `
   mutation CreateHeroes(
     $input: CreateHeroesInput!
