@@ -54,6 +54,11 @@
     }
   },
   "function": {
+    "getAmbassadorsFromOntraport": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getHeroFromOntraport": {
       "build": true,
       "dependsOn": [],
@@ -67,6 +72,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_getAmbassadorsFromOntraport_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getAmbassadorsFromOntraport"
+        }
+      ]
+    },
+    "AMPLIFY_function_getAmbassadorsFromOntraport_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getAmbassadorsFromOntraport"
+        }
+      ]
+    },
     "AMPLIFY_function_getHeroFromOntraport_deploymentBucketName": {
       "usedBy": [
         {
