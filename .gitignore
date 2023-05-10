@@ -13,7 +13,6 @@ build
 dist-ssr
 *.local
 
-amplify
 amplify_backup
 ui-components
 
