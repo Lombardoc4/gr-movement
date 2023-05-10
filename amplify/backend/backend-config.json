@@ -54,7 +54,7 @@
     }
   },
   "function": {
-    "getAmbassadorsFromOntraport": {
+    "getAmbassadorFromOntraport": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -72,19 +72,19 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_getAmbassadorsFromOntraport_deploymentBucketName": {
+    "AMPLIFY_function_getAmbassadorFromOntraport_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "getAmbassadorsFromOntraport"
+          "resourceName": "getAmbassadorFromOntraport"
         }
       ]
     },
-    "AMPLIFY_function_getAmbassadorsFromOntraport_s3Key": {
+    "AMPLIFY_function_getAmbassadorFromOntraport_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "getAmbassadorsFromOntraport"
+          "resourceName": "getAmbassadorFromOntraport"
         }
       ]
     },

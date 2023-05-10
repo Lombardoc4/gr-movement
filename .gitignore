@@ -13,8 +13,10 @@ build
 dist-ssr
 *.local
 
+amplify
 amplify_backup
 ui-components
+
 
 # Editor directories and files
 .vscode/*

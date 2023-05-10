@@ -67,17 +67,23 @@ export const useActivePeople = (country, state) => {
 
                 // Log Duplicates
                 // const duplicates = items.filter((item, index) => {
-                //     return items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge && item.state === other.state)
+                //     return !items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge && item.state === other.state)
                 // })
                 // console.log('duplciates', duplicates)
-                // Find by state
+
+                // Use inverse of above to remove duplicates
+                const filteredModels = items.filter((item, index) => {
+                    return !items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge && item.state === other.state)
+                })
+
+
                 // const sc = items.filter((item, index) => {
                 //     return item.state === 'South Carolina' || item.state === 'SC';
                 // })
                 // console.log('SC', sc)
 
                 // Update People
-                setActivePeople(sortedModels);
+                setActivePeople(filteredModels);
             }
 
         });
