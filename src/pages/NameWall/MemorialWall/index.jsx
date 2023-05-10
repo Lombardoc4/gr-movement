@@ -54,7 +54,18 @@ const MemorialWall = ({people, groupKey}) => {
     const groupedPeople = groupBy(people, groupKey);
 
 
-    const groupTitles = Object.keys(groupedPeople).sort();
+    const groupTitles = Object.keys(groupedPeople).sort((first, second) => {
+        // Make sure USA if first followed by Canada
+        if (first === 'Canada'  && second === 'United States') {
+            return 1
+        }
+        else if (first === 'United States') {
+            return -1
+        }
+        else if (first === 'Canada'){
+            return -1
+        }
+    });
 
     return groupTitles.map((title) => (
                 <React.Fragment key={title}>
