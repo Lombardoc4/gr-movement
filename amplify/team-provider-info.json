@@ -26,7 +26,7 @@
         },
         "getAmbassadorFromOntraport": {
           "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
-          "s3Key": "amplify-builds/getAmbassadorFromOntraport-61636a33457541556942-build.zip"
+          "s3Key": "amplify-builds/getAmbassadorFromOntraport-4834612f363235496d4c-build.zip"
         }
       },
       "storage": {
@@ -34,6 +34,29 @@
       },
       "api": {
         "GRMovement": {}
+      }
+    }
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-grmovement-dev-182629-authRole",
+      "UnauthRoleArn": "arn:aws:iam::890078463828:role/amplify-grmovement-dev-182629-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::890078463828:role/amplify-grmovement-dev-182629-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-grmovement-dev-182629-deployment",
+      "UnauthRoleName": "amplify-grmovement-dev-182629-unauthRole",
+      "StackName": "amplify-grmovement-dev-182629",
+      "StackId": "arn:aws:cloudformation:us-east-1:890078463828:stack/amplify-grmovement-dev-182629/5ddc0840-fc14-11ed-a6f6-0e5133c25717",
+      "AmplifyAppId": "d3t3bo5sfmdjit"
+    },
+    "categories": {
+      "auth": {
+        "GRMovement": {}
+      },
+      "function": {
+        "getAmbassadorFromOntraport": {},
+        "getHeroFromOntraport": {},
+        "getUserFromOntraport": {}
       }
     }
   }

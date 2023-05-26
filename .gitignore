@@ -7,15 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+
+ui-components
 node_modules
 dist
-build
 dist-ssr
 *.local
-
-amplify_backup
-ui-components
-
 
 # Editor directories and files
 .vscode/*
@@ -27,13 +24,13 @@ ui-components
 *.njsproj
 *.sln
 *.sw?
-*.psd
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/logs
 amplify/mock-data
+amplify/mock-api-resources
 amplify/backend/amplify-meta.json
 amplify/backend/.temp
 build/
