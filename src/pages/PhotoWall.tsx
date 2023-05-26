@@ -157,7 +157,7 @@ const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
     // const [models, setModels] = useState(photos)
     // const [entries, setEntries] = useState(groupData(models, country !== 'Worldwide' ? 'state': 'country'))
 
-    console.log('photos', photos);
+    // console.log('photos', photos);
 
     // // Parse Data Everytime loadData updates from Router
     // useEffect(() => {

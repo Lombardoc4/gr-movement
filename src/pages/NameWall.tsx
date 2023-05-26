@@ -94,7 +94,6 @@ const groupData = (items: Person[], filterBy: string) => {
     const groupByKey: GroupedPeople = items.reduce((acc: GroupedPeople , cur : Person) => {
 
         const { country, state } = cur;
-        // console.log('country', country);
 
         let key: string;
 
@@ -140,15 +139,18 @@ const NameWall = ({country = "Worldwide"} :NameWallProps) => {
     }
 
     const people = useNames(country || "Worldwide", stateId) as Person[];
-
-    const [models, setModels] = useState(parseData(loadData ? loadData : people))
+    const [models, setModels] = useState(parseData(loadData.length > 0 ? loadData : people))
     const [entries, setEntries] = useState(groupData(models, ["United States", "Canada"].includes(country)  ? 'state': 'country'))
+
+
 
     // Parse Data Everytime loadData updates from Router
     useEffect(() => {
 
+
         if (loadData.length <= 0) {
-            console.log('display error')
+            // console.log('display error', people)
+            return
         }
 
         const newModels = parseData(loadData);
