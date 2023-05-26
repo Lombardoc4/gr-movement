@@ -2,10 +2,10 @@ import {  useEffect, useState } from "react"
 import { styled } from "styled-components";
 import { useOutsideClick } from "../../utils/hooks/useOutsideClick";
 
-const searchKeys = {
-    default: ['name'],
-    person: ['firstName', 'lastName']
-};
+// const searchKeys = {
+//     default: ['name'],
+//     person: ['firstName', 'lastName']
+// };
 
 interface DropdownProps {
     placeholder: string,
@@ -66,7 +66,7 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
 `;
 
 
-export const Dropdown = ({placeholder, id, value, initOptions, action, keySet = 'default' }: DropdownProps) => {
+export const Dropdown = ({placeholder, id, value, initOptions, action }: DropdownProps) => {
     const [open, setOpen] = useState(false);
     const [query, setQuery] = useState(value);
     const [options, setOptions] = useState(initOptions);

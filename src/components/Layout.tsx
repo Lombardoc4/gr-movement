@@ -13,7 +13,7 @@ export const Layout = () => {
                 <Outlet/>
             {/* </div> */}
 
-            <ScrollToTop visible={true}/>
+            <ScrollToTop/>
         </>
     )
 }

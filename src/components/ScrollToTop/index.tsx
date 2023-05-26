@@ -4,9 +4,6 @@ import { styled } from "styled-components"
 interface StyleProps {
     $visible: boolean
 }
-interface Props {
-    visible: boolean
-}
 
 const StyledContainer = styled.div<StyleProps>`
     position: fixed;

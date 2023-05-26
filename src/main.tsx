@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './router/index.tsx'
 
 import { Amplify } from 'aws-amplify'
-import awsExports from './aws-exports';
+const awsExports = require('./aws-exports').default;
 import { GlobalStyles } from './GlobalStyles.ts'
 
 

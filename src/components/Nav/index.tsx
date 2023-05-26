@@ -1,9 +1,7 @@
 import { Link, NavLink } from "react-router-dom"
-import { createGlobalStyle, styled } from "styled-components"
-import { Dropdown } from "../Dropdown";
-import { countries } from "../../utils/data/countries";
+import {  styled } from "styled-components"
 import { states } from "../../utils/data/states";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 
 const StyledHeader = styled.header`
@@ -36,9 +34,7 @@ const StyledHeader = styled.header`
 `;
 
 export const Nav = () => {
-    const [fixed, setFixed] = useState(false);
     const headerRef = useRef<HTMLHeadElement>(null)
-    const countryOptions = countries.map(country => country.name);
     const stateOptions = [...states["United States"].map(state => state.name), ...states["Canada"].map(state => state.name)];
 
     const country = '';
