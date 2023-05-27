@@ -213,7 +213,7 @@ const NameWall = ({country = "Worldwide"} :NameWallProps) => {
                         </div>
                     <NameSection>
                         { entries[entryGroup].map(entry => (
-                            <p className="name-entry" key={entry.id} data-name={entry.firstName + ' ' + entry.lastName}>{entry.firstName}{"\u00A0"}{entry.lastName}</p>
+                            <p className="name-entry" key={entry.id} data-name={entry.firstName + ' ' + entry.lastName}>{entry.firstName}{"\u00A0"}{entry.lastName}, {entry.foreverAge}</p>
                             ))}
                     </NameSection>
                     </Section>
