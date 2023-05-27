@@ -61,7 +61,7 @@ const NameSection = styled.div`
     flex-wrap: wrap; */
 
     display: grid;
-    grid-template-columns: repeat(auto-fit, max(250px));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 0 0.5em;
     align-items: center;
     width: 100%;
