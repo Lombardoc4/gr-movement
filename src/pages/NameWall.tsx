@@ -18,10 +18,10 @@ const Section = styled.section`
     color: #f1f1f1;
 
     .heading {
-        height: 75px;
+        /* height: 75px; */
         position: sticky;
         top: calc(75px + 4em);
-        display: inline-flex;
+        display: flex;
         align-items: center;
         gap: 12px;
         margin: 0 0 1em;
@@ -34,8 +34,24 @@ const Section = styled.section`
 
     h2 {
         font-size: 2em;
+        line-height: 1;
         text-transform: uppercase;
     }
+
+    @media screen and (max-width: 700px) {
+        padding: 1em;
+
+        .heading {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+    }
+
+
 `;
 
 const NameSection = styled.div`
@@ -193,7 +209,7 @@ const NameWall = ({country = "Worldwide"} :NameWallProps) => {
                     <Section key={entryGroup} className="container">
                         <div className="heading">
                             <h2>{entryGroup}</h2>
-                            {entryGroup && <><span>-</span><p>{entries[entryGroup].length} Loved Ones Lost</p></> }
+                            {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
                         </div>
                     <NameSection>
                         { entries[entryGroup].map(entry => (

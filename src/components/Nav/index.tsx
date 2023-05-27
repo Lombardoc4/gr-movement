@@ -31,6 +31,21 @@ const StyledHeader = styled.header`
         }
     }
 
+
+    .burger {
+        display: none;
+    }
+
+
+    @media screen and (max-width: 700px) {
+        .burger {
+            display: initial
+        }
+        .fullNav {
+            display: none;
+        }
+    }
+
 `;
 
 export const Nav = () => {
@@ -51,20 +66,24 @@ export const Nav = () => {
                 <Link to="/">
                     Butterfly Icon
                 </Link>
+                <div className="burger">
+                    ###
+                </div>
+                <div className="fullNav">
+
                     <NavLink to="/">
                         Name Wall
                     </NavLink>
                     <NavLink to="/photos">
                         Photo Wall
                     </NavLink>
-                </nav>
-                <nav>
                     <Link to="https://drugepidemicmemorial.org/">
                         Include Your Loved One
                     </Link>
                     <Link to="https://drugepidemicmemorial.org/">
                         Contact Us
                     </Link>
+                </div>
                 </nav>
             </div>
         </StyledHeader>

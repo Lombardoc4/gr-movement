@@ -20,4 +20,10 @@ export const GlobalStyles = createGlobalStyle`
         padding-left: 2em;
         padding-right: 2em;
     }
+
+    @media screen and (max-width: 700px) {
+        .container{
+            padding: 1em;
+        }
+    }
 `;

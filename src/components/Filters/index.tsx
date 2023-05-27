@@ -33,6 +33,12 @@ const FilterSection = styled.div`
         gap: 1em;
     }
 
+    @media screen and (max-width: 700px) {
+        .main {
+            flex-direction: column;
+        }
+    }
+
 `;
 
 

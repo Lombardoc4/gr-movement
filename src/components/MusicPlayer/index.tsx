@@ -70,6 +70,7 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
     background-color: #ffffff;
 
     opacity: ${({ $open }) => $open ? '1' : 0};
+    pointer-events: ${({ $open }) => $open ? 'initial' : 'none'};
     transition: opacity 0.3s;
 
     min-width: 250px;
@@ -158,6 +159,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     return (
         <div style={{position: 'relative'}}>
             <button onClick={() => openPlayer()}>{ playerOpen ? 'Hide Player' : 'Music Player' }</button>
+
 
             <StyledPlayer $open={playerOpen} >
                 <p >{activePlaylist[audioTrack]}</p>
