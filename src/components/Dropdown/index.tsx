@@ -33,7 +33,7 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
         font-weight: 700;
         width: 100%;
         /* margin-top: 0.25rem; */
-        padding: 0.5em 1em;
+        padding: 0.75em 1em;
         border: 1px solid #535353;
         outline: none;
         background-color: #ffffff;
@@ -50,11 +50,13 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
         background-color: #ffffff;
         border: 1px solid #323232;
         border-top: none;
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
     }
 
     .dropdown-option {
         text-transform: capitalize;
-        padding: 0.5em 1em;
+        padding: 0.75em 1em;
         font-size: 18px;
         width: 100%;
         background-color: #ffffff;

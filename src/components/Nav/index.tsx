@@ -1,17 +1,19 @@
 import { Link, NavLink } from "react-router-dom"
 import {  styled } from "styled-components"
 import { states } from "../../utils/data/states";
-import { useRef } from "react";
+import { useState } from "react";
+import butterflyLogo from "../../assets/butterfly.png"
 
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.div`
     padding-top: 1em 0;
     /* position: sticky; */
     top: 0;
     left: 0;
     right: 0;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     z-index: 1000;
+    position: relative;
 
 
     .container {
@@ -24,32 +26,89 @@ const StyledHeader = styled.header`
 
     nav {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         gap: 0.5em;
+        width: 100%;
 
-        a {
-            padding: 0 0.5em;
-        }
-    }
-
-
-    .burger {
-        display: none;
     }
 
 
     @media screen and (max-width: 700px) {
-        .burger {
-            display: initial
+        .container {
+            padding: 1em 2em;
         }
-        .fullNav {
-            display: none;
+    }
+
+`;
+
+interface MenuState {
+    open: boolean
+}
+
+const Burger = styled.div<MenuState>`
+    display: none;
+
+    line{
+        fill:none;
+        stroke:#edcf39;
+        stroke-linecap:round;
+        stroke-miterlimit:10;
+        stroke-width:3px;
+        transform-origin: center;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .burger-outer {
+        opacity: ${({open}) => open ? 0 : 1};
+
+        &:nth-child(1) { transform: translateY(${({open}) => open ? '10px' : 0})}
+        &:nth-child(2) { transform: translateY(${({open}) => open ? '-10px' : 0})}
+    }
+    #burger-middle {
+        transform: rotate(${({open}) => open ? "45deg" : "0"});
+    }
+    #burger-middle2 {
+        transform: rotate(${({open}) => open ? "-45deg" : "0"});
+    }
+
+    @media screen and (max-width: 700px) {
+        display: flex;
+    }
+`
+
+const FullNav = styled.div<MenuState>`
+    a, .a {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+    }
+
+    @media screen and (max-width: 700px) {
+        position: fixed;
+        z-index: 1000;
+        top: 100vh;
+        left: 0;
+        right: 0;
+        height: ${({open}) => open ? 'calc(100vh - 75px)' : '0'};
+        transform: translateY(${({open}) => open ? 'calc(-100vh + 75px)' : '0'});
+        background-color: #edcf39;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+
+        transition: transform 0.3s, height 0.3s;
+        padding: 2em;
+
+        a, button {
+            width: 100%;
         }
     }
 
 `;
 
 export const Nav = () => {
-    const headerRef = useRef<HTMLHeadElement>(null)
+    const [navOpen, openNav] = useState(false);
     const stateOptions = [...states["United States"].map(state => state.name), ...states["Canada"].map(state => state.name)];
 
     const country = '';
@@ -60,30 +119,42 @@ export const Nav = () => {
 
     return (
         <>
-        <StyledHeader ref={headerRef}>
+        <StyledHeader>
             <div className="container">
                 <nav>
-                <Link to="/">
-                    Butterfly Icon
-                </Link>
-                <div className="burger">
-                    ###
-                </div>
-                <div className="fullNav">
+                    <Link to="/">
+                        <img src={butterflyLogo} alt="Drug Epidemic Memorial" width={60} height={40}/>
+                    </Link>
+                    <Burger open={navOpen} onClick={() => openNav(!navOpen)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="27" viewBox="0 0 23 18">
+                            <line className="burger-outer" x1="1.5" y1="1.5" x2="21.5" y2="1.5"/>
+                            <line id="burger-middle" x1="1.5" y1="9" x2="21.5" y2="9"/>
+                            <line id="burger-middle2" x1="1.5" y1="9" x2="21.5" y2="9"/>
+                            <line className="burger-outer" x1="1.5" y1="16.5" x2="21.5" y2="16.5"/>
+                        </svg>
+                    </Burger>
+                    <FullNav open={navOpen}>
 
-                    <NavLink to="/">
-                        Name Wall
-                    </NavLink>
-                    <NavLink to="/photos">
-                        Photo Wall
-                    </NavLink>
-                    <Link to="https://drugepidemicmemorial.org/">
-                        Include Your Loved One
-                    </Link>
-                    <Link to="https://drugepidemicmemorial.org/">
-                        Contact Us
-                    </Link>
-                </div>
+
+                        <NavLink to="/">
+                            <button>
+                                Name Wall
+                            </button>
+                        </NavLink>
+                        <NavLink to="/photos">
+                            <button>
+                                Photo Wall
+                            </button>
+                        </NavLink>
+                        <Link to="https://drugepidemicmemorial.org/">
+                            <button>
+                                Include Your Loved One
+                            </button>
+                        </Link>
+                        <button className="a">
+                            Help
+                        </button>
+                    </FullNav>
                 </nav>
             </div>
         </StyledHeader>

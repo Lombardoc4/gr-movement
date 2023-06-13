@@ -65,9 +65,10 @@ const trackLists: trackListProps = {
 
 const StyledPlayer = styled.div<StyledPlayerProps>`
     position: absolute;
-    top: calc(100% + 3em);
+    bottom: calc(100% + 2em);
     right: -1em;
     background-color: #ffffff;
+    box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff;
 
     opacity: ${({ $open }) => $open ? '1' : 0};
     pointer-events: ${({ $open }) => $open ? 'initial' : 'none'};
@@ -158,7 +159,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
 
     return (
         <div style={{position: 'relative'}}>
-            <button onClick={() => openPlayer()}>{ playerOpen ? 'Hide Player' : 'Music Player' }</button>
+            <button onClick={() => openPlayer()}>Music</button>
 
 
             <StyledPlayer $open={playerOpen} >

@@ -4,9 +4,6 @@ import { ScrollToTop } from "./ScrollToTop";
 import { Hub } from "aws-amplify";
 import { useEffect, useState } from "react";
 
-
-
-
 export const Layout = () => {
     const [dataLoading, setDataLoading] = useState(true);
 
@@ -29,6 +26,7 @@ export const Layout = () => {
                 <Outlet/>
             }
             {/* </div> */}
+
 
             <ScrollToTop/>
         </>
