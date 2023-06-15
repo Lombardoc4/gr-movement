@@ -94,6 +94,9 @@ type EagerPerson = {
   readonly country?: string | null;
   readonly state?: string | null;
   readonly imgUrl?: string | null;
+  readonly email?: string | null;
+  readonly name?: string | null;
+  readonly permission?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -106,6 +109,9 @@ type LazyPerson = {
   readonly country?: string | null;
   readonly state?: string | null;
   readonly imgUrl?: string | null;
+  readonly email?: string | null;
+  readonly name?: string | null;
+  readonly permission?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
