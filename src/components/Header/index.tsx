@@ -216,7 +216,7 @@ const StyledHeader = styled.header`
 `;
 
 
-export const Header = ({title, children } : {title: string, children?: JSX.Element}) => {
+export const Header = ({title} : {title: string}) => {
 
     return (
         <StyledHeader>

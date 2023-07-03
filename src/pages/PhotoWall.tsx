@@ -1,51 +1,14 @@
 import { useParams } from "react-router-dom";
-// import { Person } from "../utils/models";
 import styled from "styled-components";
 import { PhotoContainer } from "../components/PhotoContainer";
-// import { Filters } from "../components/Filters";
 import { usePhotos } from "../utils/hooks/usePhotos";
 import { Header } from "../components/Header";
 import { ScrollToTop } from "../components/ScrollToTop";
-import { Filters } from "../components/Filters";
 import { useWindowScroll } from "../utils/hooks/useWindowScroll";
 import { countries } from "../utils/data/countries";
 
-// const Section = styled.section`
-//     padding: 2em;
-//     line-height: 24px;
-//     position: relative;
-
-
-//     background-color: #000000;
-//     color: #f1f1f1;
-
-//     .heading {
-//         height: 75px;
-//         position: sticky;
-//         top: calc(75px + 4em);
-//         display: inline-flex;
-//         align-items: center;
-//         gap: 12px;
-//         margin: 0 0 1em;
-//         padding: 1.5em;
-//         background-color: #ffffff;
-//         color: #000000;
-//         border-radius: 8px;
-//         border: 1px solid #000000;
-//     }
-
-//     h2 {
-//         font-size: 2em;
-//         text-transform: uppercase;
-//     }
-// `;
 
 const NameSection = styled.div`
-
-    /* display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; */
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 0.5em;
@@ -57,7 +20,6 @@ const NameSection = styled.div`
 
 
     .img-container {
-        /* height: 200px; */
         border-radius: 0.5em;
         overflow: hidden;
 
@@ -67,7 +29,6 @@ const NameSection = styled.div`
         align-items: center;
 
         img {
-            /* width: 100%; */
             height: 100%;
             object-fit: cover;
         }
