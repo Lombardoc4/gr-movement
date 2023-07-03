@@ -78,30 +78,48 @@ const Burger = styled.div<MenuState>`
 `
 
 const FullNav = styled.div<MenuState>`
-    a, .a {
-        margin-left: 0.5em;
-        margin-right: 0.5em;
+    color: #000000;
+    position: fixed;
+    z-index: 1000;
+    top: 100vh;
+    left: 0;
+    right: 0;
+    height: ${({open}) => open ? 'calc(100vh - 75px)' : '0'};
+    transform: translateY(${({open}) => open ? 'calc(-100vh + 75px)' : '0'});
+    background-color: #edcf39;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+
+    transition: transform 0.3s, height 0.3s;
+    padding: 2em;
+
+    
+    button {
+        height: 100%;
+        width: 100%;
     }
-
-    @media screen and (max-width: 700px) {
-        position: fixed;
-        z-index: 1000;
-        top: 100vh;
-        left: 0;
-        right: 0;
-        height: ${({open}) => open ? 'calc(100vh - 75px)' : '0'};
-        transform: translateY(${({open}) => open ? 'calc(-100vh + 75px)' : '0'});
-        background-color: #edcf39;
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        align-items: center;
-
-        transition: transform 0.3s, height 0.3s;
-        padding: 2em;
-
-        a, button {
-            width: 100%;
+    
+    a, .a {
+        width: 100%;
+        height: 20%;
+    }
+    @media screen and (min-width: 768px) {
+        position: static;
+        flex-direction: row;
+        background-color: transparent;
+        padding: 0;
+        height: 100%;
+        
+        a, .a {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+            height: 100%;
+            width: auto;
+        }
+        h2 {
+            display: none;
         }
     }
 
@@ -116,6 +134,11 @@ export const Nav = () => {
     if (country.length > 0) {
         stateOptions.unshift("Nationwide")
     }
+    
+    const toggleNav = () => {
+        openNav(!navOpen);
+        document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+    }
 
     return (
         <>
@@ -125,7 +148,7 @@ export const Nav = () => {
                     <Link to="/">
                         <img src={butterflyLogo} alt="Drug Epidemic Memorial" width={60} height={40}/>
                     </Link>
-                    <Burger open={navOpen} onClick={() => openNav(!navOpen)}>
+                    <Burger open={navOpen} onClick={toggleNav}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="44" height="27" viewBox="0 0 23 18">
                             <line className="burger-outer" x1="1.5" y1="1.5" x2="21.5" y2="1.5"/>
                             <line id="burger-middle" x1="1.5" y1="9" x2="21.5" y2="9"/>
@@ -134,7 +157,7 @@ export const Nav = () => {
                         </svg>
                     </Burger>
                     <FullNav open={navOpen}>
-
+                        <h2>Drug Epidemic Memorial</h2>
 
                         <NavLink to="/">
                             <button>
@@ -151,9 +174,9 @@ export const Nav = () => {
                                 Include Your Loved One
                             </button>
                         </Link>
-                        <button className="a">
+                        {/* <button className="a">
                             Help
-                        </button>
+                        </button> */}
                     </FullNav>
                 </nav>
             </div>

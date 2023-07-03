@@ -2,109 +2,235 @@
 import butterflyLogo from '../../assets/butterfly.png'
 import bgFlair from '../../assets/bg-flair.png'
 import styled from 'styled-components';
+import useMediaQuery from '../../utils/hooks/useMediaQuery';
 
-const HeaderEl = styled.header`
-
-    justify-content: space-evenly;
-    display: flex;
-    flex-direction: column;
-    min-height: 80vh;
-    // width: clamp(50%, 100%, 80%);
-    margin: auto;
-    color: #edcf39;
-    /* text-align: center; */
-
-
-    .landing-graphic{
-        display: flex;
-        align-items: center;
-        position: relative;
-        min-width: 100%;
-        margin: 0 -5% 1em;
-
-
-        .butterfly-img{
-            position: relative;
-            width: 250px;
-            left: -50%;
-        }
-
-        .flair-img{
-            width: 50%;
-        }
+const StyledInstructions = styled.div`
+    padding: 1em;
+    
+    .functionality {
+        margin: 2em auto;
+        
     }
 
-    h2{
-        font-family: 'Athelas','GFS Neohellenic', sans-serif;
-        font-size: 3em;
+    h3{
+        font-size: 1.75em;
         line-height: 1;
-        background: -webkit-linear-gradient( #ba7b2c, #edcf39);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-transform: uppercase;
         text-align: center;
         margin-bottom: 0.25em;
     }
 
-    p{
-        width: clamp(25ch, 100%, 50ch);
+    .main-content{
         margin: auto;
         font-weight: 700;
-        color: #ffffff;
-        font-size: 1em;
         margin-bottom: 1em;
     }
 
-    ul {
-        margin: 0.5em 0;
-
-        li {
-            margin-left: 2em;
-        }
+    li {
+        margin-left: 2em;
     }
 
-    @media screen and (max-width: 700px) {
-        .landing-graphic {
-            margin: 0 0 1em;
-
-
-            .butterfly-img {
-                width: 150px;
-            }
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        margin: 2em auto;
+        align-items: center;
+        text-align: center;
+        
+        svg {
+            display: block;
         }
-
+        
+        button {
+            margin: auto;
+        }
+    }
+    
+    @media screen and (min-width: 768px) {
+        h3 { font-size: 2.5em; }
+        .functionality {
+            width: 33ch;
+        }
+        .main-content {
+            width: clamp(25ch, 100%, 50ch);
+        }
+        
+        .btn-group {
+            gap: 1.5em;
+            flex-direction: row;
+            text-align: left;
+        }
     }
 `;
 
-export const Header = ({title, children} : {title: string, children: JSX.Element}) => {
+export const Instructions = () => {
+    const isMobile = useMediaQuery('(max-width: 768px)');
+    
+    return (
+        <StyledInstructions>
+           
+            <h3 className='h-gradient'>Instructions</h3>
+            <div className="main-content">
+                
+                <p>
+                    On the top of your screen you will see a filter bar.
+                    This will showcase the name of the active section of the wall, as well as any active filters.
+                </p>
+                <ul>
+                    You can:
+                    <li>Search for your loved one by name</li>
+                    <li>Filter the wall by country</li>
+                    <li>Filter the wall by state/province in the United States and Canada</li>
+                </ul>
+                <p>Bottom of the screen hosts these functionalities</p>
+            </div>
+            <div className="functionality">
+                { isMobile && 
+                <p className='btn-group'>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+                        </svg>
+                    </button>
+                    Filter the wall by country, state or search for a name
+                </p>
+                }
+                <p className="btn-group"><button>Scroll</button> Automatically scroll the wall</p>
+                <p className="btn-group">
+                    <button>
+                        { isMobile ? 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"  viewBox="0 0 16 16">
+                                <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                                <path fillRule="evenodd" d="M12 3v10h-1V3h1z"/>
+                                <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/>
+                                <path fillRule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
+                            </svg> : 
+                            'Music'
+                        }
+                    </button> 
+                    Open a music player where you can play, pause and skip tracks
+                </p>
+                <p className="btn-group">
+                    <button>
+                        {isMobile ? <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"  viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                        </svg> 
+                        : 'Help'
+                        }
+                    </button> 
+                    Open these instructions</p>
+                <p className="btn-group">
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                        </svg>
+                    </button>
+                    Scroll to the top of the page
+                </p>
+            </div>
+        </StyledInstructions>  
+    )
+}
+
+const StyledGraphic = styled.div`
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: 100%;
+    margin: 0 0 1em;
+
+
+    .butterfly-img{
+        position: relative;
+        width: 150px;
+        left: -50%;
+    }
+
+    .flair-img{
+        min-width: 50%;
+        
+        img {   
+            width: 100%;
+        }
+    }
+    
+    @media screen and (min-width: 768px) {
+        margin: 0 auto 1em;
+
+        .butterfly-img {
+            width: 250px;
+        }
+    }
+`;
+
+const LandingGraphic = () => {
+	return (
+		<StyledGraphic>
+			<div className='flair-img'>
+				<img src={bgFlair} />
+			</div>
+			<div className='flair-img'>
+				<img
+					style={{ transform: "scaleX(-1)" }}
+					src={bgFlair}
+				/>
+			</div>
+			<img
+				className='butterfly-img'
+				style={{ transform: `translateX(-50%)` }}
+				src={butterflyLogo}
+			/>
+		</StyledGraphic>
+	);
+};
+
+const StyledHeader = styled.header`
+    font-size: 1.5em;
+    padding: 3em 0;
+    
+    h2{
+        font-size: 2em;
+        line-height: 1;
+        text-align: center;
+        margin-bottom: 1em;
+    }
+    
+    .intro {
+        padding: 1em;
+        margin: auto;
+        font-weight: 700;
+        margin-bottom: 2em;
+        text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        h2 { font-size: 3em; }
+        
+        .intro {
+            margin-bottom: 4em;
+            width: clamp(25ch, 100%, 50ch);
+            
+        }
+    }
+`;
+
+
+export const Header = ({title, children } : {title: string, children?: JSX.Element}) => {
 
     return (
-        <HeaderEl>
-            <div>
-                <h2>
-                    {title}
-                </h2>
+        <StyledHeader>
+            <h2 className='h-gradient'>{title}</h2>
 
-                <div className="landing-graphic">
-                    <img
-                    className="flair-img"
-                    src={bgFlair}
-                    />
-                    <img
-                    className="flair-img"
-                    style={{ transform: "scaleX(-1)"}}
-                    src={bgFlair}
-                    />
-                    <img
-                    className="butterfly-img"
-                    style={{transform: `translateX(-50%)`}}
-                    src={butterflyLogo}
-                    />
-                </div>
+            <LandingGraphic/>
+
+            <div className="intro">
+                <p>The Drug Epidemic Memorial Wall is a virtual International wall honoring our loved ones.</p>
+                <p>This stunning, heartbreaking, and seemingly endless stream of precious lives is a powerful visual created for healing, educationg, raising awareness and honoring our loved ones by saving lives.</p>
             </div>
 
-            {children}
+            <Instructions/>
 
-        </HeaderEl>
+        </StyledHeader>
     )
 }

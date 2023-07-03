@@ -7,6 +7,7 @@ import { states } from "../utils/data/states.ts";
 import { countries } from "../utils/data/countries.ts";
 import ErrorPage from "../pages/ErrorPage.tsx";
 import PhotoWall from "../pages/PhotoWall.tsx";
+import ByTheNumbers from "../pages/Numbers.tsx";
 
 const HeroRouter = createBrowserRouter([
     {
@@ -19,6 +20,50 @@ const HeroRouter = createBrowserRouter([
     },
   ]);
 
+const PhotoWallRoutes = [
+  // Worldwide
+  {
+    index: true,
+    element: <PhotoWall country="Worldwide"/>,
+  },
+  // Canada
+  {
+    path: "can",
+  //   errorElement:
+      children: [
+          {
+              index: true,
+              element: <PhotoWall country="Canada"/>,
+          },
+          {
+              path: ":stateId",
+              element: <PhotoWall country="Canada"/>,
+          }
+
+      ]
+  },
+  // USA
+  {
+    path: "usa",
+  //   errorElement:
+      children: [
+          {
+              index: true,
+              element: <NameWall country="United States"/>,
+          },
+          {
+              path: ":stateId",
+              element: <PhotoWall country="United States"/>,
+          }
+
+      ]
+  },
+  // Other
+  {
+    path: ":countryId",
+      element: <PhotoWall/>,
+  },
+]
 
 const WallRouter = createBrowserRouter([
     {
@@ -33,6 +78,9 @@ const WallRouter = createBrowserRouter([
               return await DataStore.query(Person, Predicates.ALL, {limit: 10000});
             },
             element: <NameWall country="Worldwide"/>,
+          },
+          { path: "numbers",
+            element: <ByTheNumbers/>
           },
           // Canada
           {
@@ -148,19 +196,11 @@ const WallRouter = createBrowserRouter([
     {
       path: "/photos",
       element: <Layout/>,
-      children: [
-        // Worldwide
-        {
-          index: true,
-          loader: async () => {
-            return await DataStore.query(Person, Predicates.ALL, {limit: 10000});
-          },
-          element: <PhotoWall country="Worldwide"/>
-        },
-      ]
+      children: PhotoWallRoutes
     }
   ]);
 
+  
 const APPS = [
     {
         subdomain: 'heroes',

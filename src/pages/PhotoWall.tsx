@@ -4,6 +4,11 @@ import styled from "styled-components";
 import { PhotoContainer } from "../components/PhotoContainer";
 // import { Filters } from "../components/Filters";
 import { usePhotos } from "../utils/hooks/usePhotos";
+import { Header } from "../components/Header";
+import { ScrollToTop } from "../components/ScrollToTop";
+import { Filters } from "../components/Filters";
+import { useWindowScroll } from "../utils/hooks/useWindowScroll";
+import { countries } from "../utils/data/countries";
 
 // const Section = styled.section`
 //     padding: 2em;
@@ -52,8 +57,8 @@ const NameSection = styled.div`
 
 
     .img-container {
-        height: 200px;
-        border-radius: 8px;
+        /* height: 200px; */
+        border-radius: 0.5em;
         overflow: hidden;
 
 
@@ -78,6 +83,12 @@ const NameSection = styled.div`
         &.active {
             text-decoration: underline;
             font-size: 28px;
+        }
+    }
+    
+    @media screen and (min-width: 768px) {
+        .img-container {
+            height: 200px;
         }
     }
 `;
@@ -150,10 +161,19 @@ interface NameWallProps {
 
 const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
     // const loadData = useLoaderData() as Person[];
-    let { stateId } = useParams();
+    
+    // urlParams
+    const { countryId, stateId } = useParams();
+    
+    // If there's a countryId params if no country default to Worldwide
+    if (countryId) {
+        // Set to matching country or  worldwide if no matching
+        country = countries.find(c => c.id.toLowerCase() === countryId)?.name || "Worldwide";
+    }
 
     // const people = useNames(country, stateId) as Person[];
     const photos = usePhotos(country, stateId);
+    const [ isScrolling, setIsScrolling ] = useWindowScroll();
     // const [models, setModels] = useState(photos)
     // const [entries, setEntries] = useState(groupData(models, country !== 'Worldwide' ? 'state': 'country'))
 
@@ -183,6 +203,12 @@ const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
 
 
     return (
+        
+        <>
+        <Header title="Drug Epidemic Photo Memorial"/>
+        
+        {/* <Filters country={country} stateId={stateId} models={photos}/> */}
+        
         <div style={{position: 'relative'}}>
 
             {/* <Filters country={country} stateId={stateId} models={photos}/> */}
@@ -198,6 +224,11 @@ const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
                 {/* })} */}
 
         </div>
+        
+        <ScrollToTop
+            scrollFunction={() => setIsScrolling(!isScrolling)}
+        />
+        </>
     )
 }
 

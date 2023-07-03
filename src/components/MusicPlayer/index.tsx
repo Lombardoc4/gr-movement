@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo } from "react";
 import { styled } from "styled-components";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 interface trackListProps {
     nameWall: string[],
@@ -66,19 +67,27 @@ const trackLists: trackListProps = {
 const StyledPlayer = styled.div<StyledPlayerProps>`
     position: absolute;
     bottom: calc(100% + 2em);
-    right: -1em;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #ffffff;
     box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff;
+    color: #000000;
 
     opacity: ${({ $open }) => $open ? '1' : 0};
     pointer-events: ${({ $open }) => $open ? 'initial' : 'none'};
-    transition: opacity 0.3s;
+    transition: opacity 0.2s;
 
     min-width: 250px;
     border-radius: 8px;
+    
+    display: flex;
+    flex-direction: column;
 
 
-    p {
+    .heading {
+        display: flex;
+        gap: 1em; 
+        align-items: center;
         padding: 1em;
         font-size: 18px;
         font-weight: 700;
@@ -93,11 +102,19 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
             width: 100%;
         }
     }
+    
+    @media (min-width: 768px) {
+        /* position: absolute; */
+        /* right: -1em; */
+        /* left: unset; */
+        /* transform: translateX(0); */
+    }
+        
 `;
 
 
 const ProgressBar = styled.div<ProgressProps>`
-    background-color: #4d4d4d;
+    background-color: #000000;
     height: 4px;
     width: 100%;
 
@@ -116,6 +133,8 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     const [audioProgress, setAudioProgress] = useState(0);
     const [audioPlaying, setPlaying] = useState(false);
     const [playerOpen, setPlayerOpen] = useState(false);
+    const isMobile = useMediaQuery('(max-width: 768px)');
+    
 
 
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -158,12 +177,30 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
 
 
     return (
-        <div style={{position: 'relative'}}>
-            <button onClick={() => openPlayer()}>Music</button>
+        // <div style={{position: 'relative'}}>
+        <>
+            <button onClick={() => openPlayer()}>
+                { isMobile ? 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"viewBox="0 0 16 16">
+                        <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                        <path fillRule="evenodd" d="M12 3v10h-1V3h1z"/>
+                        <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/>
+                        <path fillRule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
+                    </svg> : 
+                    'Music'
+                }
+            </button>
 
 
             <StyledPlayer $open={playerOpen} >
-                <p >{activePlaylist[audioTrack]}</p>
+                <div className="heading">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-music-note-beamed" viewBox="0 0 16 16">
+                        <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
+                        <path fillRule="evenodd" d="M14 11V2h1v9h-1zM6 3v10H5V3h1z"/>
+                        <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4V2.905z"/>
+                    </svg>
+                    <p >{activePlaylist[audioTrack]}</p>
+                </div>
 
                 <ProgressBar $progress={audioProgress}>
                     <div className="progress"/>
@@ -186,7 +223,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
                 </div>
             </StyledPlayer>
 
-        </div>
+        </>
     )
 }
 

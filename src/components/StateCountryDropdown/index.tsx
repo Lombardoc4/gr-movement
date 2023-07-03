@@ -15,8 +15,23 @@ export const CountryStateSelectors = ({country, state}: {country: string, state?
 
 
     const handleSelect = (value: string) => {
-        navigate('/' + value)
+        const mainEl = document.querySelector('main');
+        if (mainEl) {
+            mainEl.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            })
+        }
+        navigate('/' + value);
     }
+    
+    const stateSelect = (value: string) => {
+        if (states["United States"].find(s => s.id === value)) {
+            handleSelect(`usa/${value.toLowerCase()}`) }
+        if (states["Canada"].find(s => s.id === value)) {
+            handleSelect(`canada/${value.toLowerCase()}`) 
+        }
+    }    
 
     if (country.length > 0 && country !== 'Worldwide') {
         stateOptions.unshift({
@@ -40,7 +55,7 @@ export const CountryStateSelectors = ({country, state}: {country: string, state?
                 id="state-selector"
                 value={''}
                 initOptions={stateOptions}
-                action={value => handleSelect(value === countryId ? countryId : `${countryId}/${value.toLowerCase()}`) }
+                action={value => stateSelect(value) }
 
                 // Should these only be the states with submissions
                 />

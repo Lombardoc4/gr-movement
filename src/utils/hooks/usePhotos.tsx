@@ -28,7 +28,7 @@ export const usePhotos = (country: string, state?: string) => {
                 folder += (state + '/')
             }
 
-            let res = await Storage.list(folder,
+            const res = await Storage.list(folder,
                 {
                     pageSize: 1000,
                     nextToken: nextToken === 'start' ? undefined : nextToken

@@ -37,6 +37,7 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
         border: 1px solid #535353;
         outline: none;
         background-color: #ffffff;
+        color: #000000;
         border-radius: ${({$open}) => $open ? '8px 8px 0 0' : '8px'};
     }
 
@@ -45,6 +46,7 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
         top: 100%;
         left: 0;
         right: 0;
+        z-index: 1000;
         overflow: scroll;
         max-height: 16rem;
         background-color: #ffffff;
@@ -95,7 +97,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
         } else {
             setOptions(initOptions);
         }
-    }, [query])
+    }, [initOptions, query])
 
     const selectAction = (selected: {
         id: string,
@@ -103,7 +105,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
     }) => {
         setOpen(false);
         action && action(selected.id);
-        setQuery(selected.value);
+        setQuery('');
     }
 
     return (

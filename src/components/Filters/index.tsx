@@ -2,27 +2,29 @@ import styled from "styled-components";
 import { Dropdown } from "../Dropdown"
 // import MusicPlayer from "../MusicPlayer"
 import { CountryStateSelectors } from "../StateCountryDropdown"
-import { Person } from "../../utils/models";
 
 
 const FilterSection = styled.div`
-    position: sticky;
-    z-index: 500;
-    top: 2em;
-
-
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    height: 100%;
+    transition: transform 0.3s, height 0.3s;
+    padding: 2em;
+    color: #000000;
 
     .main {
+        flex-direction: column;
+        width: 100%;
+        padding: 1em;
         /* margin: 2em 0 0; */
         background-color: #ffffff;
         display: flex;
-        align-items: center;
         font-size: 18px;
-        padding: 1em 1em 1em 300px;
         border-radius: 8px;
         gap: 1em;
         min-height: 5em;
-
 
     }
 
@@ -36,35 +38,44 @@ const FilterSection = styled.div`
         width: 100%;
 
         display: flex;
+        flex-direction: column;
+        
         gap: 1em;
     }
 
-    @media screen and (max-width: 1000px) {
+    /* @media screen and (max-width: 1000px) {
         .main {
             flex-direction: column;
 
         }
-    }
+    } */
 
-    @media screen and (max-width: 700px) {
-        position: fixed;
+    @media screen and (min-width: 768px) {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 500;
+        /* position: fixed;
         z-index: 1000;
         top: 100vh;
         left: 0;
         right: 0;
         height: 100vh;
-        transform: translateY(-100vh);
-        background-color: #edcf39;
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-        align-items: center;
-
-        transition: transform 0.3s, height 0.3s;
-        padding: 2em;
-
+        transform: translateY(-100vh); */
+        /* background-color: rgba(237, 207, 57, 0.2); */
+        
         .main {
-            flex-direction: column;
+            flex-direction: row;
+            padding: 1em 1em 1em 300px;
+            align-items: center;
+        }
+
+        .selectors {
+            flex-direction: row;
+        }
+        /* justify-content: center; */
+        h3 {
+            display: none;
         }
     }
 
@@ -72,7 +83,7 @@ const FilterSection = styled.div`
 
 
 
-const selectPerson = (value: string) => {
+const scrollToPerson = (value: string) => {
     document.querySelector('.name-entry.active')?.classList.remove('active');
     const el = document.querySelector(`[data-name='${value}']`)
 
@@ -89,25 +100,27 @@ const selectPerson = (value: string) => {
 interface FilterProps {
     country: string,
     stateId?: string,
-    models: Person[]
+    models: { id: string, value: string}[],
+    searchAction?: () => void
 }
 
-export const Filters = ({country, stateId, models}: FilterProps) => {
+export const Filters = ({country, stateId, models, searchAction}: FilterProps) => {
     return (
         <>
         <FilterSection className="container">
                 <div className="main">
+                    <h3>FILTERS</h3>
                     <div className="search">
 
                     <Dropdown
                         placeholder="Find Your Loved One"
                         id="search"
                         value=""
-                        initOptions={models.map((m: Person) => ({id: m.firstName + ' ' + m.lastName, value: m.firstName + ' ' + m.lastName}))}
-                        action={(value) => {selectPerson(value)}}
+                        initOptions={models}
+                        action={(value) => {searchAction && searchAction(); scrollToPerson(value);}}
                         />
 
-                        </div>
+                    </div>
 
                     <CountryStateSelectors country={country} state={stateId}/>
 

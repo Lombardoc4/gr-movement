@@ -4,7 +4,7 @@ import { GroupedPeople } from "../../pages/NameWall";
 
 
 const Section = styled.section`
-    padding: 2em;
+    padding: 1em;
     line-height: 24px;
     position: relative;
 
@@ -13,14 +13,13 @@ const Section = styled.section`
     color: #f1f1f1;
 
     .heading {
-        /* height: 75px; */
         position: sticky;
-        z-index: 500;
-        top: 2.3em;
-        padding: 1em;
-        color: #ffffff;
-        mix-blend-mode: difference;
+        padding: 0;
         pointer-events: none;
+        background-color: #ffffff;
+        color: #000000;
+        border-radius: 0.5em;
+        top: 1em;
 
         p, h2 {
             max-width: 250px;
@@ -34,16 +33,18 @@ const Section = styled.section`
         text-transform: uppercase;
     }
 
-    @media screen and (max-width: 700px) {
-        padding: 1em;
+    @media screen and (min-width: 768px) {
+        padding: 2em;
 
         .heading {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        h2 {
-            font-size: 1.5em;
+            top: 2.3em;
+            z-index: 500;
+            
+            background-color: transparent;
+            color: #ffffff;
+            padding: 1em;
+            mix-blend-mode: difference;
+            
         }
     }
 
@@ -52,11 +53,10 @@ const Section = styled.section`
 
 const NameSection = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 0 0.5em;
     align-items: center;
     width: 100%;
-    border-top: 1px solid #ffffff;
     padding: 1em 0 5em;
 
 
@@ -64,19 +64,28 @@ const NameSection = styled.div`
     p {
         font-family: 'Optima', sans-serif;
         margin: 0;
-        padding: 0.5em;
         font-size: 1.5em;
+        padding: 0.5em 0.25em;
+        line-height: 1.1;
         font-weight: 700;
+        text-shadow: 0 0 0.1em #ffffff;
         text-transform: capitalize;
+        text-align: center;
 
         &.active {
             text-decoration: underline;
-            font-size: 24px;
+            font-size: 2em;
+            
         }
+    }
+    
+    @media screen and (min-width: 768px) {
+        border-top: 1px solid #ffffff;
     }
 `;
 
 export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
+    
     return (
         <>
         { Object.keys(entries).length <= 0 && (
@@ -88,10 +97,13 @@ export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
 
             { Object.keys(entries).map(entryGroup => {
                 return (
-                    <Section key={entryGroup} className="container">
-                        <div className="heading">
-                            <h2>{entryGroup}</h2>
-                            {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
+                    <Section key={entryGroup}>
+                        <div className="heading container">
+                            
+                            <div className="container">
+                                <h2>{entryGroup}</h2>
+                                {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
+                            </div>
                         </div>
                         <NameSection>
                             { entries[entryGroup].map(entry => (
@@ -99,7 +111,7 @@ export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
                                 className="name-entry"
                                 key={entry.id}
                                 data-name={entry.firstName + ' ' + entry.lastName}>
-                                    {entry.firstName.toLowerCase()}{"\u00A0"}{entry.lastName.toLowerCase()}, {entry.foreverAge}
+                                    {entry.firstName.toLowerCase()} {entry.lastName.toLowerCase()}, {entry.foreverAge}
                                 </p>
                                 ))}
                         </NameSection>

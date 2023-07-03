@@ -19,14 +19,14 @@ export const groupData = (items: Person[], filterBy: string) => {
 
         const { country, state } = cur;
 
-        let key: string;
+        // let key: string;
 
         if (!country) {
             return acc;
         }
 
 
-        key = ((filterBy === 'state') ? state : country) || '~Unknown';
+        const key = ((filterBy === 'state') ? state : country) || '~Unknown';
 
 
         if (!acc[key]) {
