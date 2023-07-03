@@ -60,66 +60,6 @@ interface NameWallProps {
     state?: string,
 }
 
-// interface GroupedPeople {
-//     [key: string]: Person[]
-// }
-
-// const parseData = (items: Person[]) => {
-
-//     const sortedModels = items.sort((a,b) => (a.firstName > b.firstName) ? 1 : ((b.firstName > a.firstName) ? -1 : 0))
-
-//     // Use inverse of above to remove duplicates
-//     const filteredModels = sortedModels.filter((item, index) => {
-//         if (!item.imgUrl) {
-//             return false;
-//         }
-
-//         // HEFTY COMPARING Every element to every element
-//         return !items.find((other, otherIndex) => item.firstName === other.firstName && item.lastName === other.lastName && index !== otherIndex && item.foreverAge === other.foreverAge && item.state === other.state)
-//     })
-
-
-
-//     return filteredModels;
-// }
-
-// const groupData = (items: Person[], filterBy: string) => {
-//     const groupByCountry: GroupedPeople = items.reduce((acc: GroupedPeople , cur : Person) => {
-
-//         const { country, state } = cur;
-
-//         let key: string;
-
-//         if (!country || !state) {
-//             return acc;
-//         }
-
-//         key = filterBy === 'state' ? state : country;
-
-
-//         if (!acc[key]) {
-//             acc[key] = []
-//         }
-
-//         acc[key].push(cur);
-
-//         return acc;
-
-//     }, {})
-
-//     if (filterBy === 'state') {
-//         return Object.keys(groupByCountry).sort().reduce( (obj: GroupedPeople, key: string) => {
-//             obj[key] = groupByCountry[key];
-//             return obj;
-//         }, {} );
-//     }
-
-//     return groupByCountry;
-// }
-
-
-
-
 const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
     // const loadData = useLoaderData() as Person[];
     
