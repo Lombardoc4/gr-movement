@@ -49,7 +49,7 @@ const StyledInstructions = styled.div`
     @media screen and (min-width: 768px) {
         h3 { font-size: 2.5em; }
         .functionality {
-            width: 33ch;
+            /* width: 33ch; */
         }
         .main-content {
             width: clamp(25ch, 100%, 50ch);
@@ -59,6 +59,12 @@ const StyledInstructions = styled.div`
             gap: 1.5em;
             flex-direction: row;
             text-align: left;
+            width: 33ch;
+            margin: 2em auto 2em 0;
+            
+            button {
+                margin: 0;
+            }
         }
     }
 `;
@@ -83,8 +89,8 @@ export const Instructions = () => {
                     <li>Filter the wall by state/province in the United States and Canada</li>
                 </ul>
                 <p>Bottom of the screen hosts these functionalities</p>
-            </div>
-            <div className="functionality">
+            {/* </div> */}
+            {/* <div className="functionality"> */}
                 { isMobile && 
                 <p className='btn-group'>
                     <button>
