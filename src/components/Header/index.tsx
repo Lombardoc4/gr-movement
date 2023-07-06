@@ -31,19 +31,20 @@ const StyledInstructions = styled.div`
 
     .btn-group {
         display: flex;
-        flex-direction: column;
+        /* flex-direction: column; */
         gap: 0.5em;
         margin: 2em auto;
         align-items: center;
-        text-align: center;
+        /* text-align: center; */
+        font-size: 0.75em;
         
         svg {
             display: block;
         }
         
-        button {
+        /* button {
             margin: auto;
-        }
+        } */
     }
     
     @media screen and (min-width: 768px) {
@@ -57,8 +58,8 @@ const StyledInstructions = styled.div`
         
         .btn-group {
             gap: 1.5em;
-            flex-direction: row;
-            text-align: left;
+            /* flex-direction: row; */
+            /* text-align: left; */
             width: 33ch;
             margin: 2em auto 2em 0;
             

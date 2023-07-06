@@ -15,7 +15,7 @@ const StyledNumbers = styled.main`
     padding: 1rem;
     
     h1, h2, h3 {
-        font-family: 'Athelas','GFS Neohellenic', sans-serif;
+        font-family: 'athelas','GFS Neohellenic', sans-serif;
     }
 
     h1{ font-size: 3rem; }

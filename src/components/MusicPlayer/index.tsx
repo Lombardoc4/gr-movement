@@ -91,6 +91,10 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
         padding: 1em;
         font-size: 18px;
         font-weight: 700;
+        
+        svg {
+            margin: 0;
+        }
     }
 
     .buttons {
@@ -143,8 +147,16 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
 
     const skipTrack = async () => {
         setAudio(audioTrack === activePlaylist.length - 1 ? 0 : audioTrack + 1);
-        if (audioRef.current) {
-            audioRef.current.play();
+        
+        // If music is playing, keep playing on skip
+        if (audioPlaying) {
+            
+            setTimeout(() => {
+                
+                if (audioRef.current) {
+                    audioRef.current.play();
+                }
+            }, 50)
         }
     }
 

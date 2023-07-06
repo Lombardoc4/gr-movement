@@ -22,7 +22,7 @@ export const GlobalStyles = createGlobalStyle`
     }
     
     .h-gradient {
-        font-family: 'Athelas','GFS Neohellenic', sans-serif;
+        font-family: 'athelas','GFS Neohellenic', sans-serif;
         background: -webkit-linear-gradient( #ba7b2c, #edcf39);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
