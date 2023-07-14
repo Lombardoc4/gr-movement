@@ -14,7 +14,7 @@ const StyledHeader = styled.div`
     /* background-color: #ffffff; */
     z-index: 1000;
     position: relative;
-
+    padding: 0.5em 0;
 
     .container {
         display: flex;
@@ -124,6 +124,60 @@ const FullNav = styled.div<MenuState>`
     }
 
 `;
+
+export const HeroNav = () => {
+    const [navOpen, openNav] = useState(false);
+    const toggleNav = () => {
+        openNav(!navOpen);
+        document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+    }
+    
+    return (
+        <>
+        <StyledHeader>
+            <div className="container">
+                <nav>
+                    <Link to="https://wall.drugepidemicmemorial.org/" relative="path">
+                        <img src={butterflyLogo} alt="Drug Epidemic Memorial" width={60} height={40}/>
+                    </Link>
+                    <Burger open={navOpen} onClick={toggleNav}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="27" viewBox="0 0 23 18">
+                            <line className="burger-outer" x1="1.5" y1="1.5" x2="21.5" y2="1.5"/>
+                            <line id="burger-middle" x1="1.5" y1="9" x2="21.5" y2="9"/>
+                            <line id="burger-middle2" x1="1.5" y1="9" x2="21.5" y2="9"/>
+                            <line className="burger-outer" x1="1.5" y1="16.5" x2="21.5" y2="16.5"/>
+                        </svg>
+                    </Burger>
+                    <FullNav open={navOpen}>
+                        <h2>Drug Epidemic Memorial</h2>
+
+                        <NavLink to="https://wall.drugepidemicmemorial.org/">
+                            <button>
+                                Name Wall
+                            </button>
+                        </NavLink>
+                        <NavLink to="https://wall.drugepidemicmemorial.org/photos">
+                            <button>
+                                Photo Wall
+                            </button>
+                        </NavLink>
+                        <Link to="https://drugepidemicmemorial.org/heroes">
+                            <button>
+                                Recognize Your Hero
+                            </button>
+                        </Link>
+                        
+                        {/* <button className="a">
+                            Help
+                        </button> */}
+                    </FullNav>
+                </nav>
+            </div>
+        </StyledHeader>
+        </>
+
+    )
+}
 
 export const Nav = () => {
     const [navOpen, openNav] = useState(false);

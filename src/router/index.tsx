@@ -8,15 +8,13 @@ import { countries } from "../utils/data/countries.ts";
 import ErrorPage from "../pages/ErrorPage.tsx";
 import PhotoWall from "../pages/PhotoWall.tsx";
 import ByTheNumbers from "../pages/Numbers.tsx";
+import HeroPage from "../pages/Heroes.tsx";
 
 const HeroRouter = createBrowserRouter([
     {
       path: "/",
-      element: <div>Hello world!</div>,
-    //   errorElement:
-        // children: [
-
-        // ]
+      element: <HeroPage/>,
+      errorElement: <ErrorPage/>,
     },
   ]);
 
@@ -187,17 +185,18 @@ const WallRouter = createBrowserRouter([
               },
               element: <NameWall/>,
           },
+          // Photos
+          {
+            path: "photo",
+            element: <Navigate to="/photos" replace/>
+          },
+          {
+            path: "/photos",
+            children: PhotoWallRoutes
+          },
       ]
     },
-    {
-      path: "photo",
-      element: <Navigate to="/photos" replace/>
-    },
-    {
-      path: "/photos",
-      element: <Layout/>,
-      children: PhotoWallRoutes
-    }
+    
   ]);
 
   
@@ -228,6 +227,8 @@ export const router = () => {
     const main = APPS.find(app => app.main);
     const subdomain = getSubdomain(window.location.hostname);
     const subApp = APPS.find((app) => subdomain === app.subdomain)
+    
+    console.log('subdomain', subdomain);
 
     if ( !main ) throw new Error ('Must have main app');
 

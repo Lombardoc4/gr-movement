@@ -1,26 +1,66 @@
+import { Header } from "../components/Header";
+import styled from "styled-components";
 
-export const ErrorElement = () => (
-    <div style={{width: '300px', padding: '2em 0',  margin: 'auto', color: '#ffffff'}}>
-        <p>Join the community and share your story</p>
-        <button>Add Your Loved One</button>
-        <button>Become an ambassador</button>
+const StyledErrorPage = styled.div`
+    color: #ffffff;
 
-        <br/><br/>
-        <p>View our memories:</p>
-        <button>Name Memorial</button>
-        <button>Photo Memorial</button>
-        <button>Photo Memorial (Teens)</button>
-        <button>Heros</button>
-    </div>
-)
+    .content {
+        width: clamp(300px, 50%, 700px);
+        margin: auto;
+        padding: 2em 0 0;
+        
+        p {
+            font-size: 1.5em;
+        }
+    
+        .btn-group {
+            display: flex;
+            gap: 1em;
+            padding: 0.5em 0;
+        }
+    }
 
-const ErrorPage = () => {
+
+	.intro {
+		margin-bottom: 0;
+	}
+`;
+
+export const ErrorElement = ({children} : {children?: JSX.Element}) => {
     return (
-        <>
-            <h1>Page Not Found</h1>
-            <ErrorElement/>
-        </>
-    );
+        <StyledErrorPage>
+            <div className="content">
+                
+                <p>Join the community and share your story</p>
+                <div className='btn-group'>
+                    <button>Add Your Loved One</button>
+                    <button>Become an ambassador</button>
+                </div>
+
+                <br />
+                <br />
+                <p>View our memorial walls:</p>
+                <div className='btn-group'>
+                    <button>Name Memorial</button>
+                    <button>Photo Memorial</button>
+                    <button>Photo Memorial (Teens)</button>
+                    <button>Heros</button>
+                </div>
+            </div>
+            {children}
+		</StyledErrorPage>
+    )
 }
 
-export default ErrorPage
+const ErrorPage = () => {
+	return (
+        <ErrorElement>
+			<Header
+				title='Page Not Found'
+				instruction={false}
+			/>
+        </ErrorElement>
+	);
+};
+
+export default ErrorPage;

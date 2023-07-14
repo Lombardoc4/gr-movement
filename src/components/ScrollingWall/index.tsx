@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ErrorElement } from "../../pages/ErrorPage"
+import { ErrorElement } from "../../pages/ErrorPage";
 import { GroupedPeople } from "../../pages/NameWall";
 
 
