@@ -48,6 +48,7 @@ interface MenuState {
 
 const Burger = styled.div<MenuState>`
     display: none;
+    padding: 0.5em 0.25em;
 
     line{
         fill:none;
@@ -136,6 +137,7 @@ export const Nav = () => {
     }
     
     const toggleNav = () => {
+        console.log('toggle', !navOpen)
         openNav(!navOpen);
         document.body.style.overflow = navOpen ? 'auto' : 'hidden';
     }
@@ -159,12 +161,12 @@ export const Nav = () => {
                     <FullNav open={navOpen}>
                         <h2>Drug Epidemic Memorial</h2>
 
-                        <NavLink to="/">
+                        <NavLink to="/" onClick={toggleNav}>
                             <button>
                                 Name Wall
                             </button>
                         </NavLink>
-                        <NavLink to="/photos">
+                        <NavLink to="/photos" onClick={toggleNav} >
                             <button>
                                 Photo Wall
                             </button>
