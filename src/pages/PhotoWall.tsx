@@ -10,7 +10,7 @@ import { countries } from "../utils/data/countries";
 
 const NameSection = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 0.5em;
     align-items: center;
     width: 100%;
@@ -46,7 +46,7 @@ const NameSection = styled.div`
             font-size: 28px;
         }
     }
-    
+
     @media screen and (min-width: 768px) {
         .img-container {
             height: 200px;
@@ -62,10 +62,10 @@ interface NameWallProps {
 
 const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
     // const loadData = useLoaderData() as Person[];
-    
+
     // urlParams
     const { countryId, stateId } = useParams();
-    
+
     // If there's a countryId params if no country default to Worldwide
     if (countryId) {
         // Set to matching country or  worldwide if no matching
@@ -104,12 +104,12 @@ const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
 
 
     return (
-        
+
         <>
         <Header title="Drug Epidemic Photo Memorial"/>
-        
+
         {/* <Filters country={country} stateId={stateId} models={photos}/> */}
-        
+
         <div style={{position: 'relative'}}>
 
             {/* <Filters country={country} stateId={stateId} models={photos}/> */}
@@ -125,7 +125,7 @@ const PhotoWall = ({country = 'Worldwide'}:NameWallProps) => {
                 {/* })} */}
 
         </div>
-        
+
         <ScrollToTop
             scrollFunction={() => setIsScrolling(!isScrolling)}
         />

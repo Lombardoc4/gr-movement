@@ -14,7 +14,7 @@ const StyledAccordian = styled.div`
         h3{
             text-transform: capitalize;
         }
-        
+
         .accordian-container{
             display: grid;
             gap: 2rem;
@@ -52,17 +52,21 @@ const StyledAccordian = styled.div`
             font-weight: bold;
             display: inline-block;
         }
-        
+
         @media only screen and (min-width: 768px) {
             .accordian-container.united-states{
                 grid-template-rows: repeat(18, 1fr);
                 grid-auto-flow: column;
             }
+        }
+        @media only screen and (min-width: 768px) {
 
             .accordian-container.canada{
                 grid-template-rows: repeat(5, 1fr);
                 grid-auto-flow: column;
             }
+        }
+        @media only screen and (min-width: 768px) {
 
             .accordian{
                 height: 100%;

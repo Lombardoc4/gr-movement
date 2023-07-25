@@ -35,16 +35,19 @@ const Section = styled.section`
 
     @media screen and (min-width: 768px) {
         padding: 2em;
+    }
 
+
+    @media screen and (min-width: 768px) {
         .heading {
             top: 2.3em;
             z-index: 500;
-            
+
             background-color: transparent;
             color: #ffffff;
             padding: 1em;
             mix-blend-mode: difference;
-            
+
         }
     }
 
@@ -75,17 +78,17 @@ const NameSection = styled.div`
         &.active {
             text-decoration: underline;
             font-size: 2em;
-            
+
         }
     }
-    
+
     @media screen and (min-width: 768px) {
         border-top: 1px solid #ffffff;
     }
 `;
 
 export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
-    
+
     return (
         <>
         { Object.keys(entries).length <= 0 && (
@@ -99,7 +102,7 @@ export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
                 return (
                     <Section key={entryGroup}>
                         <div className="heading container">
-                            
+
                             <div className="container">
                                 <h2>{entryGroup}</h2>
                                 {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
