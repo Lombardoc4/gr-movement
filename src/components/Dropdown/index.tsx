@@ -129,7 +129,9 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
         else if (e.key === 'ArrowUp' && active >= 0) {
             setActive(active - 1);
         }
-
+        else if (e.key === 'Enter') {
+            selectAction(options[active])
+        }
         else if (e.key === 'Escape') {
             setActive(-1);
             setOpen(false);
