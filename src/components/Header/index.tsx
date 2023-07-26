@@ -36,7 +36,7 @@ const StyledInstructions = styled.div`
         margin: 2em auto;
         align-items: center;
         /* text-align: center; */
-        font-size: 0.75em;
+        /* font-size: 0.75em; */
 
         svg {
             display: block;
@@ -44,6 +44,8 @@ const StyledInstructions = styled.div`
 
         button {
             pointer-events: none;
+            font-size: 0.5em;
+
         }
     }
 
@@ -68,12 +70,16 @@ const StyledInstructions = styled.div`
             /* flex-direction: row; */
             /* text-align: left; */
             width: 33ch;
-            margin: 2em auto 2em 0;
+            margin: 2em auto;
+            padding: 1em;
+            border: 1px solid #fff;
+        }
 
+    }
+    @media only screen and (min-width: 768px) {
             button {
                 margin: 0;
             }
-        }
     }
 `;
 
@@ -96,9 +102,9 @@ export const Instructions = () => {
                     <li>Filter the wall by country</li>
                     <li>Filter the wall by state/province in the United States and Canada</li>
                 </ul>
-                <p>Bottom of the screen hosts these functionalities</p>
-            {/* </div> */}
-            {/* <div className="functionality"> */}
+
+                <br/>
+                <h4>Bottom of the screen hosts these functionalities</h4>
                 { isMobile &&
                 <p className='btn-group'>
                     <button>
@@ -136,7 +142,7 @@ export const Instructions = () => {
                     Open these instructions</p>
                 <p className="btn-group">
                     <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                             <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                         </svg>
                     </button>
@@ -223,7 +229,9 @@ const StyledHeader = styled.header`
 
     @media screen and (min-width: 768px) {
         h2 { font-size: 3em; }
+    }
 
+    @media screen and (min-width: 768px) {
         .intro {
             margin-bottom: 4em;
             width: clamp(25ch, 100%, 50ch);

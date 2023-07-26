@@ -7,6 +7,7 @@ const Section = styled.section`
     padding: 1em;
     line-height: 24px;
     position: relative;
+    min-height: 100vh;
 
 
     background-color: #000000;
@@ -73,7 +74,7 @@ const NameSection = styled.div`
         font-weight: 700;
         text-shadow: 0 0 0.1em #ffffff;
         text-transform: capitalize;
-        text-align: center;
+        /* text-align: center; */
 
         &.active {
             text-decoration: underline;
@@ -113,7 +114,7 @@ export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
                                 <p
                                 className="name-entry"
                                 key={entry.id}
-                                data-name={entry.firstName + ' ' + entry.lastName}>
+                                data-id={entry.id}>
                                     {entry.firstName.toLowerCase()} {entry.lastName.toLowerCase()}, {entry.foreverAge}
                                 </p>
                                 ))}

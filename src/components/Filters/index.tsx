@@ -90,7 +90,7 @@ const FilterSection = styled.div`
 
 const scrollToPerson = (value: string) => {
     document.querySelector('.name-entry.active')?.classList.remove('active');
-    const el = document.querySelector(`[data-name='${value}']`)
+    const el = document.querySelector(`[data-id='${value}']`)
 
     if (el) {
         el.classList.add('active');

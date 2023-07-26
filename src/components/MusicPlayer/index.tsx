@@ -79,19 +79,19 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
 
     min-width: 250px;
     border-radius: 8px;
-    
+
     display: flex;
     flex-direction: column;
 
 
     .heading {
         display: flex;
-        gap: 1em; 
+        gap: 1em;
         align-items: center;
         padding: 1em;
         font-size: 18px;
         font-weight: 700;
-        
+
         svg {
             margin: 0;
         }
@@ -106,14 +106,14 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
             width: 100%;
         }
     }
-    
+
     @media (min-width: 768px) {
         /* position: absolute; */
         /* right: -1em; */
         /* left: unset; */
         /* transform: translateX(0); */
     }
-        
+
 `;
 
 
@@ -138,7 +138,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     const [audioPlaying, setPlaying] = useState(false);
     const [playerOpen, setPlayerOpen] = useState(false);
     const isMobile = useMediaQuery('(max-width: 768px)');
-    
+
 
 
     const audioRef = useRef<HTMLAudioElement>(null);
@@ -147,12 +147,12 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
 
     const skipTrack = async () => {
         setAudio(audioTrack === activePlaylist.length - 1 ? 0 : audioTrack + 1);
-        
+
         // If music is playing, keep playing on skip
         if (audioPlaying) {
-            
+
             setTimeout(() => {
-                
+
                 if (audioRef.current) {
                     audioRef.current.play();
                 }
@@ -191,20 +191,19 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     return (
         // <div style={{position: 'relative'}}>
         <>
-            <button onClick={() => openPlayer()}>
-                { isMobile ? 
+            <button onClick={() => openPlayer()} style={{position: 'relative'}}>
+                { isMobile ?
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"viewBox="0 0 16 16">
                         <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
                         <path fillRule="evenodd" d="M12 3v10h-1V3h1z"/>
                         <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1V2.82z"/>
                         <path fillRule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
-                    </svg> : 
+                    </svg> :
                     'Music'
                 }
-            </button>
 
 
-            <StyledPlayer $open={playerOpen} >
+            <StyledPlayer $open={playerOpen} onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()} >
                 <div className="heading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-music-note-beamed" viewBox="0 0 16 16">
                         <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
@@ -234,6 +233,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
                     </button>
                 </div>
             </StyledPlayer>
+            </button>
 
         </>
     )

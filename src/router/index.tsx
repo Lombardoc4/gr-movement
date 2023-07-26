@@ -37,7 +37,7 @@ const PhotoWallRoutes = [
     // Worldwide
     {
         index: true,
-        element: <PhotoWall country='Worldwide' />,
+        element: <PhotoWall />,
     },
     // Canada
     {
@@ -56,24 +56,9 @@ const PhotoWallRoutes = [
     },
     // USA
     {
-        path: "usa",
-        //   errorElement:
-        children: [
-            {
-                index: true,
-                element: <NameWall country='United States' />,
-            },
-            {
-                path: ":stateId",
-                element: <PhotoWall country='United States' />,
-            },
-        ],
-    },
-    // Other
-    {
-        path: ":countryId",
-        element: <PhotoWall />,
-    },
+        path: ":stateId",
+        element: <PhotoWall country='United States' />,
+    }
 ];
 
 const WallRouter = createBrowserRouter([
@@ -147,7 +132,11 @@ const WallRouter = createBrowserRouter([
         element: <Navigate to='/photos' replace />,
     },
     {
-        path: "/photos",
+        path: "photo/can",
+        element: <Navigate to='/photos/can' replace />,
+    },
+    {
+        path: "/photos/",
         element: <Layout />,
         children: PhotoWallRoutes,
     },

@@ -28,7 +28,7 @@ const NameWall = ({ country = "Worldwide" }: NameWallProps) => {
 
 	// Scrolling
 	const [isScrolling, setIsScrolling] = useWindowScroll();
-    
+
     // Master Modals Open State
     const [modalsClosed, setModalsClosed] = useState(false);
 
@@ -67,16 +67,17 @@ const NameWall = ({ country = "Worldwide" }: NameWallProps) => {
 		}
 	}, [loadData, models.length, people]);
 
-            
-    
+
+
 	const FilterMemo = useMemo(() => {
 		return (
 			<Filters
 				country={country}
 				stateId={stateId}
 				models={models.map((m) => ({
-					id: m.firstName + " " + m.lastName,
+					id: m.id,
 					value: m.firstName + " " + m.lastName,
+
 				}))}
                 searchAction={() => setModalsClosed(!modalsClosed)}
 			/>

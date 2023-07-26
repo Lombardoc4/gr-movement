@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
     const [isOpen, setOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+    const isMobile = useMediaQuery("(max-width: 768px)");
 
     // On hover for 1seconds, expand image
     // let timeout: NodeJS.Timeout;
@@ -10,19 +12,20 @@ export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
     //     if (timeout) {
     //         clearTimeout(timeout);
     //     }
-        
+
     //     timeout = setTimeout(() => {
     //         setOpen(true);
     //     }, 1000);
     // }
-    
+
     const cancelExpand = () => {
         // clearTimeout(timeout);
         setOpen(false);
     }
-    
+
+
     useEffect(() => {
-        if (containerRef.current) {
+        if (containerRef.current && !isMobile) {
             if (isOpen) {
                 const { x, width } = containerRef.current.getBoundingClientRect();
                 if (window.innerWidth - x - width === 0) {
@@ -36,10 +39,10 @@ export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
                 containerRef.current.classList.remove('expand', 'right', 'left')
             }
         }
-        
+
     }, [isOpen])
-            
-        
+
+
     return (
         <div
             className="photo-entry"

@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 
 export const useWindowScroll = () => {
     const [isScrolling, setIsScrolling] = useState(false);
-    
+
+    // Todo set scroll speed
+
     useEffect(() => {
         const scrollInterval = setInterval(() => {
             if (isScrolling) {
@@ -10,13 +12,12 @@ export const useWindowScroll = () => {
             } else {
                 clearInterval(scrollInterval);
             }
-            
-        }, 80)
-        
+
+        }, 50)
+
         return () => clearInterval(scrollInterval);
-        
+
     }, [isScrolling])
-    
+
     return [isScrolling, setIsScrolling] as const;
 }
-            

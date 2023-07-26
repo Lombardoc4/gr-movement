@@ -14,6 +14,7 @@ interface DropdownProps {
     initOptions: {
         id: string,
         value: string,
+        state?: string
     }[],
     action?: (value: string) => void,
     keySet?: string
@@ -86,6 +87,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!open) { setOpen(true) }
+        console.log('val', e.target.value)
         // if (keySet === 'person' && e.target.value.length === 0) setOpen(false);
         setQuery(e.target.value)
     }
@@ -108,6 +110,13 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
         setQuery('');
     }
 
+    const keyScroll = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        // if (e.key === 'down')
+        console.log('key', e.key)
+    }
+
+    // console.log('opts', options)
+
     return (
             <StyledDropdown ref={DropdownRef} $open={open}>
                 <input
@@ -117,6 +126,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
                   value={query}
                   onChange={(e) => handleChange(e)}
                   onFocus={() => setOpen(true)}
+                  onKeyDown={keyScroll}
                   type="text"
                   autoComplete="off"
                 />
@@ -128,7 +138,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
                                     key={option.id}
                                     className="dropdown-option"
                                     onClick={() => selectAction(option)}>
-                                        {option.value}
+                                        {option.value.toLowerCase()}
                                 </div>
                             )
                         })}

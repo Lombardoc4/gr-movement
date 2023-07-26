@@ -15,7 +15,7 @@ const StyledContainer = styled.div<StyleProps>`
     left: 0;
     right: 0;
     /* z-index: 1001; */
-
+    font-size: 1.2em;
     display: flex;
 
     svg {
@@ -61,7 +61,8 @@ const StyledInstructions = styled.div`
     background-color: #000000;
     border-radius: 0.5em;
     box-shadow: 0 0 1em rgba(255, 255, 255, 0.5);
-    max-width: 500px;
+    max-width: 700px;
+    font-size: 1.2em;
 `;
 
 export const ScrollToTop = ({filterChild, scrollFunction}: {filterChild?: JSX.Element, scrollFunction: () => void}) => {
@@ -108,6 +109,19 @@ export const ScrollToTop = ({filterChild, scrollFunction}: {filterChild?: JSX.El
                 </svg>
             </button>}
             <button onClick={scrollFunction}>Scroll</button>
+            {/* <MiniModal title="Scroll">
+                <>
+                    <div className="heading">Scroll Speed</div>
+                    <div>
+                        <button>
+                            Slower
+                        </button>
+                        <button>
+                            Faster
+                        </button>
+                    </div>
+                </>
+            </MiniModal> */}
             <MusicPlayer playlistName="nameWall"/>
             <button onClick={() => setHelpModalOpen(true)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"  viewBox="0 0 16 16">

@@ -6,10 +6,6 @@ export interface StateProps {
 
 export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
     'United States' : [
-        // {
-        //     "name": "Nationwide",
-        //     "id": ""
-        // },
         {
             "name": "Arizona",
             "id": "AZ"

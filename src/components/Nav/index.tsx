@@ -3,6 +3,7 @@ import {  styled } from "styled-components"
 import { states } from "../../utils/data/states";
 import { useState } from "react";
 import butterflyLogo from "../../assets/butterfly.png"
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 
 const StyledHeader = styled.div`
@@ -96,12 +97,12 @@ const FullNav = styled.div<MenuState>`
     transition: transform 0.3s, height 0.3s;
     padding: 2em;
 
-    
+
     button {
         height: 100%;
         width: 100%;
     }
-    
+
     a, .a {
         width: 100%;
         height: 20%;
@@ -112,7 +113,7 @@ const FullNav = styled.div<MenuState>`
         background-color: transparent;
         padding: 0;
         height: 100%;
-        
+
         a, .a {
             margin-left: 0.5em;
             margin-right: 0.5em;
@@ -132,7 +133,7 @@ export const HeroNav = () => {
         openNav(!navOpen);
         document.body.style.overflow = navOpen ? 'auto' : 'hidden';
     }
-    
+
     return (
         <>
         <StyledHeader>
@@ -167,7 +168,7 @@ export const HeroNav = () => {
                                 Recognize Your Hero
                             </button>
                         </Link>
-                        
+
                         {/* <button className="a">
                             Help
                         </button> */}
@@ -183,17 +184,20 @@ export const HeroNav = () => {
 export const Nav = () => {
     const [navOpen, openNav] = useState(false);
     const stateOptions = [...states["United States"].map(state => state.name), ...states["Canada"].map(state => state.name)];
+    const isMobile = useMediaQuery('max-width: 768px')
 
     const country = '';
 
     if (country.length > 0) {
         stateOptions.unshift("Nationwide")
     }
-    
+
     const toggleNav = () => {
-        console.log('toggle', !navOpen)
-        openNav(!navOpen);
-        document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+        if (isMobile) {
+            console.log('toggle', !navOpen)
+            openNav(!navOpen);
+            document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+        }
     }
 
     return (

@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
         padding-left: 2em;
         padding-right: 2em;
     }
-    
+
     .h-gradient {
         font-family: 'athelas','GFS Neohellenic', sans-serif;
         background: -webkit-linear-gradient( #ba7b2c, #edcf39);
@@ -28,14 +28,17 @@ export const GlobalStyles = createGlobalStyle`
         -webkit-text-fill-color: transparent;
         text-transform: uppercase;
     }
-    
-    
+
+
     .photo-entry {
-        transition: transform 0.2s ease-out;   
+        transition: transform 0.2s ease-out, z-index 0s 0.2s ;
+        z-index: 0;
         &.expand {
-            transform: scale(2);
+            transform: scale(1.5);
             z-index: 100;
-            
+            transition: transform 0.2s ease-out, z-index 0s 0s;
+
+
             &.left {
                 transform-origin: left;
             }
@@ -43,15 +46,15 @@ export const GlobalStyles = createGlobalStyle`
                 transform-origin: right;
             }
         }
-        
+
     }
-    
+
 
     .loading-loader:after {
     overflow: hidden;
     display: inline-block;
     vertical-align: bottom;
-    -webkit-animation: ellipsis steps(4,end) 1200ms infinite;      
+    -webkit-animation: ellipsis steps(4,end) 1200ms infinite;
     animation: ellipsis steps(4,end) 1200ms infinite;
     content: "..."; /* ascii code for the ellipsis character */
     width: 0px;
@@ -59,13 +62,13 @@ export const GlobalStyles = createGlobalStyle`
 
     @keyframes ellipsis {
         to {
-            width: 1em;    
+            width: 1em;
         }
     }
 
     @-webkit-keyframes ellipsis {
         to {
-            width: 1em;    
+            width: 1em;
         }
     }
 
@@ -74,12 +77,12 @@ export const GlobalStyles = createGlobalStyle`
             padding: 1em;
         }
     }
-    
-    
+
+
     /*******************/
     /* HERO PAGE STYLES */
     /*******************/
-    
+
 
 body.heroes{
     min-height: 100vh;
@@ -92,7 +95,7 @@ body.heroes{
     main{
         margin: auto;
     }
-    
+
     .intro {
         margin-bottom: 0;
     }

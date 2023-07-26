@@ -116,11 +116,9 @@ export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 	return (
 		<>
 			<StyledModal className={` ${isOpen ? "is-active" : ""}`}>
-				<div
-					className='modal-background'
+				<div className='modal-content'
 					onClick={onClose}
-				></div>
-				<div className='modal-content'>
+                    >
                     <button
                         className='modal-close is-large'
                         aria-label='close'

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Heroes, LazyHeroes } from "../utils/models";
 import { Header } from "../components/Header";
 import Butterfly from '../assets/butterfly.png';
-import { HeroNav, Nav } from "../components/Nav";
+import { HeroNav } from "../components/Nav";
 
 // import './index.scss';
 
@@ -155,7 +155,7 @@ const HeroPage = () => {
         <main>
             <HeroNav/>
             <Header title='Drug Epidemic Memorial Heroes' instruction={false}/>
-            
+
             {heroData.length > 0 ?  <HeroList heroes={heroData}/> : <></>}
             { loading ?
             <div style={{padding: '2rem'}}>

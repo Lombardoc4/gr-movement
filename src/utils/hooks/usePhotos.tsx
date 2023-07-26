@@ -21,11 +21,11 @@ export const usePhotos = (country: string, state?: string) => {
 
             }
             else if (country === 'Canada') {
-                folder += 'canadaWall'
+                folder += 'canadaWall/'
             }
 
             if (state) {
-                folder += (state + '/')
+                folder += (state.toUpperCase() + '/')
             }
 
             const res = await Storage.list(folder,
@@ -34,6 +34,8 @@ export const usePhotos = (country: string, state?: string) => {
                     nextToken: nextToken === 'start' ? undefined : nextToken
                 });
 
+
+            console.log('res', res);
             // Filter images
             const images = res.results.filter(({key}) => !key ? false : (/\.(jpe?g|png)$/i).test(key)).map(img => img.key || '');
             // Set Images
