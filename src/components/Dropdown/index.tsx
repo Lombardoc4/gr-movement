@@ -67,12 +67,17 @@ const StyledDropdown = styled.div<StyledDropdownProps>`
 
         color: #323232;
         cursor: pointer;
+
+        &.active {
+            background-color: #dadada;
+        }
     }
 `;
 
 
 export const Dropdown = ({placeholder, id, value, initOptions, action }: DropdownProps) => {
     const [open, setOpen] = useState(false);
+    const [active, setActive] = useState(-1);
     const [query, setQuery] = useState(value);
     const [options, setOptions] = useState(initOptions);
 
@@ -87,7 +92,7 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!open) { setOpen(true) }
-        console.log('val', e.target.value)
+        // console.log('val', e.target.value)
         // if (keySet === 'person' && e.target.value.length === 0) setOpen(false);
         setQuery(e.target.value)
     }
@@ -101,6 +106,13 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
         }
     }, [initOptions, query])
 
+    useEffect(() => {
+        document.querySelector('.dropdown-option.active')?.classList.remove('active');
+        if (active >= 0) {
+            document.querySelectorAll('.dropdown-option')[active].classList.add('active');
+        }
+    }, [active])
+
     const selectAction = (selected: {
         id: string,
         value: string,
@@ -111,8 +123,22 @@ export const Dropdown = ({placeholder, id, value, initOptions, action }: Dropdow
     }
 
     const keyScroll = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        // if (e.key === 'down')
-        console.log('key', e.key)
+        if (e.key === 'ArrowDown' && active <= options.length) {
+            setActive(active + 1);
+        }
+        else if (e.key === 'ArrowUp' && active >= 0) {
+            setActive(active - 1);
+        }
+
+        else if (e.key === 'Escape') {
+            setActive(-1);
+            setOpen(false);
+        }
+        else {
+            setOpen(true);
+        }
+
+
     }
 
     // console.log('opts', options)
