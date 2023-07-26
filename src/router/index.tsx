@@ -8,6 +8,7 @@ import { countries } from "../utils/data/countries.ts";
 import ErrorPage from "../pages/ErrorPage.tsx";
 import PhotoWall from "../pages/PhotoWall.tsx";
 import ByTheNumbers from "../pages/Numbers.tsx";
+import HeroPage from "../pages/Heroes.tsx";
 
 const getWorldwideData = async () => {
     return await DataStore.query(Person, Predicates.ALL, { limit: 10000 });
@@ -26,12 +27,9 @@ const getData = async (country: string, province?: string) => {
 
 const HeroRouter = createBrowserRouter([
     {
-        path: "/",
-        element: <div>Hello world!</div>,
-        //   errorElement:
-        // children: [
-
-        // ]
+      path: "/",
+      element: <HeroPage/>,
+      errorElement: <ErrorPage/>,
     },
 ]);
 

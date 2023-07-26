@@ -15,37 +15,41 @@ const StyledContainer = styled.div<StyleProps>`
     left: 0;
     right: 0;
     /* z-index: 1001; */
-    
+
     display: flex;
-    
+
     svg {
         display:block;
         margin: auto;
     }
-    
+
     button {
         width: 100%;
         border: 1px solid #000000;
     }
-    
+
     @media screen and (min-width: 768px) {
         position: fixed;
         bottom: 2em;
         right: 2em;
         left: unset;
         cursor: pointer;
-    
+
         display: flex;
         gap: 1em;
         /* justify-content: flex-end; */
-    
+
         transform: translateY(${({$visible}) => $visible ? 0 : 'calc(100% + 2em)'});
         transition: transform 0.3s;
-    
+    }
+        @media only screen and (min-width: 768px) {
+
         div {
             display: flex;
         }
-        
+    }
+        @media only screen and (min-width: 768px) {
+
         button {
             width: auto;
         }
@@ -65,10 +69,10 @@ export const ScrollToTop = ({filterChild, scrollFunction}: {filterChild?: JSX.El
     const [visible, setVisible] = useState(false);
     const [helpModalOpen, setHelpModalOpen] = useState(false);
     const [filterModalOpen, setFilterModalOpen] = useState(false);
-    
+
     const isMobile = useMediaQuery('(max-width: 768px)');
 
-    
+
     useEffect(() => {
         setHelpModalOpen(false)
         setFilterModalOpen(false)
@@ -80,7 +84,7 @@ export const ScrollToTop = ({filterChild, scrollFunction}: {filterChild?: JSX.El
                 setVisible(window.scrollY > 200)
             }
         }
-        
+
         window.addEventListener('scroll', handleScroll)
 
         return () => {

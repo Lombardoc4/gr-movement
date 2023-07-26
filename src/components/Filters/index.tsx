@@ -39,7 +39,7 @@ const FilterSection = styled.div`
 
         display: flex;
         flex-direction: column;
-        
+
         gap: 1em;
     }
 
@@ -63,17 +63,22 @@ const FilterSection = styled.div`
         height: 100vh;
         transform: translateY(-100vh); */
         /* background-color: rgba(237, 207, 57, 0.2); */
-        
+    }
+    @media only screen and (min-width: 768px) {
+
         .main {
             flex-direction: row;
             padding: 1em 1em 1em 300px;
             align-items: center;
         }
+    }
+    @media only screen and (min-width: 768px) {
 
         .selectors {
             flex-direction: row;
         }
-        /* justify-content: center; */
+    }
+    @media only screen and (min-width: 768px) {
         h3 {
             display: none;
         }

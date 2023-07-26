@@ -16,11 +16,11 @@ const StyledModal = styled.div`
     z-index: 1000;
     pointer-events: none;
     opacity: 0;
-    
+
     transform: translateY(100%);
     transition: opacity 0.3s, transform 0.3s;
 
-    
+
     .modal-content {
         width: 100%;
         height: 100%;
@@ -31,7 +31,7 @@ const StyledModal = styled.div`
         border-radius: 0.5em;
         box-shadow: 0 0 1em rgba(255, 255, 255, 0.5);
     }
-    
+
     .modal-close {
         bottom: 1em;
         right: 1em;
@@ -43,22 +43,22 @@ const StyledModal = styled.div`
         border-radius: 0.5em;
         box-shadow: 0 0 1em rgba(0, 0, 0, 0.5);
         display: inline-flex;
-        
+
         &:hover {
             background-color: #f1f1f1;
         }
     }
-    
+
     &.is-active {
         pointer-events: auto;
         opacity: 1;
         transform: translateY(0);
-        
+
         .modal-background {
             pointer-events: auto;
         }
     }
-    
+
     @media screen and (min-width: 768px) {
         .modal-background {
             position: absolute;
@@ -67,6 +67,9 @@ const StyledModal = styled.div`
             bottom: 0;
             right: 0;
         }
+    }
+    @media only screen and (min-width: 768px) {
+
         .modal-content {
             position: absolute;
             top: 50%;
@@ -77,6 +80,8 @@ const StyledModal = styled.div`
             justify-content: center;
             align-items: center;
         }
+    }
+    @media only screen and (min-width: 768px) {
         .modal-close {
             svg {
                 height: 42px;
@@ -86,18 +91,18 @@ const StyledModal = styled.div`
             /* right: -1em; */
         }
     }
-    
-    
+
+
 `;
 
 export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
-    
+
     const handleEscape = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
             onClose();
         }
     };
-    
+
 	useEffect(() => {
 		document.addEventListener("keydown", handleEscape);
         document.body.style.overflow = isOpen ? "hidden" : "auto";
@@ -125,7 +130,7 @@ export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                         </svg>
                     </button>
-                    
+
                     {children}</div>
 			</StyledModal>
 		</>

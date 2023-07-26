@@ -202,12 +202,15 @@ const LandingGraphic = () => {
 const StyledHeader = styled.header`
     font-size: 1.5em;
     padding: 3em 0;
+    overflow: hidden;
 
     h2{
         font-size: 2em;
         line-height: 1;
         text-align: center;
-        margin-bottom: 1em;
+        margin: 0 auto 1em;
+        max-width: 700px;
+
     }
 
     .intro {
@@ -230,7 +233,7 @@ const StyledHeader = styled.header`
 `;
 
 
-export const Header = ({title} : {title: string}) => {
+export const Header = ({title, instruction = true} : {title: string, instruction?: boolean}) => {
 
     return (
         <StyledHeader>
@@ -243,7 +246,7 @@ export const Header = ({title} : {title: string}) => {
                 <p>This stunning, heartbreaking, and seemingly endless stream of precious lives is a powerful visual created for healing, educationg, raising awareness and honoring our loved ones by saving lives.</p>
             </div>
 
-            <Instructions/>
+            {instruction && <Instructions/>}
 
         </StyledHeader>
     )
