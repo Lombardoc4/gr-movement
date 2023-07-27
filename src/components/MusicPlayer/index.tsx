@@ -102,7 +102,7 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
         display: flex;
         gap: 1em;
 
-        button {
+        button, .btn {
             width: 100%;
         }
     }
@@ -191,7 +191,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     return (
         // <div style={{position: 'relative'}}>
         <>
-            <button onClick={() => openPlayer()} style={{position: 'relative'}}>
+            <div className="btn" onClick={() => openPlayer()} style={{position: 'relative'}}>
                 { isMobile ?
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"viewBox="0 0 16 16">
                         <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
@@ -233,7 +233,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
                     </button>
                 </div>
             </StyledPlayer>
-            </button>
+            </div>
 
         </>
     )

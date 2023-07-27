@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router-dom"
 import {  styled } from "styled-components"
-import { states } from "../../utils/data/states";
 import { useState } from "react";
 import butterflyLogo from "../../assets/butterfly.png"
 import useMediaQuery from "../../utils/hooks/useMediaQuery";
@@ -91,8 +90,8 @@ const FullNav = styled.div<MenuState>`
     background-color: #edcf39;
     display: flex;
     flex-direction: column;
-    gap: 1em;
     align-items: center;
+    gap: 1em;
 
     transition: transform 0.3s, height 0.3s;
     padding: 2em;
@@ -101,18 +100,22 @@ const FullNav = styled.div<MenuState>`
     button {
         height: 100%;
         width: 100%;
+        font-size: 1.2em;
     }
 
     a, .a {
         width: 100%;
         height: 20%;
     }
+
     @media screen and (min-width: 768px) {
         position: static;
         flex-direction: row;
         background-color: transparent;
         padding: 0;
         height: 100%;
+    }
+    @media screen and (min-width: 768px) {
 
         a, .a {
             margin-left: 0.5em;
@@ -120,6 +123,8 @@ const FullNav = styled.div<MenuState>`
             height: 100%;
             width: auto;
         }
+    }
+    @media screen and (min-width: 768px) {
         h2 {
             display: none;
         }
@@ -129,9 +134,14 @@ const FullNav = styled.div<MenuState>`
 
 export const HeroNav = () => {
     const [navOpen, openNav] = useState(false);
+    const isMobile = useMediaQuery('(max-width: 768px)')
+
+
     const toggleNav = () => {
-        openNav(!navOpen);
-        document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+        if (isMobile) {
+            openNav(!navOpen);
+            document.body.style.overflow = navOpen ? 'auto' : 'hidden';
+        }
     }
 
     return (
@@ -183,18 +193,17 @@ export const HeroNav = () => {
 
 export const Nav = () => {
     const [navOpen, openNav] = useState(false);
-    const stateOptions = [...states["United States"].map(state => state.name), ...states["Canada"].map(state => state.name)];
-    const isMobile = useMediaQuery('max-width: 768px')
+    // const stateOptions = [...states["United States"].map(state => state.name), ...states["Canada"].map(state => state.name)];
+    const isMobile = useMediaQuery('(max-width: 768px)')
 
-    const country = '';
+    // const country = '';
 
-    if (country.length > 0) {
-        stateOptions.unshift("Nationwide")
-    }
+    // if (country.length > 0) {
+    //     stateOptions.unshift("Nationwide")
+    // }
 
     const toggleNav = () => {
         if (isMobile) {
-            console.log('toggle', !navOpen)
             openNav(!navOpen);
             document.body.style.overflow = navOpen ? 'auto' : 'hidden';
         }

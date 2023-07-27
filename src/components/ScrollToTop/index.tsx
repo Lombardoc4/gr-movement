@@ -15,7 +15,7 @@ const StyledContainer = styled.div<StyleProps>`
     left: 0;
     right: 0;
     /* z-index: 1001; */
-    font-size: 1.2em;
+    /* font-size: 1.2em; */
     display: flex;
 
     svg {
@@ -23,7 +23,7 @@ const StyledContainer = styled.div<StyleProps>`
         margin: auto;
     }
 
-    button {
+    button, .btn {
         width: 100%;
         border: 1px solid #000000;
     }
@@ -37,6 +37,7 @@ const StyledContainer = styled.div<StyleProps>`
 
         display: flex;
         gap: 1em;
+        font-size: 1.2em;
         /* justify-content: flex-end; */
 
         transform: translateY(${({$visible}) => $visible ? 0 : 'calc(100% + 2em)'});
