@@ -7,75 +7,78 @@ import { Header } from "../components/Header";
 import { PhotoContainer } from "../components/PhotoContainer";
 import { ScrollToTop } from "../components/ScrollToTop";
 import { useWindowScroll } from "../utils/hooks/useWindowScroll";
-import { states } from "../utils/data/states";
+import { StateProps, states } from "../utils/data/states";
 
 interface NameWallProps {
     country?: "United States" | "Canada";
     state?: string;
 }
 
+interface PhotoGroupProps extends StateProps {
+    data: string[]
+}
+
+const photoFetch = async (country: string, state: string) => {
+    let folder = "picture-walls/";
+
+    if (country === "United States") {
+        folder += "photoWall/";
+    }
+    if (country === "Canada") {
+        folder += "canadaWall/";
+    }
+
+    folder += state.toUpperCase() + "/";
+
+    const res = await Storage.list(folder, { pageSize: 1000 });
+
+    const newPhotos = [
+        ...res.results
+            .filter(({ key }) => (!key ? false : /\.(jpe?g|png)$/i.test(key)))
+            .map((img) => img.key || ""),
+    ];
+
+    return newPhotos;
+
+};
+
+
 const PhotoWall = ({ country = "United States" }: NameWallProps) => {
-    const [isScrolling, setIsScrolling] = useWindowScroll();
-
-    const [folderIndex, setFolderIndex] = useState(-1);
-    const [photos, setPhotos] = useState<string[][]>([]);
-
-    // urlParams
+    const toggleScroll = useWindowScroll();
     const { stateId } = useParams();
-
-    const photoFetch = async (country: string, state: string) => {
-        let folder = "picture-walls/";
-
-        if (country === "United States") {
-            folder += "photoWall/";
-        }
-        if (country === "Canada") {
-            folder += "canadaWall/";
-        }
-
-        folder += state.toUpperCase() + "/";
-
-        const res = await Storage.list(folder, { pageSize: 1000 });
-
-        console.log("res", [state, folderIndex, res]);
-        const newPhotos = [
-            ...res.results
-                .filter(({ key }) => (!key ? false : /\.(jpe?g|png)$/i.test(key)))
-                .map((img) => img.key || ""),
-        ];
-
-        if (newPhotos.length <= 0) setFolderIndex(folderIndex + 1);
-        setPhotos([...photos, newPhotos]);
-    };
+    // TODO --- Simplify
+    // If state id filter state and map or just map
+    const initialState = stateId ? states[country].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[country].map(s => ({...s, data : []}));
+    const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialState);
+    const [folderIndex, setFolderIndex] = useState(0);
 
     useEffect(() => {
-        if (stateId) {
-            photoFetch(country, stateId);
-            return;
-        }
-
-        const state = states[country][folderIndex];
-        // console.log('state', state, folderIndex);
-
-        const loadMorePhotos = () => {
-            const distance = document.body.scrollHeight - (window.scrollY + window.innerHeight);
-            if (distance <= 0.5) {
-                setFolderIndex(folderIndex + 1);
-            }
-        };
-
-        // Add scroll event to trigger loading more
-        window.addEventListener("scroll", loadMorePhotos);
-
+        const state = photos[folderIndex];
         if (state) {
-            photoFetch(country, state.id);
+            photoFetch(country, state.id).then((res: string[]) => {
+                state.data = res;
+                if (res.length <= 0) setFolderIndex(folderIndex + 1);
+                setPhotos([...photos.map((s, i) => i === folderIndex ? state : s)]);
+            });
         }
 
-        // remove scroll event
-        return () => {
-            // console.log('reset scroll event')
-            window.removeEventListener("scroll", loadMorePhotos);
-        };
+        // If no state specific we will load more as we scroll
+        if (!stateId) {
+            const loadMorePhotos = () => {
+                const distance = document.body.scrollHeight - (window.scrollY + window.innerHeight);
+                if (distance <= 0.5) {
+                    setFolderIndex(folderIndex + 1);
+                }
+            };
+
+            // Add scroll event to trigger loading more
+            window.addEventListener("scroll", loadMorePhotos);
+
+            // remove scroll event
+            return () => {
+                window.removeEventListener("scroll", loadMorePhotos);
+            };
+        }
     }, [folderIndex]);
 
     console.log("photos", photos);
@@ -89,19 +92,16 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
             <div style={{ position: "relative", marginBottom: "8em" }}>
                 {/* <Filters country={country} stateId={stateId} models={photos}/> */}
 
-                {/* { Object.keys(entries).map(entryGroup => { */}
-                {/* return ( */}
-                {/* <Section key={entryGroup} className="container"> */}
-                {photos.map((statePhotos, i) => {
-                    if (statePhotos.length <= 0) return;
+                {photos.map((state, i) => {
+                    if (state.data.length <= 0 || i > folderIndex) return;
 
                     return (
-                        <Fragment key={states[country][i].name}>
+                        <Fragment key={state.name}>
                             <NameSection>
                                 <h2 className='h-gradient' style={{ fontSize: "3em", gridColumn: "1/-1" }}>
-                                    {states[country][i].name}
+                                    {state.name}
                                 </h2>
-                                {statePhotos.map((photo) => (
+                                {state.data.map((photo) => (
                                     <PhotoContainer
                                         key={photo}
                                         imgUrl={`https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/${photo}`}
@@ -116,7 +116,7 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
                 {/* })} */}
             </div>
 
-            <ScrollToTop scrollFunction={() => setIsScrolling(!isScrolling)} />
+            <ScrollToTop scrollFunction={toggleScroll} />
         </>
     );
 };

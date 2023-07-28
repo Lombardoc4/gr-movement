@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 export const useWindowScroll = () => {
-    const [isScrolling, setIsScrolling] = useState(false);
+    const [isScrolling, setScrolling] = useState(false);
 
     // Todo set scroll speed
 
@@ -19,5 +19,5 @@ export const useWindowScroll = () => {
 
     }, [isScrolling])
 
-    return [isScrolling, setIsScrolling] as const;
+    return () => setScrolling(!isScrolling);
 }

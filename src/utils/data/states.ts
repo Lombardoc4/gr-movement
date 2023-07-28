@@ -7,16 +7,16 @@ export interface StateProps {
 export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
     'United States' : [
         {
-            "name": "Arizona",
-            "id": "AZ"
-        },
-        {
             "name": "Alabama",
             "id": "AL"
         },
         {
             "name": "Alaska",
             "id": "AK"
+        },
+        {
+            "name": "Arizona",
+            "id": "AZ"
         },
         {
             "name": "Arkansas",
@@ -35,12 +35,12 @@ export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
             "id": "CT"
         },
         {
-            "name": "District of Columbia",
-            "id": "DC"
-        },
-        {
             "name": "Delaware",
             "id": "DE"
+        },
+        {
+            "name": "District of Columbia",
+            "id": "DC"
         },
         {
             "name": "Florida",
@@ -199,12 +199,12 @@ export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
             "id": "VA"
         },
         {
-            "name": "West Virginia",
-            "id": "WV"
-        },
-        {
             "name": "Washington",
             "id": "WA"
+        },
+        {
+            "name": "West Virginia",
+            "id": "WV"
         },
         {
             "name": "Wisconsin",

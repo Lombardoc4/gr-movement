@@ -27,7 +27,7 @@ const NameWall = ({ country = "Worldwide" }: NameWallProps) => {
 	const { countryId, stateId } = useParams();
 
 	// Scrolling
-	const [isScrolling, setIsScrolling] = useWindowScroll();
+    const toggleScroll = useWindowScroll();
 
     // Master Modals Open State
     const [modalsClosed, setModalsClosed] = useState(false);
@@ -104,7 +104,7 @@ const NameWall = ({ country = "Worldwide" }: NameWallProps) => {
 			</main>
 
 			<ScrollToTop
-				scrollFunction={() => setIsScrolling(!isScrolling)}
+				scrollFunction={toggleScroll}
 				filterChild={FilterMemo}
 			/>
 		</>
