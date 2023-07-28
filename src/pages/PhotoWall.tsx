@@ -81,7 +81,7 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
         }
     }, [folderIndex]);
 
-    console.log("photos", photos);
+    // console.log("photos", photos);
 
     return (
         <>

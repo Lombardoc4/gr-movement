@@ -137,12 +137,12 @@ const HeroPage = () => {
         // getHeroes();
 
         DataStore.query(Heroes, (c) => c.verified.eq(true)).then(res => {
-            console.log('res', res);
+            // console.log('res', res);
             setHeroes(res)
             if (res.length > 0)
                 setloading(false);
         }).catch(err => {
-            console.log('err',err)
+            // console.log('err',err)
         })
 
         return () => {
