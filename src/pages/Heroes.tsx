@@ -142,7 +142,7 @@ const HeroPage = () => {
             if (res.length > 0)
                 setloading(false);
         }).catch(err => {
-            // console.log('err',err)
+            console.log('err',err)
         })
 
         return () => {
