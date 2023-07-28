@@ -35,7 +35,7 @@ export const usePhotos = (country: string, state?: string) => {
                 });
 
 
-            console.log('res', res);
+            // console.log('res', res);
             // Filter images
             const images = res.results.filter(({key}) => !key ? false : (/\.(jpe?g|png)$/i).test(key)).map(img => img.key || '');
             // Set Images
