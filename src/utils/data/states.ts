@@ -241,12 +241,12 @@ export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
             "id": "NL"
         },
         {
-            "name": "Nova Scotia",
-            "id": "NS"
-        },
-        {
             "name": "Northwest Territories",
             "id": "NT"
+        },
+        {
+            "name": "Nova Scotia",
+            "id": "NS"
         },
         {
             "name": "Nunavut",
