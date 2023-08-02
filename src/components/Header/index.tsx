@@ -85,6 +85,7 @@ const StyledInstructions = styled.div`
 
 export const Instructions = () => {
     const isMobile = useMediaQuery('(max-width: 768px)');
+    const isPhoto = window.location.pathname.includes('photo');
 
     return (
         <StyledInstructions>
@@ -98,7 +99,7 @@ export const Instructions = () => {
                 </p>
                 <ul>
                     You can:
-                    <li>Search for your loved one by name</li>
+                    { !isPhoto && <li>Search for your loved one by name</li>}
                     <li>Filter the wall by country</li>
                     <li>Filter the wall by state/province in the United States and Canada</li>
                 </ul>
