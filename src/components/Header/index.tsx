@@ -93,10 +93,10 @@ export const Instructions = () => {
             <h3 className='h-gradient'>Instructions</h3>
             <div className="main-content">
 
-                <p>
+                { !isPhoto && <p>
                     On the top of your screen you will see a filter bar.
                     This will showcase the name of the active section of the wall, as well as any active filters.
-                </p>
+                </p>}
                 <ul>
                     You can:
                     { !isPhoto && <li>Search for your loved one by name</li>}
