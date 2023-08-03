@@ -6,6 +6,8 @@ import useMediaQuery from '../../utils/hooks/useMediaQuery';
 
 const StyledInstructions = styled.div`
     padding: 1em;
+    font-size: 0.75em;
+
 
     .functionality {
         margin: 2em auto;
@@ -33,7 +35,7 @@ const StyledInstructions = styled.div`
         display: flex;
         /* flex-direction: column; */
         gap: 0.5em;
-        margin: 2em auto;
+        margin: 1em auto;
         align-items: center;
         /* text-align: center; */
         /* font-size: 0.75em; */
@@ -66,11 +68,11 @@ const StyledInstructions = styled.div`
     @media only screen and (min-width: 768px) {
 
         .btn-group {
-            gap: 1.5em;
+            gap: 1em;
             /* flex-direction: row; */
             /* text-align: left; */
             width: 33ch;
-            margin: 2em auto;
+            /* margin: 2em auto; */
             padding: 1em;
             border: 1px solid #fff;
         }
