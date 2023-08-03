@@ -106,7 +106,7 @@ export const Instructions = () => {
 
                 <br/>
                 <h4>Bottom of the screen hosts these functionalities</h4>
-                { isMobile &&
+                { (isMobile && !isPhoto) &&
                 <p className='btn-group'>
                     <button>
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
