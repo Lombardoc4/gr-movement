@@ -48,11 +48,12 @@ interface MenuState {
 
 const Burger = styled.div<MenuState>`
     display: none;
-    padding: 0.5em 0.25em;
+    padding: 1em 0.5em;
+    background-color: #edcf39;
 
     line{
         fill:none;
-        stroke:#edcf39;
+        stroke:#000000;
         stroke-linecap:round;
         stroke-miterlimit:10;
         stroke-width:3px;
@@ -85,8 +86,8 @@ const FullNav = styled.div<MenuState>`
     top: 100vh;
     left: 0;
     right: 0;
-    height: ${({open}) => open ? 'calc(100vh - 75px)' : '0'};
-    transform: translateY(${({open}) => open ? 'calc(-100vh + 75px)' : '0'});
+    height: ${({open}) => open ? 'calc(100vh - 100px)' : '0'};
+    transform: translateY(${({open}) => open ? 'calc(-100vh + 100px)' : '0'});
     background-color: #edcf39;
     display: flex;
     flex-direction: column;

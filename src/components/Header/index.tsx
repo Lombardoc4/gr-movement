@@ -95,6 +95,8 @@ export const Instructions = () => {
             <h3 className='h-gradient'>Instructions</h3>
             <div className="main-content">
 
+                {isMobile && <p>To navigate between walls use the menu button on the top right of the page</p>}
+
                 { !isPhoto && <p>
                     On the top of your screen you will see a filter bar.
                     This will showcase the name of the active section of the wall, as well as any active filters.
