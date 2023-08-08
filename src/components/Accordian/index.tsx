@@ -20,7 +20,7 @@ const StyledAccordian = styled.div`
             gap: 2rem;
             margin-top: 1rem;
             overflow: hidden;
-            max-height: 400rem;
+            max-height: 500rem;
             transition: max-height 1s ease-in;
         }
 
