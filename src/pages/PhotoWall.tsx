@@ -46,6 +46,7 @@ const photoFetch = async (country: string, state: string) => {
 const PhotoWall = ({ country = "United States" }: NameWallProps) => {
     const toggleScroll = useWindowScroll();
     const { stateId } = useParams();
+
     // TODO --- Simplify
     // If state id filter state and map or just map
     const initialState = stateId ? states[country].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[country].map(s => ({...s, data : []}));
@@ -97,7 +98,7 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
 
                     return (
                         <Fragment key={state.name}>
-                            <NameSection>
+                            <NameSection id='scroller'>
                                 <h2 className='h-gradient' style={{ fontSize: "3em", gridColumn: "1/-1" }}>
                                     {state.name}
                                 </h2>

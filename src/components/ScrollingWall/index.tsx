@@ -109,7 +109,7 @@ export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
                                 {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
                             </div>
                         </div>
-                        <NameSection>
+                        <NameSection id='scroller'>
                             { entries[entryGroup].map(entry => (
                                 <p
                                 className="name-entry"
