@@ -14,7 +14,7 @@ const StyledContainer = styled.div<StyleProps>`
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 10000;
+    z-index: 1000;
     /* font-size: 1.2em; */
     display: flex;
 
