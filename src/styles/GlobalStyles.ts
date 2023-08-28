@@ -35,7 +35,7 @@ export const GlobalStyles = createGlobalStyle`
         z-index: 0;
 
         &.slideshow {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
         }

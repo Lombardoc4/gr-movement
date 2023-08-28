@@ -18,7 +18,7 @@ export const useSlideshow = () => {
                 clearInterval(scrollInterval);
             }
 
-        }, 3000)
+        }, 5000)
 
         return () => clearInterval(scrollInterval);
 
