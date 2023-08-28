@@ -1,7 +1,7 @@
 
 export interface CountryProps {
     name: string,
-    id: string
+    id: string,
 }
 
 export const countries: CountryProps[] = [
@@ -376,6 +376,10 @@ export const countries: CountryProps[] = [
   {
       "name": "Indonesia",
       "id": "idn"
+  },
+  {
+      "name": "Iran",
+      "id": "irn"
   },
   {
       "name": "Ireland",

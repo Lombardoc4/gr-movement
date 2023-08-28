@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
-export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
+export const PhotoContainer = ({imgUrl, slideshow}: {imgUrl: string, slideshow: boolean})  => {
     const [isOpen, setOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -45,7 +45,7 @@ export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
 
     return (
         <div
-            className="photo-entry"
+            className={"photo-entry " + (slideshow ? 'slideshow' : '')}
             ref={containerRef}
             onClick={() => setOpen(!isOpen)}
             onMouseOut={() =>  cancelExpand()}
@@ -53,7 +53,7 @@ export const PhotoContainer = ({imgUrl}: {imgUrl: string})  => {
             // data-name={entry.firstName + ' ' +  entry.lastName }
             style={{position: 'relative'}}>
             <div className="name-entry img-container">
-                <img style={{width: '100%'}} src={imgUrl} />
+                <img style={{width: (!isMobile && slideshow) ? '75%' : '100%'}} src={imgUrl} />
             </div>
         </div>
     )

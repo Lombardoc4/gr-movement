@@ -33,7 +33,14 @@ export const GlobalStyles = createGlobalStyle`
     .photo-entry {
         transition: transform 0.2s ease-out, z-index 0s 0.2s ;
         z-index: 0;
-        &.expand {
+
+        &.slideshow {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        &.expand:not(.slideshow) {
             transform: scale(1.5);
             z-index: 100;
             transition: transform 0.2s ease-out, z-index 0s 0s;
@@ -82,6 +89,50 @@ export const GlobalStyles = createGlobalStyle`
     /*******************/
     /* HERO PAGE STYLES */
     /*******************/
+    .list-container {
+        width: clamp(50%, 100%, 80%);
+        margin: auto;
+        color: #edcf39;
+        text-align: center;
+
+
+        h1{
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: #edcf39;
+        }
+        h2{
+            font-size: 8rem;
+            background: -webkit-linear-gradient( #ba7b2c, #edcf39);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        p{
+            font-family: Arial, Helvetica, sans-serif;
+            width: clamp(25ch, 100%, 50ch);
+            margin: auto;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+    }
+
+    .list{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 300px);
+        gap: 1rem 0.5rem;
+
+        .h2{
+            font-size: 1.5rem;
+            color: #ffffff
+        }
+    }
+
 
 
 body.heroes{
@@ -167,49 +218,7 @@ body.heroes{
     }
 
 
-    .hero-list-container {
-        width: clamp(50%, 100%, 80%);
-        margin: auto;
-        color: #edcf39;
-        text-align: center;
 
-
-        h1{
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            color: #edcf39;
-        }
-        h2{
-            font-size: 8rem;
-            background: -webkit-linear-gradient( #ba7b2c, #edcf39);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-        }
-
-        p{
-            font-family: Arial, Helvetica, sans-serif;
-            width: clamp(25ch, 100%, 50ch);
-            margin: auto;
-            font-weight: 700;
-            color: #ffffff;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-    }
-
-    .hero-list{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem 0.5rem;
-
-        .h2{
-            font-size: 1.5rem;
-            color: #ffffff
-        }
-    }
 
     .hero-section{
         max-width: 1000px;
@@ -276,6 +285,19 @@ body.heroes{
 
 @media screen and (max-width: 690px) {
 
+    .list-container{
+        h2{
+            font-size: 4rem;
+        }
+
+
+        p{
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+
 body.heroes{
 
     .links{
@@ -296,17 +318,6 @@ body.heroes{
         }
     }
 
-    .hero-list-container{
-        h2{
-            font-size: 4rem;
-        }
-
-
-        p{
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-    }
 
     .landing-graphic{
 

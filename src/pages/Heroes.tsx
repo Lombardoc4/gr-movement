@@ -11,9 +11,9 @@ import { HeroNav } from "../components/Nav";
 
 const HeroList = ({heroes}: {heroes: LazyHeroes[]}) => {
     return (
-        <div className="hero-list-container">
+        <div className="list-container">
             <h2 style={{fontSize: '4em'}}>Our Heroes</h2>
-            <div className="hero-list">
+            <div className="list">
                 {heroes.map(hero => <a key={hero.id} className="h2" href={'#' + hero.heroName?.replace(' ', '-')}>{hero.heroName}</a>)}
             </div>
         </div>
