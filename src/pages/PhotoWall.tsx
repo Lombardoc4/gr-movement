@@ -218,7 +218,7 @@ const NameSection = styled.div`
         align-items: center;
 
         img {
-            height: 100%;
+            /* height: 100%; */
             object-fit: cover;
         }
     }

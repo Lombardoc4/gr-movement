@@ -38,6 +38,7 @@ export const GlobalStyles = createGlobalStyle`
             height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
         }
 
         &.expand:not(.slideshow) {

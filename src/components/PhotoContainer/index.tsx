@@ -53,7 +53,7 @@ export const PhotoContainer = ({imgUrl, slideshow}: {imgUrl: string, slideshow: 
             // data-name={entry.firstName + ' ' +  entry.lastName }
             style={{position: 'relative'}}>
             <div className="name-entry img-container">
-                <img style={{width: (!isMobile && slideshow) ? '75%' : '100%'}} src={imgUrl} />
+                <img style={{width: (!isMobile && slideshow) ? '600px' : '100%'}} src={imgUrl} />
             </div>
         </div>
     )
