@@ -10,7 +10,7 @@ import { useWindowScroll } from "../utils/hooks/useWindowScroll";
 import { StateProps, states } from "../utils/data/states";
 
 interface NameWallProps {
-    country?: "United States" | "Canada";
+    country?: "United States" | "Canada" | "Teens";
     state?: string;
 }
 
