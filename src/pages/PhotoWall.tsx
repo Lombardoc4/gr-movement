@@ -24,14 +24,13 @@ const photoFetch = async (country: string, state: string) => {
     if (country === "United States") {
         folder += "photoWall/";
     }
-    if (country === "Canada") {
+    else if (country === "Canada") {
         folder += "canadaWall/";
     }
-    if (country === "Teens") {
+    else if (country === "Teens") {
         folder += "teenWall"
     }
-    }
-    if (country === "World") {
+    else if (country === "World") {
         folder += "restOfWorld"
     }
 
