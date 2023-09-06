@@ -27,6 +27,13 @@ const photoFetch = async (country: string, state: string) => {
     if (country === "Canada") {
         folder += "canadaWall/";
     }
+    if (country === "Teens") {
+        folder += "teenWall"
+    }
+    }
+    if (country === "World") {
+        folder += "restOfWorld"
+    }
 
     folder += state.toUpperCase() + "/";
 
@@ -48,7 +55,8 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
     const { stateId } = useParams();
     // TODO --- Simplify
     // If state id filter state and map or just map
-    const initialState = stateId ? states[country].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[country].map(s => ({...s, data : []}));
+    const initialCountry = country === 'Teens' ? 'United States' : country;
+    const initialState = stateId ? states[country].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[intialCountry].map(s => ({...s, data : []}));
     const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialState);
     const [folderIndex, setFolderIndex] = useState(0);
 
