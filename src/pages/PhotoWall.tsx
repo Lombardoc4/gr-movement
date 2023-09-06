@@ -55,7 +55,7 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
     // TODO --- Simplify
     // If state id filter state and map or just map
     const initialCountry = country === 'Teens' ? 'United States' : country;
-    const initialState = stateId ? states[country].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[intialCountry].map(s => ({...s, data : []}));
+    const initialState = stateId ? states[initialCountry].filter(s => s.id === stateId.toUpperCase()).map(s => ({...s, data : []})) : states[initialCountry].map(s => ({...s, data : []}));
     const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialState);
     const [folderIndex, setFolderIndex] = useState(0);
 
