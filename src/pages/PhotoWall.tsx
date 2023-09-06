@@ -19,6 +19,8 @@ interface PhotoGroupProps extends StateProps {
 }
 
 const photoFetch = async (country: string, state: string) => {
+
+    console.log('country', country);
     let folder = "picture-walls/";
 
     if (country === "United States") {
@@ -28,10 +30,10 @@ const photoFetch = async (country: string, state: string) => {
         folder += "canadaWall/";
     }
     else if (country === "Teens") {
-        folder += "teenWall"
+        folder += "teenWall/"
     }
     else if (country === "World") {
-        folder += "restOfWorld"
+        folder += "restOfWorld/"
     }
 
     folder += state.toUpperCase() + "/";
@@ -88,7 +90,7 @@ const PhotoWall = ({ country = "United States" }: NameWallProps) => {
         }
     }, [folderIndex]);
 
-    // console.log("photos", photos);
+    console.log("photos", photos);
 
     return (
         <>
