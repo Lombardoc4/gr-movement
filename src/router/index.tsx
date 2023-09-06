@@ -54,20 +54,20 @@ const PhotoWallRoutes = [
             },
         ],
     },
-    }
     // Teens USA
     {
         path: "teens",
         element: <PhotoWall country='Teens' />,
-    }
+    },
     {
         path: "teens/:stateId",
         element: <PhotoWall country='Teens' />,
-    }
+    },
     // USA
     {
         path: ":stateId",
         element: <PhotoWall country='United States' />,
+    }
 ];
 
 const WallRouter = createBrowserRouter([
