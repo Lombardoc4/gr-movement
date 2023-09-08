@@ -166,6 +166,8 @@ export const GlobalStyles = createGlobalStyle`
     .container {
         padding-inline: 2em;
     }
+}
+@media (min-width: 768px) {
 
     .lg-container {
         width: 100%;
@@ -173,6 +175,8 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
         padding-inline: 2em;
     }
+}
+@media (min-width: 768px) {
 
     .list-container{
         h2{
@@ -185,10 +189,13 @@ export const GlobalStyles = createGlobalStyle`
             margin-bottom: 1rem;
         }
     }
-
+}
+@media (min-width: 768px) {
     .list{
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }
+}
+@media (min-width: 768px) {
 
     .slideshow img {
         width: clamp(320px, 100%, 600px);
