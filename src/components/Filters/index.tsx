@@ -1,20 +1,22 @@
 import styled from "styled-components";
 import { Dropdown } from "../Dropdown"
 // import MusicPlayer from "../MusicPlayer"
-import { CountryStateSelectors } from "../StateCountryDropdown"
+// import { CountryStateSelectors } from "../StateCountryDropdown"
+// import { useContext } from "react";
+// import LocationContext from "../../utils/hooks/LocationContext";
 
 
 const FilterSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    align-items: center;
-    height: 100%;
-    transition: transform 0.3s, height 0.3s;
-    padding: 2em;
     color: #000000;
 
-    .main {
+    @media screen and (min-width: 768px) {
+        display: block;
+        position: sticky;
+        top: 2rem;
+        z-index: 500;
+    }
+
+    .filter-container {
         flex-direction: column;
         width: 100%;
         padding: 1em;
@@ -28,12 +30,20 @@ const FilterSection = styled.div`
 
     }
 
-    .search {
-        flex: 1;
-        width: 100%;
+    @media only screen and (min-width: 768px) {
+        .filter-container {
+            flex-direction: row;
+            padding: 1em 1em 1em 350px;
+            align-items: center;
+        }
     }
 
-    .selectors {
+        /* .search {
+        flex: 1;
+        width: 100%;
+    } */
+
+        /* .selectors {
         flex: 1;
         width: 100%;
 
@@ -41,57 +51,21 @@ const FilterSection = styled.div`
         flex-direction: column;
 
         gap: 1em;
-    }
-
-    /* @media screen and (max-width: 1000px) {
-        .main {
-            flex-direction: column;
-
-        }
     } */
-
-    @media screen and (min-width: 768px) {
-        display: block;
-        position: sticky;
-        top: 0;
-        z-index: 500;
-        /* position: fixed;
-        z-index: 1000;
-        top: 100vh;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        transform: translateY(-100vh); */
-        /* background-color: rgba(237, 207, 57, 0.2); */
-    }
-    @media only screen and (min-width: 768px) {
-
-        .main {
-            flex-direction: row;
-            padding: 1em 1em 1em 300px;
-            align-items: center;
-        }
-    }
-    @media only screen and (min-width: 768px) {
+    /* @media only screen and (min-width: 768px) {
 
         .selectors {
             flex-direction: row;
         }
-    }
-    @media only screen and (min-width: 768px) {
-        h3 {
-            display: none;
-        }
-    }
+    } */
 
 `;
 
-
-
 const scrollToPerson = (value: string) => {
+    // Remove previously active element
     document.querySelector('.name-entry.active')?.classList.remove('active');
-    const el = document.querySelector(`[data-id='${value}']`)
 
+    const el = document.querySelector(`[data-id='${value}']`)
     if (el) {
         el.classList.add('active');
         el.scrollIntoView({
@@ -99,39 +73,34 @@ const scrollToPerson = (value: string) => {
             block: 'center'
         })
     }
-
 }
 
 interface FilterProps {
-    country: string,
-    stateId?: string,
     models: { id: string, value: string}[],
     searchAction?: () => void
 }
 
-export const Filters = ({country, stateId, models, searchAction}: FilterProps) => {
+export const Filters = ({models, searchAction}: FilterProps) => {
+    // const {country, state} = useContext(LocationContext);
+
     return (
         <>
-        <FilterSection className="container">
-                <div className="main">
-                    <h3>FILTERS</h3>
-                    <div className="search">
-
+            <FilterSection className='lg-container'>
+                <div className='filter-container'>
                     <Dropdown
-                        placeholder="Find Your Loved One"
-                        id="search"
-                        value=""
+                        placeholder='Find Your Loved One'
+                        id='search'
+                        value=''
                         initOptions={models}
-                        action={(value) => {searchAction && searchAction(); scrollToPerson(value);}}
-                        />
+                        action={(value) => {
+                            searchAction && searchAction();
+                            scrollToPerson(value);
+                        }}
+                    />
 
-                    </div>
-
-                    <CountryStateSelectors country={country} state={stateId}/>
-
-                    {/* <MusicPlayer playlistName="nameWall"/> */}
+                    {/* <CountryStateSelectors country={country.name} state={state.id}/> */}
                 </div>
             </FilterSection>
         </>
-    )
+    );
 }

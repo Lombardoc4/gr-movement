@@ -1,19 +1,18 @@
-import { Outlet } from "react-router-dom"
-import { Nav } from "./Nav";
+import { Outlet } from "react-router-dom";
+import { Navbar } from "./Nav";
+import { LocationProvider } from "../utils/hooks/LocationContext";
+import { SlideshowProvider } from "../utils/hooks/SlideshowContext";
 
 export const Layout = () => {
-
-
     return (
-        <>
-            <Nav/>
+        <LocationProvider>
+            <>
+                <Navbar />
 
-            {/* <div style={{position: 'absolute'}}> */}
-            
-                <Outlet/>
-            {/* </div> */}
-
-
-        </>
-    )
-}
+                <SlideshowProvider>
+                    <Outlet />
+                </SlideshowProvider>
+            </>
+        </LocationProvider>
+    );
+};

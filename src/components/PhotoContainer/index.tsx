@@ -1,60 +1,46 @@
-import { useEffect, useRef, useState } from "react";
-import useMediaQuery from "../../utils/hooks/useMediaQuery";
+import { RefCallback } from "react";
+// import { RefCallback, useEffect, useRef, useState } from "react";
+// import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
-export const PhotoContainer = ({imgUrl, slideshow}: {imgUrl: string, slideshow: boolean})  => {
-    const [isOpen, setOpen] = useState(false);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const isMobile = useMediaQuery("(max-width: 768px)");
+export const PhotoContainer = ({lastRef, folder, slideshow}: {lastRef?: RefCallback<HTMLElement> | false, folder: string, slideshow: boolean})  => {
+    const imgSrc = `https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/${folder}`;
 
-    // On hover for 1seconds, expand image
-    // let timeout: NodeJS.Timeout;
-    // const expandImage = () => {
-    //     if (timeout) {
-    //         clearTimeout(timeout);
+
+    // ! Fancy stuff to make image expand on click
+    // const [isOpen, setOpen] = useState(false);
+    // const containerRef = useRef<HTMLDivElement>(null);
+    // const isMobile = useMediaQuery("(max-width: 768px)");
+
+
+    // useEffect(() => {
+    //     if (containerRef.current && !isMobile) {
+    //         if (isOpen) {
+    //             const { x, width } = containerRef.current.getBoundingClientRect();
+    //             if (window.innerWidth - x - width <= 24) {
+    //                 containerRef.current.classList.add('right')
+    //             }
+    //             if (x === 24) {
+    //                 containerRef.current.classList.add('left')
+    //             }
+    //             containerRef.current.classList.add('expand')
+    //         } else {
+    //             containerRef.current.classList.remove('expand', 'right', 'left')
+    //         }
     //     }
 
-    //     timeout = setTimeout(() => {
-    //         setOpen(true);
-    //     }, 1000);
-    // }
-
-    const cancelExpand = () => {
-        // clearTimeout(timeout);
-        setOpen(false);
-    }
-
-
-    useEffect(() => {
-        if (containerRef.current && !isMobile) {
-            if (isOpen) {
-                const { x, width } = containerRef.current.getBoundingClientRect();
-                if (window.innerWidth - x - width === 0) {
-                    containerRef.current.classList.add('right')
-                }
-                if (x === 0) {
-                    containerRef.current.classList.add('left')
-                }
-                containerRef.current.classList.add('expand')
-            } else {
-                containerRef.current.classList.remove('expand', 'right', 'left')
-            }
-        }
-
-    }, [isOpen])
+    // }, [isOpen])
 
 
     return (
         <div
-            className={"photo-entry " + (slideshow ? 'slideshow' : '')}
-            ref={containerRef}
-            onClick={() => setOpen(!isOpen)}
-            onMouseOut={() =>  cancelExpand()}
-            // onMouseEnter={() =>  expandImage()}
+            className={"photo-entry img-container " + (slideshow ? 'slideshow' : '')}
+            ref={lastRef || undefined}
+            // onClick={() => setOpen(true)}
+            // onMouseOut={() =>  setOpen(false)}
             // data-name={entry.firstName + ' ' +  entry.lastName }
-            style={{position: 'relative'}}>
-            <div className="name-entry img-container">
-                <img style={{width: (!isMobile && slideshow) ? '600px' : '100%'}} src={imgUrl} />
-            </div>
+            // style={{position: 'relative'}}
+            >
+                <img  src={imgSrc} />
         </div>
     )
 }

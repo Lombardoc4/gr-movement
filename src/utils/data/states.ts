@@ -1,10 +1,14 @@
 
+interface IStates {
+    [key: string] : StateProps[]
+}
+
 export interface StateProps {
     name: string,
     id: string,
 }
 
-export const states: {"United States": StateProps[], "Canada": StateProps[]} = {
+export const states: IStates = {
     'United States' : [
         {
             "name": "Alabama",

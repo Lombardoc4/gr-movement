@@ -6,14 +6,14 @@ import { states } from '../utils/data/states';
 import { Ambassador } from '../utils/models';
 import { Person } from '../utils/models';
 import { Accordian } from '../components/Accordian';
-import { groupData } from '../utils/lib/nameParsers';
+import { groupData } from '../utils/lib/helpers';
 
 
 const StyledNumbers = styled.main`
     max-width: 1200px;
     margin: auto;
     padding: 1rem;
-    
+
     h1, h2, h3 {
         font-family: 'athelas','GFS Neohellenic', sans-serif;
     }
@@ -23,6 +23,8 @@ const StyledNumbers = styled.main`
     h2{ font-size: 2.5rem; }
 
     h3{ font-size: 2rem; }
+
+    h3, p {margin: 0;}
 
     .totals{ margin-bottom: 1rem; }
 
@@ -76,25 +78,25 @@ const ByTheNumbers = () => {
         Ambassador
         ).subscribe(snapshot => {
             const { items } = snapshot;
-            
+
             const groupByKey: {[key: string]: Ambassador[]} = items.reduce((acc: {[key: string]: Ambassador[]} , cur : Ambassador) => {
-    
+
                 const { state } = cur;
-        
+
                 const key = state || '~Unknown';
-        
-        
+
+
                 if (!acc[key]) {
                     acc[key] = []
                 }
-        
+
                 acc[key].push(cur);
-        
+
                 return acc;
-        
+
             }, {})
-        
-        
+
+
             // Sort States alphabetically
             // TODO just use states data since it's already in order
             const sortedStateAmbassadors = Object.keys(groupByKey).sort().reduce( (obj: {[key: string]: Ambassador[]} , key: string) => {
@@ -113,7 +115,7 @@ const ByTheNumbers = () => {
 
             // group by Country
             const groupByCountry = groupData(items, 'country');
-            
+
             // Sort Countries Alphabetically
             const sortedCountry = Object.keys(groupByCountry)
                 // Set US Before Canada

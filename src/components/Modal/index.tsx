@@ -26,10 +26,11 @@ const StyledModal = styled.div`
         height: 100%;
         overflow: scroll;
         z-index: 1001;
-        background-color: rgba(237, 207, 53, 0.2);
-        padding: 2em 1em;
-        border-radius: 0.5em;
-        box-shadow: 0 0 1em rgba(255, 255, 255, 0.5);
+        background-color: rgb(237, 207, 53);
+        color: #000000;
+        padding: 1rem;
+        /* border-radius: 0.5em; */
+        /* box-shadow: 0 0 1em rgba(255, 255, 255, 0.5); */
     }
 
     .modal-close {

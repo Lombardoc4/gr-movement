@@ -1,129 +1,88 @@
-import styled from "styled-components";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { ErrorElement } from "../../pages/ErrorPage";
-import { GroupedPeople } from "../../pages/NameWall";
+import { FloatingFeatures } from "../FloatingFeatures";
+import { Filters } from "../Filters";
+import { Section, NameSection } from "./styles";
 
+import LocationContext from "../../utils/hooks/LocationContext";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
+import { CountryProps } from "../../utils/data/countries";
+import { GroupedPeople } from "../../utils/lib/helpers";
 
-const Section = styled.section`
-    padding: 1em;
-    line-height: 24px;
-    position: relative;
-    min-height: 100vh;
+const filterModels = (entries : GroupedPeople) => {
+    return Object.values(entries).reduce((acc, cur) => acc = [...acc, ...cur], []).map((e) => ({
+        id: e.id,
+        value: e.firstName + " " + e.lastName,
+    }))
+}
 
-
-    background-color: #000000;
-    color: #f1f1f1;
-
-    .heading {
-        position: sticky;
-        padding: 0;
-        pointer-events: none;
-        background-color: #ffffff;
-        color: #000000;
-        border-radius: 0.5em;
-        top: 1em;
-
-        p, h2 {
-            max-width: 250px;
-        }
-    }
-
-    h2 {
-        font-size: 1.5em;
-        line-height: 1;
-        margin-bottom: 0.25em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (min-width: 768px) {
-        padding: 2em;
-    }
-
-
-    @media screen and (min-width: 768px) {
-        .heading {
-            top: 2.3em;
-            z-index: 500;
-
-            background-color: transparent;
-            color: #ffffff;
-            padding: 1em;
-            mix-blend-mode: difference;
-
-        }
-    }
-
-
-`;
-
-const NameSection = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 0 0.5em;
-    align-items: center;
-    width: 100%;
-    padding: 1em 0 5em;
-
-
-
-    p {
-        font-family: 'Optima', sans-serif;
-        margin: 0;
-        font-size: 1.5em;
-        padding: 0.5em 0.25em;
-        line-height: 1.1;
-        font-weight: 700;
-        text-shadow: 0 0 0.1em #ffffff;
-        text-transform: capitalize;
-        /* text-align: center; */
-
-        &.active {
-            text-decoration: underline;
-            font-size: 2em;
-
-        }
-    }
-
-    @media screen and (min-width: 768px) {
-        border-top: 1px solid #ffffff;
-    }
-`;
-
-export const ScrollingWall = ({entries} : {entries: GroupedPeople}) => {
-
+const NoSubmissions = ({country} : {country : CountryProps}) => {
     return (
         <>
-        { Object.keys(entries).length <= 0 && (
-                <div style={{width: '300px', padding: '2em 0',  margin: 'auto', color: '#ffffff'}}>
-                    <h2>No submissions</h2><br/>
-                    <ErrorElement/>
-                </div>
-            )}
-
-            { Object.keys(entries).map(entryGroup => {
-                return (
-                    <Section key={entryGroup}>
-                        <div className="heading container">
-
-                            <div className="container">
-                                <h2>{entryGroup}</h2>
-                                {entryGroup && <p>{entries[entryGroup].length} Loved Ones Lost</p> }
-                            </div>
-                        </div>
-                        <NameSection id='scroller'>
-                            { entries[entryGroup].map(entry => (
-                                <p
-                                className="name-entry"
-                                key={entry.id}
-                                data-id={entry.id}>
-                                    {entry.firstName.toLowerCase()} {entry.lastName.toLowerCase()}, {entry.foreverAge}
-                                </p>
-                                ))}
-                        </NameSection>
-
-                    </Section>
-                    )
-                })}
-
+            <div className='container' style={{ textAlign: "center" }}>
+                <h2>No submissions</h2>
+                <Link className='btn' style={{ maxWidth: "350px", margin: "auto" }} to={`/${country.id.toLowerCase()}`}>
+                    Back to {country.name}
+                </Link>
+            </div>
+            <ErrorElement />
         </>
-    )
+    );
+}
+
+export const ScrollingWall = ({ entries }: { entries: GroupedPeople }) => {
+    const { country } = useContext(LocationContext);
+
+    const isMobile = useMediaQuery("(max-width: 768px)");
+
+    const [modalsClosed, setModalsClosed] = useState(false);
+
+    const FilterEl = <Filters models={filterModels(entries)} searchAction={() => setModalsClosed(!modalsClosed)} />;
+
+    if (Object.keys(entries).length <= 0) return <NoSubmissions country={country} />;
+
+    return (
+        <div id='scroller'>
+            {!isMobile && FilterEl}
+
+            {Object.keys(entries).map((entryGroup) => (
+                <ScrollerSection key={entryGroup} entries={entries} entryGroup={entryGroup} />
+            ))}
+
+            <FloatingFeatures filterChild={FilterEl} />
+        </div>
+    );
+
+};
+
+
+const ScrollerSection = ({entries, entryGroup} : {entries: GroupedPeople, entryGroup: string}) => {
+    return (
+        <Section>
+            <div className='heading container'>
+                {/* Hide if states */}
+                {/* {!state.id  && (
+                    <span
+                        className={
+                            "icon fi fis fi-" +
+                            countries.find((c) => c.name === entryGroup)?.alpha.toLowerCase()
+                        }
+                    ></span>
+                )} */}
+                <div className='header-main'>
+                    <h2>{entryGroup}</h2>
+                    {entries[entryGroup] && <div className='bold'>{entries[entryGroup].length} Loved Ones</div>}
+                </div>
+            </div>
+            <NameSection>
+                {entries[entryGroup].map((entry) => (
+                    <p className='name-entry' key={entry.id} data-id={entry.id}>
+                        {entry.firstName} {entry.lastName}, {entry.foreverAge}
+                    </p>
+                ))}
+            </NameSection>
+        </Section>
+    );
 }

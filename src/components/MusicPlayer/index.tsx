@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo } from "react";
 import { styled } from "styled-components";
-import useMediaQuery from "../../utils/hooks/useMediaQuery";
+// import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 interface trackListProps {
     nameWall: string[],
@@ -12,9 +12,9 @@ interface MusicPlayerProps {
     playlistName: 'nameWall' | 'teenWall' | 'photoWall',
 }
 
-interface StyledPlayerProps {
-    $open: boolean
-}
+// interface StyledPlayerProps {
+//     $open: boolean
+// }
 
 interface ProgressProps {
     $progress : number
@@ -64,20 +64,11 @@ const trackLists: trackListProps = {
     ]
 }
 
-const StyledPlayer = styled.div<StyledPlayerProps>`
-    position: absolute;
-    bottom: calc(100% + 2em);
-    left: 50%;
-    transform: translateX(-50%);
+const StyledPlayer = styled.div`
     background-color: #ffffff;
     box-shadow: 0 0 0 2px #000000, 0 0 0 4px #ffffff;
     color: #000000;
 
-    opacity: ${({ $open }) => $open ? '1' : 0};
-    pointer-events: ${({ $open }) => $open ? 'initial' : 'none'};
-    transition: opacity 0.2s;
-
-    min-width: 250px;
     border-radius: 8px;
 
     display: flex;
@@ -92,7 +83,7 @@ const StyledPlayer = styled.div<StyledPlayerProps>`
         font-size: 18px;
         font-weight: 700;
 
-        svg {
+        svg, p {
             margin: 0;
         }
     }
@@ -136,8 +127,8 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
     const [audioTrack, setAudio] = useState(0);
     const [audioProgress, setAudioProgress] = useState(0);
     const [audioPlaying, setPlaying] = useState(false);
-    const [playerOpen, setPlayerOpen] = useState(false);
-    const isMobile = useMediaQuery('(max-width: 768px)');
+    // const [playerOpen, setPlayerOpen] = useState(false);
+    // const isMobile = useMediaQuery('(max-width: 768px)');
 
 
 
@@ -179,19 +170,19 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
         setAudioProgress(Math.floor(((e.currentTarget.currentTime / e.currentTarget.duration) * 1000)) / 1000);
     }
 
-    const openPlayer = () => {
-        setPlayerOpen(!playerOpen)
+    // const openPlayer = () => {
+    //     setPlayerOpen(!playerOpen)
 
-        // If player was open stop music
-        // togglePlay(true)
-    }
+    //     // If player was open stop music
+    //     // togglePlay(true)
+    // }
 
 
 
     return (
         // <div style={{position: 'relative'}}>
         <>
-            <div className="btn" onClick={() => openPlayer()} style={{position: 'relative'}}>
+            {/* <div className="btn" onClick={() => openPlayer()} style={{position: 'relative'}}>
                 { isMobile ?
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"viewBox="0 0 16 16">
                         <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2z"/>
@@ -200,10 +191,10 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
                         <path fillRule="evenodd" d="M0 11.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 7H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 .5 3H8a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5z"/>
                     </svg> :
                     'Music'
-                }
+                } */}
 
 
-            <StyledPlayer $open={playerOpen} onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()} >
+            <StyledPlayer onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()} >
                 <div className="heading">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-music-note-beamed" viewBox="0 0 16 16">
                         <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13c0-1.104 1.12-2 2.5-2s2.5.896 2.5 2zm9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2z"/>
@@ -225,15 +216,15 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
                     onTimeUpdate={updateProgress}
                     onEnded={skipTrack}/>
 
-                    <button onClick={() => audioPlaying ? stopAudio() : playAudio()}>
+                    <button className="btn__border" onClick={() => audioPlaying ? stopAudio() : playAudio()}>
                         {audioPlaying ? 'Pause' : 'Play'}
                     </button>
-                    <button onClick={skipTrack}>
+                    <button className="btn__border" onClick={skipTrack}>
                         Skip
                     </button>
                 </div>
             </StyledPlayer>
-            </div>
+            {/* </div> */}
 
         </>
     )
