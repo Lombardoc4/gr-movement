@@ -6,6 +6,7 @@ import { Modal } from "../Modal";
 import { Instructions } from "../Instructions";
 import { useWindowScroll } from "../../utils/hooks/useWindowScroll";
 import { useSlideshow } from "../../utils/hooks/SlideshowContext";
+import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 const StyledContainer = styled.div`
     position: sticky;
@@ -92,6 +93,7 @@ export const FloatingFeatures = ({ filterChild }: IFloatingFeatures) => {
     const {isSlideshow, toggleSlideshow} = useSlideshow();
     const [modal, setModal] = useState(false);
     const [viewer, setViewer] = useState("");
+    const isMobile = useMediaQuery("(max-width: 768px)")
 
     const handleScroll = () => {
         toggleScroll();
@@ -126,22 +128,27 @@ export const FloatingFeatures = ({ filterChild }: IFloatingFeatures) => {
 
     return (
         <>
-            {/* {isMobile && ScrollBtn} */}
             <StyledContainer>
+            {isMobile &&
+                <button className='mobile' onClick={() => setModal(!modal)}>
+                    Features
+                </button>
+                }
+                {!isMobile && <>
                 <button className='mobile' onClick={() => setModal(!modal)}>
                     Features
                 </button>
                 <div
-                    className='desktop'
-                    style={{
-                        padding: "1rem",
-                        backgroundColor: "#fff",
-                        color: "#000",
-                        borderRadius: "0.5rem",
-                        display: 'flex',
-                        flexDirection: "column",
-                        gap: "1rem",
-                    }}
+                className='desktop'
+                style={{
+                    padding: "1rem",
+                    backgroundColor: "#fff",
+                    color: "#000",
+                    borderRadius: "0.5rem",
+                    display: 'flex',
+                    flexDirection: "column",
+                    gap: "1rem",
+                }}
                 >
                     {viewer === "music" && <MusicPlayer playlistName='nameWall' />}
                     {viewer === "scroll" && (
@@ -162,6 +169,7 @@ export const FloatingFeatures = ({ filterChild }: IFloatingFeatures) => {
                         <button onClick={() => handleViewChange("help")}>Help</button>
                     </div>
                 </div>
+                </>}
                 <button className='scrollToTop' onClick={scrollToTop} style={{ maxWidth: "25%" }}>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'

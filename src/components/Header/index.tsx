@@ -122,9 +122,9 @@ export const Header = ({
                 style={{
                     display: "grid",
                     gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                    paddingBottom: "3rem",
-                    gap: "2rem",
-                    fontSize: "1.5rem",
+                    paddingBottom: "2rem",
+                    gap: "3rem",
+                    // fontSize: "1.5rem",
                 }}
             >
                 {/* {children} */}

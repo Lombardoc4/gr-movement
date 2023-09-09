@@ -201,6 +201,7 @@ export const GlobalStyles = createGlobalStyle`
         width: clamp(320px, 100%, 600px);
         max-height: 70vh;
         margin-bottom: 5rem;
+        object-fit: contain;
     }
 
 
