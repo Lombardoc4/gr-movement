@@ -1,5 +1,7 @@
+// import { useRouteError } from "react-router-dom";
 import { Header } from "../components/Header";
 import styled from "styled-components";
+import { Navbar } from "../components/Nav";
 
 const StyledErrorPage = styled.div`
     color: #ffffff;
@@ -8,11 +10,11 @@ const StyledErrorPage = styled.div`
         width: clamp(300px, 50%, 700px);
         margin: auto;
         padding: 2em 0 0;
-        
+
         p {
             font-size: 1.5em;
         }
-    
+
         .btn-group {
             display: flex;
             gap: 1em;
@@ -27,10 +29,16 @@ const StyledErrorPage = styled.div`
 `;
 
 export const ErrorElement = ({children} : {children?: JSX.Element}) => {
+    // const error = useRouteError();
+
+    // console.log('err', error)
     return (
-        <StyledErrorPage>
+        <>
+            <Header title='Page Not Found' />
+
+        <StyledErrorPage className="container">
             <div className="content">
-                
+
                 <p>Join the community and share your story</p>
                 <div className='btn-group'>
                     <button>Add Your Loved One</button>
@@ -40,7 +48,7 @@ export const ErrorElement = ({children} : {children?: JSX.Element}) => {
                 <br />
                 <br />
                 <p>View our memorial walls:</p>
-                <div className='btn-group'>
+                <div className='list'>
                     <button>Name Memorial</button>
                     <button>Photo Memorial</button>
                     <button>Photo Memorial (Teens)</button>
@@ -49,18 +57,17 @@ export const ErrorElement = ({children} : {children?: JSX.Element}) => {
             </div>
             {children}
 		</StyledErrorPage>
+        </>
     )
 }
 
 const ErrorPage = () => {
 	return (
-        <ErrorElement>
-			<Header
-				title='Page Not Found'
-				instruction={false}
-			/>
-        </ErrorElement>
-	);
+        <>
+            <Navbar/>
+            <ErrorElement />
+        </>
+    );
 };
 
 export default ErrorPage;

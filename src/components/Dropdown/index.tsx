@@ -1,177 +1,132 @@
-import {  useEffect, useState } from "react"
-import { styled } from "styled-components";
+import { useEffect, useState } from "react";
 import { useOutsideClick } from "../../utils/hooks/useOutsideClick";
+import { StyledDropdown } from "./styles";
 
 // const searchKeys = {
 //     default: ['name'],
 //     person: ['firstName', 'lastName']
 // };
 
+interface IOption {
+    id: string;
+    value: string;
+    state?: string;
+}
+
 interface DropdownProps {
-    placeholder: string,
-    id: string
-    value: string
-    initOptions: {
-        id: string,
-        value: string,
-        state?: string
-    }[],
-    action?: (value: string) => void,
-    keySet?: string
+    placeholder: string;
+    id: string;
+    value: string;
+    initOptions: IOption[];
+    action?: (value: string) => void;
+    keySet?: string;
 }
 
-interface StyledDropdownProps {
-    $open: boolean
+interface IDropdownOptions {
+    options: DropdownProps["initOptions"];
+    selectAction: (selected: IOption) => void;
 }
 
-const StyledDropdown = styled.div<StyledDropdownProps>`
-    position: relative;
-    width: 100%;
-    /* margin-bottom: 1rem; */
-
-    input {
-        font-size: 18px;
-        font-weight: 700;
-        width: 100%;
-        /* margin-top: 0.25rem; */
-        padding: 0.75em 1em;
-        border: 1px solid #535353;
-        outline: none;
-        background-color: #ffffff;
-        color: #000000;
-        border-radius: ${({$open}) => $open ? '8px 8px 0 0' : '8px'};
-    }
-
-    .dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        overflow: scroll;
-        max-height: 16rem;
-        background-color: #ffffff;
-        border: 1px solid #323232;
-        border-top: none;
-        border-bottom: none;
-        border-radius: 0 0 8px 8px;
-    }
-
-    .dropdown-option {
-        text-transform: capitalize;
-        padding: 0.75em 1em;
-        font-size: 18px;
-        width: 100%;
-        background-color: #ffffff;
-        border-bottom: 1px solid #323232;
-
-        color: #323232;
-        cursor: pointer;
-
-        &.active {
-            background-color: #dadada;
-        }
-    }
-`;
-
-
-export const Dropdown = ({placeholder, id, value, initOptions, action }: DropdownProps) => {
-    const [open, setOpen] = useState(false);
-    const [active, setActive] = useState(-1);
-    const [query, setQuery] = useState(value);
+export const Dropdown = ({ placeholder, id, value, initOptions, action }: DropdownProps) => {
     const [options, setOptions] = useState(initOptions);
+    const [query, setQuery] = useState(value);
 
+    // Dropdown options open or not
+    const [open, setOpen] = useState(false);
+
+    // Used for keyboard scrolling index
+    const [active, setActive] = useState(-1);
+
+    // Close Dropdown if click outside
     const DropdownRef = useOutsideClick(() => {
         setOpen(false);
-    })
+        setActive(-1)
+    });
 
-    // const handleFocus = () => {
-    //     if (keySet === 'default') setOpen(true);
-    //     if (keySet === 'person' && query.length > 0) setOpen(true);
-    // }
-
+    // On input value change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!open) { setOpen(true) }
-        // console.log('val', e.target.value)
-        // if (keySet === 'person' && e.target.value.length === 0) setOpen(false);
-        setQuery(e.target.value)
-    }
-
-    useEffect(() => {
-        if (query) {
-            // Set Options filtering values that include the query string
-            setOptions(initOptions.filter(o => o.value.toLowerCase().includes(query.toLowerCase())))
-        } else {
-            setOptions(initOptions);
-        }
-    }, [initOptions, query])
-
-    useEffect(() => {
-        document.querySelector('.dropdown-option.active')?.classList.remove('active');
-        if (active >= 0) {
-            document.querySelectorAll('.dropdown-option')[active].classList.add('active');
-        }
-    }, [active])
-
-    const selectAction = (selected: {
-        id: string,
-        value: string,
-    }) => {
-        setOpen(false);
-        action && action(selected.id);
-        setQuery('');
-    }
-
-    const keyScroll = (e: React.KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'ArrowDown' && active <= options.length) {
-            setActive(active + 1);
-        }
-        else if (e.key === 'ArrowUp' && active >= 0) {
-            setActive(active - 1);
-        }
-        else if (e.key === 'Enter') {
-            selectAction(options[active])
-        }
-        else if (e.key === 'Escape') {
-            setActive(-1);
-            setOpen(false);
-        }
-        else {
+        if (!open) {
             setOpen(true);
         }
+        setQuery(e.target.value);
+    };
 
+    // When a dropdown option is selected
+    const selectAction = (selected: { id: string; value: string }) => {
+        // Close modal and clear query
+        setOpen(false);
+        setQuery("");
 
-    }
+        // Trigger action prop
+        action && action(selected.id);
+    };
 
-    // console.log('opts', options)
+    const keyScroll = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        switch (e.key) {
+            case "ArrowDown":
+                active <= options.length && setActive(active + 1);
+                break;
+            case "ArrowUp":
+                active >= 0 && setActive(active - 1);
+                break;
+            case "Enter":
+                selectAction(options[active]);
+                break;
+            case "Escape":
+                setActive(-1);
+                setOpen(false);
+                break;
+            default:
+                setOpen(true);
+        }
+    };
+
+    // Remove active close on dropdown options and add to new value
+    useEffect(() => {
+        document.querySelector(".dropdown-option.active")?.classList.remove("active");
+        if (active >= 0) {
+            const activeEl = document.querySelectorAll(".dropdown-option")[active] as HTMLDivElement
+            activeEl.classList.add("active");
+            (document.querySelector('.dropdown') as HTMLDivElement).scrollTop = activeEl.offsetTop;
+        }
+    }, [active]);
+
+    // If options or query change update options
+    useEffect(() => {
+
+        const options = query
+            ? initOptions.filter((o) => o.value.toLowerCase().includes(query.toLowerCase()))
+            : initOptions;
+
+        setOptions(options);
+    }, [initOptions, query]);
 
     return (
-            <StyledDropdown ref={DropdownRef} $open={open}>
-                <input
-                  className="search-input"
-                  placeholder={placeholder}
-                  id={id}
-                  value={query}
-                  onChange={(e) => handleChange(e)}
-                  onFocus={() => setOpen(true)}
-                  onKeyDown={keyScroll}
-                  type="text"
-                  autoComplete="off"
-                />
-                {(open && options.length > 0) &&
-                    <div className="dropdown">
-                        { options.map((option) => {
-                            return (
-                                <div
-                                    key={option.id}
-                                    className="dropdown-option"
-                                    onClick={() => selectAction(option)}>
-                                        {option.value.toLowerCase()}
-                                </div>
-                            )
-                        })}
-                    </div>
-                }
-            </StyledDropdown>
-    )
-}
+        <StyledDropdown ref={DropdownRef} $open={open}>
+            <input
+                className='search-input'
+                placeholder={placeholder}
+                id={id}
+                value={query}
+                onChange={(e) => handleChange(e)}
+                onFocus={() => setOpen(true)}
+                onKeyDown={keyScroll}
+                type='text'
+                autoComplete='off'
+            />
+            {open && options.length > 0 && <DropdownOptions options={options} selectAction={selectAction} />}
+        </StyledDropdown>
+    );
+};
+
+const DropdownOptions = ({ options, selectAction }: IDropdownOptions) => (
+    <div className='dropdown'>
+        {options.map((option) => {
+            return (
+                <div key={option.id} className='dropdown-option' onClick={() => selectAction(option)}>
+                    {option.value.toLowerCase()}
+                </div>
+            );
+        })}
+    </div>
+);

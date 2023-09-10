@@ -26,10 +26,11 @@ const StyledModal = styled.div`
         height: 100%;
         overflow: scroll;
         z-index: 1001;
-        background-color: rgba(237, 207, 53, 0.2);
-        padding: 2em 1em;
-        border-radius: 0.5em;
-        box-shadow: 0 0 1em rgba(255, 255, 255, 0.5);
+        background-color: rgb(237, 207, 53);
+        color: #000000;
+        padding: 1rem;
+        /* border-radius: 0.5em; */
+        /* box-shadow: 0 0 1em rgba(255, 255, 255, 0.5); */
     }
 
     .modal-close {
@@ -117,14 +118,14 @@ export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 		<>
 			<StyledModal className={` ${isOpen ? "is-active" : ""}`}>
 				<div className='modal-content'
-					onClick={onClose}
+					// onClick={onClose}
                     >
                     <button
                         className='modal-close is-large'
                         aria-label='close'
                         onClick={onClose}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                         </svg>
                     </button>

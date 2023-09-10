@@ -6,8 +6,8 @@ import { Dropdown } from "../Dropdown";
 
 export const CountryStateSelectors = ({country, state}: {country: string, state?: string}) => {
     const navigate = useNavigate();
-    const countryOptions = countries.map(c => ({id: c.id, value: c.name}));
-    const countryId = countries.find(c => c.name === country)?.id || '';
+    const countryOptions = countries.map(c => ({id: c.id.toLowerCase(), value: c.name}));
+    const countryId = countries.find(c => c.name === country)?.id.toLowerCase() || '';
 
     const stateOptions = [...states["United States"].map(state =>  ({id: state.id, value: state.name})), ...states["Canada"].map(state => ({id: state.id, value: state.name}))];
 
@@ -24,14 +24,14 @@ export const CountryStateSelectors = ({country, state}: {country: string, state?
         }
         navigate('/' + value);
     }
-    
+
     const stateSelect = (value: string) => {
         if (states["United States"].find(s => s.id === value)) {
             handleSelect(`usa/${value.toLowerCase()}`) }
         if (states["Canada"].find(s => s.id === value)) {
-            handleSelect(`canada/${value.toLowerCase()}`) 
+            handleSelect(`canada/${value.toLowerCase()}`)
         }
-    }    
+    }
 
     if (country.length > 0 && country !== 'Worldwide') {
         stateOptions.unshift({
