@@ -35,13 +35,6 @@ const PhotoWallRoutes = [
     // Teens USA
     {
         path: "teens",
-<<<<<<< HEAD
-        element: <PhotoWall country='Teens' />,
-    },
-    {
-        path: "teens/:stateId",
-        element: <PhotoWall country='Teens' />,
-=======
         element: <Photos folder='teenWall'  countryName="United States"/>,
     },
     {
@@ -52,7 +45,6 @@ const PhotoWallRoutes = [
     {
         path: "world",
         element: <Photos folder='restOfWorld' countryName="Worldwide" />,
->>>>>>> dev
     },
     // USA
     {
