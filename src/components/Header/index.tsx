@@ -155,22 +155,22 @@ export const Header = ({
                     <div>
                         <ul>
                             <li>
-                                <Link className='btn' to='photos'>
+                                <Link className='btn' to='/photos' >
                                     United States
                                 </Link>
                             </li>
                             <li>
-                                <Link className='btn' to='photos/teens'>
+                                <Link className='btn' to='/photos/teens' >
                                     United States Teens
                                 </Link>
                             </li>
                             <li>
-                                <Link className='btn' to='photos/can'>
+                                <Link className='btn' to='/photos/can'>
                                     Canadian Provinces
                                 </Link>
                             </li>
                             <li>
-                                <Link className='btn' to='photos/world'>
+                                <Link className='btn' to='/photos/world'>
                                     Rest of the World
                                 </Link>
                             </li>
@@ -182,7 +182,7 @@ export const Header = ({
                     <div>
                         <ul>
                             <li>
-                                <Link className='btn' to='numbers'>
+                                <Link className='btn' to='/numbers'>
                                     By the Numbers
                                 </Link>
                             </li>
