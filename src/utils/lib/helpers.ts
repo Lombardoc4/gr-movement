@@ -9,18 +9,19 @@ export const parseData = (items: Person[]) => {
     const sortedModels = items.sort((a, b) => (a.firstName > b.firstName ? 1 : b.firstName > a.firstName ? -1 : 0));
 
     // Use inverse of above to remove duplicates
-    const filteredModels = sortedModels.filter((item, index) => {
-        return !items.find(
-            (other, otherIndex) =>
-                item.firstName === other.firstName &&
-                item.lastName === other.lastName &&
-                index !== otherIndex && // doesnt have same index as of item
-                item.foreverAge === other.foreverAge &&
-                item.state === other.state
-        );
-    });
+    // const filteredModels = sortedModels.filter((item, index) => {
+    //     return !items.find(
+    //         (other, otherIndex) =>
+    //             item.firstName === other.firstName &&
+    //             item.lastName === other.lastName &&
+    //             index !== otherIndex && // doesnt have same index as of item
+    //             item.foreverAge === other.foreverAge &&
+    //             item.state === other.state
+    //     );
+    // });
+    return sortedModels;
 
-    return filteredModels;
+    // return filteredModels;
 };
 
 export const groupData = (items: Person[], filterBy: string) => {
