@@ -90,7 +90,7 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
     useEffect(() => {
         // Next state to load photos off
         const stateFolder = photos[folderIndex];
-        console.log('folderIndex', folderIndex);
+        // console.log('folderIndex', folderIndex);
 
         // If there is a state fetch the photos
         if (stateFolder) {
@@ -129,7 +129,7 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
                         // If no data or folderIndex wasn't loaded yet
                         if (photoGroup.data.length <= 0 || i > folderIndex) return;
 
-                        console.log('last', folderIndex === i)
+                        // console.log('last', folderIndex === i)
 
                         return (
                             <PhotoGroup
@@ -177,12 +177,13 @@ const PhotoGroup = ({ photoGroup, lastElRef, last}: IPhotoGroup) => {
 export const PhotoSection = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: 150px auto;
     gap: 0 0.5rem;
     align-items: center;
     width: 100%;
     padding: 1rem 1.5rem 0;
 
-    min-height: 75dvh;
+    /* min-height: 75dvh; */
 
     &.slideshow {
         grid-template-columns: 1fr;
@@ -206,6 +207,6 @@ export const PhotoSection = styled.div`
     }
 
     @media screen and (min-width: 768px) {
-        min-height: 77dvh;
+        /* min-height: 77dvh; */
     }
 `;

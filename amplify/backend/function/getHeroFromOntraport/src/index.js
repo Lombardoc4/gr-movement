@@ -48,7 +48,7 @@ export const handler = async (event) => {
   data.heroPhotos = data.heroPhotos.split(',').filter(val => val && val.length > 0);
   data.verified = false;
 
-  console.log('data', data);
+  // console.log('data', data);
 
   let variables = { input: data };
 
