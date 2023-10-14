@@ -40,7 +40,9 @@ export const PhotoContainer = ({lastRef, folder, slideshow}: {lastRef?: RefCallb
             // data-name={entry.firstName + ' ' +  entry.lastName }
             // style={{position: 'relative'}}
             >
-                <img  src={imgSrc} />
+                {/* <img  src={imgSrc} /> */}
+
+                <img  src={imgSrc + '?v=' + Date.now()} />
         </div>
     )
 }
