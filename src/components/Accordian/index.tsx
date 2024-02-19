@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Ambassador, Person } from "../../utils/models";
-import { styled } from "styled-components";
+import styled from "styled-components";
 
 const StyledAccordian = styled.div`
         color: #000000;

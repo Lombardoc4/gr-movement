@@ -54,6 +54,11 @@
     }
   },
   "function": {
+    "OntraportGetMapEntry": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getAmbassadorFromOntraport": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -72,6 +77,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_OntraportGetMapEntry_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "OntraportGetMapEntry"
+        }
+      ]
+    },
+    "AMPLIFY_function_OntraportGetMapEntry_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "OntraportGetMapEntry"
+        }
+      ]
+    },
     "AMPLIFY_function_getAmbassadorFromOntraport_deploymentBucketName": {
       "usedBy": [
         {

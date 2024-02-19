@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import styled from "styled-components";
 import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 const StyledInstructions = styled.div`

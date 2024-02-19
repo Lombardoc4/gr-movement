@@ -6,12 +6,13 @@ import { FloatingFeatures } from "../components/FloatingFeatures";
 import { StateProps, states } from "../utils/data/states";
 import { Sublinks } from "../components/SubLinks";
 import { CountryProps, countries } from "../utils/data/countries";
-import { Storage } from "aws-amplify";
+import { list } from 'aws-amplify/storage';
 import { PhotoContainer } from "../components/PhotoContainer";
 import { ErrorElement } from "./ErrorPage";
 import { countryWStates } from "../utils/lib/helpers";
-import { styled } from "styled-components";
+
 import { useSlideshow } from "../utils/hooks/SlideshowContext";
+import styled from "styled-components";
 
 interface PhotoGroupProps {
     name: string;
@@ -34,10 +35,12 @@ const initialPhotoArray = (country: CountryProps, state: StateProps) => {
 };
 
 const photoFetch = async (folderName: string) => {
-    const res = await Storage.list(folderName, { pageSize: 1000 });
+    const { items } = await list({prefix: folderName, options: {
+        listAll: true
+      }});
 
     const newPhotos = [
-        ...res.results.filter(({ key }) => (!key ? false : /\.(jpe?g|png)$/i.test(key))).map((img) => img.key || ""),
+        ...items.filter(({ key }) => (!key ? false : /\.(jpe?g|png)$/i.test(key))).map((img) => img.key || ""),
     ];
 
     return newPhotos;
@@ -113,7 +116,7 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
 
     return (
         <>
-            <Header title='Drug Epidemic Photo Memorial'/>
+            <Header title={`Drug Epidemic ${folder==='teenWall' ? 'Teen' : ''} Photo Memorial`}/>
 
             <main>
                 <Sublinks

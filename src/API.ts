@@ -2,27 +2,22 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateAmbassadorInput = {
+export type CreateMapEntryInput = {
   id?: string | null,
-  name: string,
   email?: string | null,
-  state: string,
-  info_perms?: boolean | null,
-  email_perms?: boolean | null,
-  volunteer_options?: Array< string | null > | null,
+  state?: string | null,
+  town?: string | null,
   _version?: number | null,
 };
 
-export type ModelAmbassadorConditionInput = {
-  name?: ModelStringInput | null,
+export type ModelMapEntryConditionInput = {
   email?: ModelStringInput | null,
   state?: ModelStringInput | null,
-  info_perms?: ModelBooleanInput | null,
-  email_perms?: ModelBooleanInput | null,
-  volunteer_options?: ModelStringInput | null,
-  and?: Array< ModelAmbassadorConditionInput | null > | null,
-  or?: Array< ModelAmbassadorConditionInput | null > | null,
-  not?: ModelAmbassadorConditionInput | null,
+  town?: ModelStringInput | null,
+  and?: Array< ModelMapEntryConditionInput | null > | null,
+  or?: Array< ModelMapEntryConditionInput | null > | null,
+  not?: ModelMapEntryConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -70,6 +65,56 @@ export type ModelBooleanInput = {
   eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
+};
+
+export type MapEntry = {
+  __typename: "MapEntry",
+  id: string,
+  email?: string | null,
+  state?: string | null,
+  town?: string | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateMapEntryInput = {
+  id: string,
+  email?: string | null,
+  state?: string | null,
+  town?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteMapEntryInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateAmbassadorInput = {
+  id?: string | null,
+  name: string,
+  email?: string | null,
+  state: string,
+  info_perms?: boolean | null,
+  email_perms?: boolean | null,
+  volunteer_options?: Array< string | null > | null,
+  _version?: number | null,
+};
+
+export type ModelAmbassadorConditionInput = {
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  state?: ModelStringInput | null,
+  info_perms?: ModelBooleanInput | null,
+  email_perms?: ModelBooleanInput | null,
+  volunteer_options?: ModelStringInput | null,
+  and?: Array< ModelAmbassadorConditionInput | null > | null,
+  or?: Array< ModelAmbassadorConditionInput | null > | null,
+  not?: ModelAmbassadorConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type Ambassador = {
@@ -137,6 +182,7 @@ export type ModelHeroesConditionInput = {
   and?: Array< ModelHeroesConditionInput | null > | null,
   or?: Array< ModelHeroesConditionInput | null > | null,
   not?: ModelHeroesConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type Heroes = {
@@ -191,6 +237,11 @@ export type CreatePersonInput = {
   country?: string | null,
   state?: string | null,
   imgUrl?: string | null,
+  email?: string | null,
+  name?: string | null,
+  permission?: string | null,
+  possibleDuplicate?: boolean | null,
+  town?: string | null,
   _version?: number | null,
 };
 
@@ -201,9 +252,15 @@ export type ModelPersonConditionInput = {
   country?: ModelStringInput | null,
   state?: ModelStringInput | null,
   imgUrl?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  permission?: ModelStringInput | null,
+  possibleDuplicate?: ModelBooleanInput | null,
+  town?: ModelStringInput | null,
   and?: Array< ModelPersonConditionInput | null > | null,
   or?: Array< ModelPersonConditionInput | null > | null,
   not?: ModelPersonConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type Person = {
@@ -215,6 +272,11 @@ export type Person = {
   country?: string | null,
   state?: string | null,
   imgUrl?: string | null,
+  email?: string | null,
+  name?: string | null,
+  permission?: string | null,
+  possibleDuplicate?: boolean | null,
+  town?: string | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -230,6 +292,11 @@ export type UpdatePersonInput = {
   country?: string | null,
   state?: string | null,
   imgUrl?: string | null,
+  email?: string | null,
+  name?: string | null,
+  permission?: string | null,
+  possibleDuplicate?: boolean | null,
+  town?: string | null,
   _version?: number | null,
 };
 
@@ -238,17 +305,15 @@ export type DeletePersonInput = {
   _version?: number | null,
 };
 
-export type ModelAmbassadorFilterInput = {
+export type ModelMapEntryFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
   email?: ModelStringInput | null,
   state?: ModelStringInput | null,
-  info_perms?: ModelBooleanInput | null,
-  email_perms?: ModelBooleanInput | null,
-  volunteer_options?: ModelStringInput | null,
-  and?: Array< ModelAmbassadorFilterInput | null > | null,
-  or?: Array< ModelAmbassadorFilterInput | null > | null,
-  not?: ModelAmbassadorFilterInput | null,
+  town?: ModelStringInput | null,
+  and?: Array< ModelMapEntryFilterInput | null > | null,
+  or?: Array< ModelMapEntryFilterInput | null > | null,
+  not?: ModelMapEntryFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelIDInput = {
@@ -265,6 +330,27 @@ export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
+};
+
+export type ModelMapEntryConnection = {
+  __typename: "ModelMapEntryConnection",
+  items:  Array<MapEntry | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelAmbassadorFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  state?: ModelStringInput | null,
+  info_perms?: ModelBooleanInput | null,
+  email_perms?: ModelBooleanInput | null,
+  volunteer_options?: ModelStringInput | null,
+  and?: Array< ModelAmbassadorFilterInput | null > | null,
+  or?: Array< ModelAmbassadorFilterInput | null > | null,
+  not?: ModelAmbassadorFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelAmbassadorConnection = {
@@ -291,6 +377,7 @@ export type ModelHeroesFilterInput = {
   and?: Array< ModelHeroesFilterInput | null > | null,
   or?: Array< ModelHeroesFilterInput | null > | null,
   not?: ModelHeroesFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelHeroesConnection = {
@@ -308,9 +395,15 @@ export type ModelPersonFilterInput = {
   country?: ModelStringInput | null,
   state?: ModelStringInput | null,
   imgUrl?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  permission?: ModelStringInput | null,
+  possibleDuplicate?: ModelBooleanInput | null,
+  town?: ModelStringInput | null,
   and?: Array< ModelPersonFilterInput | null > | null,
   or?: Array< ModelPersonFilterInput | null > | null,
   not?: ModelPersonFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelPersonConnection = {
@@ -320,16 +413,14 @@ export type ModelPersonConnection = {
   startedAt?: number | null,
 };
 
-export type ModelSubscriptionAmbassadorFilterInput = {
+export type ModelSubscriptionMapEntryFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   state?: ModelSubscriptionStringInput | null,
-  info_perms?: ModelSubscriptionBooleanInput | null,
-  email_perms?: ModelSubscriptionBooleanInput | null,
-  volunteer_options?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionAmbassadorFilterInput | null > | null,
-  or?: Array< ModelSubscriptionAmbassadorFilterInput | null > | null,
+  town?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -362,6 +453,19 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionAmbassadorFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  state?: ModelSubscriptionStringInput | null,
+  info_perms?: ModelSubscriptionBooleanInput | null,
+  email_perms?: ModelSubscriptionBooleanInput | null,
+  volunteer_options?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAmbassadorFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAmbassadorFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
 export type ModelSubscriptionBooleanInput = {
   ne?: boolean | null,
   eq?: boolean | null,
@@ -383,6 +487,7 @@ export type ModelSubscriptionHeroesFilterInput = {
   verified?: ModelSubscriptionBooleanInput | null,
   and?: Array< ModelSubscriptionHeroesFilterInput | null > | null,
   or?: Array< ModelSubscriptionHeroesFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionPersonFilterInput = {
@@ -393,8 +498,74 @@ export type ModelSubscriptionPersonFilterInput = {
   country?: ModelSubscriptionStringInput | null,
   state?: ModelSubscriptionStringInput | null,
   imgUrl?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  permission?: ModelSubscriptionStringInput | null,
+  possibleDuplicate?: ModelSubscriptionBooleanInput | null,
+  town?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionPersonFilterInput | null > | null,
   or?: Array< ModelSubscriptionPersonFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type CreateMapEntryMutationVariables = {
+  input: CreateMapEntryInput,
+  condition?: ModelMapEntryConditionInput | null,
+};
+
+export type CreateMapEntryMutation = {
+  createMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateMapEntryMutationVariables = {
+  input: UpdateMapEntryInput,
+  condition?: ModelMapEntryConditionInput | null,
+};
+
+export type UpdateMapEntryMutation = {
+  updateMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteMapEntryMutationVariables = {
+  input: DeleteMapEntryInput,
+  condition?: ModelMapEntryConditionInput | null,
+};
+
+export type DeleteMapEntryMutation = {
+  deleteMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
 export type CreateAmbassadorMutationVariables = {
@@ -568,6 +739,11 @@ export type CreatePersonMutation = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -591,6 +767,11 @@ export type UpdatePersonMutation = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -614,11 +795,88 @@ export type DeletePersonMutation = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+  } | null,
+};
+
+export type GetMapEntryQueryVariables = {
+  id: string,
+};
+
+export type GetMapEntryQuery = {
+  getMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListMapEntriesQueryVariables = {
+  filter?: ModelMapEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMapEntriesQuery = {
+  listMapEntries?:  {
+    __typename: "ModelMapEntryConnection",
+    items:  Array< {
+      __typename: "MapEntry",
+      id: string,
+      email?: string | null,
+      state?: string | null,
+      town?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncMapEntriesQueryVariables = {
+  filter?: ModelMapEntryFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncMapEntriesQuery = {
+  syncMapEntries?:  {
+    __typename: "ModelMapEntryConnection",
+    items:  Array< {
+      __typename: "MapEntry",
+      id: string,
+      email?: string | null,
+      state?: string | null,
+      town?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -816,6 +1074,11 @@ export type GetPersonQuery = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -842,6 +1105,11 @@ export type ListPeopleQuery = {
       country?: string | null,
       state?: string | null,
       imgUrl?: string | null,
+      email?: string | null,
+      name?: string | null,
+      permission?: string | null,
+      possibleDuplicate?: boolean | null,
+      town?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -872,6 +1140,11 @@ export type SyncPeopleQuery = {
       country?: string | null,
       state?: string | null,
       imgUrl?: string | null,
+      email?: string | null,
+      name?: string | null,
+      permission?: string | null,
+      possibleDuplicate?: boolean | null,
+      town?: string | null,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -880,6 +1153,63 @@ export type SyncPeopleQuery = {
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
+  } | null,
+};
+
+export type OnCreateMapEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionMapEntryFilterInput | null,
+};
+
+export type OnCreateMapEntrySubscription = {
+  onCreateMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateMapEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionMapEntryFilterInput | null,
+};
+
+export type OnUpdateMapEntrySubscription = {
+  onUpdateMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteMapEntrySubscriptionVariables = {
+  filter?: ModelSubscriptionMapEntryFilterInput | null,
+};
+
+export type OnDeleteMapEntrySubscription = {
+  onDeleteMapEntry?:  {
+    __typename: "MapEntry",
+    id: string,
+    email?: string | null,
+    state?: string | null,
+    town?: string | null,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -1047,6 +1377,11 @@ export type OnCreatePersonSubscription = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1069,6 +1404,11 @@ export type OnUpdatePersonSubscription = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -1091,6 +1431,11 @@ export type OnDeletePersonSubscription = {
     country?: string | null,
     state?: string | null,
     imgUrl?: string | null,
+    email?: string | null,
+    name?: string | null,
+    permission?: string | null,
+    possibleDuplicate?: boolean | null,
+    town?: string | null,
     createdAt: string,
     updatedAt: string,
     _version: number,

@@ -19,10 +19,12 @@ const NameWall = () => {
     const { params } = useParams();
     const { country, state } = useLocationContext();
 
+    console.log('country', country)
+
     const wallTitle = state.id !== '' ? state.name : country.name;
 
     // Subscribe to realtime data for live in-person events
-    const [isSynced, people] = useNames() as [boolean, Person[]];
+    const people = useNames() as Person[];
 
     // Group Data by Countries or States
     const entries = useMemo(() => groupData(people, countryWStates(country.name) ? "state" : "country"), [people]);
@@ -43,7 +45,7 @@ const NameWall = () => {
                 </Sublinks>
 
 
-                {!isSynced ? <Loader /> : <ScrollingWall entries={entries} />}
+                {people.length === 0 ? <Loader /> : <ScrollingWall entries={entries} />}
             </main>
 
         </>

@@ -34,13 +34,13 @@ function LocationProvider({ children }: { children: JSX.Element }) {
         const newLoc = { ...initalLocation };
 
 
-
         if (country) newLoc.country = countries.find((c) => c.id === country.toUpperCase()) || initalLocation.country;
 
 
-        if (state && states[newLoc.country.name])
+        if (state && states[newLoc.country.name]) {
             newLoc.state =
-                states[newLoc.country.name].find((s) => s.id === state.toUpperCase()) || initalLocation.state;
+            states[newLoc.country.name].find((s) => s.id === state.toUpperCase()) || initalLocation.state;
+        }
 
         setLoc(newLoc);
     }, [location]);

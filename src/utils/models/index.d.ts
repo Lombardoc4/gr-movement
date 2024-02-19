@@ -2,6 +2,10 @@ import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
+type MapEntryMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type AmbassadorMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -12,6 +16,30 @@ type HeroesMetaData = {
 
 type PersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type EagerMapEntry = {
+  readonly id: string;
+  readonly email?: string | null;
+  readonly state?: string | null;
+  readonly town?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyMapEntry = {
+  readonly id: string;
+  readonly email?: string | null;
+  readonly state?: string | null;
+  readonly town?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type MapEntry = LazyLoading extends LazyLoadingDisabled ? EagerMapEntry : LazyMapEntry
+
+export declare const MapEntry: (new (init: ModelInit<MapEntry, MapEntryMetaData>) => MapEntry) & {
+  copyOf(source: MapEntry, mutator: (draft: MutableModel<MapEntry, MapEntryMetaData>) => MutableModel<MapEntry, MapEntryMetaData> | void): MapEntry;
 }
 
 type EagerAmbassador = {
@@ -97,6 +125,8 @@ type EagerPerson = {
   readonly email?: string | null;
   readonly name?: string | null;
   readonly permission?: string | null;
+  readonly possibleDuplicate?: boolean | null;
+  readonly town?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -112,6 +142,8 @@ type LazyPerson = {
   readonly email?: string | null;
   readonly name?: string | null;
   readonly permission?: string | null;
+  readonly possibleDuplicate?: boolean | null;
+  readonly town?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

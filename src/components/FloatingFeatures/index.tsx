@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 import MusicPlayer from "../MusicPlayer";
 import { Modal } from "../Modal";
 // import useMediaQuery from "../../utils/hooks/useMediaQuery";

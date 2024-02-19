@@ -1,5 +1,5 @@
 import { useState, useRef, useMemo } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 // import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
 interface trackListProps {

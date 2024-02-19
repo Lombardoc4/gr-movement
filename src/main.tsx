@@ -5,15 +5,14 @@ import { router } from './router/index.tsx'
 
 import ReactGA from "react-ga4";
 import { Amplify} from 'aws-amplify'
-import awsExports  from './aws-exports';
+import config from './amplifyconfiguration.json';
 import { GlobalStyles } from './styles/GlobalStyles.ts'
 
 import './styles/index.css'
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 
-Amplify.configure(awsExports);
-
+Amplify.configure(config);
 
 ReactGA.initialize("G-H2JTF53YES");
 

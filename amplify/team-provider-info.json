@@ -22,11 +22,15 @@
         },
         "getHeroFromOntraport": {
           "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
-          "s3Key": "amplify-builds/getHeroFromOntraport-6b58367441796f396c6e-build.zip"
+          "s3Key": "amplify-builds/getHeroFromOntraport-516343766c5a63317650-build.zip"
         },
         "getAmbassadorFromOntraport": {
           "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
           "s3Key": "amplify-builds/getAmbassadorFromOntraport-4834612f363235496d4c-build.zip"
+        },
+        "OntraportGetMapEntry": {
+          "deploymentBucketName": "amplify-grmovement-staging-191308-deployment",
+          "s3Key": "amplify-builds/OntraportGetMapEntry-647356563732716b5054-build.zip"
         }
       },
       "storage": {

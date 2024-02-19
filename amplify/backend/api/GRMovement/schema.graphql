@@ -1,3 +1,10 @@
+type MapEntry @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  email: String
+  state: String
+  town: String
+}
+
 type Ambassador @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
@@ -35,5 +42,7 @@ type Person @model @auth(rules: [{allow: public}]) {
   email: String
   name: String
   permission: String
+  possibleDuplicate: Boolean
+  town: String
 }
  
