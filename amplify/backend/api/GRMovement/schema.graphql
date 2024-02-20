@@ -3,6 +3,8 @@ type MapEntry @model @auth(rules: [{allow: public}]) {
   email: String
   state: String
   town: String
+  latitude: String
+  longitude: String
 }
 
 type Ambassador @model @auth(rules: [{allow: public}]) {

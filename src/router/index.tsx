@@ -5,6 +5,7 @@ import ErrorPage from "../pages/ErrorPage.tsx";
 // import PhotoWall from "../pages/PhotoWall.tsx";
 import ByTheNumbers from "../pages/Numbers.tsx";
 import { Photos } from "../pages/Photos.tsx";
+import Map from "../pages/Map.tsx";
 // import HeroPage from "../pages/Heroes.tsx";
 // import { HeroStyles } from "../styles/heroStyles.ts";
 
@@ -68,6 +69,7 @@ const WallRouter = createBrowserRouter([
                 index: true,
                 element: <NameWall />,
             },
+            { path: "map", element: <Map /> },
             { path: "numbers", element: <ByTheNumbers /> },
             {
                 path: "photo",
