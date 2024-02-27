@@ -15,8 +15,10 @@ export const createMapEntry = /* GraphQL */ `mutation CreateMapEntry(
   createMapEntry(input: $input, condition: $condition) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version
@@ -36,8 +38,10 @@ export const updateMapEntry = /* GraphQL */ `mutation UpdateMapEntry(
   updateMapEntry(input: $input, condition: $condition) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version
@@ -57,8 +61,10 @@ export const deleteMapEntry = /* GraphQL */ `mutation DeleteMapEntry(
   deleteMapEntry(input: $input, condition: $condition) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version

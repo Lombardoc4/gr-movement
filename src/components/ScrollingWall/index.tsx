@@ -62,15 +62,6 @@ const ScrollerSection = ({entries, entryGroup} : {entries: GroupedPeople, entryG
     return (
         <Section>
             <div className='heading container'>
-                {/* Hide if states */}
-                {/* {!state.id  && (
-                    <span
-                        className={
-                            "icon fi fis fi-" +
-                            countries.find((c) => c.name === entryGroup)?.alpha.toLowerCase()
-                        }
-                    ></span>
-                )} */}
                 <div className='header-main'>
                     <h2>{entryGroup}</h2>
                     {entries[entryGroup] && <div className='bold'>{entries[entryGroup].length} Loved Ones</div>}

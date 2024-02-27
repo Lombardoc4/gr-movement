@@ -18,7 +18,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <div className='container'>
+            <header className='container'>
                 <StyledNavbar>
 
                     <Link to='/'>
@@ -42,12 +42,15 @@ export const Navbar = () => {
                             <NavLink className="nav-link" to='/photos' onClick={toggleNav}>
                                 Photo Wall
                             </NavLink>
-                            <Link className="nav-link" to='https://drugepidemicmemorial.org/'>Include Your Loved One</Link>
-                            <Link className="nav-link" to='https://drugepidemicmemorial.org/heroes'>Recognize Your Hero</Link>
+                            <NavLink className="nav-link" to='/map' onClick={toggleNav}>
+                                Meetup Map
+                            </NavLink>
+                            <Link className="nav-link" to='https://drugepidemicmemorial.org/'>Add Your Loved One</Link>
+                            <Link className="nav-link" to='https://drugepidemicmemorial.org/heroes'>Recognize a Hero</Link>
                         </NavContainer>
                     </Nav>
                 </StyledNavbar>
-            </div>
+            </header>
         </>
     );
 };

@@ -12,8 +12,10 @@ export const getMapEntry = /* GraphQL */ `query GetMapEntry($id: ID!) {
   getMapEntry(id: $id) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version
@@ -35,8 +37,10 @@ export const listMapEntries = /* GraphQL */ `query ListMapEntries(
     items {
       id
       email
-      state
       town
+      state
+      latitude
+      longitude
       createdAt
       updatedAt
       _version
@@ -68,8 +72,10 @@ export const syncMapEntries = /* GraphQL */ `query SyncMapEntries(
     items {
       id
       email
-      state
       town
+      state
+      latitude
+      longitude
       createdAt
       updatedAt
       _version

@@ -19,8 +19,6 @@ const NameWall = () => {
     const { params } = useParams();
     const { country, state } = useLocationContext();
 
-    console.log('country', country)
-
     const wallTitle = state.id !== '' ? state.name : country.name;
 
     // Subscribe to realtime data for live in-person events

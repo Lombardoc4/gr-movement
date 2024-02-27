@@ -99,6 +99,11 @@ export const NavContainer = styled.div`
         text-transform: uppercase;
         padding: 1rem 0;
         color: #000000;
+        text-decoration: none;
+    }
+
+    .nav-link:hover {
+        text-decoration: underline;
     }
 
     .nav-link:not(:first-child) {
@@ -122,7 +127,7 @@ export const NavContainer = styled.div`
             margin-right: 0.5em;
             height: 100%;
             width: auto;
-            font-size: 1.25rem;
+            font-size: 1rem;
         }
     }
 `;

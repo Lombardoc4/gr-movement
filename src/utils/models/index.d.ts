@@ -21,8 +21,10 @@ type PersonMetaData = {
 type EagerMapEntry = {
   readonly id: string;
   readonly email?: string | null;
-  readonly state?: string | null;
   readonly town?: string | null;
+  readonly state?: string | null;
+  readonly latitude?: number | null;
+  readonly longitude?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,8 +32,10 @@ type EagerMapEntry = {
 type LazyMapEntry = {
   readonly id: string;
   readonly email?: string | null;
-  readonly state?: string | null;
   readonly town?: string | null;
+  readonly state?: string | null;
+  readonly latitude?: number | null;
+  readonly longitude?: number | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

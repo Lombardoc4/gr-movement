@@ -12,8 +12,10 @@ export const onCreateMapEntry = /* GraphQL */ `subscription OnCreateMapEntry($fi
   onCreateMapEntry(filter: $filter) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version
@@ -30,8 +32,10 @@ export const onUpdateMapEntry = /* GraphQL */ `subscription OnUpdateMapEntry($fi
   onUpdateMapEntry(filter: $filter) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version
@@ -48,8 +52,10 @@ export const onDeleteMapEntry = /* GraphQL */ `subscription OnDeleteMapEntry($fi
   onDeleteMapEntry(filter: $filter) {
     id
     email
-    state
     town
+    state
+    latitude
+    longitude
     createdAt
     updatedAt
     _version

@@ -17,6 +17,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "town": {
+                    "name": "town",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "state": {
                     "name": "state",
                     "isArray": false,
@@ -24,10 +31,17 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "town": {
-                    "name": "town",
+                "latitude": {
+                    "name": "latitude",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "longitude": {
+                    "name": "longitude",
+                    "isArray": false,
+                    "type": "Float",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -439,5 +453,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "3cf359d90c80af363cd1c5736041d488"
+    "version": "56d2ab45edc3d95babe105c9a733c712"
 };

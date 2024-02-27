@@ -170,7 +170,7 @@ const ByTheNumbers = () => {
         setWorldwide(sortedCountries);
 
 
-        console.log('sortedCountries', sortedCountries)
+        // console.log('sortedCountries', sortedCountries)
         // Sort USA & Canada States
         Object.entries(states).map(([country, data]) => {
             const groupByState = groupData(sortedCountries[country], "state");
