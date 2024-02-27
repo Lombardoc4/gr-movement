@@ -6,7 +6,6 @@ import { Accordian } from '../components/Accordian';
 import { groupData } from '../utils/lib/helpers';
 // import { Ambassador, Person } from '../API';
 import { Ambassador, Person } from '../utils/models';
-import { DataStore } from 'aws-amplify/datastore';
 import { useNames } from '../utils/hooks/useNames';
 import { onCreateAmbassador } from '../utils/graphql/subscriptions';
 import { generateClient } from 'aws-amplify/api';

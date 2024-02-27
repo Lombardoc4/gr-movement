@@ -25,7 +25,7 @@ const NameWall = () => {
     const people = useNames() as Person[];
 
     // Group Data by Countries or States
-    const entries = useMemo(() => groupData(people, countryWStates(country.name) ? "state" : "country"), [people]);
+    const entries = useMemo(() => groupData(people, countryWStates(country.name) ? "state" : "country"), [people, country.name]);
 
     // If there are params and no matching country err page
     if (params && country.id === "") {

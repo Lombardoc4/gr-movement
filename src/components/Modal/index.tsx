@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 interface ModalProps {
@@ -98,11 +98,11 @@ const StyledModal = styled.div`
 
 export const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 
-    const handleEscape = (e: KeyboardEvent) => {
+    const handleEscape = useCallback((e: KeyboardEvent) => {
         if (e.key === "Escape") {
             onClose();
         }
-    };
+    }, []);
 
 	useEffect(() => {
 		document.addEventListener("keydown", handleEscape);

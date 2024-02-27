@@ -65,7 +65,7 @@ export const useNames = () => {
                 }
                 setNames(parseData(data.listPeople.items));
             });
-    }, [country.name, state.name]);
+    }, [country.name, country.id, state.name,  state.id, params]);
 
     useEffect(() => {
 
@@ -109,12 +109,19 @@ export const useNames = () => {
                     setNames((prev) => parseData([...prev, ...data.listPeople.items]));
                 });
         }
-    }, [nextToken]);
+    }, [nextToken, country.name, country.id, state.name,  state.id]);
 
     useEffect(() => {
         const subscription = client.graphql({ query: onCreatePerson }).subscribe({
             next: ({ data }) => {
-                setNames((prev) => parseData([...prev, data.onCreatePerson]));
+                // If state and entry state == state
+                // else if (country.id && country.name === entry.country)
+                if (state.id && data.onCreatePerson.state !== state.name)
+                    return;
+                else if (country.id && data.onCreatePerson.country !== country.name)
+                    return;
+                else
+                    setNames((prev) => parseData([...prev, data.onCreatePerson]));
             },
             error: (error) => error,
         });
@@ -125,7 +132,7 @@ export const useNames = () => {
             subscription.unsubscribe();
             setNextToken("");
         };
-    }, [country.name, state.name]);
+    }, [country.name, country.id, state.name, state.id]);
 
     return names;
 };

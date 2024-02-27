@@ -1,9 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-interface ISlideshowContext {
-    isSlideshow: boolean;
-    toggleSlideshow: () => void;
-}
+
 
 const SlideshowContext = createContext<ISlideshowContext | undefined>(undefined);
 

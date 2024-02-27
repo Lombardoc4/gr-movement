@@ -1,4 +1,4 @@
-const statesData: GeoJSON.FeatureCollection<any> = {
+const statesData: GeoJSON.FeatureCollection = {
     type: "FeatureCollection",
     features: [
         {

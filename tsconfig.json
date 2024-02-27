@@ -20,5 +20,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
+  "exclude": ["src/ui-components", "src/API.ts", "*/models", "*/graphql"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

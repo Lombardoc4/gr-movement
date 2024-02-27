@@ -134,7 +134,7 @@ const MusicPlayer = ({playlistName} : MusicPlayerProps) => {
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const activePlaylist = trackLists[playlistName] || trackLists['photoWall'];
-    const audioSrc = useMemo(() => 'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack].replace(/ /g, '-') + '.mp3', [audioTrack])
+    const audioSrc = useMemo(() => 'https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/music/' + activePlaylist[audioTrack].replace(/ /g, '-') + '.mp3', [audioTrack, activePlaylist])
 
     const skipTrack = async () => {
         setAudio(audioTrack === activePlaylist.length - 1 ? 0 : audioTrack + 1);

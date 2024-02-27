@@ -4,7 +4,7 @@ function County(strState, strCountyName) {
     this.name = strCountyName;
 }
 
-export const arrCounties = new Array(
+export const arrCounties = [
     new County("AL","Autauga"),
     new County("AL","Baldwin"),
     new County("AL","Barbour"),
@@ -3148,4 +3148,4 @@ export const arrCounties = new Array(
     new County("WY","Uinta"),
     new County("WY","Washakie"),
     new County("WY","Weston")
-);
+];
