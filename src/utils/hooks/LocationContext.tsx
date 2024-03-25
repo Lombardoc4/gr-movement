@@ -1,12 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { CountryProps, countries } from "../data/countries";
-import { StateProps, states } from "../data/states";
+import { countries } from "../data/countries";
+import { states } from "../data/states";
 
-interface LocationProps {
-    country: CountryProps;
-    state: StateProps;
-}
+
 
 const initalLocation = {
     country: {

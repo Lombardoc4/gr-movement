@@ -52,15 +52,14 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
     const { stateId = "" } = useParams();
     const country = countries.find((c) => c.name === countryName) as CountryProps;
     const countryWithStates = countryWStates(countryName);
-    let state: StateProps = useMemo(() => {
+    const state: StateProps = useMemo(() => {
         if (countryWithStates)
             return states[countryName].find((s) => s.id === stateId.toUpperCase()) || emptyState;
         else
             return emptyState;
-    }, [folder, stateId])
+    }, [stateId, countryName, countryWithStates])
 
 
-    if (stateId !== '' && state.id === '') return <ErrorElement/>
 
     const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialPhotoArray(country, state));
     const wallTitle = state.name !== "" ? state.name : countryName;
@@ -81,41 +80,44 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
                 observer.current.observe(el);
             }
         },
-        [folderIndex]
-    );
+        [folderIndex, photos.length]
+        );
 
-    // Reset photos when folder changes
-    useEffect(() => {
-        setPhotos(initialPhotoArray(country, state));
-        setFolderIndex(0);
-    }, [folder, stateId]);
+        // Reset photos when folder changes
+        useEffect(() => {
+            setPhotos(initialPhotoArray(country, state));
+            setFolderIndex(0);
+        }, [folder, stateId, country, state]);
 
-    useEffect(() => {
-        // Next state to load photos off
-        const stateFolder = photos[folderIndex];
-        // console.log('folderIndex', folderIndex);
+        useEffect(() => {
+            // Next state to load photos off
+            const stateFolder = photos[folderIndex];
+            // console.log('folderIndex', folderIndex);
 
-        // If there is a state fetch the photos
-        if (stateFolder) {
-            const subFolder = countryWithStates ? stateFolder.id : "";
+            // If there is a state fetch the photos
+            if (stateFolder) {
+                const subFolder = countryWithStates ? stateFolder.id : "";
 
-            photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
-                // Set data from response
-                stateFolder.data = res;
-                // console.log('res', res)
+                photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
+                    // Set data from response
+                    stateFolder.data = res;
+                    // console.log('res', res)
 
-                // If no photos remove and dependencies will run again
-                if (photos.length > 1 && res.length <= 0) {
-                    setPhotos([...photos.filter((_s, i) => i !== folderIndex)]);
-                } else {
-                    setPhotos([...photos.map((s, i) => (i === folderIndex ? stateFolder : s))]);
-                }
-            });
-        }
-    }, [folderIndex, photos.length]);
+                    // If no photos remove and dependencies will run again
+                    if (photos.length > 1 && res.length <= 0) {
+                        setPhotos([...photos.filter((_s, i) => i !== folderIndex)]);
+                    } else {
+                        setPhotos([...photos.map((s, i) => (i === folderIndex ? stateFolder : s))]);
+                    }
+                });
+            }
+        }, [folderIndex, photos.length, countryWithStates, folder, photos]);
 
-    return (
-        <>
+        if (stateId !== '' && state.id === '') return <ErrorElement/>
+
+
+        return (
+            <>
             <Header title={`Drug Epidemic ${folder==='teenWall' ? 'Teen' : ''} Photo Memorial`}/>
 
             <main>

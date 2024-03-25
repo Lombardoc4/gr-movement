@@ -1,2 +1,5 @@
-src/models
+src/ui-components
+src/API.ts
+*/models
+*/graphql
 src/models/models

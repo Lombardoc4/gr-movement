@@ -11,7 +11,7 @@ export const useWindowScroll: () => [boolean, () => void] = () => {
             const photoEls = document.querySelectorAll(".photo-entry") as NodeListOf<HTMLDivElement>;
             photoEls[slideIndex].scrollIntoView({block: 'center'})
         }
-    }, [slideIndex, isScrolling])
+    }, [slideIndex, isScrolling, isSlideshow])
 
     // Todo set scroll speed
     useEffect(() => {
@@ -46,7 +46,7 @@ export const useWindowScroll: () => [boolean, () => void] = () => {
             document.body.style.overflow = "auto";
             clearInterval(scrollInterval);
         }
-    }, [isScrolling]);
+    }, [isScrolling, isSlideshow]);
 
     return [isScrolling, () => setScrolling(!isScrolling)];
 };
