@@ -6,7 +6,7 @@ import { FloatingFeatures } from "../components/FloatingFeatures";
 import { StateProps, states } from "../utils/data/states";
 import { Sublinks } from "../components/SubLinks";
 import { CountryProps, countries } from "../utils/data/countries";
-import { list } from 'aws-amplify/storage';
+import { list } from "aws-amplify/storage";
 import { PhotoContainer } from "../components/PhotoContainer";
 import { ErrorElement } from "./ErrorPage";
 import { countryWStates } from "../utils/lib/helpers";
@@ -35,9 +35,12 @@ const initialPhotoArray = (country: CountryProps, state: StateProps) => {
 };
 
 const photoFetch = async (folderName: string) => {
-    const { items } = await list({prefix: folderName, options: {
-        listAll: true
-      }});
+    const { items } = await list({
+        prefix: folderName,
+        options: {
+            listAll: true,
+        },
+    });
 
     const newPhotos = [
         ...items.filter(({ key }) => (!key ? false : /\.(jpe?g|png)$/i.test(key))).map((img) => img.key || ""),
@@ -51,15 +54,11 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
 
     const { stateId = "" } = useParams();
     const country = countries.find((c) => c.name === countryName) as CountryProps;
-    const countryWithStates = countryWStates(countryName);
+    const countryWithStates = useMemo(() => countryWStates(countryName), [countryName]);
     const state: StateProps = useMemo(() => {
-        if (countryWithStates)
-            return states[countryName].find((s) => s.id === stateId.toUpperCase()) || emptyState;
-        else
-            return emptyState;
-    }, [stateId, countryName, countryWithStates])
-
-
+        if (countryWithStates) return states[countryName].find((s) => s.id === stateId.toUpperCase()) || emptyState;
+        else return emptyState;
+    }, [stateId, countryName]);
 
     const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialPhotoArray(country, state));
     const wallTitle = state.name !== "" ? state.name : countryName;
@@ -67,6 +66,7 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
     const observer = useRef<IntersectionObserver>();
     const lastElRef: RefCallback<HTMLElement> = useCallback(
         (el: HTMLElement) => {
+            console.log('update final el')
             if (el) {
                 // Remove existing observer
                 if (observer.current) observer.current.disconnect();
@@ -81,44 +81,49 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
             }
         },
         [folderIndex, photos.length]
-        );
+    );
 
-        // Reset photos when folder changes
-        useEffect(() => {
-            setPhotos(initialPhotoArray(country, state));
-            setFolderIndex(0);
-        }, [folder, stateId, country, state]);
-
-        useEffect(() => {
-            // Next state to load photos off
-            const stateFolder = photos[folderIndex];
-            // console.log('folderIndex', folderIndex);
-
-            // If there is a state fetch the photos
-            if (stateFolder) {
-                const subFolder = countryWithStates ? stateFolder.id : "";
-
-                photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
-                    // Set data from response
-                    stateFolder.data = res;
-                    // console.log('res', res)
-
-                    // If no photos remove and dependencies will run again
-                    if (photos.length > 1 && res.length <= 0) {
-                        setPhotos([...photos.filter((_s, i) => i !== folderIndex)]);
-                    } else {
-                        setPhotos([...photos.map((s, i) => (i === folderIndex ? stateFolder : s))]);
-                    }
-                });
-            }
-        }, [folderIndex, photos.length, countryWithStates, folder, photos]);
-
-        if (stateId !== '' && state.id === '') return <ErrorElement/>
+    // Reset photos when folder changes
+    useEffect(() => {
+        console.log('reset')
+        setPhotos(initialPhotoArray(country, state));
+        setFolderIndex(0);
+    }, [folder, stateId, country, state]);
 
 
-        return (
-            <>
-            <Header title={`Drug Epidemic ${folder==='teenWall' ? 'Teen' : ''} Photo Memorial`}/>
+    //
+    useEffect(() => {
+        console.log('fetch photos')
+
+
+        // Next state to load photos off
+        const stateFolder = photos[folderIndex];
+        // console.log('folderIndex', folderIndex);
+
+        // If there is a state fetch the photos
+        if (stateFolder) {
+            const subFolder = countryWithStates ? stateFolder.id : "";
+
+            photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
+                // Set data from response
+                stateFolder.data = res;
+                // console.log('res', res)
+
+                // If no photos remove and dependencies will run again
+                if (photos.length > 1 && res.length <= 0) {
+                    setPhotos([...photos.filter((_s, i) => i !== folderIndex)]);
+                } else {
+                    setPhotos([...photos.map((s, i) => (i === folderIndex ? stateFolder : s))]);
+                }
+            });
+        }
+    }, [folderIndex, photos.length, countryWithStates, folder]);
+
+    if (stateId !== "" && state.id === "") return <ErrorElement />;
+
+    return (
+        <>
+            <Header title={`Drug Epidemic ${folder === "teenWall" ? "Teen" : ""} Photo Memorial`} />
 
             <main>
                 <Sublinks
@@ -159,10 +164,13 @@ interface IPhotoGroup {
     last: boolean;
 }
 
-const PhotoGroup = ({ photoGroup, lastElRef, last}: IPhotoGroup) => {
+const PhotoGroup = ({ photoGroup, lastElRef, last }: IPhotoGroup) => {
     const { isSlideshow } = useSlideshow();
     return (
-        <PhotoSection className={'scrollerSection ' && isSlideshow ? 'slideshow' : ''} style={{ marginBottom: last ? '4rem' : 'initial'} }>
+        <PhotoSection
+            className={"scrollerSection " && isSlideshow ? "slideshow" : ""}
+            style={{ marginBottom: last ? "4rem" : "initial" }}
+        >
             <h2 className='h-gradient' style={{ fontSize: "3em", gridColumn: "1/-1" }}>
                 {photoGroup.name}
             </h2>
