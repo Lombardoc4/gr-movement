@@ -8,6 +8,60 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateWallCountries = /* GraphQL */ `subscription OnCreateWallCountries(
+  $filter: ModelSubscriptionWallCountriesFilterInput
+) {
+  onCreateWallCountries(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateWallCountriesSubscriptionVariables,
+  APITypes.OnCreateWallCountriesSubscription
+>;
+export const onUpdateWallCountries = /* GraphQL */ `subscription OnUpdateWallCountries(
+  $filter: ModelSubscriptionWallCountriesFilterInput
+) {
+  onUpdateWallCountries(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateWallCountriesSubscriptionVariables,
+  APITypes.OnUpdateWallCountriesSubscription
+>;
+export const onDeleteWallCountries = /* GraphQL */ `subscription OnDeleteWallCountries(
+  $filter: ModelSubscriptionWallCountriesFilterInput
+) {
+  onDeleteWallCountries(filter: $filter) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteWallCountriesSubscriptionVariables,
+  APITypes.OnDeleteWallCountriesSubscription
+>;
 export const onCreateMapEntry = /* GraphQL */ `subscription OnCreateMapEntry($filter: ModelSubscriptionMapEntryFilterInput) {
   onCreateMapEntry(filter: $filter) {
     id

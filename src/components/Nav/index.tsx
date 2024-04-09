@@ -17,9 +17,8 @@ export const Navbar = () => {
     };
 
     return (
-        <>
-            <header className='container'>
-                <StyledNavbar>
+            <div style={{backgroundColor: '#000000'}}>
+                <StyledNavbar className="container">
 
                     <Link to='/'>
                         <img src={butterflyLogo} alt='Drug Epidemic Memorial' width={60} height={40} />
@@ -36,6 +35,21 @@ export const Navbar = () => {
 
                     <Nav open={navOpen}>
                         <NavContainer>
+
+                            {/* TODO: Migrate to dropdowns */}
+                            {/* <NavLink className="nav-link" to='/' onClick={toggleNav}>
+                                Memorial Walls
+                            </NavLink>
+                            <NavLink className="nav-link" to='/' onClick={toggleNav}>
+                                About
+                            </NavLink>
+                            <NavLink className="nav-link" to='/' onClick={toggleNav}>
+                                Meetup Map
+                            </NavLink>
+                            <NavLink className="nav-link" to='/' onClick={toggleNav}>
+                                Recognition
+                            </NavLink> */}
+
                             <NavLink className="nav-link" to='/' onClick={toggleNav}>
                                 Name Wall
                             </NavLink>
@@ -50,7 +64,6 @@ export const Navbar = () => {
                         </NavContainer>
                     </Nav>
                 </StyledNavbar>
-            </header>
-        </>
+            </div>
     );
 };

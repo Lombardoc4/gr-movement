@@ -1,4 +1,4 @@
-import React from "react";
+
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/index.tsx";
@@ -16,8 +16,10 @@ Amplify.configure(config);
 ReactGA.initialize("G-H2JTF53YES");
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-    <React.StrictMode>
+    // <React.StrictMode>
+    <>
         <GlobalStyles />
         <RouterProvider router={router()} />
-    </React.StrictMode>
+    </>
+    // </React.StrictMode>
 );

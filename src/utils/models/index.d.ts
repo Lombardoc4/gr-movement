@@ -2,6 +2,10 @@ import { ModelInit, MutableModel } from "@aws-amplify/datastore";
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled } from "@aws-amplify/datastore";
 
+type WallCountriesMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
 type MapEntryMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
@@ -16,6 +20,26 @@ type HeroesMetaData = {
 
 type PersonMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+type EagerWallCountries = {
+  readonly id: string;
+  readonly name: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyWallCountries = {
+  readonly id: string;
+  readonly name: string;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type WallCountries = LazyLoading extends LazyLoadingDisabled ? EagerWallCountries : LazyWallCountries
+
+export declare const WallCountries: (new (init: ModelInit<WallCountries, WallCountriesMetaData>) => WallCountries) & {
+  copyOf(source: WallCountries, mutator: (draft: MutableModel<WallCountries, WallCountriesMetaData>) => MutableModel<WallCountries, WallCountriesMetaData> | void): WallCountries;
 }
 
 type EagerMapEntry = {

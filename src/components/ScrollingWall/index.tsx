@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ErrorElement } from "../../pages/ErrorPage";
@@ -6,10 +6,10 @@ import { FloatingFeatures } from "../FloatingFeatures";
 import { Filters } from "../Filters";
 import { Section, NameSection } from "./styles";
 
-import LocationContext from "../../utils/hooks/LocationContext";
 import useMediaQuery from "../../utils/hooks/useMediaQuery";
 import { CountryProps } from "../../utils/data/countries";
 import { GroupedPeople } from "../../utils/lib/helpers";
+import { useLocationStore } from "../../store/locationStore";
 
 const filterModels = (entries : GroupedPeople) => {
     return Object.values(entries).reduce((acc, cur) => acc = [...acc, ...cur], []).map((e) => ({
@@ -33,7 +33,8 @@ const NoSubmissions = ({country} : {country : CountryProps}) => {
 }
 
 export const ScrollingWall = ({ entries }: { entries: GroupedPeople }) => {
-    const { country } = useContext(LocationContext);
+
+    const country = useLocationStore((state) => state.country);
 
     const isMobile = useMediaQuery("(max-width: 768px)");
 

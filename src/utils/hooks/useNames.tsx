@@ -1,129 +1,126 @@
-import { useContext, useEffect, useState } from "react";
-import { states } from "../data/states";
-import LocationContext from "./LocationContext";
-import { countryWStates, parseData } from "../lib/helpers";
+import { useEffect, useState } from "react";
+import {  countryWStates, groupBy, setFilter, sortAlphabetically } from "../lib/helpers";
 
-import { Person } from "../models";
-import { generateClient } from "aws-amplify/api";
-import { onCreatePerson } from "../graphql/subscriptions";
-import { listPeople } from "../graphql/queries";
-import { ListPeopleQueryVariables } from "../../API";
-import { useParams } from "react-router-dom";
-
-const client = generateClient();
-
-// Default query all data
-
+import { ListPeopleQueryVariables, ModelSubscriptionPersonFilterInput } from "../../API";
+import { useLocationStore } from "../../store/locationStore";
+import { fetchNames } from "../api/fetchNames";
+import { subscribeNames } from "../api/subscribeNames";
+import { useNameWallStore } from "../../store/nameWallStore";
 
 export const useNames = () => {
-    const { params } = useParams();
+    // Location State
+    const country = useLocationStore((state) => state.country);
+    const state = useLocationStore((state) => state.state);
+    const loadingLocation = useLocationStore((state) => state.loading);
 
-    const { country, state } = useContext(LocationContext);
-    const [names, setNames] = useState<Person[]>([]);
+    //  NameWall Data State
+    const [names, setNames] = useNameWallStore((state) => [state.names, state.updateNames]);
+    const [groupedNames, setGroupedName] = useNameWallStore((state) => [state.groupedNames, state.updateGroupedNames]);
+    const [allDataFetch, setAllDataFetch] = useNameWallStore((state) => [state.allDataFetch, state.updateAllDataFetch]);
+    const setSublinks = useNameWallStore((state) => state.updateSublinks);
+
     const [nextToken, setNextToken] = useState<string>("");
 
 
-
+    // Fetch data
     useEffect(() => {
+        // Hold off on until location is loaded
+        if (loadingLocation) return;
 
-        const variables: ListPeopleQueryVariables = {
-            limit: 1000,
-            filter: {}
-        };
+        console.log('go')
 
-        if (params && country.id === "") {
+        // If all data has been fetched prevent fetching it again
+        // Also make sure data has been grouped
+        if (allDataFetch && Object.keys(groupedNames).length === 0) {
+            // Filter names by country or state
+            const filteredNames = names.filter((name) => {
+                // If state and entry state == state
+                if (state.id && name.state !== state.name) return false;
+                // If country and entry country == country
+                else if (country.id && name.country !== country.name) return false;
+                // If no state and no country return all
+                else if (!state.id && !country.id) return true;
+
+                return true;
+            });
+
+
+            const alphabetically = sortAlphabetically(filteredNames);
+            const groupedData = groupBy(alphabetically, countryWStates(country.name) ? "state" : "country");
+            setGroupedName(groupedData);
+            setSublinks(Object.keys(groupedData));
+
             return;
         }
 
-        // If state and we have state data
-        if (state.id.length > 0 && countryWStates(country.name)) {
-            const stateName = states[country.name].find((s) => s.id === state.id)?.name;
-
-            // Get State name && Query by state name
-            if (stateName && variables.filter) {
-                variables.filter.state = {
-                    eq: stateName,
-                };
-            }
-        }
-        if (country.name !== "Worldwide" && variables.filter) {
-            // Query By Country
-            variables.filter.country = {
-                eq: country.name,
-            };
-        }
+        // If group names are not empty then we have names and no next token
+        // so we should not fetch new data
+        if (Object.keys(groupedNames).length !== 0) return;
 
 
-        client
-            .graphql({
-                query: listPeople,
-                variables: variables,
-            })
-            .then(({ data }) => {
-                if (data.listPeople.nextToken) {
-                    setNextToken(data.listPeople.nextToken);
+        // Configure filter values
+        const variables = setFilter(country, state, nextToken) as ListPeopleQueryVariables;
+
+        fetchNames(variables).then(({ data }) => {
+            // Update next token
+
+            // If no next token, all data has been fetched
+            // so lets sort and group the data
+            if (!data.listPeople.nextToken) {
+                if (country.name === "Worldwide") {
+                    console.log('all data fetched')
+                    setAllDataFetch(true);
                 }
-                setNames(parseData(data.listPeople.items));
-            });
-    }, [country.name, country.id, state.name,  state.id, params]);
 
-    useEffect(() => {
-
-
-        if (nextToken) {
-            const variables: ListPeopleQueryVariables = {
-                limit: 1000,
-                filter: {}
-            };
-
-            // If state and we have state data
-            if (state.id.length > 0 && countryWStates(country.name)) {
-                const stateName = states[country.name].find((s) => s.id === state.id)?.name;
-
-                // Get State name && Query by state name
-                if (stateName && variables.filter) {
-                    variables.filter.state = {
-                        eq: stateName,
-                    };
-                }
-            }
-            if (country.name !== "Worldwide" && variables.filter) {
-                // Query By Country
-                variables.filter.country = {
-                    eq: country.name,
-                };
+                // Format data
+                const alphabetically = sortAlphabetically([...names, ...data.listPeople.items]);
+                const groupedData = groupBy(alphabetically, countryWStates(country.name) ? "state" : "country");
+                setGroupedName(groupedData);
+                setSublinks(Object.keys(groupedData));
             }
 
+            // Set next token
+            setNextToken(data.listPeople.nextToken || "");
+            // Update names
+            setNames([...names, ...data.listPeople.items]);
 
-            variables.nextToken = nextToken;
+        });
+    }, [country.name, state.name, nextToken, loadingLocation, groupedNames]);
 
-            client
-                .graphql({
-                    query: listPeople,
-                    variables: variables,
-                })
-                .then(({ data }) => {
-                    if (data.listPeople.nextToken) {
-                        setNextToken(data.listPeople.nextToken);
-                    }
-                    setNames((prev) => parseData([...prev, ...data.listPeople.items]));
-                });
-        }
-    }, [nextToken, country.name, country.id, state.name,  state.id]);
-
+    // Subscribe to new data
     useEffect(() => {
-        const subscription = client.graphql({ query: onCreatePerson }).subscribe({
-            next: ({ data }) => {
-                // If state and entry state == state
-                // else if (country.id && country.name === entry.country)
-                if (state.id && data.onCreatePerson.state !== state.name)
-                    return;
-                else if (country.id && data.onCreatePerson.country !== country.name)
-                    return;
-                else
-                    setNames((prev) => parseData([...prev, data.onCreatePerson]));
-            },
-            error: (error) => error,
+        const variables = setFilter(country, state) as ListPeopleQueryVariables;
+
+        // *** Remove limit as it is not used for subscriptions
+        delete variables.limit;
+
+        const subscription = subscribeNames(variables as ModelSubscriptionPersonFilterInput, (data) => {
+            // Check if addition is relevant to country and state
+            const addition = data.onCreatePerson;
+            if (!addition) return;
+
+            // Update all names
+            const alphabetically = sortAlphabetically([...names, addition]);
+            setNames(alphabetically);
+
+
+            // If current state matches additions state
+            // Or if current country has states and addition country matches
+            if (
+                (state.name && addition.state === state.name) ||
+                (countryWStates(country.name) && addition.country === country.name)
+            ) {
+                // Group by state
+                setGroupedName(groupBy(alphabetically, "state"));
+                return;
+            }
+
+            // If country is worldwide or addition country matches
+            if (country.name === "Worldwide" || country.name === addition.country) {
+                // Group by country
+                setGroupedName(groupBy(alphabetically, "country"));
+                return;
+            }
         });
 
         // Clean up function
@@ -132,7 +129,7 @@ export const useNames = () => {
             subscription.unsubscribe();
             setNextToken("");
         };
-    }, [country.name, country.id, state.name, state.id]);
+    }, [country.name, state.name]);
 
-    return names;
+    return groupedNames;
 };

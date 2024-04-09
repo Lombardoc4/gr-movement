@@ -2,7 +2,6 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import NameWall from "../pages/NameWall";
 import { Layout } from "../components/Layout.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
-// import PhotoWall from "../pages/PhotoWall.tsx";
 import ByTheNumbers from "../pages/Numbers.tsx";
 import { Photos } from "../pages/Photos.tsx";
 import Map from "../pages/Map.tsx";

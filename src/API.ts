@@ -2,25 +2,17 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateMapEntryInput = {
+export type CreateWallCountriesInput = {
   id?: string | null,
-  email?: string | null,
-  town?: string | null,
-  state?: string | null,
-  latitude?: number | null,
-  longitude?: number | null,
+  name: string,
   _version?: number | null,
 };
 
-export type ModelMapEntryConditionInput = {
-  email?: ModelStringInput | null,
-  town?: ModelStringInput | null,
-  state?: ModelStringInput | null,
-  latitude?: ModelFloatInput | null,
-  longitude?: ModelFloatInput | null,
-  and?: Array< ModelMapEntryConditionInput | null > | null,
-  or?: Array< ModelMapEntryConditionInput | null > | null,
-  not?: ModelMapEntryConditionInput | null,
+export type ModelWallCountriesConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelWallCountriesConditionInput | null > | null,
+  or?: Array< ModelWallCountriesConditionInput | null > | null,
+  not?: ModelWallCountriesConditionInput | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -64,6 +56,57 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type WallCountries = {
+  __typename: "WallCountries",
+  id: string,
+  name: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateWallCountriesInput = {
+  id: string,
+  name?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteWallCountriesInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateMapEntryInput = {
+  id?: string | null,
+  email?: string | null,
+  town?: string | null,
+  state?: string | null,
+  latitude?: number | null,
+  longitude?: number | null,
+  _version?: number | null,
+};
+
+export type ModelMapEntryConditionInput = {
+  email?: ModelStringInput | null,
+  town?: ModelStringInput | null,
+  state?: ModelStringInput | null,
+  latitude?: ModelFloatInput | null,
+  longitude?: ModelFloatInput | null,
+  and?: Array< ModelMapEntryConditionInput | null > | null,
+  or?: Array< ModelMapEntryConditionInput | null > | null,
+  not?: ModelMapEntryConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
 export type ModelFloatInput = {
   ne?: number | null,
   eq?: number | null,
@@ -72,13 +115,6 @@ export type ModelFloatInput = {
   ge?: number | null,
   gt?: number | null,
   between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
 };
@@ -325,16 +361,12 @@ export type DeletePersonInput = {
   _version?: number | null,
 };
 
-export type ModelMapEntryFilterInput = {
+export type ModelWallCountriesFilterInput = {
   id?: ModelIDInput | null,
-  email?: ModelStringInput | null,
-  town?: ModelStringInput | null,
-  state?: ModelStringInput | null,
-  latitude?: ModelFloatInput | null,
-  longitude?: ModelFloatInput | null,
-  and?: Array< ModelMapEntryFilterInput | null > | null,
-  or?: Array< ModelMapEntryFilterInput | null > | null,
-  not?: ModelMapEntryFilterInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelWallCountriesFilterInput | null > | null,
+  or?: Array< ModelWallCountriesFilterInput | null > | null,
+  not?: ModelWallCountriesFilterInput | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -352,6 +384,26 @@ export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
   size?: ModelSizeInput | null,
+};
+
+export type ModelWallCountriesConnection = {
+  __typename: "ModelWallCountriesConnection",
+  items:  Array<WallCountries | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type ModelMapEntryFilterInput = {
+  id?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  town?: ModelStringInput | null,
+  state?: ModelStringInput | null,
+  latitude?: ModelFloatInput | null,
+  longitude?: ModelFloatInput | null,
+  and?: Array< ModelMapEntryFilterInput | null > | null,
+  or?: Array< ModelMapEntryFilterInput | null > | null,
+  not?: ModelMapEntryFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelMapEntryConnection = {
@@ -435,15 +487,11 @@ export type ModelPersonConnection = {
   startedAt?: number | null,
 };
 
-export type ModelSubscriptionMapEntryFilterInput = {
+export type ModelSubscriptionWallCountriesFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  town?: ModelSubscriptionStringInput | null,
-  state?: ModelSubscriptionStringInput | null,
-  latitude?: ModelSubscriptionFloatInput | null,
-  longitude?: ModelSubscriptionFloatInput | null,
-  and?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
-  or?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
+  name?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionWallCountriesFilterInput | null > | null,
+  or?: Array< ModelSubscriptionWallCountriesFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
 };
 
@@ -475,6 +523,18 @@ export type ModelSubscriptionStringInput = {
   beginsWith?: string | null,
   in?: Array< string | null > | null,
   notIn?: Array< string | null > | null,
+};
+
+export type ModelSubscriptionMapEntryFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  town?: ModelSubscriptionStringInput | null,
+  state?: ModelSubscriptionStringInput | null,
+  latitude?: ModelSubscriptionFloatInput | null,
+  longitude?: ModelSubscriptionFloatInput | null,
+  and?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMapEntryFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionFloatInput = {
@@ -542,6 +602,60 @@ export type ModelSubscriptionPersonFilterInput = {
   and?: Array< ModelSubscriptionPersonFilterInput | null > | null,
   or?: Array< ModelSubscriptionPersonFilterInput | null > | null,
   _deleted?: ModelBooleanInput | null,
+};
+
+export type CreateWallCountriesMutationVariables = {
+  input: CreateWallCountriesInput,
+  condition?: ModelWallCountriesConditionInput | null,
+};
+
+export type CreateWallCountriesMutation = {
+  createWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type UpdateWallCountriesMutationVariables = {
+  input: UpdateWallCountriesInput,
+  condition?: ModelWallCountriesConditionInput | null,
+};
+
+export type UpdateWallCountriesMutation = {
+  updateWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type DeleteWallCountriesMutationVariables = {
+  input: DeleteWallCountriesInput,
+  condition?: ModelWallCountriesConditionInput | null,
+};
+
+export type DeleteWallCountriesMutation = {
+  deleteWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
 };
 
 export type CreateMapEntryMutationVariables = {
@@ -847,6 +961,72 @@ export type DeletePersonMutation = {
     _version: number,
     _deleted?: boolean | null,
     _lastChangedAt: number,
+  } | null,
+};
+
+export type GetWallCountriesQueryVariables = {
+  id: string,
+};
+
+export type GetWallCountriesQuery = {
+  getWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type ListWallCountriesQueryVariables = {
+  filter?: ModelWallCountriesFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListWallCountriesQuery = {
+  listWallCountries?:  {
+    __typename: "ModelWallCountriesConnection",
+    items:  Array< {
+      __typename: "WallCountries",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncWallCountriesQueryVariables = {
+  filter?: ModelWallCountriesFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncWallCountriesQuery = {
+  syncWallCountries?:  {
+    __typename: "ModelWallCountriesConnection",
+    items:  Array< {
+      __typename: "WallCountries",
+      id: string,
+      name: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -1201,6 +1381,57 @@ export type SyncPeopleQuery = {
     } | null >,
     nextToken?: string | null,
     startedAt?: number | null,
+  } | null,
+};
+
+export type OnCreateWallCountriesSubscriptionVariables = {
+  filter?: ModelSubscriptionWallCountriesFilterInput | null,
+};
+
+export type OnCreateWallCountriesSubscription = {
+  onCreateWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnUpdateWallCountriesSubscriptionVariables = {
+  filter?: ModelSubscriptionWallCountriesFilterInput | null,
+};
+
+export type OnUpdateWallCountriesSubscription = {
+  onUpdateWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
+  } | null,
+};
+
+export type OnDeleteWallCountriesSubscriptionVariables = {
+  filter?: ModelSubscriptionWallCountriesFilterInput | null,
+};
+
+export type OnDeleteWallCountriesSubscription = {
+  onDeleteWallCountries?:  {
+    __typename: "WallCountries",
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 

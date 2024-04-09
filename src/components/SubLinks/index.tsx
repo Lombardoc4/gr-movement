@@ -1,52 +1,52 @@
 import { Link } from "react-router-dom";
-import { countryWStates } from "../../utils/lib/helpers";
 import { CountryProps, countries } from "../../utils/data/countries";
 import { states, StateProps } from "../../utils/data/states";
+import { useNameWallStore } from "../../store/nameWallStore";
+import { useLocationStore } from "../../store/locationStore";
 
-const pageLinks = (entries: string[], country: CountryProps) => {
-    return entries
-    .map((e: string) => {
-            if (countryWStates(country.name) && states[country.name].find((s) => s.name === e)) {
-                // Get State ids
-                return states[country.name].find((s) => s.name === e);
-            } else if (countries.find((c) => c.name === e)) {
-
-                // Get Country id
-                return countries.find((c) => c.name === e);
-            }
-
-        }) // Remove undefined
-        .filter((val): val is StateProps | CountryProps => val !== undefined);
-};
 
 const BackButton = <Link className="btn" style={{maxWidth: '300px'}} to={`..`}>Back</Link>;
 
 
-export const Sublinks = ({ entries, country, back = false, children }: { entries: string[]; country: CountryProps, back?: boolean, children?: JSX.Element }) => {
-    const links = pageLinks(entries, country);
+export const Sublinks = ({ links, children }: { links?: CountryProps[] | StateProps[], children?: JSX.Element }) => {
+    const country = useLocationStore((state) => state.country);
+    const state = useLocationStore((state) => state.state);
+    const sublinks = useNameWallStore((state) => state.sublinks);
 
-    if (entries.length <= 0) return <></>;
+    // Handle predefined links
+
+    // Map sublinks to get country or state objects
+    const linkObjs = links || sublinks.map(link => {
+        // If state no sublinks
+        if (state.id && !states[country.name]) {
+            return null
+        } else if (states[country.name]) {
+            return states[country.name].find((s) => s.name === link);
+        }
+        return countries.find((c) => c.name === link);
+    });
+
 
     return (
         <div className='container' style={{ marginBottom: "2rem" }}>
 
             {children}
 
-            {back && country.name !== "Worldwide" && BackButton}
+            {country.name !== "Worldwide" && BackButton}
 
-            {links.length > 1 && (
-                <>
+            {(linkObjs && linkObjs.length > 0) &&
+              <>
                     <h3>View these {country.name === "Worldwide" ? "countries" : "states"} in more detail: </h3>
 
                     <div className='list'>
-                        {links.map((pLink) => (
-                            <Link className='btn' key={pLink.id} to={pLink.id.toLowerCase()}>
+                        {linkObjs.map((pLink) => (
+                            pLink && <Link className='btn' key={pLink.id} to={pLink.id.toLowerCase()}>
                                 {pLink.name}
                             </Link>
                         ))}
                     </div>
                 </>
-            )}
+            }
         </div>
     );
 };

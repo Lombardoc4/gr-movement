@@ -1,62 +1,120 @@
-import { Person } from "../models";
+import { ModelPersonFilterInput } from "../../API";
+import { findState } from "../../store/locationStore";
+import { CountryProps } from "../data/countries";
+import { StateProps } from "../data/states";
+import { Ambassador, Person } from "../models";
 
 export interface GroupedPeople {
     [key: string]: Person[];
 }
+export interface GroupedAmbassadors {
+    [key: string]: Ambassador[];
+}
 
-export const parseData = (items: Person[]) => {
-    // Sory by first name
-    const sortedModels = items.sort((a, b) => (a.firstName > b.firstName ? 1 : b.firstName > a.firstName ? -1 : 0));
+export const sortAlphabetically = (items: Person[]): Person[] => {
+    return items.sort((a, b) => {
+        // Sort by first name
+        if (a.firstName > b.firstName) {
+            return 1;
+        }
+        else if (b.firstName > a.firstName) {
+            return -1;
+        }
 
-    // Use inverse of above to remove duplicates
-    // const filteredModels = sortedModels.filter((item, index) => {
-    //     return !items.find(
-    //         (other, otherIndex) =>
-    //             item.firstName === other.firstName &&
-    //             item.lastName === other.lastName &&
-    //             index !== otherIndex && // doesnt have same index as of item
-    //             item.foreverAge === other.foreverAge &&
-    //             item.state === other.state
-    //     );
-    // });
-    return sortedModels;
+        // If first names are the same, sort by last name
+        else if (a.lastName > b.lastName) {
+            return 1
+        }
+        else if (b.lastName > a.lastName) {
+            return -1
+        }
 
-    // return filteredModels;
+        return 0;
+    });
 };
 
-export const groupData = (items: Person[], filterBy: string) => {
-    const groupByKey: GroupedPeople = items.reduce((acc: GroupedPeople, cur: Person) => {
-        const { country, state } = cur;
+export const ambassadorGroupBy = (items: Ambassador[]) => {
+    const groupedItems = items.reduce((acc: GroupedAmbassadors, cur: Ambassador) => {
+        const value = cur.state;
 
-        if (!country) {
+        // Exclude those without the specified key
+        if (!value) {
             return acc;
         }
 
-        const key = (filterBy === "state" ? state : country) || "~Unknown";
-
-        if (!acc[key]) {
-            acc[key] = [];
+        if (!acc[value]) {
+            acc[value] = [];
         }
 
-        acc[key].push(cur);
+        acc[value].push(cur);
 
         return acc;
     }, {});
 
-    if (filterBy === "state") {
-        // Sort States alphabetically
-        // TODO just use states data since it's already in order
-        return Object.keys(groupByKey)
-            .sort()
-            .reduce((obj: GroupedPeople, key: string) => {
-                obj[key] = groupByKey[key];
-                return obj;
-            }, {});
-    }
+    // Sort the groups alphabetically
+    return Object.fromEntries(Object.entries(groupedItems).sort());
+}
+export const groupBy = (items: Person[], key: 'country' | 'state') => {
+    // Group items by the specified key
 
-    return groupByKey;
-};
+    const groupedItems = items.reduce((acc: GroupedPeople, cur: Person) => {
+        const value = cur[key];
+
+        // Exclude those without the specified key
+        if (!value) {
+            return acc;
+        }
+
+        if (!acc[value]) {
+            acc[value] = [];
+        }
+
+        acc[value].push(cur);
+
+        return acc;
+    }, {});
+
+    // Sort the groups alphabetically
+    return Object.fromEntries(Object.entries(groupedItems).sort());
+}
+
 
 export const countryWStates = (country: string) => {
     return ["United States", "Canada"].includes(country)
+}
+
+export
+const setFilter = (country: CountryProps, state: StateProps, nextToken?: string) => {
+    const variables = {
+        limit: 1000,
+        filter: {} as ModelPersonFilterInput,
+        nextToken: nextToken || null,
+    };
+    if (country.name === "Worldwide") {
+        // TODO: This is where we get one country at a time
+        // const index = 0;
+        // variables.filter.country = {
+        //     eq: countries[index],
+        // };
+    } else if (state.name && countryWStates(country.name)) {
+        // If country has states
+        const stateName = findState(country.name, state.id).name;
+        if (stateName) {
+            // Set country and state filter
+            variables.filter = {
+                country: {
+                    eq: country.name,
+                },
+                state: {
+                    eq: stateName,
+                },
+            };
+        }
+    } else if (country.name !== "Worldwide") {
+        variables.filter.country = {
+            eq: country.name,
+        };
+    }
+
+    return variables
 }
