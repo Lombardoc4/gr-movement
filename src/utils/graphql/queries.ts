@@ -8,6 +8,78 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getWallCountries = /* GraphQL */ `query GetWallCountries($id: ID!) {
+  getWallCountries(id: $id) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetWallCountriesQueryVariables,
+  APITypes.GetWallCountriesQuery
+>;
+export const listWallCountries = /* GraphQL */ `query ListWallCountries(
+  $filter: ModelWallCountriesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWallCountries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListWallCountriesQueryVariables,
+  APITypes.ListWallCountriesQuery
+>;
+export const syncWallCountries = /* GraphQL */ `query SyncWallCountries(
+  $filter: ModelWallCountriesFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncWallCountries(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncWallCountriesQueryVariables,
+  APITypes.SyncWallCountriesQuery
+>;
 export const getMapEntry = /* GraphQL */ `query GetMapEntry($id: ID!) {
   getMapEntry(id: $id) {
     id

@@ -8,7 +8,7 @@ const StyledGraphic = styled.div`
     display: flex;
     align-items: center;
     min-width: 100%;
-    margin: 3em 0;
+    padding: 3em 0;
 
     .butterfly-img {
         position: relative;
@@ -51,6 +51,8 @@ const LandingGraphic = () => {
 
 const StyledHeader = styled.header`
     overflow: hidden;
+    background-color: #000000;
+    margin-bottom: 3em;
 
     h1 {
         line-height: 1;
@@ -65,10 +67,22 @@ const StyledHeader = styled.header`
         display: none;
     }
 
+    a {
+        text-decoration: none;
+        /* text-align: center; */
+
+        :hover {
+            color: #000000;
+            text-decoration: underline;
+            text-underline-offset: 0.25rem;
+        }
+    }
+
+
     @media screen and (min-width: 768px) {
         padding-top: 2rem;
         min-height: 60vh;
-        display: grid;
+        /* display: grid; */
         align-items: center;
     }
 
@@ -85,8 +99,12 @@ const StyledHeader = styled.header`
 
     @media screen and (min-width: 768px) {
         .intro {
-            font-size: 1.5rem;
-            width: clamp(25ch, 100%, 700px);
+            flex: 1
+        }
+    }
+    @media screen and (min-width: 768px) {
+        .intro p{
+            font-size: 1.25rem;
         }
     }
 `;
@@ -99,12 +117,12 @@ export const Header = ({
     // children?: JSX.Element
 }) => {
     return (
-        <StyledHeader>
-            <div className='container' style={{ display: "flex" }}>
-                <div>
+        <StyledHeader className="container">
+            <div style={{ display: "flex", gap: '2rem', paddingBlock: '2rem' }}>
+                <div className="intro">
                     <h1 className='h-gradient m-0'>{title}</h1>
 
-                    <div className='intro'>
+                    <div>
                         <p>The Drug Epidemic Memorial Wall is a virtual International wall honoring our loved ones.</p>
                         <p>
                             This stunning, heartbreaking, and seemingly endless stream of precious lives is a powerful
@@ -118,66 +136,65 @@ export const Header = ({
             </div>
 
             <div
-                className='container'
                 style={{
-                    display: "grid",
+                    display: "flex",
                     gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                    paddingBottom: "2rem",
+                    paddingBlock: "2rem",
                     gap: "3rem",
                     // fontSize: "1.5rem",
                 }}
             >
                 {/* {children} */}
-                <div>
+                <div style={{flex: 1}}>
                     <h2 className='h-gradient m-0 bold'>Name Walls</h2>
                     <div>
                         <ul>
                             <li>
                                 <Link className='btn' to='/'>
-                                    International
+                                    🌐 International
                                 </Link>
                             </li>
                             <li>
                                 <Link className='btn' to='/usa'>
-                                    United States
+                                    🇺🇸 United States
                                 </Link>
                             </li>
                             <li>
                                 <Link className='btn' to='/can'>
-                                    Canadian Provinces
+                                    🇨🇦 Canada
                                 </Link>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div style={{flex: 1}}>
                     <h2 className='h-gradient m-0 bold'>Photo Walls</h2>
                     <div>
                         <ul>
                             <li>
                                 <Link className='btn' to='/photos' >
-                                    United States
+                                    🇺🇸 United States
                                 </Link>
                             </li>
                             <li>
                                 <Link className='btn' to='/photos/teens' >
-                                    United States Teens
+                                    🇺🇸 United States Teens
                                 </Link>
                             </li>
                             <li>
                                 <Link className='btn' to='/photos/can'>
-                                    Canadian Provinces
+                                    🇨🇦 Canada
                                 </Link>
                             </li>
                             <li>
                                 <Link className='btn' to='/photos/world'>
-                                    Rest of the World
+                                    🌐 Rest of the World
                                 </Link>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div>
+                <div style={{flex: 1}}>
                     <h2 className='h-gradient m-0 bold'>The numbers</h2>
                     <div>
                         <ul>

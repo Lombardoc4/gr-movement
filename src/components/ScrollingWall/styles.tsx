@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 export const Section = styled.section`
-    margin: 4rem 0 0;
+    padding: 2rem 0 0;
     position: relative;
 
+    background-image: url('./plus.svg');
+        background-size: 60px;
+        background-position: center;
+
     @media screen and (min-width: 768px) {
-        padding: 2rem;
+        padding: 4rem;
     }
 
     &:first-of-type {

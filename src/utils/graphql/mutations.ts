@@ -8,6 +8,63 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createWallCountries = /* GraphQL */ `mutation CreateWallCountries(
+  $input: CreateWallCountriesInput!
+  $condition: ModelWallCountriesConditionInput
+) {
+  createWallCountries(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateWallCountriesMutationVariables,
+  APITypes.CreateWallCountriesMutation
+>;
+export const updateWallCountries = /* GraphQL */ `mutation UpdateWallCountries(
+  $input: UpdateWallCountriesInput!
+  $condition: ModelWallCountriesConditionInput
+) {
+  updateWallCountries(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateWallCountriesMutationVariables,
+  APITypes.UpdateWallCountriesMutation
+>;
+export const deleteWallCountries = /* GraphQL */ `mutation DeleteWallCountries(
+  $input: DeleteWallCountriesInput!
+  $condition: ModelWallCountriesConditionInput
+) {
+  deleteWallCountries(input: $input, condition: $condition) {
+    id
+    name
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteWallCountriesMutationVariables,
+  APITypes.DeleteWallCountriesMutation
+>;
 export const createMapEntry = /* GraphQL */ `mutation CreateMapEntry(
   $input: CreateMapEntryInput!
   $condition: ModelMapEntryConditionInput

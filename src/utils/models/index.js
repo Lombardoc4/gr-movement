@@ -4,9 +4,10 @@ import { schema } from './schema';
 
 
 
-const { MapEntry, Ambassador, Heroes, Person } = initSchema(schema);
+const { WallCountries, MapEntry, Ambassador, Heroes, Person } = initSchema(schema);
 
 export {
+  WallCountries,
   MapEntry,
   Ambassador,
   Heroes,

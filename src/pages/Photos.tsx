@@ -127,9 +127,9 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
 
             <main>
                 <Sublinks
-                    entries={photos.map((p) => p.name)}
-                    country={country}
-                    back={countryWithStates && state.id !== ""}
+                    // entries={photos.map((p) => p.name)}
+                    // country={country}
+                    // back={countryWithStates && state.id !== ""}
                 >
                     {state.id === "" ? <h2 className='h-gradient'>{wallTitle} Photo Wall</h2> : <></>}
                 </Sublinks>

@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint src --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "latest",
@@ -21,7 +22,8 @@
     "react-ga4": "latest",
     "react-leaflet": "latest",
     "react-router-dom": "latest",
-    "styled-components": "latest"
+    "styled-components": "latest",
+    "zustand": "latest"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.8",
