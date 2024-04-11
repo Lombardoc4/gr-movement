@@ -18,7 +18,7 @@ interface MapTownMarker extends MapEntry {
 }
 
 const client = generateClient();
-const fetchMapEntries = async () => await client.graphql({ query: listMapEntries, variables: {limit: 500} });
+const fetchMapEntries = async () => await client.graphql({ query: listMapEntries, variables: {limit: 1000} });
 const combineOverlapping = (entries: MapEntry[]) => {
     const completeEntries = entries.filter(e => e.latitude && e.longitude)
     return completeEntries.reduce((acc: MapTownMarker[], cur: MapEntry, index: number) => {
