@@ -1,7 +1,7 @@
 
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
-import { router } from "./router/index.tsx";
+import { WallRouter } from "./router/index.tsx";
 
 import ReactGA from "react-ga4";
 import { Amplify } from "aws-amplify";
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     // <React.StrictMode>
     <>
         <GlobalStyles />
-        <RouterProvider router={router()} />
+        <RouterProvider router={WallRouter} />
     </>
     // </React.StrictMode>
 );

@@ -18,40 +18,10 @@ export const LocationEffect = () =>  {
     const setSublinks = useNameWallStore((state) => state.updateSublinks);
     const allDataFetch = useNameWallStore((state) => state.allDataFetch);
 
+
     useEffect(() => {
-        // updateLoading(true);
-        const photoPath = location.pathname.includes('photos');
-        if (photoPath) updatePhoto(true);
-
-        // We need to map the country and state
-        if (photoPath) {
-            const [country, state] = location.pathname.split("/").slice(2);
-            if (state) {
-                if (findState("United States", state).id === state.toUpperCase()) {
-                    updateCountry("USA");
-                    updateState(state);
-                } else if (findState("Canada", state).id === state.toUpperCase()) {
-                    updateCountry("CAN");
-                    updateState(state);
-                }
-            }
-            else if (!country || country === "teens") {
-                updateCountry("USA");
-                updateState('');
-            } else if (country === "can") {
-                updateCountry("CAN");
-                updateState('');
-
-            } else {
-                // Rest of the world no sublinks
-                updateCountry("");
-                updateState('');
-            }
-
-            if (locationLoading) updateLoading(false);
-
-            return;
-        }
+        // Remove remnant of photo wall
+        updatePhoto(true);
 
         const [country, state] = location.pathname.split("/").slice(1);
         updateCountry(country ? country.toUpperCase() : '');
@@ -70,6 +40,62 @@ export const LocationEffect = () =>  {
 
         // Remove initial loading
         if (locationLoading) updateLoading(false);
+    }, [location]);
+
+}
+
+export const PhotoLocationEffect = () =>  {
+    const location = useLocation();
+
+    // Location State
+    const updateCountry = useLocationStore((state) => state.updateCountry);
+    const updateState = useLocationStore((state) => state.updateState);
+    const updateLoading = useLocationStore((state) => state.updateLoading);
+    const updatePhoto = useLocationStore((state) => state.updatePhoto);
+
+
+    useEffect(() => {
+        updateLoading(true);
+        updatePhoto(true);
+        const [country, state] = location.pathname.split("/").slice(2);
+
+        // teen wall and canada wall have state
+        if (state) {
+            // USA teen wall
+            if (findState("United States", state).id === state.toUpperCase()) {
+                updateCountry("USA");
+                updateState(state);
+                // Canada wall
+            } else if (findState("Canada", state).id === state.toUpperCase()) {
+                updateCountry("CAN");
+                updateState(state);
+            }
+        }
+        // Base case is USA photo wall or teens is only USA
+        else if (!country || country === "teens") {
+            updateCountry("USA");
+            updateState("");
+        }
+        // Base case is Canada photo wall
+        else if (country === "can") {
+            updateCountry("CAN");
+            updateState("");
+        } else {
+            // Case for USA photo wall - there is no USA prefix
+            if (findState("United States", country).id === country.toUpperCase()) {
+                updateCountry("USA");
+                updateState(country);
+            }
+            // Rest of the world no sublinks
+            else {
+                updateCountry("");
+                updateState("");
+            }
+        }
+
+        updateLoading(false);
+
+        return;
     }, [location]);
 
 }
