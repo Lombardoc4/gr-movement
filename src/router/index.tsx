@@ -24,36 +24,36 @@ const PhotoWallRoutes = [
         children: [
             {
                 index: true,
-                element: <Photos folder='canadaWall' countryName="Canada" />,
+                element: <Photos folder='canadaWall'/>,
             },
             {
                 path: ":stateId",
-                element: <Photos folder='canadaWall' countryName="Canada"/>,
+                element: <Photos folder='canadaWall'/>,
             },
         ],
     },
     // Teens USA
     {
         path: "teens",
-        element: <Photos folder='teenWall'  countryName="United States"/>,
+        element: <Photos folder='teenWall'/>,
     },
     {
         path: "teens/:stateId",
-        element: <Photos folder='teenWall'  countryName="United States" />,
+        element: <Photos folder='teenWall' />,
     },
     // Rest of the World
     {
         path: "world",
-        element: <Photos folder='restOfWorld' countryName="Worldwide" />,
+        element: <Photos folder='restOfWorld' />,
     },
     // USA
     {
         index: true,
-        element: <Photos folder="photoWall"  countryName="United States" />,
+        element: <Photos folder="photoWall" />,
     },
     {
         path: ":stateId",
-        element: <Photos folder='photoWall'  countryName="United States" />,
+        element: <Photos folder='photoWall' />,
     },
 ];
 

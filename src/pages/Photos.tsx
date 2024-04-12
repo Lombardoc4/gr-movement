@@ -1,18 +1,17 @@
 import { RefCallback, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import { Header } from "../components/Header";
 import { FloatingFeatures } from "../components/FloatingFeatures";
 import { StateProps, states } from "../utils/data/states";
 import { Sublinks } from "../components/SubLinks";
-import { CountryProps, countries } from "../utils/data/countries";
+import { CountryProps } from "../utils/data/countries";
 import { list } from "aws-amplify/storage";
 import { PhotoContainer } from "../components/PhotoContainer";
-import { ErrorElement } from "./ErrorPage";
-import { countryWStates } from "../utils/lib/helpers";
 
 import { useSlideshow } from "../utils/hooks/SlideshowContext";
 import styled from "styled-components";
+import { LocationEffect } from "../utils/hooks/locationEffect";
+import { useLocationStore } from "../store/locationStore";
 
 interface PhotoGroupProps {
     name: string;
@@ -20,18 +19,17 @@ interface PhotoGroupProps {
     data: string[];
 }
 
-const emptyState: StateProps = {
-    name: "",
-    id: "",
-};
-
 const initialPhotoArray = (country: CountryProps, state: StateProps) => {
     const dataArray: string[] = [];
 
+    //
     if (state.id.length > 0) return [{ ...state, data: dataArray }];
+    //
     else if (states[country.name]) {
         return states[country.name].map((s) => ({ ...s, data: dataArray }));
-    } else return [{ ...country, data: dataArray }];
+    }
+    //
+    else return [{ ...country, data: dataArray }];
 };
 
 const photoFetch = async (folderName: string) => {
@@ -49,24 +47,33 @@ const photoFetch = async (folderName: string) => {
     return newPhotos;
 };
 
-export const Photos = ({ folder, countryName }: { folder: string; countryName: string }) => {
+export const Photos = ({ folder }: { folder: string }) => {
+    const country = useLocationStore((state) => state.country);
+    const state = useLocationStore((state) => state.state);
+    const loading = useLocationStore((state) => state.loading);
+    LocationEffect();
+
+    // Either show canada or usa sublinks
+    const links = useMemo(() => {
+        if (loading || state.name) return [];
+
+
+        if (country.name) {
+            return states[country.name]
+        }
+        // Other have no sublinks
+        return [];
+    }, [loading, country, state]);
+
     const [folderIndex, setFolderIndex] = useState(0);
+    const [photos, setPhotos] = useState<PhotoGroupProps[]>([]);
 
-    const { stateId = "" } = useParams();
-    const country = countries.find((c) => c.name === countryName) as CountryProps;
-    const countryWithStates = useMemo(() => countryWStates(countryName), [countryName]);
-    const state: StateProps = useMemo(() => {
-        if (countryWithStates) return states[countryName].find((s) => s.id === stateId.toUpperCase()) || emptyState;
-        else return emptyState;
-    }, [stateId, countryName]);
-
-    const [photos, setPhotos] = useState<PhotoGroupProps[]>(initialPhotoArray(country, state));
-    const wallTitle = state.name !== "" ? state.name : countryName;
+    const wallTitle = state.name || country.name;
 
     const observer = useRef<IntersectionObserver>();
     const lastElRef: RefCallback<HTMLElement> = useCallback(
         (el: HTMLElement) => {
-            console.log('update final el')
+            // console.log('update final el')
             if (el) {
                 // Remove existing observer
                 if (observer.current) observer.current.disconnect();
@@ -85,24 +92,23 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
 
     // Reset photos when folder changes
     useEffect(() => {
-        console.log('reset')
+        if (loading) return;
+        // console.log('reset')
         setPhotos(initialPhotoArray(country, state));
         setFolderIndex(0);
-    }, [folder, stateId, country, state]);
+    }, [folder, loading, country.id, state.id]);
 
 
     //
     useEffect(() => {
-        console.log('fetch photos')
-
+        if (loading || photos.length <= 0) return;
 
         // Next state to load photos off
         const stateFolder = photos[folderIndex];
-        // console.log('folderIndex', folderIndex);
 
         // If there is a state fetch the photos
         if (stateFolder) {
-            const subFolder = countryWithStates ? stateFolder.id : "";
+            const subFolder = stateFolder.id || "";
 
             photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
                 // Set data from response
@@ -117,20 +123,16 @@ export const Photos = ({ folder, countryName }: { folder: string; countryName: s
                 }
             });
         }
-    }, [folderIndex, photos.length, countryWithStates, folder]);
+    }, [folderIndex, loading, photos.length, folder]);
 
-    if (stateId !== "" && state.id === "") return <ErrorElement />;
+    // if (stateId !== "" && state.id === "") return <ErrorElement />;
 
     return (
         <>
             <Header title={`Drug Epidemic ${folder === "teenWall" ? "Teen" : ""} Photo Memorial`} />
 
             <main>
-                <Sublinks
-                    // entries={photos.map((p) => p.name)}
-                    // country={country}
-                    // back={countryWithStates && state.id !== ""}
-                >
+                <Sublinks links={links}>
                     {state.id === "" ? <h2 className='h-gradient'>{wallTitle} Photo Wall</h2> : <></>}
                 </Sublinks>
 

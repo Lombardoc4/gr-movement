@@ -1,17 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CountryProps, countries } from "../../utils/data/countries";
 import { states, StateProps } from "../../utils/data/states";
 import { useNameWallStore } from "../../store/nameWallStore";
 import { useLocationStore } from "../../store/locationStore";
+import { useMemo } from "react";
 
 
-const BackButton = <Link className="btn" style={{maxWidth: '300px'}} to={`..`}>Back</Link>;
+const BackButton = () => {
+    const navigate = useNavigate();
+    return (
+        <Link
+            className='btn'
+            style={{ maxWidth: "300px" }}
+            to={`..`}
+            onClick={(e) => {
+                e.preventDefault();
+                navigate(-1);
+            }}
+        >
+            Back
+        </Link>
+    );
+}
 
 
 export const Sublinks = ({ links, children }: { links?: CountryProps[] | StateProps[], children?: JSX.Element }) => {
     const country = useLocationStore((state) => state.country);
     const state = useLocationStore((state) => state.state);
     const sublinks = useNameWallStore((state) => state.sublinks);
+    const photoWall = useLocationStore((state) => state.photo);
 
     // Handle predefined links
 
@@ -26,13 +43,17 @@ export const Sublinks = ({ links, children }: { links?: CountryProps[] | StatePr
         return countries.find((c) => c.name === link);
     });
 
+    const BackLink = useMemo(() => <BackButton/>, [country, state]);
+
+    // console.log('linkObjs', linkObjs)
+    // console.log('photoWall', photoWall)
 
     return (
         <div className='container' style={{ marginBottom: "2rem" }}>
 
             {children}
 
-            {country.name !== "Worldwide" && BackButton}
+            {(photoWall || country.name !== "Worldwide") && BackLink}
 
             {(linkObjs && linkObjs.length > 0) &&
               <>
