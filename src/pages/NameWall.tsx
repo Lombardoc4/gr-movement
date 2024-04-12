@@ -10,18 +10,17 @@ import { useLocationStore } from "../store/locationStore";
 // import { countriesEffect } from "../utils/hooks/countriesEffect";
 
 const NameWall = () => {
-    // const { country, state } = useLocationContext();
+    // Set country and state based on URL
+    LocationEffect();
     const country = useLocationStore((state) => state.country);
     const state = useLocationStore((state) => state.state);
 
-    const wallTitle = state.id !== "" ? state.name : country.name;
-
-    // Set country and state based on URL
-    LocationEffect();
 
     // Fetch names and
     // Subscribe to realtime data for live in-person events
     const people = useNames() as GroupedPeople;
+
+    const wallTitle = state.id !== "" ? state.name : country.name;
 
     return (
         <>

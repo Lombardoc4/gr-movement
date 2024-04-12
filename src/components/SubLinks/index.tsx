@@ -45,8 +45,6 @@ export const Sublinks = ({ links, children }: { links?: CountryProps[] | StatePr
 
     const BackLink = useMemo(() => <BackButton/>, [country, state]);
 
-    // console.log('linkObjs', linkObjs)
-    // console.log('photoWall', photoWall)
 
     return (
         <div className='container' style={{ marginBottom: "2rem" }}>

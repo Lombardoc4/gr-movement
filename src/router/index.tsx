@@ -57,7 +57,7 @@ const PhotoWallRoutes = [
     },
 ];
 
-const WallRouter = createBrowserRouter([
+export const WallRouter = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,

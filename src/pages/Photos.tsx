@@ -10,7 +10,7 @@ import { PhotoContainer } from "../components/PhotoContainer";
 
 import { useSlideshow } from "../utils/hooks/SlideshowContext";
 import styled from "styled-components";
-import { LocationEffect } from "../utils/hooks/locationEffect";
+import { PhotoLocationEffect } from "../utils/hooks/locationEffect";
 import { useLocationStore } from "../store/locationStore";
 
 interface PhotoGroupProps {
@@ -50,21 +50,10 @@ const photoFetch = async (folderName: string) => {
 export const Photos = ({ folder }: { folder: string }) => {
     const country = useLocationStore((state) => state.country);
     const state = useLocationStore((state) => state.state);
-    const loading = useLocationStore((state) => state.loading);
-    LocationEffect();
+    const locationLoading = useLocationStore((state) => state.loading);
+    PhotoLocationEffect();
 
-    // Either show canada or usa sublinks
-    const links = useMemo(() => {
-        if (loading || state.name) return [];
-
-
-        if (country.name) {
-            return states[country.name]
-        }
-        // Other have no sublinks
-        return [];
-    }, [loading, country, state]);
-
+    const [photoLoading, setPhotoLoading] = useState(false);
     const [folderIndex, setFolderIndex] = useState(0);
     const [photos, setPhotos] = useState<PhotoGroupProps[]>([]);
 
@@ -81,6 +70,7 @@ export const Photos = ({ folder }: { folder: string }) => {
                 observer.current = new IntersectionObserver(([entry]) => {
                     if (entry.isIntersecting && folderIndex !== photos.length - 1) {
                         setFolderIndex(folderIndex + 1);
+                        setPhotoLoading(true);
                     }
                 });
 
@@ -90,42 +80,60 @@ export const Photos = ({ folder }: { folder: string }) => {
         [folderIndex, photos.length]
     );
 
-    // Reset photos when folder changes
+    // Either show canada or usa sublinks
+    const links = useMemo(() => {
+        if (locationLoading || state.name) return [];
+
+
+        if (country.name) {
+            return states[country.name]
+        }
+        // Other have no sublinks
+        return [];
+    }, [locationLoading, country, state]);
+
+
+
+    // Reset photos when country or state change
     useEffect(() => {
-        if (loading) return;
-        // console.log('reset')
-        setPhotos(initialPhotoArray(country, state));
+        if (locationLoading) return;
+
         setFolderIndex(0);
-    }, [folder, loading, country.id, state.id]);
+        setPhotos(initialPhotoArray(country, state));
+        // Since we have initial array being fetching photos
+        setPhotoLoading(true);
+    }, [locationLoading, country.id, state.id]);
 
 
-    //
+    // Fetch photos
     useEffect(() => {
-        if (loading || photos.length <= 0) return;
+        // If location loading or photos not ready to fetch return
+        if (locationLoading || !photoLoading) return;
 
-        // Next state to load photos off
-        const stateFolder = photos[folderIndex];
+        // Get index of initialPhotoArray
+        // ex: {name: 'Arizona', id: 'AZ', data: []}
+        const fetchSubState = photos[folderIndex];
 
-        // If there is a state fetch the photos
-        if (stateFolder) {
-            const subFolder = stateFolder.id || "";
+        // Confirm stateFolder exists
+        if (fetchSubState) {
 
-            photoFetch(`picture-walls/${folder}/${subFolder}`).then((res: string[]) => {
-                // Set data from response
-                stateFolder.data = res;
-                // console.log('res', res)
+            photoFetch(`picture-walls/${folder}/${fetchSubState.id}`).then((res: string[]) => {
+                // update substate data with fetched photos
+                fetchSubState.data = res;
 
-                // If no photos remove and dependencies will run again
+                // If no photos remove subState from photos State
                 if (photos.length > 1 && res.length <= 0) {
                     setPhotos([...photos.filter((_s, i) => i !== folderIndex)]);
-                } else {
-                    setPhotos([...photos.map((s, i) => (i === folderIndex ? stateFolder : s))]);
+                }
+                // Else append new photos to photos State at folderIndex
+                else {
+                    setPhotos([...photos.map((s, i) => (i === folderIndex ? fetchSubState : s))]);
+                    setPhotoLoading(false);
                 }
             });
         }
-    }, [folderIndex, loading, photos.length, folder]);
+    }, [folderIndex, photoLoading, locationLoading]);
 
-    // if (stateId !== "" && state.id === "") return <ErrorElement />;
 
     return (
         <>
@@ -136,12 +144,18 @@ export const Photos = ({ folder }: { folder: string }) => {
                     {state.id === "" ? <h2 className='h-gradient'>{wallTitle} Photo Wall</h2> : <></>}
                 </Sublinks>
 
+                {(photos.length !== 0 &&photos[0].data.length <= 0 && folderIndex === 0) && (
+                    <div
+                        className='container'
+                        style={{ minHeight: "200px", textAlign: "center", placeItems: "center" }}
+                    >
+                        No Photos Available
+                    </div>
+                )}
                 <div id='scroller'>
                     {photos.map((photoGroup, i) => {
                         // If no data or folderIndex wasn't loaded yet
                         if (photoGroup.data.length <= 0 || i > folderIndex) return;
-
-                        // console.log('last', folderIndex === i)
 
                         return (
                             <PhotoGroup
