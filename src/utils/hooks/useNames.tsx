@@ -27,7 +27,7 @@ export const useNames = () => {
         // Hold off on until location is loaded
         if (loadingLocation) return;
 
-        console.log('go')
+        // console.log('go')
 
         // If all data has been fetched prevent fetching it again
         // Also make sure data has been grouped
@@ -68,7 +68,7 @@ export const useNames = () => {
             // so lets sort and group the data
             if (!data.listPeople.nextToken) {
                 if (country.name === "Worldwide") {
-                    console.log('all data fetched')
+                    // console.log('all data fetched')
                     setAllDataFetch(true);
                 }
 

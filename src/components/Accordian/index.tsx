@@ -76,7 +76,7 @@ const StyledAccordian = styled.div`
 
 export const Accordian = ({ title, data }: { title: string; data: { [key: string]: Ambassador[] | Person[] } }) => {
     const [hideDetails, setHideDetails] = useState(false);
-    console.log("data", data);
+    // console.log("data", data);
 
     return (
         <StyledAccordian>

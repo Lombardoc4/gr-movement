@@ -117,8 +117,8 @@ export const Header = ({
     // children?: JSX.Element
 }) => {
     return (
-        <StyledHeader className="container">
-            <div style={{ display: "flex", gap: '2rem', paddingBlock: '2rem' }}>
+        <StyledHeader>
+            <div className="container" style={{ display: "flex", gap: '2rem', paddingBlock: '2rem' }}>
                 <div className="intro">
                     <h1 className='h-gradient m-0'>{title}</h1>
 
@@ -136,6 +136,7 @@ export const Header = ({
             </div>
 
             <div
+            className="container"
                 style={{
                     display: "flex",
                     gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
@@ -208,8 +209,8 @@ export const Header = ({
                 </div>
             </div>
 
-            <LandingGraphic />
 
+            <LandingGraphic />
             {/* {instruction && <Instructions/>} */}
         </StyledHeader>
     );
