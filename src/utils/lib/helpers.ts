@@ -116,5 +116,11 @@ const setFilter = (country: CountryProps, state: StateProps, nextToken?: string)
         };
     }
 
+    variables.filter._deleted = {
+        attributeExists: false
+    }
+
+    console.log('variables', variables)
+
     return variables
 }
