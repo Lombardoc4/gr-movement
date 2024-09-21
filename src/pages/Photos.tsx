@@ -37,6 +37,7 @@ const photoFetch = async (folderName: string) => {
         prefix: folderName,
         options: {
             listAll: true,
+            // pageSize: 10,
         },
     });
 
@@ -115,8 +116,8 @@ export const Photos = ({ folder }: { folder: string }) => {
         // ex: {name: 'Arizona', id: 'AZ', data: []}
         const fetchSubState = photos[folderIndex];
 
-        // Confirm stateFolder exists
-        if (fetchSubState) {
+        // Confirm stateFolder exists and has no data
+        if (fetchSubState && fetchSubState.data.length <= 0) {
 
             photoFetch(`picture-walls/${folder}/${fetchSubState.id}`).then((res: string[]) => {
                 // update substate data with fetched photos
@@ -134,7 +135,6 @@ export const Photos = ({ folder }: { folder: string }) => {
             });
         }
     }, [folderIndex, photoLoading, locationLoading]);
-
 
     return (
         <>
@@ -183,8 +183,33 @@ interface IPhotoGroup {
 
 const PhotoGroup = ({ photoGroup, lastElRef, last }: IPhotoGroup) => {
     const { isSlideshow } = useSlideshow();
+
+    // Need to figure out if this element is in view
+    const [inView, setInView] = useState(false);
+    const observer = useRef<IntersectionObserver>();
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            observer.current = new IntersectionObserver(([entry]) => {
+                setInView(entry.isIntersecting);
+            }, {
+                rootMargin: `250px 0px 250px 0px`,
+            });
+
+            observer.current.observe(containerRef.current);
+        }
+
+        return () => {
+            if (observer.current) observer.current.disconnect();
+        };
+    }, []);
+
+
+
     return (
         <PhotoSection
+            ref={containerRef}
             className={"scrollerSection " && isSlideshow ? "slideshow" : ""}
             style={{ marginBottom: last ? "4rem" : "initial" }}
         >
@@ -193,13 +218,14 @@ const PhotoGroup = ({ photoGroup, lastElRef, last }: IPhotoGroup) => {
             </h2>
 
             {photoGroup.data.map((photo, photoIndex) => (
-                <PhotoContainer
-                    lastRef={last && photoGroup.data.length === photoIndex + 1 && lastElRef}
-                    key={photo}
-                    slideshow={isSlideshow}
-                    folder={photo}
-                />
-            ))}
+                        <PhotoContainer
+                            lastRef={last && photoGroup.data.length === photoIndex + 1 && lastElRef}
+                            key={photo}
+                            slideshow={isSlideshow}
+                            folder={inView && photo}
+                        />
+                    )
+                )}
         </PhotoSection>
     );
 };

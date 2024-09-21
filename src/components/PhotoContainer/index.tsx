@@ -2,7 +2,7 @@ import { RefCallback } from "react";
 // import { RefCallback, useEffect, useRef, useState } from "react";
 // import useMediaQuery from "../../utils/hooks/useMediaQuery";
 
-export const PhotoContainer = ({lastRef, folder, slideshow}: {lastRef?: RefCallback<HTMLElement> | false, folder: string, slideshow: boolean})  => {
+export const PhotoContainer = ({lastRef, folder, slideshow}: {lastRef?: RefCallback<HTMLElement> | false, folder: string | boolean, slideshow: boolean})  => {
     const imgSrc = `https://gr-movement-storage-e48b8b36191308-staging.s3.amazonaws.com/public/${folder}`;
 
 
@@ -33,16 +33,15 @@ export const PhotoContainer = ({lastRef, folder, slideshow}: {lastRef?: RefCallb
 
     return (
         <div
-            className={"photo-entry img-container " + (slideshow ? 'slideshow' : '')}
+            className={"photo-entry img-container " + (slideshow ? "slideshow" : "")}
             ref={lastRef || undefined}
             // onClick={() => setOpen(true)}
             // onMouseOut={() =>  setOpen(false)}
             // data-name={entry.firstName + ' ' +  entry.lastName }
             // style={{position: 'relative'}}
-            >
-                {/* <img  src={imgSrc} /> */}
-
-                <img  src={imgSrc + '?v=' + Date.now()} />
+        >
+            {!folder && <div style={{width: '100%', aspectRatio: '4 / 5'}}></div>}
+            {folder && <img src={imgSrc + "?v=" + Date.now()} />}
         </div>
-    )
+    );
 }
