@@ -25,11 +25,12 @@ const StyledContainer = styled.div`
     button,
     .btn {
         width: 100%;
-        height: 52px;
+        height: 32px;
         border: 1px solid #000000;
 
         .scrollToTop {
             max-width: 25%;
+            height: 52px;
         }
     }
 
@@ -38,6 +39,7 @@ const StyledContainer = styled.div`
     }
 
     @media screen and (min-width: 768px) {
+        opacity: 0.5;
         /* position: fixed; */
         bottom: 2em;
         right: 2em;
@@ -48,9 +50,13 @@ const StyledContainer = styled.div`
         gap: 1em;
         font-size: 1.2em;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
 
         /* transition: transform 0.3s; */
+
+        &:hover {
+            opacity: 1;
+        }
     }
     /* @media only screen and (min-width: 768px) {
         div {
@@ -72,6 +78,7 @@ const StyledContainer = styled.div`
         .scrollToTop {
             width: auto;
             margin: 1rem;
+            height: 52px;
         }
     }
 `;
@@ -141,7 +148,7 @@ export const FloatingFeatures = ({ filterChild }: IFloatingFeatures) => {
                 <div
                 className='desktop'
                 style={{
-                    padding: "1rem",
+                    padding: "0.5rem",
                     backgroundColor: "#fff",
                     color: "#000",
                     borderRadius: "0.5rem",

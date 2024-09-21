@@ -62,7 +62,6 @@ export const Photos = ({ folder }: { folder: string }) => {
     const observer = useRef<IntersectionObserver>();
     const lastElRef: RefCallback<HTMLElement> = useCallback(
         (el: HTMLElement) => {
-            // console.log('update final el')
             if (el) {
                 // Remove existing observer
                 if (observer.current) observer.current.disconnect();
@@ -72,6 +71,8 @@ export const Photos = ({ folder }: { folder: string }) => {
                         setFolderIndex(folderIndex + 1);
                         setPhotoLoading(true);
                     }
+                }, {
+                    rootMargin: `0px 0px 250px 0px`,
                 });
 
                 observer.current.observe(el);
@@ -205,7 +206,7 @@ const PhotoGroup = ({ photoGroup, lastElRef, last }: IPhotoGroup) => {
 
 export const PhotoSection = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-template-rows: 150px auto;
     gap: 0 0.5rem;
     align-items: center;
@@ -216,6 +217,10 @@ export const PhotoSection = styled.div`
 
     &.slideshow {
         grid-template-columns: 1fr;
+    }
+
+    @media screen and (min-width: 1200px) {
+        grid-template-columns: repeat(5, 1fr);
     }
 
     p {

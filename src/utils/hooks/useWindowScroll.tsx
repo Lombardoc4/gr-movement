@@ -39,7 +39,7 @@ export const useWindowScroll: () => [boolean, () => void] = () => {
                     clearInterval(scrollInterval);
                 }
             },
-            isSlideshow ? 2500 : 5
+            isSlideshow ? 2500 : 15
         );
 
         return () => {
