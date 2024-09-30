@@ -232,7 +232,7 @@ const PhotoGroup = ({ photoGroup, lastElRef, last }: IPhotoGroup) => {
 
 export const PhotoSection = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-template-rows: 150px auto;
     gap: 0 0.5rem;
     align-items: center;
@@ -246,7 +246,7 @@ export const PhotoSection = styled.div`
     }
 
     @media screen and (min-width: 1200px) {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 
     p {
